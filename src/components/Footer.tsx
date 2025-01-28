@@ -1,102 +1,88 @@
-import Link from 'next/link'
-import { Mail, Phone, MapPin, Building2 } from 'lucide-react'
+import Link from 'next/link';
+import { Phone } from 'lucide-react';
 
-const navigation = {
-  main: [
-    { name: 'Home', href: '/' },
-    { name: 'Services', href: '/services' },
-    { name: 'Credit Solutions', href: '/credit-solutions' },
-  ],
-  services: [
-    { name: 'DSCR Loans', href: '/services#dscr' },
-    { name: 'Hard Money Loans', href: '/services#hard-money' },
-    { name: 'Refinancing', href: '/services#refinancing' },
-    { name: 'Credit Repair', href: '/credit-solutions' },
-  ],
-  legal: [
-    { name: 'Privacy Policy', href: '#' },
-    { name: 'Terms of Service', href: '#' },
-    { name: 'Cookie Policy', href: '#' },
-  ],
-}
+export function Footer() {
+  const currentYear = new Date().getFullYear();
 
-export default function Footer() {
   return (
-    <footer className="mt-auto bg-dark-950 border-t border-dark-800">
-      <div className="container py-12 md:py-16">
-        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-          <div className="space-y-8">
-            <Link href="/" className="flex items-center gap-2">
-              <Building2 className="h-6 w-6 text-primary-500 icon-glow" />
-              <span className="text-xl font-bold logo-text">
-                Capital Bridge Solutions
-              </span>
-            </Link>
-            <p className="text-sm leading-6 text-dark-300">
-              Providing innovative financing solutions for real estate investors. DSCR loans, hard money loans, and refinancing options tailored to your needs.
+    <footer className="bg-gradient-to-br from-dark-900 to-dark-950 border-t border-dark-800">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Company Info */}
+          <div className="space-y-4">
+            <h3 className="text-xl font-bold text-primary-500">DSCR Loan Leads</h3>
+            <p className="text-dark-200">
+              Your trusted partner in real estate investment financing.
             </p>
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <Phone className="h-5 w-5 text-primary-500 icon-glow" />
-                <span className="text-sm text-dark-200">(555) 123-4567</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Mail className="h-5 w-5 text-primary-500 icon-glow" />
-                <span className="text-sm text-dark-200">info@capitalbridgesolutions.com</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <MapPin className="h-5 w-5 text-primary-500 icon-glow" />
-                <span className="text-sm text-dark-200">123 Business Ave, Suite 100<br />Los Angeles, CA 90012</span>
-              </div>
+            <div className="flex items-center gap-2 text-dark-100">
+              <Phone className="w-5 h-5 text-primary-500" />
+              <a href="tel:+19496146390" className="hover:text-primary-500 transition-colors">
+                (949) 614-6390
+              </a>
             </div>
           </div>
-          <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              <div>
-                <h3 className="text-sm font-semibold leading-6 text-dark-50">Navigation</h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {navigation.main.map((item) => (
-                    <li key={item.name}>
-                      <Link href={item.href} className="text-sm leading-6 text-dark-300 hover:text-dark-200 transition-colors">
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold leading-6 text-dark-50">Services</h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {navigation.services.map((item) => (
-                    <li key={item.name}>
-                      <Link href={item.href} className="text-sm leading-6 text-dark-300 hover:text-dark-200 transition-colors">
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold leading-6 text-dark-50">Legal</h3>
-              <ul role="list" className="mt-6 space-y-4">
-                {navigation.legal.map((item) => (
-                  <li key={item.name}>
-                    <Link href={item.href} className="text-sm leading-6 text-dark-300 hover:text-dark-200 transition-colors">
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+
+          {/* Quick Links */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-dark-50">Quick Links</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/services" className="text-dark-200 hover:text-primary-500 transition-colors">
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link href="/calculators" className="text-dark-200 hover:text-primary-500 transition-colors">
+                  Calculators
+                </Link>
+              </li>
+              <li>
+                <Link href="/credit-solutions" className="text-dark-200 hover:text-primary-500 transition-colors">
+                  Credit Solutions
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Loan Types */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-dark-50">Loan Types</h3>
+            <ul className="space-y-2">
+              <li className="text-dark-200">DSCR Loans</li>
+              <li className="text-dark-200">Hard Money Loans</li>
+              <li className="text-dark-200">Construction Loans</li>
+              <li className="text-dark-200">Refinance Solutions</li>
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-dark-50">Legal</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/privacy" className="text-dark-200 hover:text-primary-500 transition-colors">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="text-dark-200 hover:text-primary-500 transition-colors">
+                  Terms of Service
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
+
+        {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-dark-800">
-          <p className="text-xs leading-5 text-dark-400">
-            &copy; {new Date().getFullYear()} <span className="logo-text-small">Capital Bridge Solutions</span>. All rights reserved. NMLS #123456.
-          </p>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-dark-300">
+            <p> {currentYear} DSCR Loan Leads. All rights reserved.</p>
+            <p className="text-sm">
+              Licensed Mortgage Professional | NMLS# 123456
+            </p>
+          </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }

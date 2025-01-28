@@ -9,6 +9,11 @@ const LoanApplicationForm = dynamic(
   { ssr: false }
 )
 
+const MultiStepForm = dynamic(
+  () => import('@/components/MultiStepForm').then(mod => ({ default: mod.MultiStepForm })),
+  { ssr: false }
+)
+
 export default function Home() {
   const cards = [
     {
@@ -98,9 +103,6 @@ export default function Home() {
             <p className="text-xl mb-8 text-dark-200">
               We work around the clock to make your investment goals a reality!
             </p>
-            <Link href="#get-started" className="btn-primary text-base">
-              Get Started Today
-            </Link>
           </div>
         </div>
       </section>
@@ -160,8 +162,8 @@ export default function Home() {
           <p className="text-xl mb-8 text-dark-200">
             Bad credit? No problem! Let us help you find the right solution.
           </p>
-          <div id="get-started">
-            <LoanApplicationForm />
+          <div className="max-w-4xl mx-auto mt-12">
+            <MultiStepForm />
           </div>
         </div>
       </section>

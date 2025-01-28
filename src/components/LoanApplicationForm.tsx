@@ -51,16 +51,34 @@ export default function LoanApplicationForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    
+    if (currentStep !== 5) {
+      setCurrentStep((prev) => (prev + 1) as FormStep);
+      return;
+    }
+
     try {
-      // TODO: Implement email sending logic here
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated API call
-      setIsSuccess(true);
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          formType: 'loan',
+          data: formData 
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        alert('Thank you! We will contact you soon about your loan application.');
+        setFormData(initialFormData);
+        setCurrentStep(1);
+      } else {
+        alert('There was an error sending your application. Please try again.');
+      }
     } catch (error) {
-      console.error('Error submitting form:', error);
-    } finally {
-      setIsSubmitting(false);
+      console.error('Error:', error);
+      alert('There was an error sending your application. Please try again.');
     }
   };
 
@@ -147,6 +165,7 @@ export default function LoanApplicationForm() {
               <RadioOption name="loanType" value="DSCR" label="DSCR Loan" />
               <RadioOption name="loanType" value="hardMoney" label="Hard Money Loan" />
               <RadioOption name="loanType" value="balloon" label="Refinance out of Balloon Note" />
+              <RadioOption name="loanType" value="construction" label="Ground Up Construction Loans" />
               <RadioOption name="loanType" value="other" label="Other" />
             </div>
           </div>

@@ -1,6 +1,7 @@
 'use client';
 
-import Calculator from '@/components/Calculator';
+import { Calculator } from '@/components/Calculator';
+import { MultiStepForm } from '@/components/MultiStepForm';
 
 export default function Calculators() {
   const calculateDSCR = (values: Record<string, number | string>) => {

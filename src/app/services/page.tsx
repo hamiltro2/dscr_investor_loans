@@ -1,7 +1,19 @@
-import { Building2, BadgeDollarSign, RefreshCw, CheckCircle2, ArrowLeftRight } from 'lucide-react'
-import Link from 'next/link'
+'use client';
+
+import { useState } from 'react';
+import { Building2, BadgeDollarSign, RefreshCw, CheckCircle2, ArrowLeftRight } from 'lucide-react';
+import Link from 'next/link';
+import ConsultationForm from '@/components/ConsultationForm';
 
 export default function Services() {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState('');
+
+  const openConsultation = (service: string) => {
+    setSelectedService(service);
+    setIsFormOpen(true);
+  };
+
   return (
     <main className="min-h-screen">
       {/* Header */}
@@ -47,15 +59,18 @@ export default function Services() {
                       <span className="text-dark-200">Flexible terms available</span>
                     </div>
                   </div>
-                  <Link href="/contact" className="btn-primary">
-                    Apply Now
-                  </Link>
+                  <button
+                    onClick={() => openConsultation('DSCR Loan')}
+                    className="btn-primary"
+                  >
+                    Let's Get the Loan You Need Now!
+                  </button>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Hard Money Loans */}
+          {/* Hard Money */}
           <div className="mb-16">
             <div className="card card-primary relative overflow-hidden">
               <div className="flex items-start gap-6">
@@ -63,12 +78,12 @@ export default function Services() {
                 <div>
                   <h2 className="text-2xl font-display font-bold mb-4 text-dark-50">Hard Money Loans</h2>
                   <p className="text-dark-200 mb-6">
-                    Fast funding solutions for real estate investors who need quick access to capital for their investment properties.
+                    Quick financing solutions for fix-and-flip investors and those needing short-term capital for real estate investments.
                   </p>
                   <div className="grid md:grid-cols-2 gap-4 mb-6">
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-5 h-5 text-primary-500" />
-                      <span className="text-dark-200">Quick closings</span>
+                      <span className="text-dark-200">Fast funding</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-5 h-5 text-primary-500" />
@@ -76,35 +91,38 @@ export default function Services() {
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-5 h-5 text-primary-500" />
-                      <span className="text-dark-200">Minimal documentation</span>
+                      <span className="text-dark-200">Flexible requirements</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-5 h-5 text-primary-500" />
-                      <span className="text-dark-200">No income verification</span>
+                      <span className="text-dark-200">Bridge loan options</span>
                     </div>
                   </div>
-                  <Link href="/contact" className="btn-primary">
-                    Get Funded
-                  </Link>
+                  <button
+                    onClick={() => openConsultation('Hard Money Loan')}
+                    className="btn-primary"
+                  >
+                    Let's Get the Loan You Need Now!
+                  </button>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Refinancing Options */}
+          {/* Refinancing */}
           <div>
             <div className="card card-primary relative overflow-hidden">
               <div className="flex items-start gap-6">
                 <RefreshCw className="w-12 h-12 text-primary-500 icon-glow flex-shrink-0" />
                 <div>
-                  <h2 className="text-2xl font-display font-bold mb-4 text-dark-50">Refinancing Options</h2>
+                  <h2 className="text-2xl font-display font-bold mb-4 text-dark-50">Refinancing Solutions</h2>
                   <p className="text-dark-200 mb-6">
-                    Multiple refinancing solutions including private, balloon, and hard money options to help you achieve your investment goals.
+                    Optimize your real estate portfolio with our refinancing options, including cash-out refinancing and rate-and-term refinancing.
                   </p>
                   <div className="grid md:grid-cols-2 gap-4 mb-6">
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-5 h-5 text-primary-500" />
-                      <span className="text-dark-200">Lower monthly payments</span>
+                      <span className="text-dark-200">Lower your rate</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-5 h-5 text-primary-500" />
@@ -112,16 +130,19 @@ export default function Services() {
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-5 h-5 text-primary-500" />
-                      <span className="text-dark-200">Flexible terms</span>
+                      <span className="text-dark-200">Portfolio loans</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-5 h-5 text-primary-500" />
-                      <span className="text-dark-200">Rate improvement</span>
+                      <span className="text-dark-200">Term restructuring</span>
                     </div>
                   </div>
-                  <Link href="/contact" className="btn-primary">
-                    Explore Options
-                  </Link>
+                  <button
+                    onClick={() => openConsultation('Refinancing')}
+                    className="btn-primary"
+                  >
+                    Let's Get the Loan You Need Now!
+                  </button>
                 </div>
               </div>
             </div>
@@ -129,20 +150,12 @@ export default function Services() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="bg-dark-900/50 py-16">
-        <div className="container text-center">
-          <h2 className="text-3xl font-display font-bold mb-6 text-dark-50">
-            Not Sure Which Option Is Right for You?
-          </h2>
-          <p className="text-xl text-dark-200 mb-8 max-w-2xl mx-auto">
-            Our experts are here to help you choose the best financing solution for your investment needs.
-          </p>
-          <Link href="/contact" className="btn-primary">
-            Schedule a Consultation
-          </Link>
-        </div>
-      </section>
+      {/* Consultation Form Modal */}
+      <ConsultationForm
+        isOpen={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
+        serviceType={selectedService}
+      />
     </main>
-  )
+  );
 }

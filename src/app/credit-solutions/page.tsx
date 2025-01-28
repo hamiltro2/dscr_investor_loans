@@ -1,5 +1,6 @@
-import { Shield, TrendingUp, FileCheck, Clock, BookOpen, Target } from 'lucide-react'
-import Link from 'next/link'
+import { Shield, TrendingUp, FileCheck, Clock, BookOpen, Target } from 'lucide-react';
+import Link from 'next/link';
+import CreditSolutionsForm from '@/components/CreditSolutionsForm';
 
 export default function CreditSolutions() {
   return (
@@ -53,84 +54,7 @@ export default function CreditSolutions() {
 
           {/* Lead Capture Form */}
           <div className="max-w-2xl mx-auto">
-            <div className="card">
-              <h2 className="text-2xl font-display font-bold mb-6 text-dark-50 text-center">
-                Get Your Personalized Solution
-              </h2>
-              <form className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-dark-200">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    className="input"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-dark-200">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    className="input"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-dark-200">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    className="input"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="creditScore" className="block text-sm font-medium text-dark-200">
-                    Approximate Credit Score
-                  </label>
-                  <select
-                    id="creditScore"
-                    name="creditScore"
-                    className="select"
-                  >
-                    <option>Select Score Range</option>
-                    <option>Below 580</option>
-                    <option>580-619</option>
-                    <option>620-659</option>
-                    <option>660-699</option>
-                    <option>700+</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-dark-200">
-                    Tell us about your investment goals
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={4}
-                    className="textarea"
-                  ></textarea>
-                </div>
-
-                <div className="text-center">
-                  <button type="submit" className="btn-primary w-full md:w-auto">
-                    Find Your Solution
-                  </button>
-                </div>
-              </form>
-            </div>
+            <CreditSolutionsForm />
           </div>
         </div>
       </section>
@@ -164,5 +88,5 @@ export default function CreditSolutions() {
         </div>
       </section>
     </main>
-  )
+  );
 }

@@ -33,7 +33,7 @@ interface CalculatorProps {
   tipsClassName?: string;
 }
 
-export default function Calculator({
+export function Calculator({
   title,
   description,
   fields,
