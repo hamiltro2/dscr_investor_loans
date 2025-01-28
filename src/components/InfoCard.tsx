@@ -18,8 +18,8 @@ interface InfoCardProps {
 export function InfoCard({ icon: Icon, title, description, panelTitle, steps }: InfoCardProps) {
   const handleScroll = (e: Event) => {
     const target = e.target as HTMLElement;
-    const header = target.querySelector('.panel-header');
-    const content = target.querySelector('.step-list');
+    const header = target.querySelector('.panel-header') as HTMLElement;
+    const content = target.querySelector('.step-list') as HTMLElement;
     
     if (header && content) {
       const scrollTop = target.scrollTop;
