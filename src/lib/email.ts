@@ -22,6 +22,7 @@ export interface LoanApplicationData extends BaseEmailData {
   propertyType?: string;
   employmentType?: string;
   loanAmount?: string;
+  message?: string;
 }
 
 export interface DSCRCalculatorData extends BaseEmailData {
@@ -51,77 +52,59 @@ function getEmailSubject(formType: string, data: any): string {
     case 'credit':
       return 'New Credit Solutions Inquiry';
     case 'consultation':
-      return `New Consultation Request - ${data.serviceType}`;
+      return 'New Consultation Request';
     default:
-      return 'New Inquiry - Capital Bridge Solutions';
+      return 'New Contact Form Submission';
   }
 }
 
 function getEmailContent(formType: string, data: any): string {
-  const baseContent = `
-    <p><strong>Name:</strong> ${data.name}</p>
-    <p><strong>Email:</strong> ${data.email}</p>
-    <p><strong>Phone:</strong> ${data.phone}</p>
-  `;
+  let content = `Name: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\n\n`;
 
   switch (formType) {
     case 'loan':
-      return `
-        <h2>New Loan Application</h2>
-        ${baseContent}
-        <p><strong>Loan Type:</strong> ${data.loanType}</p>
-        <p><strong>Credit Score:</strong> ${data.creditScore}</p>
-        ${data.propertyType ? `<p><strong>Property Type:</strong> ${data.propertyType}</p>` : ''}
-        ${data.employmentType ? `<p><strong>Employment Type:</strong> ${data.employmentType}</p>` : ''}
-        ${data.loanAmount ? `<p><strong>Loan Amount:</strong> ${data.loanAmount}</p>` : ''}
-      `;
-    
+      content += `Loan Type: ${data.loanType}\n`;
+      content += `Credit Score: ${data.creditScore}\n`;
+      if (data.propertyType) content += `Property Type: ${data.propertyType}\n`;
+      if (data.loanAmount) content += `Loan Amount: $${data.loanAmount}\n`;
+      if (data.message) content += `\nAdditional Notes: ${data.message}`;
+      break;
+
     case 'dscr':
-      return `
-        <h2>DSCR Calculator Inquiry</h2>
-        ${baseContent}
-        <p><strong>Property Value:</strong> ${data.propertyValue}</p>
-        <p><strong>Monthly Rent:</strong> ${data.monthlyRent}</p>
-        <p><strong>Monthly Expenses:</strong> ${data.monthlyExpenses}</p>
-        <p><strong>DSCR Ratio:</strong> ${data.dscrRatio}</p>
-      `;
-    
+      content += `Property Value: $${data.propertyValue}\n`;
+      content += `Monthly Rent: $${data.monthlyRent}\n`;
+      content += `Monthly Expenses: $${data.monthlyExpenses}\n`;
+      content += `DSCR Ratio: ${data.dscrRatio}`;
+      break;
+
     case 'credit':
-      return `
-        <h2>Credit Solutions Inquiry</h2>
-        ${baseContent}
-        <p><strong>Credit Score Range:</strong> ${data.creditScore}</p>
-        <p><strong>Message:</strong> ${data.message}</p>
-      `;
-    
+      content += `Credit Score: ${data.creditScore}\n`;
+      content += `Message: ${data.message}`;
+      break;
+
     case 'consultation':
-      return `
-        <h2>Consultation Request</h2>
-        ${baseContent}
-        <p><strong>Service Type:</strong> ${data.serviceType}</p>
-        <p><strong>Preferred Time:</strong> ${data.preferredTime}</p>
-        <p><strong>Message:</strong> ${data.message}</p>
-      `;
-    
-    default:
-      return baseContent;
+      content += `Service Type: ${data.serviceType}\n`;
+      content += `Preferred Time: ${data.preferredTime}\n`;
+      content += `Message: ${data.message}`;
+      break;
   }
+
+  return content;
 }
 
-export async function sendEmail(formType: string, data: any) {
+export async function sendEmail(formType: string, data: any): Promise<{ success: boolean }> {
   try {
-    const response = await fetch('/api/send-email', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ formType, data }),
-    });
+    const mailOptions = {
+      from: process.env.SMTP_FROM,
+      to: process.env.SMTP_TO,
+      subject: getEmailSubject(formType, data),
+      text: getEmailContent(formType, data),
+    };
 
-    const result = await response.json();
-    return result;
+    await transporter.sendMail(mailOptions);
+    return { success: true };
   } catch (error) {
     console.error('Error sending email:', error);
-    return { success: false, error };
+    return { success: false };
   }
 }

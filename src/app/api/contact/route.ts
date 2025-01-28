@@ -1,11 +1,16 @@
 import { NextResponse } from 'next/server';
-import { sendEmail, type EmailData } from '@/lib/email';
+import { sendEmail } from '@/lib/email';
+
+interface FormData {
+  formType: string;
+  data: any;
+}
 
 export async function POST(request: Request) {
   try {
-    const data: EmailData = await request.json();
+    const { formType, data }: FormData = await request.json();
     
-    const result = await sendEmail(data);
+    const result = await sendEmail(formType, data);
     
     if (!result.success) {
       return NextResponse.json(
@@ -19,7 +24,7 @@ export async function POST(request: Request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Error in contact route:', error);
+    console.error('Error sending email:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
