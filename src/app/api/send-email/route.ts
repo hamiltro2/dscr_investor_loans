@@ -85,19 +85,26 @@ export async function POST(request: Request) {
     const htmlContent = getEmailContent(formType, data);
     const subject = getEmailSubject(formType, data);
 
-    await transporter.sendMail({
+    // Send success response immediately
+    const response = NextResponse.json({ success: true });
+
+    // Send email asynchronously
+    transporter.sendMail({
       from: `Capital Bridge Solutions <${process.env.SMTP_FROM}>`,
       to: recipients,
       subject,
       html: htmlContent,
       replyTo: data.email,
+    }).catch(error => {
+      console.error('Error sending email:', error);
+      // Log to your error tracking service here if needed
     });
 
-    return NextResponse.json({ success: true });
+    return response;
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error('Error processing request:', error);
     return NextResponse.json(
-      { success: false, error: 'Failed to send email' },
+      { success: false, error: 'Failed to process request' },
       { status: 500 }
     );
   }

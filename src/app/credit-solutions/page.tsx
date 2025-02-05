@@ -1,6 +1,28 @@
+'use client';
+
 import { Shield, TrendingUp, FileCheck, Clock, BookOpen, Target } from 'lucide-react';
 import Link from 'next/link';
-import CreditSolutionsForm from '@/components/CreditSolutionsForm';
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
+
+const CreditSolutionsForm = dynamic(
+  () => import('@/components/CreditSolutionsForm'),
+  {
+    loading: () => (
+      <div className="card animate-pulse">
+        <div className="h-8 w-3/4 bg-dark-800 rounded mb-6"></div>
+        <div className="space-y-4">
+          {[...Array(4)].map((_, i) => (
+            <div key={i}>
+              <div className="h-4 w-1/4 bg-dark-800 rounded mb-2"></div>
+              <div className="h-10 bg-dark-800 rounded"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ),
+  }
+);
 
 export default function CreditSolutions() {
   return (
@@ -54,7 +76,9 @@ export default function CreditSolutions() {
 
           {/* Lead Capture Form */}
           <div className="max-w-2xl mx-auto">
-            <CreditSolutionsForm />
+            <Suspense fallback={<div>Loading...</div>}>
+              <CreditSolutionsForm />
+            </Suspense>
           </div>
         </div>
       </section>

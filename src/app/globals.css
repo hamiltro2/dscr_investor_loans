@@ -264,3 +264,31 @@
     @apply text-sm text-dark-200;
   }
 }
+
+@keyframes rotateSegment {
+  0% {
+    opacity: 0.3;
+    transform: rotate(0deg) scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: rotate(180deg) scale(1);
+  }
+  100% {
+    opacity: 0.3;
+    transform: rotate(360deg) scale(0.8);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s linear infinite;
+}

@@ -1,17 +1,31 @@
 'use client';
+
 import { Zap, TrendingDown, Users } from 'lucide-react'
-import { InfoCard } from '@/components/InfoCard'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
+import { Suspense } from 'react'
+import { TypewriterText } from '@/components/TypewriterText'
+import { InfoCard } from '@/components/InfoCard'
 
-const LoanApplicationForm = dynamic(
-  () => import('@/components/LoanApplicationForm'),
-  { ssr: false }
-)
-
+// Only load the MultiStepForm dynamically since it's heavy
 const MultiStepForm = dynamic(
   () => import('@/components/MultiStepForm').then(mod => ({ default: mod.MultiStepForm })),
-  { ssr: false }
+  {
+    loading: () => (
+      <div className="card animate-pulse">
+        <div className="h-8 w-3/4 bg-dark-800 rounded mb-6"></div>
+        <div className="space-y-4">
+          {[...Array(4)].map((_, i) => (
+            <div key={i}>
+              <div className="h-4 w-1/4 bg-dark-800 rounded mb-2"></div>
+              <div className="h-10 bg-dark-800 rounded"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ),
+    ssr: false
+  }
 )
 
 export default function Home() {
@@ -90,83 +104,181 @@ export default function Home() {
     }
   ];
 
+  const testimonials = [
+    {
+      author: {
+        name: 'John D.',
+        handle: '@johndoe',
+        imageUrl: 'https://example.com/johndoe.jpg'
+      },
+      body: 'The process was incredibly smooth. Got approved much faster than expected!'
+    },
+    {
+      author: {
+        name: 'Sarah M.',
+        handle: '@sarahm',
+        imageUrl: 'https://example.com/sarahm.jpg'
+      },
+      body: 'Best rates I\'ve found for investment properties. Highly recommend!'
+    },
+    {
+      author: {
+        name: 'Mike R.',
+        handle: '@miker',
+        imageUrl: 'https://example.com/miker.jpg'
+      },
+      body: 'Their team really understands the needs of real estate investors.'
+    }
+  ];
+
   return (
-    <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-dark py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-radial from-primary-500/20 via-transparent to-transparent" />
-        <div className="container relative">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="font-display text-5xl font-bold mb-6 text-dark-50 bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600">
-              No Investor Left Behind
-            </h1>
-            <p className="text-xl mb-8 text-dark-200">
-              We work around the clock to make your investment goals a reality!
-            </p>
+    <Suspense fallback={<div>Loading...</div>}>
+      <main className="min-h-screen">
+        {/* Hero Section */}
+        <section className="relative isolate pt-14 pb-20 sm:pb-24">
+          <div className="absolute inset-0 bg-gradient-radial from-primary-500/20 via-transparent to-transparent" />
+          <div className="container relative">
+            <div className="max-w-3xl mx-auto text-center">
+              <h1 className="font-display text-5xl font-bold mb-6 text-dark-50 bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600">
+                No Investor Left Behind
+              </h1>
+              <p className="text-xl mb-8 text-white">
+                We work around the clock to make your investment goals a reality!
+              </p>
+              <div className="flex gap-4 justify-center">
+                <Link 
+                  href="/investor-analysis"
+                  className="group relative inline-flex items-center justify-center gap-3 px-10 py-6 
+                    bg-dark-800 text-emerald-400 rounded-lg border border-emerald-500/30
+                    transition-all duration-300 shadow-lg hover:shadow-emerald-500/25
+                    hover:bg-dark-700 hover:border-emerald-500/50 hover:text-emerald-300
+                    before:absolute before:inset-0 before:rounded-lg before:bg-gradient-to-r 
+                    before:from-emerald-500/20 before:to-transparent before:opacity-0
+                    hover:before:opacity-100 before:transition-opacity before:duration-300
+                    after:absolute after:inset-0 after:rounded-lg after:ring-2 
+                    after:ring-emerald-500/0 hover:after:ring-emerald-500/50
+                    after:transition-all after:duration-300 overflow-hidden
+                    text-lg font-medium"
+                >
+                  <span className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-transparent rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                  <TypewriterText 
+                    text="Try Our AI Investment Analysis"
+                    className="relative text-xl font-semibold tracking-wide"
+                  />
+                  <svg 
+                    className="w-6 h-6 text-emerald-500 transition-all duration-300 group-hover:translate-x-1 group-hover:text-emerald-400" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth="2" 
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </Link>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-dark-950">
-        <div className="container">
-          <div className="grid md:grid-cols-3 gap-8">
-            {cards.map((card, index) => (
-              <InfoCard key={index} {...card} />
-            ))}
+        {/* Features Section */}
+        <section className="py-12 sm:py-16 bg-dark-950">
+          <div className="container">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {cards.map((card, index) => (
+                <InfoCard key={index} {...card} />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20 bg-dark-900/50">
-        <div className="container">
-          <h2 className="text-3xl font-display font-bold text-center mb-12 text-dark-50">
-            What Our Clients Say
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="card">
-              <p className="text-dark-200 mb-4">
-                "The team helped me secure a DSCR loan when traditional lenders wouldn't. Excellent service!"
+        {/* Testimonials Section */}
+        <div className="py-12 sm:py-16">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-xl text-center">
+              <h2 className="text-lg font-semibold leading-8 tracking-tight text-emerald-500">Client Reviews</h2>
+              <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                Trusted by Real Estate Investors
               </p>
-              <p className="font-semibold text-dark-100">- John D., Real Estate Investor</p>
             </div>
-            <div className="card">
-              <p className="text-dark-200 mb-4">
-                "Despite my credit challenges, they found the perfect hard money solution for my investment property."
-              </p>
-              <p className="font-semibold text-dark-100">- Sarah M., Property Developer</p>
-            </div>
-            <div className="card">
-              <p className="text-dark-200 mb-4">
-                "Their expertise in DSCR loans helped me expand my rental portfolio from 2 to 6 properties in just 18 months."
-              </p>
-              <p className="font-semibold text-dark-100">- Michael R., Portfolio Investor</p>
-            </div>
-            <div className="card">
-              <p className="text-dark-200 mb-4">
-                "Quick approval process and competitive rates. They made refinancing my investment properties seamless."
-              </p>
-              <p className="font-semibold text-dark-100">- Lisa K., Commercial Investor</p>
+            <div className="mx-auto mt-16 max-w-2xl lg:max-w-none">
+              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                {testimonials.map((testimonial) => (
+                  <div key={testimonial.author.handle}>
+                    <figure className="relative h-full rounded-2xl bg-dark-800/30 p-8 transition-all duration-300 
+                      hover:bg-dark-800/50 group ring-1 ring-white/10 hover:ring-emerald-500/50
+                      before:absolute before:inset-0 before:rounded-2xl before:transition-all before:duration-300
+                      before:ring-1 before:ring-emerald-500/0 hover:before:ring-emerald-500/20
+                      after:absolute after:inset-0 after:rounded-2xl after:transition-all after:duration-300
+                      after:ring-2 after:ring-emerald-500/0 hover:after:ring-emerald-500/10">
+                      <blockquote className="relative text-base leading-6">
+                        <p className="text-gray-300 group-hover:text-white transition-colors duration-300">{`"${testimonial.body}"`}</p>
+                      </blockquote>
+                      <figcaption className="relative mt-6 flex items-center gap-x-4 border-t border-white/10 pt-6">
+                        <div className="h-10 w-10 rounded-full bg-emerald-500/10 ring-1 ring-white/10 flex items-center justify-center">
+                          <span className="text-lg font-semibold text-emerald-500">{testimonial.author.name.charAt(0)}</span>
+                        </div>
+                        <div>
+                          <div className="font-semibold text-white group-hover:text-emerald-400 transition-colors duration-300">{testimonial.author.name}</div>
+                          <div className="text-sm text-gray-400 group-hover:text-emerald-300/70 transition-colors duration-300">{testimonial.author.handle}</div>
+                        </div>
+                      </figcaption>
+                    </figure>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className="bg-gradient-dark py-16">
-        <div className="container text-center">
-          <h2 className="text-3xl font-display font-bold mb-6 text-dark-50">
-            Ready to Get Started?
-          </h2>
-          <p className="text-xl mb-8 text-dark-200">
-            Bad credit? No problem! Let us help you find the right solution.
-          </p>
-          <div className="max-w-4xl mx-auto mt-12">
-            <MultiStepForm />
+        {/* CTA Section */}
+        <section className="relative isolate py-12 sm:py-16 bg-gradient-dark">
+          <div className="absolute inset-0 bg-gradient-radial from-primary-500/10 via-transparent to-transparent" />
+          <div className="container relative">
+            <div className="max-w-3xl mx-auto text-center mb-12">
+              <h2 className="text-4xl font-display font-bold mb-6 text-dark-50 bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600">
+                Ready to Scale Your Real Estate Portfolio?
+              </h2>
+              <div className="flex flex-col gap-4 items-center">
+                <div className="flex items-center gap-2 text-primary-400">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-lg">Quick Pre-Approval in 24-48 Hours</p>
+                </div>
+                <div className="flex items-center gap-2 text-primary-400">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-lg">No Tax Returns Required</p>
+                </div>
+                <div className="flex items-center gap-2 text-primary-400">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-lg">Rates Starting at 6.99%</p>
+                </div>
+              </div>
+            </div>
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-dark-800/50 p-8 rounded-xl backdrop-blur-sm border border-primary-500/20 shadow-2xl">
+                <div className="text-center mb-8">
+                  <h3 className="text-2xl font-bold text-white mb-4">
+                    Start Your Pre-Approval Now
+                  </h3>
+                  <p className="text-gray-300">
+                    Fill out our simple form below and get a response within 24 hours. No hard credit pull required!
+                  </p>
+                </div>
+                <MultiStepForm />
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </Suspense>
   )
 }

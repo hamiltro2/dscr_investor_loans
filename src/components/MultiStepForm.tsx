@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Check, ArrowRight } from 'lucide-react';
+import { SubmitLoader } from './SubmitLoader';
 
 const STEPS = [
   { number: 1, title: 'Loan Type' },
@@ -37,6 +38,7 @@ export function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isStepComplete = (step: number) => {
     switch (step) {
@@ -62,7 +64,11 @@ export function MultiStepForm() {
       return;
     }
 
+    setIsSubmitting(true);
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+
       const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
@@ -72,10 +78,13 @@ export function MultiStepForm() {
           formType: 'loan',
           data: formData 
         }),
+        signal: controller.signal
       });
 
+      clearTimeout(timeoutId);
       const result = await response.json();
       if (result.success) {
+        setIsSubmitting(false); // Set to false before showing success
         setShowSuccess(true);
         setTimeout(() => {
           setShowSuccess(false);
@@ -83,11 +92,15 @@ export function MultiStepForm() {
           setCurrentStep(1);
         }, 5000);
       } else {
+        setIsSubmitting(false); // Set to false before showing error
         alert('There was an error sending your information. Please try again.');
       }
     } catch (error) {
       console.error('Error:', error);
+      setIsSubmitting(false); // Set to false before showing error
       alert('There was an error sending your information. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -339,10 +352,13 @@ export function MultiStepForm() {
           <div className="flex justify-end">
             <button 
               type="submit" 
-              className="btn-primary"
+              disabled={isSubmitting}
+              className="btn-primary min-w-[160px] relative"
               suppressHydrationWarning
             >
-              {currentStep < 5 ? (
+              {isSubmitting ? (
+                <SubmitLoader size="sm" text="Submitting..." />
+              ) : currentStep < 5 ? (
                 <>
                   Next Step
                   <ArrowRight className="w-4 h-4 ml-2" />

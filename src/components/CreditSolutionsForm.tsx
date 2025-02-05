@@ -1,6 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { SubmitLoader } from './SubmitLoader';
+import { SuccessMessage } from './SuccessMessage';
 
 export default function CreditSolutionsForm() {
   const [formData, setFormData] = useState({
@@ -10,9 +13,26 @@ export default function CreditSolutionsForm() {
     creditScore: '',
     message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      creditScore: '',
+      message: '',
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (isSubmitting) return; // Prevent multiple submissions
+    
+    setIsSubmitting(true);
+
     try {
       const response = await fetch('/api/send-email', {
         method: 'POST',
@@ -22,37 +42,53 @@ export default function CreditSolutionsForm() {
         body: JSON.stringify({ 
           formType: 'credit',
           data: formData 
-        }),
+        })
       });
 
       const result = await response.json();
+      
       if (result.success) {
-        alert('Thank you! We will contact you soon.');
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          creditScore: '',
-          message: '',
-        });
+        resetForm();
+        setShowSuccess(true);
       } else {
         alert('There was an error sending your message. Please try again.');
       }
     } catch (error) {
       console.error('Error:', error);
       alert('There was an error sending your message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
+
+  if (showSuccess) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+      >
+        <SuccessMessage
+          title="Thank You!"
+          message="We've received your information and will contact you soon to discuss your credit solutions."
+          onClose={() => setShowSuccess(false)}
+        />
+      </motion.div>
+    );
+  }
 
   return (
     <div className="card">
-      <h2 className="text-2xl font-display font-bold mb-6 text-dark-50 text-center">
-        Get Your Personalized Solution
+      <h2 className="text-2xl font-bold mb-6 text-dark-50">
+        Get Your Free Credit Assessment
       </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -64,21 +100,23 @@ export default function CreditSolutionsForm() {
             id="name"
             name="name"
             required
+            disabled={isSubmitting}
             className="input"
             value={formData.name}
             onChange={handleChange}
           />
         </div>
-        
+
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-dark-200">
-            Email Address
+            Email
           </label>
           <input
             type="email"
             id="email"
             name="email"
             required
+            disabled={isSubmitting}
             className="input"
             value={formData.email}
             onChange={handleChange}
@@ -94,6 +132,7 @@ export default function CreditSolutionsForm() {
             id="phone"
             name="phone"
             required
+            disabled={isSubmitting}
             className="input"
             value={formData.phone}
             onChange={handleChange}
@@ -102,22 +141,24 @@ export default function CreditSolutionsForm() {
 
         <div>
           <label htmlFor="creditScore" className="block text-sm font-medium text-dark-200">
-            Approximate Credit Score
+            Current Credit Score (Approximate)
           </label>
           <select
             id="creditScore"
             name="creditScore"
             required
-            className="select"
+            disabled={isSubmitting}
+            className="input"
             value={formData.creditScore}
             onChange={handleChange}
           >
-            <option value="">Select Score Range</option>
-            <option value="Below 580">Below 580</option>
-            <option value="580-619">580-619</option>
-            <option value="620-659">620-659</option>
-            <option value="660-699">660-699</option>
-            <option value="700+">700+</option>
+            <option value="">Select Credit Score Range</option>
+            <option value="300-579">300-579 (Poor)</option>
+            <option value="580-669">580-669 (Fair)</option>
+            <option value="670-739">670-739 (Good)</option>
+            <option value="740-799">740-799 (Very Good)</option>
+            <option value="800-850">800-850 (Excellent)</option>
+            <option value="unknown">I Don't Know</option>
           </select>
         </div>
 
@@ -130,17 +171,26 @@ export default function CreditSolutionsForm() {
             name="message"
             rows={4}
             required
+            disabled={isSubmitting}
             className="textarea"
             value={formData.message}
             onChange={handleChange}
+            spellCheck="false"
+            suppressHydrationWarning
           ></textarea>
         </div>
 
-        <div className="text-center">
-          <button type="submit" className="btn-primary w-full md:w-auto">
-            Find Your Solution
-          </button>
-        </div>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full btn-primary relative"
+        >
+          {isSubmitting ? (
+            <SubmitLoader />
+          ) : (
+            'Get Started'
+          )}
+        </button>
       </form>
     </div>
   );
