@@ -3,13 +3,18 @@ import axios from 'axios';
 import puppeteer, { ElementHandle, Page } from 'puppeteer';
 import * as cheerio from 'cheerio';
 import OpenAI from 'openai';
+import { PropertyDetails } from '@/types/corelogic';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
 // Helper function for page.evaluate with proper typing
-async function evaluateElement<T>(page: Page, element: ElementHandle<Element>, fn: (el: Element) => T): Promise<T> {
+async function evaluateElement<T>(
+  page: Page,
+  element: ElementHandle<Element>,
+  fn: (el: { textContent: string | null }) => T
+): Promise<T> {
   return await page.evaluate(fn, element);
 }
 
@@ -65,17 +70,27 @@ function getListingSource(url: string): ListingSource {
 }
 
 interface PropertyData {
-  price?: number;
+  price?: number | null;
   address?: string;
-  bedrooms?: number;
-  bathrooms?: number;
-  squareFeet?: number;
-  yearBuilt?: number;
-  lotSize?: number;
+  bedrooms?: number | null;
+  bathrooms?: number | null;
+  squareFeet?: number | null;
+  yearBuilt?: number | null;
+  lotSize?: number | null;
   propertyType?: string;
-  zestimate?: number;
-  rentZestimate?: number;
+  zestimate?: number | null;
+  rentZestimate?: number | null;
   [key: string]: any;
+}
+
+interface PropertySearchResponse {
+  success: boolean;
+  data: (PropertyData & {
+    analysis: string | null | undefined;
+    estimatedRent?: number;
+    url?: string;
+  }) | null;
+  source?: string;
 }
 
 async function scrapePropertyData(url: string): Promise<PropertyData> {
@@ -83,7 +98,12 @@ async function scrapePropertyData(url: string): Promise<PropertyData> {
   try {
     browser = await puppeteer.launch({
       headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-gpu'
+      ]
     });
 
     const page = await browser.newPage();
@@ -428,7 +448,7 @@ async function scrapePropertyData(url: string): Promise<PropertyData> {
 
       // If still not found, try searching in any text that mentions square feet
       if (!propertyData.squareFeet) {
-        const bodyText = await page.$eval('body', (el: Element) => el.innerText);
+        const bodyText = await page.$eval('body', (el: HTMLElement) => el.textContent || '');
         const sqftMatches = bodyText.match(/(\d{3,5})\s*(?:square\s*feet|sq\.?\s*ft\.?|sqft)/i);
         if (sqftMatches && sqftMatches[1]) {
           const sqft = parseInt(sqftMatches[1]);
@@ -646,7 +666,7 @@ async function scrapePropertyData(url: string): Promise<PropertyData> {
       if (!propertyData.yearBuilt) {
         const factsElement = await page.$('[data-test="facts-card"], .ds-home-facts');
         if (factsElement) {
-          const yearMatch = await page.evaluateHandle((el: Element) => {
+          const yearMatch = await page.evaluate(() => {
             const spans = document.querySelectorAll('span, li, div');
             const yearText = Array.from(spans).find(span => 
               span.textContent?.toLowerCase().includes('year built') ||
@@ -659,11 +679,9 @@ async function scrapePropertyData(url: string): Promise<PropertyData> {
             return null;
           });
           
-          const yearValue = await yearMatch.jsonValue();
-          if (yearValue) {
-            propertyData.yearBuilt = parseInt(yearValue);
+          if (yearMatch) {
+            propertyData.yearBuilt = parseInt(yearMatch);
           }
-          await yearMatch.dispose();
         }
       }
     }
@@ -693,18 +711,17 @@ async function scrapePropertyData(url: string): Promise<PropertyData> {
   }
 }
 
-async function searchPropertyListings(addressData: { street: string, city: string, state: string, zip: string }) {
+async function searchPropertyListings(addressData: { street: string, city: string, state: string, zip: string }): Promise<PropertySearchResponse> {
   const { street, city, state, zip } = addressData;
   console.log('Searching with address components:', { street, city, state, zip });
 
-  const browser = await puppeteer.launch({ 
-    headless: "new",
+  const browser = await puppeteer.launch({
+    headless: true,
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
-      '--window-size=1920,1080',
-      '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      '--disable-blink-features=AutomationControlled'  // Hide automation
+      '--disable-dev-shm-usage',
+      '--disable-gpu'
     ]
   });
 
@@ -848,15 +865,17 @@ Format each section with bullet points where appropriate. Maintain Capital Bridg
           const analysis = completion.choices[0].message.content;
 
           // Return all the data in the existing format
-          return NextResponse.json({
+          return {
+            success: true,
             data: {
               ...data,
               estimatedRent,
               ...metrics,
               analysis,
-              url: url
-            }
-          });
+              url: propertyUrl
+            },
+            source: 'Redfin'
+          };
         } catch (error) {
           console.log('Failed to scrape Redfin result:', error);
         }
@@ -980,15 +999,17 @@ Format each section with bullet points where appropriate. Maintain Capital Bridg
           const analysis = completion.choices[0].message.content;
 
           // Return all the data in the existing format
-          return NextResponse.json({
+          return {
+            success: true,
             data: {
               ...data,
               estimatedRent,
               ...metrics,
               analysis,
-              url: url
-            }
-          });
+              url: propertyUrl
+            },
+            source: 'Zillow'
+          };
         } catch (error) {
           console.log('Failed to scrape Zillow result:', error);
         }
@@ -996,12 +1017,34 @@ Format each section with bullet points where appropriate. Maintain Capital Bridg
     }
 
     console.log('No property listings found');
-    return null;
+    return {
+      success: false,
+      data: null,
+      source: undefined
+    };
   } catch (error) {
     console.error('Error searching property listings:', error);
-    return null;
+    return {
+      success: false,
+      data: null,
+      source: undefined
+    };
   } finally {
     await browser.close();
+  }
+}
+
+async function getPropertyDataFromAddress(addressData: { street: string, city: string, state: string, zip: string }): Promise<PropertyData | null> {
+  try {
+    const listingData = await searchPropertyListings(addressData) as PropertySearchResponse;
+    if (listingData.success) {
+      console.log(`Found property data from ${listingData.source || 'unknown source'}`);
+      return listingData.data;
+    }
+    return null;
+  } catch (error) {
+    console.error('Error in getPropertyDataFromAddress:', error);
+    return null;
   }
 }
 
@@ -1095,95 +1138,11 @@ async function calculateMetrics(propertyData: any, estimatedRent: number) {
   };
 }
 
-async function getPropertyDataFromAddress(addressData: { street: string, city: string, state: string, zip: string }) {
-  try {
-    // First try to find and scrape from Redfin/Zillow
-    const listingData = await searchPropertyListings(addressData);
-    if (listingData) {
-      console.log(`Found property data from ${listingData.source}`);
-      return listingData.data;
-    }
-
-    // If no listing found, fall back to OpenAI
-    console.log('No listings found, using OpenAI');
-    const fullAddress = `${addressData.street}, ${addressData.city}, ${addressData.state} ${addressData.zip}`;
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [
-        {
-          role: "system",
-          content: `You are a real estate data expert. Given an address, provide ONLY the actual property data you can find. 
-          DO NOT make assumptions or use default values. If you cannot find certain information, return null for those fields.
-          Format your response EXACTLY like this example, with no additional text:
-          {
-            "price": 750000,
-            "bedrooms": 3,
-            "bathrooms": 2,
-            "squareFeet": 1500,
-            "yearBuilt": 1985,
-            "confidence": {
-              "price": 0.9,
-              "bedrooms": 0.95,
-              "bathrooms": 0.95,
-              "squareFeet": 0.9,
-              "yearBuilt": 0.85
-            }
-          }`
-        },
-        {
-          role: "user",
-          content: `Find property data for this exact address: ${fullAddress}`
-        }
-      ],
-      temperature: 0
-    });
-
-    const content = completion.choices[0].message.content;
-    console.log('GPT Response:', content);
-
-    try {
-      const response = JSON.parse(content.trim());
-      console.log('Parsed response:', response);
-      
-      // Only use values where confidence is high enough
-      const propertyData = {
-        address: fullAddress,
-        price: response.confidence?.price > 0.8 ? response.price : null,
-        bedrooms: response.confidence?.bedrooms > 0.8 ? response.bedrooms : null,
-        bathrooms: response.confidence?.bathrooms > 0.8 ? response.bathrooms : null,
-        squareFeet: response.confidence?.squareFeet > 0.8 ? response.squareFeet : null,
-        yearBuilt: response.confidence?.yearBuilt > 0.8 ? response.yearBuilt : null
-      };
-
-      console.log('Processed data:', propertyData);
-
-      // Validate that we have enough data
-      const missingFields = [];
-      if (!propertyData.price) missingFields.push('price');
-      if (!propertyData.bedrooms) missingFields.push('bedrooms');
-      if (!propertyData.bathrooms) missingFields.push('bathrooms');
-      // Make square footage optional since we can estimate it
-
-      if (missingFields.length > 0) {
-        throw new Error(`Could not find reliable data for: ${missingFields.join(', ')}`);
-      }
-
-      return propertyData;
-    } catch (parseError) {
-      console.error('Error parsing GPT response:', parseError);
-      throw new Error('Could not parse property data response');
-    }
-  } catch (error) {
-    console.error('Error getting property data:', error);
-    throw new Error('Could not retrieve property data. Please try providing a property URL instead.');
-  }
-}
-
-async function getPropertyDataFromCoreLogic(propertyData: any) {
+async function getPropertyDataFromCoreLogic(propertyData: PropertyDetails) {
   try {
     // Extract address components from CoreLogic data
-    const address = propertyData.propertyAddress;
-    
+    const address = propertyData.address;
+
     // Get property details from existing APIs
     const propertyDetails = await getPropertyDataFromAddress({
       street: address.streetAddress,
@@ -1192,26 +1151,14 @@ async function getPropertyDataFromCoreLogic(propertyData: any) {
       zip: address.zipCode
     });
 
-    // Calculate investment metrics
-    const estimatedRent = await estimateRent(
-      propertyDetails.price,
-      propertyDetails.bedrooms,
-      propertyDetails.bathrooms,
-      propertyDetails.squareFeet,
-      { city: address.city, state: address.state }
-    );
+    if (!propertyDetails) {
+      throw new Error('Could not find property details');
+    }
 
-    const metrics = calculateMetrics(propertyDetails, estimatedRent);
-
-    return {
-      ...propertyDetails,
-      ...metrics,
-      clip: propertyData.clip,
-      propertyMatchScore: propertyData.addressMatchInformation.propertyMatchScore
-    };
+    return propertyDetails;
   } catch (error) {
-    console.error('Error processing CoreLogic data:', error);
-    throw new Error('Failed to process property data');
+    console.error('Error in getPropertyDataFromCoreLogic:', error);
+    throw error;
   }
 }
 
@@ -1232,8 +1179,13 @@ export async function POST(req: Request): Promise<Response> {
       // Scrape BiggerPockets for relevant information
       const bpSearchUrl = `https://www.biggerpockets.com/search?q=${encodeURIComponent(url)}`;
       const browser = await puppeteer.launch({
-        headless: "new",
-        args: ['--no-sandbox']
+        headless: true,
+        args: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-dev-shm-usage',
+          '--disable-gpu'
+        ]
       });
       const page = await browser.newPage();
       await page.goto(bpSearchUrl, { waitUntil: 'networkidle0' });
@@ -1277,7 +1229,7 @@ Detailed explanation incorporating both BiggerPockets insights and Capital Bridg
 Current market conditions and trends related to this topic, referencing relevant BiggerPockets discussions
 
 # Risk Assessment
-Important risks and considerations to keep in mind
+Important risks and challenges to consider, including market, property, and financial risks.
 
 # Best Practices
 Recommended approaches and strategies, combining community knowledge with Capital Bridge Solutions' expertise

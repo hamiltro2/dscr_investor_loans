@@ -4,7 +4,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import coreLogicAPI from '@/lib/corelogic';
-import { PropertyDetails, TransactionHistory, ComparableProperties, Recommendation } from '@/types/corelogic';
+import { PropertyDetails, TransactionHistory, ComparableProperties, InvestmentRecommendation } from '@/types/corelogic';
 import { formatCurrency, formatPercent, formatDate } from '@/lib/formatters';
 
 // Import PropertySearch component with no SSR
@@ -51,7 +51,7 @@ interface InvestmentAnalysis {
   };
   history: TransactionHistory;
   comparables: ComparableProperties;
-  recommendation: Recommendation;
+  recommendation: InvestmentRecommendation;
 }
 
 export default function InvestorAnalysisPage() {
@@ -103,7 +103,48 @@ export default function InvestorAnalysisPage() {
     setError(null);
     try {
       const analysis = await coreLogicAPI.analyzeInvestmentPotential(propertyId);
-      setAnalysis(analysis);
+      
+      // Ensure we have valid data
+      if (!analysis.property || !analysis.history || !analysis.comparables) {
+        throw new Error('Missing required property data');
+      }
+
+      // Access property data correctly
+      const metrics = {
+        estimatedMonthlyRent: analysis.property.valuation?.estimatedRent || 0,
+        estimatedValue: analysis.property.valuation?.estimatedValue || 0,
+        lastSalePrice: analysis.history.transactions[0]?.salePrice || 0,
+        annualTaxes: analysis.property.taxes?.annualTaxAmount || 0,
+        pricePerSqFt: analysis.property.valuation?.estimatedValue 
+          ? analysis.property.valuation.estimatedValue / (analysis.property.characteristics?.squareFeet || 1)
+          : 0,
+        averageCompPrice: 0,
+        priceAppreciation: 0,
+        dscr: 0,
+        capRate: 0,
+        cashOnCashReturn: 0,
+        monthlyCashFlow: 0,
+        grossMonthlyIncome: 0,
+        monthlyMortgage: 0,
+        monthlyTaxes: 0,
+        monthlyInsurance: 0,
+        monthlyMaintenance: 0,
+        monthlyVacancy: 0,
+        monthlyPropertyManagement: 0,
+        totalMonthlyExpenses: 0,
+        downPayment: 0,
+        loanAmount: 0,
+        annualCashFlow: 0,
+        breakEvenMonths: 0,
+      };
+
+      setAnalysis({
+        property: analysis.property,
+        metrics,
+        history: analysis.history,
+        comparables: analysis.comparables,
+        recommendation: analysis.recommendation
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to analyze property');
     } finally {
