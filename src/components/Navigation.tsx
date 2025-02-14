@@ -10,6 +10,7 @@ const navigation = [
   { name: 'Services', href: '/services' },
   { name: 'Calculators', href: '/calculators' },
   { name: 'Credit Solutions', href: '/credit-solutions' },
+  { name: 'AI Real Estate Investor Analysis', href: '/investor-analysis' },
 ]
 
 export default function Navigation() {

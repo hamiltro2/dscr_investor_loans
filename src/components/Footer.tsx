@@ -46,6 +46,11 @@ export function Footer() {
                   Credit Solutions
                 </Link>
               </li>
+              <li>
+                <Link href="/investor-analysis" className="text-gray-400 hover:text-primary-500 transition-colors">
+                  AI Real Estate Investor Analysis
+                </Link>
+              </li>
             </ul>
           </div>
 

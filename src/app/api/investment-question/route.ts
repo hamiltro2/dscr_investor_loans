@@ -7,8 +7,8 @@ async function searchBiggerPockets(question: string) {
   const searchUrl = `https://www.biggerpockets.com/search?q=${searchQuery}`;
   
   const browser = await puppeteer.launch({ 
-    headless: 'new',
-    args: ['--no-sandbox']
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
 
   try {
@@ -16,7 +16,7 @@ async function searchBiggerPockets(question: string) {
     await page.setViewport({ width: 1280, height: 800 });
     
     console.log('Searching BiggerPockets:', searchUrl);
-    await page.goto(searchUrl, { waitUntil: 'networkidle0', timeout: 30000 });
+    await page.goto(searchUrl, { waitUntil: 'networkidle0', timeout: 15000 });
 
     const content = await page.content();
     const $ = cheerio.load(content);
@@ -35,12 +35,12 @@ async function searchBiggerPockets(question: string) {
       }
     });
 
-    // Get content from top 3 most relevant results
+    // Get content from top 2 most relevant results
     const relevantContent: string[] = [];
-    for (let i = 0; i < Math.min(3, results.length); i++) {
+    for (let i = 0; i < Math.min(2, results.length); i++) {
       const result = results[i];
       try {
-        await page.goto(result.url, { waitUntil: 'networkidle0', timeout: 30000 });
+        await page.goto(result.url, { waitUntil: 'networkidle0', timeout: 15000 });
         const articleContent = await page.content();
         const article$ = cheerio.load(articleContent);
         
@@ -81,68 +81,149 @@ export async function POST(req: Request) {
     // Search BiggerPockets
     const biggerPocketsData = await searchBiggerPockets(question);
 
-    // Generate answer using OpenAI
-    const prompt = `As an AI investment advisor for Capital Bridge Solutions, provide a detailed answer to the following real estate investment question. Use the provided BiggerPockets content as reference, but maintain a professional and balanced perspective.
-
-Question: ${question}
-
-Reference Content from BiggerPockets:
-${biggerPocketsData.content.join('\n\n')}
-
-Format your response using this structure:
-
-<h1>Expert Answer</h1>
-[Provide a clear, concise answer to the question]
-
-<h1>Key Points</h1>
-[List 3-5 main takeaways or important considerations]
-
-<h1>Additional Resources</h1>
-[List relevant articles from BiggerPockets with brief descriptions]
-
-<h1>Next Steps with Capital Bridge Solutions</h1>
-- Contact us at (949) 614-6390 for personalized investment guidance
-- Fill out our quick form to discuss your investment strategy
-- Schedule a consultation to explore financing options for your next investment
-
-Remember to be informative yet accessible, and emphasize how Capital Bridge Solutions can help with any financing needs.`;
-
-    const openaiRes = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'gpt-4',
-        messages: [
-          {
-            role: 'system',
-            content: 'You are an expert real estate investment advisor working for Capital Bridge Solutions.'
-          },
-          {
-            role: 'user',
-            content: prompt
-          }
-        ],
-        temperature: 0.7,
-        max_tokens: 1000
+    // Generate answers using both OpenAI and Deepseek in parallel
+    const [openaiResponse, deepseekResponse] = await Promise.all([
+      // OpenAI Analysis
+      fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'gpt-4',
+          messages: [
+            {
+              role: 'system',
+              content: 'You are an expert real estate investment advisor working for Capital Bridge Solutions. Analyze the provided content from trusted real estate sources to provide comprehensive answers. When explaining terms or concepts, be clear and thorough but concise.'
+            },
+            {
+              role: 'user',
+              content: `Question: ${question}\n\nContent from real estate sources:\n${biggerPocketsData.content.join('\n\n')}`
+            }
+          ],
+          temperature: 0.7,
+          max_tokens: 1000
+        })
+      }).then(async res => {
+        if (!res.ok) {
+          throw new Error(`OpenAI API error: ${res.status}`);
+        }
+        return res.json();
+      }).catch(error => {
+        console.error('OpenAI API error:', error);
+        return { choices: [{ message: { content: 'Unable to generate OpenAI response.' } }] };
       }),
-    });
 
-    if (!openaiRes.ok) {
-      throw new Error('Failed to generate answer');
-    }
+      // Deepseek Analysis
+      fetch('https://api.deepseek.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'deepseek-chat',
+          messages: [
+            {
+              role: 'system',
+              content: 'You are an expert real estate investment advisor. Analyze the provided content from trusted real estate sources to provide comprehensive answers. When explaining terms or concepts, be clear and thorough but concise.'
+            },
+            {
+              role: 'user',
+              content: `Question: ${question}\n\nContent from real estate sources:\n${biggerPocketsData.content.join('\n\n')}`
+            }
+          ],
+          temperature: 0.7,
+          max_tokens: 1000
+        })
+      }).then(async res => {
+        if (!res.ok) {
+          throw new Error(`Deepseek API error: ${res.status}`);
+        }
+        return res.json();
+      }).catch(error => {
+        console.error('Deepseek API error:', error);
+        return { choices: [{ message: { content: 'Unable to generate Deepseek response.' } }] };
+      })
+    ]);
 
-    const openaiData = await openaiRes.json();
-    const answer = openaiData.choices[0].message.content;
+    // Safely extract responses
+    const openaiAnswer = openaiResponse?.choices?.[0]?.message?.content || 'Unable to generate OpenAI response.';
+    const deepseekAnswer = deepseekResponse?.choices?.[0]?.message?.content || 'Unable to generate Deepseek response.';
 
-    return NextResponse.json({ answer });
+    const formatLine = (line: string) => {
+      // Remove markdown bold markers
+      line = line.replace(/\*\*/g, '');
+      
+      // Convert ### headings to bold uppercase text
+      if (line.startsWith('###')) {
+        return `<h4 class="text-lg font-bold uppercase mb-3">${line.replace(/^###\s*/, '')}</h4>`;
+      }
+      
+      // Handle numbered items (1., 2., etc.)
+      const numberedMatch = line.match(/^(\d+)\.\s+(.+)/);
+      if (numberedMatch) {
+        return `<div class="flex gap-2 mb-2">
+          <span class="font-bold">${numberedMatch[1]}.</span>
+          <span>${numberedMatch[2]}</span>
+        </div>`;
+      }
+      
+      if (line.trim().startsWith('-')) {
+        return `<li class="ml-8 mb-2">${line}</li>`;
+      }
+      if (line.trim().endsWith(':')) {
+        return `<h4 class="text-cyan-400 font-medium mt-3 mb-2">${line}</h4>`;
+      }
+      return `<p class="mb-2">${line}</p>`;
+    };
+
+    const formatSection = (content: string) => {
+      return content
+        .split('\n')
+        .map(line => line.trim())
+        .filter(line => line.length > 0)
+        .map(formatLine)
+        .join('');
+    };
+
+    const extractCalculations = (content: string) => {
+      return content
+        .split('\n')
+        .filter(line => line.includes('=') || line.includes('$'))
+        .map(line => `<p class="mb-1 font-mono">${line.trim()}</p>`)
+        .join('');
+    };
+
+    const combinedAnswer = `
+<article class="space-y-6">
+  <section>
+    <h3 class="text-blue-400 text-xl font-semibold mb-3">Primary Analysis</h3>
+    ${formatSection(openaiAnswer)}
+  </section>
+
+  <section>
+    <h3 class="text-emerald-400 text-xl font-semibold mb-3">Additional Insights</h3>
+    ${formatSection(deepseekAnswer)}
+  </section>
+
+  ${(openaiAnswer + deepseekAnswer).includes('Example') ? `
+  <section>
+    <h3 class="text-purple-400 text-xl font-semibold mb-3">Example Calculation</h3>
+    <div class="bg-gray-800/50 rounded-lg p-4">
+      ${extractCalculations(openaiAnswer + deepseekAnswer)}
+    </div>
+  </section>
+  ` : ''}
+</article>`.trim();
+
+    return NextResponse.json({ answer: combinedAnswer });
 
   } catch (error) {
-    console.error('Investment question error:', error);
+    console.error('Error processing question:', error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to process investment question' },
+      { error: 'An error occurred while processing your question. Please try again.' },
       { status: 500 }
     );
   }

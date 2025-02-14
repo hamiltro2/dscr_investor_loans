@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import axios from 'axios';
-import puppeteer from 'puppeteer';
+import puppeteer, { ElementHandle, Page } from 'puppeteer';
 import * as cheerio from 'cheerio';
 import OpenAI from 'openai';
 
@@ -8,10 +8,17 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
+// Helper function for page.evaluate with proper typing
+async function evaluateElement<T>(page: Page, element: ElementHandle<Element>, fn: (el: Element) => T): Promise<T> {
+  return await page.evaluate(fn, element);
+}
+
 // Helper function to extract numbers from strings
-function extractNumber(text: string): number | null {
-  const match = text.match(/[\d,.]+/);
-  return match ? parseFloat(match[0].replace(/,/g, '')) : null;
+function extractNumber(text: string | null | undefined): number | null {
+  if (!text) return null;
+  const match = text.match(/[\d,]+/);
+  if (!match) return null;
+  return parseInt(match[0].replace(/,/g, ''));
 }
 
 // Helper function to clean and standardize address
@@ -38,67 +45,58 @@ function standardizeAddress(address: string): string {
     });
 }
 
-async function scrapePropertyData(url: string) {
-  console.log('Navigating to:', url);
-  const browser = await puppeteer.launch({
-    headless: "new",
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--window-size=1920,1080',
-      '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      '--disable-blink-features=AutomationControlled'  // Hide automation
-    ]
-  });
+// Define listing source type
+type ListingSource = 'redfin' | 'zillow' | null;
 
+// Helper function to determine the source of the listing
+function getListingSource(url: string): ListingSource {
   try {
+    const urlObj = new URL(url);
+    const hostname = urlObj.hostname.toLowerCase();
+    
+    if (hostname.includes('redfin.com')) return 'redfin';
+    if (hostname.includes('zillow.com')) return 'zillow';
+    
+    return null;
+  } catch (error) {
+    console.error('Invalid URL:', error);
+    return null;
+  }
+}
+
+interface PropertyData {
+  price?: number;
+  address?: string;
+  bedrooms?: number;
+  bathrooms?: number;
+  squareFeet?: number;
+  yearBuilt?: number;
+  lotSize?: number;
+  propertyType?: string;
+  zestimate?: number;
+  rentZestimate?: number;
+  [key: string]: any;
+}
+
+async function scrapePropertyData(url: string): Promise<PropertyData> {
+  let browser;
+  try {
+    browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
+
     const page = await browser.newPage();
+    await page.setViewport({ width: 1280, height: 800 });
     
-    // Set viewport and user agent
-    await page.setViewport({ width: 1920, height: 1080 });
-    
-    // Add more browser-like headers and properties
-    await page.setExtraHTTPHeaders({
-      'Accept-Language': 'en-US,en;q=0.9',
-      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-      'Connection': 'keep-alive',
-      'Accept-Encoding': 'gzip, deflate, br',
-      'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-      'sec-ch-ua-mobile': '?0',
-      'sec-ch-ua-platform': '"Windows"',
-      'Upgrade-Insecure-Requests': '1'
-    });
-
-    // Mask webdriver
-    await page.evaluateOnNewDocument(() => {
-      delete (window as any).navigator.__proto__.webdriver;
-      (window as any).navigator.chrome = { runtime: {} };
-    });
-
     console.log('Navigating to:', url);
     await page.goto(url, { 
-      waitUntil: ['networkidle0', 'domcontentloaded'],
+      waitUntil: 'networkidle0',
       timeout: 30000 
     });
     
     // Random delay between 2-5 seconds to appear more human-like
     await new Promise(resolve => setTimeout(resolve, 2000 + Math.random() * 3000));
-
-    // Helper function to determine the source of the listing
-    function getListingSource(url: string): 'redfin' | 'zillow' | null {
-      try {
-        const urlObj = new URL(url);
-        const hostname = urlObj.hostname.toLowerCase();
-        
-        if (hostname.includes('redfin.com')) return 'redfin';
-        if (hostname.includes('zillow.com')) return 'zillow';
-        
-        return null;
-      } catch (error) {
-        console.error('Invalid URL:', error);
-        return null;
-      }
-    }
 
     const listingSource = getListingSource(url);
     if (!listingSource) {
@@ -155,7 +153,7 @@ async function scrapePropertyData(url: string) {
     // Add a delay to ensure dynamic content loads
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    const propertyData: any = {};
+    const propertyData: PropertyData = {};
 
     if (listingSource === 'zillow') {
       // Updated price selectors for Zillow
@@ -167,21 +165,22 @@ async function scrapePropertyData(url: string) {
         '.price'
       ];
 
-      // Try each price selector with error handling
+      // Try each price selector with error handling and proper typing
       for (const selector of priceSelectors) {
         if (!propertyData.price) {
           try {
             const priceElement = await page.$(selector);
             if (priceElement) {
-              const text = await priceElement.evaluate(el => el.textContent);
-              if (text) {
-                propertyData.price = extractNumber(text);
+              const priceText = await evaluateElement(page, priceElement, (el) => el.textContent || '');
+              if (priceText) {
+                propertyData.price = extractNumber(priceText);
                 console.log(`Found price: ${propertyData.price} using selector: ${selector}`);
                 if (propertyData.price) break;
               }
             }
           } catch (error) {
-            console.log(`Error getting price from selector ${selector}:`, error);
+            console.log(`Error getting price with selector ${selector}:`, error);
+            continue;
           }
         }
       }
@@ -198,7 +197,7 @@ async function scrapePropertyData(url: string) {
         try {
           const elements = await page.$$(selector);
           for (const element of elements) {
-            const text = await element.evaluate(el => el.textContent?.toLowerCase() || '');
+            const text = await evaluateElement(page, element, (el) => el.textContent?.toLowerCase() || '');
             console.log(`Found stat text: ${text} using selector: ${selector}`);
             
             if (!propertyData.bedrooms && (text.includes('bed') || text.includes('bd'))) {
@@ -236,7 +235,7 @@ async function scrapePropertyData(url: string) {
           try {
             const addressElement = await page.$(selector);
             if (addressElement) {
-              const address = await addressElement.evaluate(el => el.textContent?.trim());
+              const address = await evaluateElement(page, addressElement, (el) => el.textContent?.trim() || '');
               if (address) {
                 propertyData.address = address;
                 console.log(`Found address: ${address} using selector: ${selector}`);
@@ -272,12 +271,12 @@ async function scrapePropertyData(url: string) {
         '.StaticRegion span[data-rf-test-name="price"]'
       ];
 
-      // Try each price selector with error handling
+      // Try each price selector with error handling and proper typing
       for (const selector of priceSelectors) {
         try {
           const priceElement = await page.$(selector);
           if (priceElement) {
-            const text = await priceElement.evaluate(el => el.textContent);
+            const text = await evaluateElement(page, priceElement, (el) => el.textContent);
             if (text) {
               propertyData.price = extractNumber(text);
               if (propertyData.price) break;
@@ -303,7 +302,7 @@ async function scrapePropertyData(url: string) {
         try {
           const elements = await page.$$(selector);
           for (const element of elements) {
-            const text = await element.evaluate(el => el.textContent?.toLowerCase() || '');
+            const text = await evaluateElement(page, element, (el) => el.textContent?.toLowerCase() || '');
             
             if (!propertyData.bedrooms && (text.includes('bed') || text.includes('bd'))) {
               propertyData.bedrooms = extractNumber(text);
@@ -346,13 +345,13 @@ async function scrapePropertyData(url: string) {
         if (propertyData.address) break;
         const streetElement = await page.$(streetSelector);
         if (streetElement) {
-          const street = await streetElement.evaluate(el => el.textContent?.trim());
+          const street = await evaluateElement(page, streetElement, (el) => el.textContent?.trim() || '');
           if (street) {
             // Try each city/state selector
             for (const cityStateSelector of cityStateSelectors) {
               const cityStateElement = await page.$(cityStateSelector);
               if (cityStateElement) {
-                const cityState = await cityStateElement.evaluate(el => el.textContent?.trim());
+                const cityState = await evaluateElement(page, cityStateElement, (el) => el.textContent?.trim() || '');
                 if (cityState) {
                   propertyData.address = `${street}, ${cityState}`;
                   break;
@@ -375,7 +374,7 @@ async function scrapePropertyData(url: string) {
           if (propertyData.address) break;
           const element = await page.$(selector);
           if (element) {
-            const address = await element.evaluate(el => el.textContent?.trim());
+            const address = await evaluateElement(page, element, (el) => el.textContent?.trim() || '');
             if (address) {
               propertyData.address = address;
             }
@@ -414,7 +413,7 @@ async function scrapePropertyData(url: string) {
         if (propertyData.squareFeet) break;
         const elements = await page.$$(selector);
         for (const element of elements) {
-          const text = await element.evaluate(el => el.textContent);
+          const text = await evaluateElement(page, element, (el) => el.textContent);
           if (text && (text.toLowerCase().includes('sq ft') || 
                       text.toLowerCase().includes('square feet') || 
                       text.toLowerCase().includes('sqft'))) {
@@ -429,13 +428,63 @@ async function scrapePropertyData(url: string) {
 
       // If still not found, try searching in any text that mentions square feet
       if (!propertyData.squareFeet) {
-        const bodyText = await page.evaluate(() => document.body.innerText);
+        const bodyText = await page.$eval('body', (el: Element) => el.innerText);
         const sqftMatches = bodyText.match(/(\d{3,5})\s*(?:square\s*feet|sq\.?\s*ft\.?|sqft)/i);
         if (sqftMatches && sqftMatches[1]) {
           const sqft = parseInt(sqftMatches[1]);
           if (sqft > 0 && sqft < 100000) { // Sanity check on size
             propertyData.squareFeet = sqft;
           }
+        }
+      }
+
+      // Try to find year built
+      if (!propertyData.yearBuilt) {
+        try {
+          const yearBuiltText = await page.evaluate(() => {
+            const elements = Array.from(document.querySelectorAll('*'));
+            for (const el of elements) {
+              const text = el.textContent?.toLowerCase() || '';
+              if (text.includes('year built') || text.includes('built in')) {
+                return text;
+              }
+            }
+            return '';
+          });
+          
+          if (yearBuiltText) {
+            const yearMatch = yearBuiltText.match(/(?:year built|built in).*?(\d{4})/i);
+            if (yearMatch) {
+              propertyData.yearBuilt = parseInt(yearMatch[1]);
+            }
+          }
+        } catch (error) {
+          console.error('Error finding year built:', error);
+        }
+      }
+
+      // If year still not found, try specific selectors
+      if (!propertyData.yearBuilt) {
+        try {
+          const yearSelectors = [
+            '.home-facts',
+            '.property-info',
+            '.property-details'
+          ];
+
+          for (const selector of yearSelectors) {
+            const element = await page.$(selector);
+            if (element) {
+              const text = await evaluateElement(page, element, (el) => el.textContent || '');
+              const yearMatch = text.match(/(?:year built|built in).*?(\d{4})/i);
+              if (yearMatch) {
+                propertyData.yearBuilt = parseInt(yearMatch[1]);
+                break;
+              }
+            }
+          }
+        } catch (error) {
+          console.error('Error finding year built from selectors:', error);
         }
       }
 
@@ -450,7 +499,7 @@ async function scrapePropertyData(url: string) {
         if (!propertyData.yearBuilt) {
           const yearElements = await page.$$(selector);
           for (const element of yearElements) {
-            const text = await element.evaluate(el => el.textContent?.toLowerCase() || '');
+            const text = await evaluateElement(page, element, (el) => el.textContent?.toLowerCase() || '');
             if (text.includes('year built') || text.includes('built in')) {
               const yearMatch = text.match(/(\d{4})/);
               propertyData.yearBuilt = yearMatch ? parseInt(yearMatch[1]) : null;
@@ -464,7 +513,7 @@ async function scrapePropertyData(url: string) {
       if (!propertyData.bedrooms || !propertyData.bathrooms || !propertyData.squareFeet || !propertyData.yearBuilt) {
         const detailsElements = await page.$$('.amenities-container li, .propertyDetails li, .keyDetails li');
         for (const element of detailsElements) {
-          const text = await element.evaluate(el => el.textContent?.toLowerCase() || '');
+          const text = await evaluateElement(page, element, (el) => el.textContent?.toLowerCase() || '');
           
           if (!propertyData.bedrooms && text.includes('bed')) {
             const bedsMatch = text.match(/(\d+\.?\d*)\s*(?:bed|bedroom|br)/i);
@@ -489,7 +538,7 @@ async function scrapePropertyData(url: string) {
       if (!propertyData.bedrooms || !propertyData.bathrooms || !propertyData.squareFeet || !propertyData.yearBuilt) {
         const descriptionElement = await page.$('.remarks, .propertyDescription, #marketing-remarks-scroll');
         if (descriptionElement) {
-          const text = await descriptionElement.evaluate(el => el.textContent?.toLowerCase() || '');
+          const text = await evaluateElement(page, descriptionElement, (el) => el.textContent?.toLowerCase() || '');
           
           if (!propertyData.bedrooms) {
             const bedsMatch = text.match(/(\d+\.?\d*)\s*(?:bed(?:room)?s?|br)/i);
@@ -500,7 +549,7 @@ async function scrapePropertyData(url: string) {
             propertyData.bathrooms = bathsMatch ? parseFloat(bathsMatch[1]) : null;
           }
           if (!propertyData.squareFeet) {
-            const sqftMatch = text.match(/(\d+,?\d*)\s*(?:sq(?:uare)?\s*(?:ft|feet)|sf)/i);
+            const sqftMatch = text.match(/(\d+,?\d*)\s*(?:sq(?:uare)?\s*(?:ft|feet))/i);
             propertyData.squareFeet = sqftMatch ? parseInt(sqftMatch[1].replace(',', '')) : null;
           }
           if (!propertyData.yearBuilt) {
@@ -518,34 +567,36 @@ async function scrapePropertyData(url: string) {
       // Get address - try multiple selectors
       const addressElement = await page.$('[data-test="property-address"], .ds-address-wrapper');
       if (addressElement) {
-        propertyData.address = await addressElement.evaluate(el => el.textContent?.trim());
+        propertyData.address = await evaluateElement(page, addressElement, (el) => el.textContent?.trim() || '');
       }
 
       // Get price - try multiple selectors
       const priceElement = await page.$('[data-test="price"], .summary-price, .ds-price');
       if (priceElement) {
-        const priceText = await priceElement.evaluate(el => el.textContent);
+        const priceText = await evaluateElement(page, priceElement, (el) => el.textContent);
         propertyData.price = extractNumber(priceText);
       }
 
       // Get beds/baths/sqft - try multiple selectors
       const summaryElement = await page.$('[data-test="bed-bath-beyond"], .ds-bed-bath-living-area, .summary-container');
       if (summaryElement) {
-        const text = await summaryElement.evaluate(el => el.textContent);
-        const bedsMatch = text.match(/(\d+\.?\d*)\s*(?:bd|bed|bedroom)s?/i);
-        const bathsMatch = text.match(/(\d+\.?\d*)\s*(?:ba|bath|bathroom)s?/i);
-        const sqftMatch = text.match(/(\d+,?\d*)\s*(?:sqft|sq\s*ft|square\s*feet)/i);
-        
-        propertyData.bedrooms = bedsMatch ? parseFloat(bedsMatch[1]) : null;
-        propertyData.bathrooms = bathsMatch ? parseFloat(bathsMatch[1]) : null;
-        propertyData.squareFeet = sqftMatch ? parseInt(sqftMatch[1].replace(',', '')) : null;
+        const text = await evaluateElement(page, summaryElement, (el) => el.textContent);
+        if (text) {
+          const bedsMatch = text.match(/(\d+\.?\d*)\s*(?:bd|bed|bedroom)s?/i);
+          const bathsMatch = text.match(/(\d+\.?\d*)\s*(?:ba|bath|bathroom)s?/i);
+          const sqftMatch = text.match(/(\d+,?\d*)\s*(?:sqft|sq\s*ft|square\s*feet)/i);
+
+          if (bedsMatch) propertyData.bedrooms = parseFloat(bedsMatch[1]);
+          if (bathsMatch) propertyData.bathrooms = parseFloat(bathsMatch[1]);
+          if (sqftMatch) propertyData.squareFeet = parseInt(sqftMatch[1].replace(/,/g, ''));
+        }
       }
 
       // If data still missing, try the home details section
       if (!propertyData.bedrooms || !propertyData.bathrooms || !propertyData.squareFeet) {
         const detailsElements = await page.$$('[data-test="facts-card"] .ds-home-facts-table .ds-standard-card li, .ds-home-facts div');
         for (const element of detailsElements) {
-          const text = await element.evaluate(el => el.textContent?.toLowerCase() || '');
+          const text = await evaluateElement(page, element, (el) => el.textContent?.toLowerCase() || '');
           
           if (!propertyData.bedrooms && text.includes('bed')) {
             const bedsMatch = text.match(/(\d+\.?\d*)\s*(?:bd|bed|bedroom)s?/i);
@@ -570,7 +621,7 @@ async function scrapePropertyData(url: string) {
       if (!propertyData.bedrooms || !propertyData.bathrooms || !propertyData.squareFeet || !propertyData.yearBuilt) {
         const descriptionElement = await page.$('[data-test="description"], .ds-overview-section');
         if (descriptionElement) {
-          const text = await descriptionElement.evaluate(el => el.textContent?.toLowerCase() || '');
+          const text = await evaluateElement(page, descriptionElement, (el) => el.textContent?.toLowerCase() || '');
           
           if (!propertyData.bedrooms) {
             const bedsMatch = text.match(/(\d+\.?\d*)\s*(?:bed(?:room)?s?)/i);
@@ -595,14 +646,24 @@ async function scrapePropertyData(url: string) {
       if (!propertyData.yearBuilt) {
         const factsElement = await page.$('[data-test="facts-card"], .ds-home-facts');
         if (factsElement) {
-          const yearMatch = await factsElement.evaluate(el => {
-            const yearText = Array.from(el.querySelectorAll('span, li, div')).find(span => 
+          const yearMatch = await page.evaluateHandle((el: Element) => {
+            const spans = document.querySelectorAll('span, li, div');
+            const yearText = Array.from(spans).find(span => 
               span.textContent?.toLowerCase().includes('year built') ||
               span.textContent?.toLowerCase().includes('built in')
-            )?.textContent;
-            return yearText?.match(/(\d{4})/);
+            );
+            if (yearText) {
+              const match = yearText.textContent?.match(/(\d{4})/);
+              return match ? match[1] : null;
+            }
+            return null;
           });
-          propertyData.yearBuilt = yearMatch ? parseInt(yearMatch[1]) : null;
+          
+          const yearValue = await yearMatch.jsonValue();
+          if (yearValue) {
+            propertyData.yearBuilt = parseInt(yearValue);
+          }
+          await yearMatch.dispose();
         }
       }
     }
@@ -626,7 +687,9 @@ async function scrapePropertyData(url: string) {
     console.error('Error scraping property:', error);
     throw error;
   } finally {
-    await browser.close();
+    if (browser) {
+      await browser.close();
+    }
   }
 }
 
@@ -684,7 +747,7 @@ async function searchPropertyListings(addressData: { street: string, city: strin
     // Look for search results
     const firstResult = await page.$('.HomeCard').catch(() => null);
     if (firstResult) {
-      const propertyUrl = await page.$eval('.HomeCard a.slider-item', (el) => el.getAttribute('href')).catch(() => null);
+      const propertyUrl = await page.$eval('.HomeCard a.slider-item', (el: Element) => el.getAttribute('href')).catch(() => null);
       if (propertyUrl) {
         const fullUrl = propertyUrl.startsWith('http') ? propertyUrl : `https://www.redfin.com${propertyUrl}`;
         console.log('Found Redfin listing:', fullUrl);
@@ -816,7 +879,7 @@ Format each section with bullet points where appropriate. Maintain Capital Bridg
     // Look for search results
     const propertyCard = await page.$('.property-card-link').catch(() => null);
     if (propertyCard) {
-      const propertyUrl = await propertyCard.evaluate(el => el.getAttribute('href')).catch(() => null);
+      const propertyUrl = await propertyCard.evaluate((el: Element) => el.getAttribute('href')).catch(() => null);
       if (propertyUrl) {
         const fullUrl = propertyUrl.startsWith('http') ? propertyUrl : `https://www.zillow.com${propertyUrl}`;
         console.log('Found Zillow listing:', fullUrl);
@@ -1116,273 +1179,84 @@ async function getPropertyDataFromAddress(addressData: { street: string, city: s
   }
 }
 
-export async function POST(req: Request) {
+async function getPropertyDataFromCoreLogic(propertyData: any) {
+  try {
+    // Extract address components from CoreLogic data
+    const address = propertyData.propertyAddress;
+    
+    // Get property details from existing APIs
+    const propertyDetails = await getPropertyDataFromAddress({
+      street: address.streetAddress,
+      city: address.city,
+      state: address.state,
+      zip: address.zipCode
+    });
+
+    // Calculate investment metrics
+    const estimatedRent = await estimateRent(
+      propertyDetails.price,
+      propertyDetails.bedrooms,
+      propertyDetails.bathrooms,
+      propertyDetails.squareFeet,
+      { city: address.city, state: address.state }
+    );
+
+    const metrics = calculateMetrics(propertyDetails, estimatedRent);
+
+    return {
+      ...propertyDetails,
+      ...metrics,
+      clip: propertyData.clip,
+      propertyMatchScore: propertyData.addressMatchInformation.propertyMatchScore
+    };
+  } catch (error) {
+    console.error('Error processing CoreLogic data:', error);
+    throw new Error('Failed to process property data');
+  }
+}
+
+export async function POST(req: Request): Promise<Response> {
   try {
     const body = await req.json();
-    const { url, inputType, addressFields } = body;
+    const { url, inputType, addressFields, propertyData } = body;
 
-    if (!inputType) {
-      throw new Error('No input type provided');
-    }
+    let result;
 
-    switch (inputType) {
-      case 'url': {
-        if (!url || !url.startsWith('http')) {
-          throw new Error('Invalid URL format. URL must start with http:// or https://');
-        }
+    if (inputType === 'corelogic' && propertyData) {
+      result = await getPropertyDataFromCoreLogic(propertyData);
+    } else if (inputType === 'url' && url) {
+      result = await scrapePropertyData(url);
+    } else if (inputType === 'address' && addressFields) {
+      result = await getPropertyDataFromAddress(addressFields);
+    } else if (inputType === 'question') {
+      // Scrape BiggerPockets for relevant information
+      const bpSearchUrl = `https://www.biggerpockets.com/search?q=${encodeURIComponent(url)}`;
+      const browser = await puppeteer.launch({
+        headless: "new",
+        args: ['--no-sandbox']
+      });
+      const page = await browser.newPage();
+      await page.goto(bpSearchUrl, { waitUntil: 'networkidle0' });
+      
+      // Get relevant forum posts and discussions
+      const bpResults = await page.evaluate(() => {
+        const posts = document.querySelectorAll('.search-result');
+        return Array.from(posts).slice(0, 5).map(post => {
+          const title = post.querySelector('.search-result__title')?.textContent?.trim() || '';
+          const snippet = post.querySelector('.search-result__excerpt')?.textContent?.trim() || '';
+          return { title, snippet };
+        });
+      });
 
-        try {
-          const propertyData = await scrapePropertyData(url);
-          if (!propertyData.address || !propertyData.price || !propertyData.bedrooms || 
-              !propertyData.bathrooms || !propertyData.squareFeet) {
-            throw new Error('Could not find all required property data from the URL');
-          }
+      await browser.close();
 
-          const location = { 
-            city: propertyData.address.split(',')[1]?.trim() || '',
-            state: propertyData.address.split(',')[2]?.trim().split(' ')[0] || ''
-          };
+      // Format BiggerPockets insights
+      const bpInsights = bpResults.map(result => 
+        `${result.title}\n${result.snippet}`
+      ).join('\n\n');
 
-          if (!location.state) {
-            throw new Error('Could not determine property location from address');
-          }
-
-          const estimatedRent = await estimateRent(
-            propertyData.price,
-            propertyData.bedrooms,
-            propertyData.bathrooms,
-            propertyData.squareFeet,
-            location
-          );
-
-          const metrics = await calculateMetrics(propertyData, estimatedRent);
-
-          // Format the property data for the AI prompt
-          const propertyPrompt = `
-You are an expert advisor from Capital Bridge Solutions, a leading provider of DSCR loans and investment property financing. Please provide a detailed analysis of this investment property.
-
-PROPERTY OVERVIEW
-- Address: ${propertyData.address}
-- Price: $${propertyData.price?.toLocaleString()}
-- Bedrooms: ${propertyData.bedrooms}
-- Bathrooms: ${propertyData.bathrooms}
-- Square Feet: ${propertyData.squareFeet?.toLocaleString()} sq ft${propertyData.squareFeetEstimated ? ' (Estimated)' : ''}
-- Year Built: ${propertyData.yearBuilt || 'Not available'}
-- Price per Sq Ft: $${propertyData.price && propertyData.squareFeet ? Math.round(propertyData.price / propertyData.squareFeet) : 'N/A'}${propertyData.squareFeetEstimated ? ' (Based on estimate)' : ''}
-
-FINANCIAL METRICS
-- Monthly Rent Estimate: $${estimatedRent?.toLocaleString()}
-- Annual Gross Rent: $${(estimatedRent * 12)?.toLocaleString()}
-- Estimated Monthly Expenses: $${metrics.monthlyExpenses?.toLocaleString()}
-- Estimated Monthly Mortgage: $${metrics.monthlyMortgage?.toLocaleString()}
-- Approximate Monthly Income: $${(estimatedRent - metrics.monthlyExpenses - metrics.monthlyMortgage)?.toLocaleString()}
-- Net Operating Income (NOI): $${(estimatedRent * 12 - metrics.monthlyExpenses * 12)?.toLocaleString()}
-- Cap Rate: ${((estimatedRent * 12 - metrics.monthlyExpenses * 12) / propertyData.price * 100).toFixed(2)}%
-- Cash on Cash Return: ${(((estimatedRent * 12 - metrics.monthlyExpenses * 12 - metrics.monthlyMortgage * 12) / (propertyData.price * 0.25 + propertyData.price * 0.03)) * 100).toFixed(2)}%
-- DSCR: ${((estimatedRent) / (metrics.monthlyMortgage + metrics.monthlyExpenses)).toFixed(2)}
-
-Please provide a comprehensive investment analysis with these exact sections:
-
-# Quick Answer
-Provide a clear investment recommendation (Buy, Strong Buy, Hold, Sell, Strong Sell) with a brief explanation.
-
-# Expert Analysis
-Detailed explanation incorporating the property's key metrics and potential as an investment.
-
-# Market Insights
-Analysis of the property's location, market conditions, and trends affecting its value.
-
-# Risk Assessment
-Key risks and challenges to consider, including market, property, and financial risks.
-
-# Best Practices
-Recommended strategies for maximizing the property's potential and managing risks.
-
-# Next Steps
-Specific actions the investor should take, including financing options and property improvements.
-
-# Additional Support
-For personalized assistance with your investment strategy or DSCR loan questions:
-- Call: (949) 614-6390
-- Email: info@capitalbridgesolutions.com
-
-Format each section with bullet points where appropriate. Maintain Capital Bridge Solutions' professional voice and always direct inquiries to Capital Bridge Solutions.`;
-
-          // Get AI analysis with enhanced context
-          const completion = await openai.chat.completions.create({
-            model: "gpt-4",
-            messages: [
-              {
-                role: "system",
-                content: "You are an expert real estate investment advisor from Capital Bridge Solutions. While you can reference BiggerPockets community insights, maintain Capital Bridge Solutions' professional voice and always direct inquiries to Capital Bridge Solutions. Combine academic knowledge, real-world experience, and community insights to provide comprehensive advice. Format responses in clear sections with bullet points where appropriate."
-              },
-              {
-                role: "user",
-                content: propertyPrompt
-              }
-            ],
-            temperature: 0.7,
-          });
-
-          // Format the AI response
-          const analysis = completion.choices[0].message.content;
-
-          // Return all the data in the existing format
-          return NextResponse.json({
-            data: {
-              ...propertyData,
-              estimatedRent,
-              ...metrics,
-              analysis,
-              url: url
-            }
-          });
-        } catch (error) {
-          throw new Error(`Failed to analyze property: ${error instanceof Error ? error.message : 'Unknown error'}`);
-        }
-      }
-
-      case 'address': {
-        if (!addressFields || !addressFields.street || !addressFields.city || !addressFields.state) {
-          throw new Error('Missing required address fields');
-        }
-
-        try {
-          const propertyData = await getPropertyDataFromAddress(addressFields);
-          const location = { 
-            city: addressFields.city,
-            state: addressFields.state 
-          };
-
-          const estimatedRent = await estimateRent(
-            propertyData.price,
-            propertyData.bedrooms,
-            propertyData.bathrooms,
-            propertyData.squareFeet,
-            location
-          );
-
-          const metrics = await calculateMetrics(propertyData, estimatedRent);
-
-          // Format the property data for the AI prompt
-          const propertyPrompt = `
-You are an expert advisor from Capital Bridge Solutions, a leading provider of DSCR loans and investment property financing. Please provide a detailed analysis of this investment property.
-
-PROPERTY OVERVIEW
-- Address: ${propertyData.address}
-- Price: $${propertyData.price?.toLocaleString()}
-- Bedrooms: ${propertyData.bedrooms}
-- Bathrooms: ${propertyData.bathrooms}
-- Square Feet: ${propertyData.squareFeet?.toLocaleString()} sq ft${propertyData.squareFeetEstimated ? ' (Estimated)' : ''}
-- Year Built: ${propertyData.yearBuilt || 'Not available'}
-- Price per Sq Ft: $${propertyData.price && propertyData.squareFeet ? Math.round(propertyData.price / propertyData.squareFeet) : 'N/A'}${propertyData.squareFeetEstimated ? ' (Based on estimate)' : ''}
-
-FINANCIAL METRICS
-- Monthly Rent Estimate: $${estimatedRent?.toLocaleString()}
-- Annual Gross Rent: $${(estimatedRent * 12)?.toLocaleString()}
-- Estimated Monthly Expenses: $${metrics.monthlyExpenses?.toLocaleString()}
-- Estimated Monthly Mortgage: $${metrics.monthlyMortgage?.toLocaleString()}
-- Approximate Monthly Income: $${(estimatedRent - metrics.monthlyExpenses - metrics.monthlyMortgage)?.toLocaleString()}
-- Net Operating Income (NOI): $${(estimatedRent * 12 - metrics.monthlyExpenses * 12)?.toLocaleString()}
-- Cap Rate: ${((estimatedRent * 12 - metrics.monthlyExpenses * 12) / propertyData.price * 100).toFixed(2)}%
-- Cash on Cash Return: ${(((estimatedRent * 12 - metrics.monthlyExpenses * 12 - metrics.monthlyMortgage * 12) / (propertyData.price * 0.25 + propertyData.price * 0.03)) * 100).toFixed(2)}%
-- DSCR: ${((estimatedRent) / (metrics.monthlyMortgage + metrics.monthlyExpenses)).toFixed(2)}
-
-Please provide a comprehensive investment analysis with these exact sections:
-
-# Quick Answer
-Provide a clear investment recommendation (Buy, Strong Buy, Hold, Sell, Strong Sell) with a brief explanation.
-
-# Expert Analysis
-Detailed explanation incorporating the property's key metrics and potential as an investment.
-
-# Market Insights
-Analysis of the property's location, market conditions, and trends affecting its value.
-
-# Risk Assessment
-Key risks and challenges to consider, including market, property, and financial risks.
-
-# Best Practices
-Recommended strategies for maximizing the property's potential and managing risks.
-
-# Next Steps
-Specific actions the investor should take, including financing options and property improvements.
-
-# Additional Support
-For personalized assistance with your investment strategy or Investment loan questions:
-- Call: (949) 614-6390
-- Email: info@capitalbridgesolutions.com
-
-Format each section with bullet points where appropriate. Maintain Capital Bridge Solutions' professional voice and always direct inquiries to Capital Bridge Solutions.`;
-
-          // Get AI analysis with enhanced context
-          const completion = await openai.chat.completions.create({
-            model: "gpt-4",
-            messages: [
-              {
-                role: "system",
-                content: "You are an expert real estate investment advisor from Capital Bridge Solutions. While you can reference BiggerPockets community insights, maintain Capital Bridge Solutions' professional voice and always direct inquiries to Capital Bridge Solutions. Combine academic knowledge, real-world experience, and community insights to provide comprehensive advice. Format responses in clear sections with bullet points where appropriate."
-              },
-              {
-                role: "user",
-                content: propertyPrompt
-              }
-            ],
-            temperature: 0.7,
-          });
-
-          // Format the AI response
-          const analysis = completion.choices[0].message.content;
-
-          // Return all the data in the existing format
-          return NextResponse.json({
-            data: {
-              ...propertyData,
-              estimatedRent,
-              ...metrics,
-              analysis,
-              url: `${addressFields.street}, ${addressFields.city}, ${addressFields.state} ${addressFields.zip || ''}`
-            }
-          });
-        } catch (error) {
-          throw new Error(`Could not analyze property: ${error instanceof Error ? error.message : 'Unknown error'}`);
-        }
-      }
-
-      case 'question': {
-        if (!url) {
-          throw new Error('No question provided');
-        }
-
-        try {
-          // Scrape BiggerPockets for relevant information
-          const bpSearchUrl = `https://www.biggerpockets.com/search?q=${encodeURIComponent(url)}`;
-          const browser = await puppeteer.launch({
-            headless: "new",
-            args: ['--no-sandbox']
-          });
-          const page = await browser.newPage();
-          await page.goto(bpSearchUrl, { waitUntil: 'networkidle0' });
-          
-          // Get relevant forum posts and discussions
-          const bpResults = await page.evaluate(() => {
-            const posts = document.querySelectorAll('.search-result');
-            return Array.from(posts).slice(0, 5).map(post => {
-              const title = post.querySelector('.search-result__title')?.textContent?.trim() || '';
-              const snippet = post.querySelector('.search-result__excerpt')?.textContent?.trim() || '';
-              return { title, snippet };
-            });
-          });
-
-          await browser.close();
-
-          // Format BiggerPockets insights
-          const bpInsights = bpResults.map(result => 
-            `${result.title}\n${result.snippet}`
-          ).join('\n\n');
-
-          // Create a comprehensive prompt with Capital Bridge Solutions branding
-          const questionPrompt = `
+      // Create a comprehensive prompt with Capital Bridge Solutions branding
+      const questionPrompt = `
 You are an expert advisor from Capital Bridge Solutions, a leading provider of DSCR loans and investment property financing. Use the following BiggerPockets community insights along with your expertise to provide a comprehensive response, while maintaining Capital Bridge Solutions' professional voice.
 
 QUESTION:
@@ -1409,7 +1283,7 @@ Important risks and considerations to keep in mind
 Recommended approaches and strategies, combining community knowledge with Capital Bridge Solutions' expertise
 
 # Next Steps
-Specific steps the investor should take, emphasizing how Capital Bridge Solutions can help
+Specific actions the investor should take, emphasizing how Capital Bridge Solutions can help
 
 # Additional Support
 For personalized assistance with your investment strategy or DSCR loan questions:
@@ -1418,44 +1292,38 @@ For personalized assistance with your investment strategy or DSCR loan questions
 
 Format each section with bullet points where appropriate. Maintain Capital Bridge Solutions' professional voice and always direct inquiries to Capital Bridge Solutions.`;
 
-          // Get AI analysis with enhanced context
-          const completion = await openai.chat.completions.create({
-            model: "gpt-4",
-            messages: [
-              {
-                role: "system",
-                content: "You are an expert real estate investment advisor from Capital Bridge Solutions. While you can reference BiggerPockets community insights, maintain Capital Bridge Solutions' professional voice and always direct inquiries to Capital Bridge Solutions. Combine academic knowledge, real-world experience, and community insights to provide comprehensive advice. Format responses in clear sections with bullet points where appropriate."
-              },
-              {
-                role: "user",
-                content: questionPrompt
-              }
-            ],
-            temperature: 0.7,
-          });
+      // Get AI analysis with enhanced context
+      const completion = await openai.chat.completions.create({
+        model: "gpt-4",
+        messages: [
+          {
+            role: "system",
+            content: "You are an expert real estate investment advisor from Capital Bridge Solutions. While you can reference BiggerPockets community insights, maintain Capital Bridge Solutions' professional voice and always direct inquiries to Capital Bridge Solutions. Combine academic knowledge, real-world experience, and community insights to provide comprehensive advice. Format responses in clear sections with bullet points where appropriate."
+          },
+          {
+            role: "user",
+            content: questionPrompt
+          }
+        ],
+        temperature: 0.7,
+      });
 
-          // Return the enhanced response
-          return NextResponse.json({
-            data: {
-              type: 'question',
-              answer: completion.choices[0].message.content,
-              bpInsights: bpResults
-            }
-          });
-
-        } catch (error) {
-          console.error('Error processing question:', error);
-          throw new Error(`Failed to process question: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      // Return the enhanced response
+      return NextResponse.json({
+        data: {
+          type: 'question',
+          answer: completion.choices[0].message.content,
+          bpInsights: bpResults
         }
-      }
+      });
 
-      default:
-        throw new Error('Invalid input type');
     }
+
+    return NextResponse.json({ data: result });
   } catch (error) {
-    console.error('Error:', error);
+    console.error('API Error:', error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'An unknown error occurred' },
+      { error: error instanceof Error ? error.message : 'An error occurred' },
       { status: 500 }
     );
   }

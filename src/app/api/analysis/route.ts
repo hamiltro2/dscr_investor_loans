@@ -14,37 +14,42 @@ interface PropertyData {
   url: string;
 }
 
-function analyzeProperty(propertyData: PropertyData, downPaymentPercent: number) {
+function calculateMetrics(propertyData: PropertyData, downPaymentPercent: number) {
   const downPayment = propertyData.price * (downPaymentPercent / 100);
   const loanAmount = propertyData.price - downPayment;
+  const interestRate = 0.065; // Current market rate, adjust as needed
   
-  const inputs: LoanInputs = {
-    purchasePrice: propertyData.price,
-    loanAmount: loanAmount,
-    interestRate: 6.5, // 6.5% current market rate
-    loanTerm: 30, // 30-year fixed
-    monthlyRent: propertyData.estimatedRent,
-    operatingExpenses: propertyData.squareFeet * 1.5 / 12, // $1.50 per sqft annually
-    propertyTaxRate: 1.2, // 1.2% annual rate
-    insuranceCost: 1200, // $1200 annual insurance
-    vacancyRate: 5, // 5% vacancy rate
-    maintenanceReserve: 200 // $200 monthly maintenance reserve
-  };
+  // Monthly payment calculation
+  const monthlyRate = interestRate / 12;
+  const numberOfPayments = 30 * 12; // 30-year fixed
+  const monthlyPayment = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) /
+    (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
 
-  const metrics = calculateInvestmentMetrics(inputs);
+  // Operating expenses
+  const propertyTax = propertyData.price * 0.012 / 12; // 1.2% annual rate
+  const insurance = 1200 / 12; // $1200 annual insurance
+  const maintenance = propertyData.squareFeet * 1.5 / 12; // $1.50 per sqft annually
+  const vacancy = propertyData.estimatedRent * 0.05; // 5% vacancy rate
+  const propertyManagement = propertyData.estimatedRent * 0.08; // 8% property management fee
+
+  const monthlyExpenses = propertyTax + insurance + maintenance + vacancy + propertyManagement;
+  const monthlyCashFlow = propertyData.estimatedRent - monthlyPayment - monthlyExpenses;
   
+  const annualNOI = (propertyData.estimatedRent - monthlyExpenses) * 12;
+  const capRate = (annualNOI / propertyData.price) * 100;
+  const cashOnCashReturn = (monthlyCashFlow * 12 / downPayment) * 100;
+  const dscr = propertyData.estimatedRent / (monthlyPayment + monthlyExpenses);
+
   return {
     downPayment,
     loanAmount,
-    monthlyPayment: metrics.monthlyPayment,
-    monthlyExpenses: (inputs.operatingExpenses + (inputs.insuranceCost / 12) + 
-      (inputs.purchasePrice * inputs.propertyTaxRate / 100 / 12) + 
-      inputs.maintenanceReserve),
-    monthlyCashFlow: metrics.cashFlow / 12,
-    annualNOI: metrics.noi,
-    capRate: metrics.capRate,
-    cashOnCashReturn: metrics.roi,
-    dscr: metrics.dscr
+    monthlyPayment,
+    monthlyExpenses,
+    monthlyCashFlow,
+    annualNOI,
+    capRate,
+    cashOnCashReturn,
+    dscr
   };
 }
 
@@ -60,7 +65,7 @@ export async function POST(req: Request) {
     // Calculate metrics for different down payment scenarios
     const scenarios = [20, 25, 30].map(downPaymentPercent => {
       console.log(`Calculating scenario for ${downPaymentPercent}% down payment`);
-      const metrics = analyzeProperty(propertyData, downPaymentPercent);
+      const metrics = calculateMetrics(propertyData, downPaymentPercent);
       console.log(`Metrics for ${downPaymentPercent}%:`, metrics);
       return {
         downPaymentPercent,
@@ -88,40 +93,36 @@ Property Details:
   * Cap Rate: ${bestScenario.capRate.toFixed(2)}%
   * DSCR: ${bestScenario.dscr.toFixed(2)}
 
-Format your response using this exact structure and HTML tags:
+Format your response using bold uppercase text for main sections and subsections. For example:
 
-<h1>Overall Investment Recommendation</h1>
+**OVERALL INVESTMENT RECOMMENDATION**
 [1-2 paragraphs explaining whether to BUY, SELL, or HOLD and why. Mention that Capital Bridge Solutions can help structure the optimal financing solution.]
 
-<h1>Key Metrics Analysis</h1>
-<h2>Financial Performance</h2>
+**KEY METRICS ANALYSIS**
+**FINANCIAL PERFORMANCE**
 - Cap Rate: [Analysis of the cap rate]
 - Cash Flow: [Analysis of the monthly and annual cash flow]
 - DSCR: [Analysis of the debt service coverage ratio]
 
-<h2>Market Analysis</h2>
+**MARKET ANALYSIS**
 - Location: [Analysis of the property location and market conditions]
 - Property Type: [Analysis of the property type and its implications]
 - Risk Factors: [Discussion of key risk factors]
 
-<h1>Next Steps with Capital Bridge Solutions</h1>
-<h2>Take Action Now</h2>
-- <strong>Call Us Today:</strong> Contact Capital Bridge Solutions at (949) 614-6390 to discuss your financing options and get expert guidance on this investment opportunity.
-- <strong>Quick Application:</strong> Fill out our simple form to get pre-approved and receive a custom financing solution tailored to this property.
-- <strong>Expert Consultation:</strong> Our team will analyze your investment goals and structure the optimal loan terms to maximize your returns.
+**NEXT STEPS WITH CAPITAL BRIDGE SOLUTIONS**
+**TAKE ACTION NOW**
+- Contact Capital Bridge Solutions at (949) 614-6390 to discuss your financing options and get expert guidance on this investment opportunity.
+- Fill out our simple form to get pre-approved and receive a custom financing solution tailored to this property.
+- Our team will analyze your investment goals and structure the optimal loan terms to maximize your returns.
 
-<h2>Value-Add Opportunities</h2>
-- [2-3 bullet points focusing on how Capital Bridge Solutions can help improve the investment returns]
+**VALUE-ADD OPPORTUNITIES**
+[2-3 bullet points focusing on how Capital Bridge Solutions can help improve the investment returns]
 
-<h2>Risk Mitigation</h2>
-- [2-3 bullet points emphasizing how working with Capital Bridge Solutions can help minimize investment risks]
+**RISK MITIGATION**
+[2-3 bullet points emphasizing how working with Capital Bridge Solutions can help minimize investment risks]
 
-<div class="cta-box">
-<strong>Ready to Move Forward?</strong>
-Don't miss out on this investment opportunity. Contact Capital Bridge Solutions now at (949) 614-6390 or fill out our quick form to get started. Our team of experts is ready to help you structure the perfect financing solution for this property.
-</div>
-
-Make the analysis data-driven but easy to understand. Use bullet points for lists and <strong>bold text</strong> for emphasis. Always emphasize the benefits of working with Capital Bridge Solutions.`;
+**READY TO MOVE FORWARD?**
+Don't miss out on this investment opportunity. Contact Capital Bridge Solutions now at (949) 614-6390 or fill out our quick form to get started. Our team of experts is ready to help you structure the perfect financing solution for this property.`;
 
     console.log('Sending prompt to OpenAI API');
     
@@ -168,11 +169,23 @@ Make the analysis data-driven but easy to understand. Use bullet points for list
       // Format the response to ensure numbered items are on separate lines
       let formattedResponse = analysis;
       
-      // Format numbered lists in Key Points and other sections
-      formattedResponse = formattedResponse.replace(/(\d+\..*?)(?=\d+\.|$)/g, '$1\n');
+      // Format numbered lists to use proper numbering and spacing
+      formattedResponse = formattedResponse.replace(
+        /(\d+)\.\s+([^\n]+)/g,
+        '<div class="flex gap-2 mb-2"><span class="font-bold">$1.</span><span>$2</span></div>'
+      );
       
-      // Add extra line break after section headers
-      formattedResponse = formattedResponse.replace(/(Key Points|Additional Resources)\n/g, '$1\n\n');
+      // Format bullet points
+      formattedResponse = formattedResponse.replace(
+        /^-\s+(.+)$/gm,
+        '<li class="ml-8 mb-2">$1</li>'
+      );
+      
+      // Format section headers (bold uppercase)
+      formattedResponse = formattedResponse.replace(
+        /\*\*([^*]+)\*\*/g,
+        '<h4 class="text-lg font-bold uppercase mb-3">$1</h4>'
+      );
       
       // Ensure consistent spacing between sections
       formattedResponse = formattedResponse.replace(/\n{3,}/g, '\n\n');

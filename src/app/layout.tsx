@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat' })
 
 export const metadata: Metadata = {
-  title: 'DSCR Loan Leads - Investment Property Financing Solutions',
+  title: 'CAPITAL BRIDGE SOLUTIONS - DSCR LOANS - HARD MONEY LOANS - SELF-EMPLOYED INVESTOR LOANS - Investment Property Financing Solutions',
   description: 'Specialized lending solutions for real estate investors. DSCR loans, hard money loans, and refinancing options with no tax returns required.',
 }
 
