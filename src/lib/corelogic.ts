@@ -56,8 +56,11 @@ export class CoreLogicAPI {
   private async apiRequest<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
     try {
       const token = await this.getAccessToken();
+      const apiUrl = `${this.baseUrl}${endpoint}`;
+      
+      console.log('Making API request to:', apiUrl);
 
-      const response = await fetch(`${this.baseUrl}${endpoint}`, {
+      const response = await fetch(apiUrl, {
         ...options,
         headers: {
           ...options.headers,
@@ -68,12 +71,14 @@ export class CoreLogicAPI {
         }
       });
 
+      const responseText = await response.text();
+      console.log('API Response:', responseText);
+
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`API request failed: ${response.status} ${errorText}`);
+        throw new Error(`API request failed: ${response.status} ${responseText}`);
       }
 
-      return response.json();
+      return JSON.parse(responseText);
     } catch (error) {
       console.error('API request failed:', error);
       throw error;
@@ -82,9 +87,18 @@ export class CoreLogicAPI {
 
   async searchProperty(request: PropertySearchRequest): Promise<PropertySearchResponse> {
     try {
-      return await this.apiRequest<PropertySearchResponse>('/property/v2/search', {
+      console.log('Searching property with request:', request);
+      return await this.apiRequest<PropertySearchResponse>('/property/v1/search', {
         method: 'POST',
-        body: JSON.stringify(request)
+        body: JSON.stringify({
+          address: {
+            street: request.streetAddress,
+            city: request.city,
+            state: request.state,
+            zip: request.zipCode
+          },
+          bestMatch: request.bestMatch
+        })
       });
     } catch (error) {
       console.error('Property search failed:', error);

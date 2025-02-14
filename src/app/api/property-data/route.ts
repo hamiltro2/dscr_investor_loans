@@ -3,7 +3,8 @@ import axios from 'axios';
 import puppeteer, { ElementHandle, Page } from 'puppeteer';
 import * as cheerio from 'cheerio';
 import OpenAI from 'openai';
-import { PropertyDetails } from '@/types/corelogic';
+import { PropertyDetails, PropertySearchRequest } from '@/types/corelogic';
+import coreLogicAPI from '@/lib/corelogic';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
@@ -751,7 +752,8 @@ async function searchPropertyListings(addressData: { street: string, city: strin
 
     // Try Redfin first
     console.log('Trying Redfin...');
-    const redfinSearchUrl = `https://www.redfin.com/city/${city.replace(/\s+/g, '-')}-${state}/filter/property-type=house+multifamily+condo+townhouse+land,search=${encodeURIComponent(street)}`;
+    const formattedCity = city.replace(/\s+/g, '-');
+    const redfinSearchUrl = `https://www.redfin.com/search/in-${formattedCity}-${state}?location=${encodeURIComponent(`${street}, ${city}, ${state} ${zip}`)}`;
     console.log('Redfin search URL:', redfinSearchUrl);
     
     await page.goto(redfinSearchUrl, { 
@@ -762,9 +764,9 @@ async function searchPropertyListings(addressData: { street: string, city: strin
     await page.screenshot({ path: 'redfin-debug.png' });
     
     // Look for search results
-    const firstResult = await page.$('.HomeCard').catch(() => null);
+    const firstResult = await page.$('[data-rf-test-name="HomeCard"]').catch(() => null);
     if (firstResult) {
-      const propertyUrl = await page.$eval('.HomeCard a.slider-item', (el: Element) => el.getAttribute('href')).catch(() => null);
+      const propertyUrl = await page.$eval('[data-rf-test-name="HomeCard"] a.slider-item', (el: Element) => el.getAttribute('href')).catch(() => null);
       if (propertyUrl) {
         const fullUrl = propertyUrl.startsWith('http') ? propertyUrl : `https://www.redfin.com${propertyUrl}`;
         console.log('Found Redfin listing:', fullUrl);
@@ -885,7 +887,7 @@ Format each section with bullet points where appropriate. Maintain Capital Bridg
     // Try Zillow
     console.log('Trying Zillow...');
     const fullAddress = `${street}, ${city}, ${state} ${zip}`;
-    const zillowSearchUrl = `https://www.zillow.com/homes/${encodeURIComponent(fullAddress)}_rb/`;
+    const zillowSearchUrl = `https://www.zillow.com/homes/${encodeURIComponent(fullAddress)}`;
     console.log('Zillow search URL:', zillowSearchUrl);
     
     await page.goto(zillowSearchUrl, { 
@@ -895,10 +897,10 @@ Format each section with bullet points where appropriate. Maintain Capital Bridg
 
     await page.screenshot({ path: 'zillow-debug.png' });
     
-    // Look for search results
-    const propertyCard = await page.$('.property-card-link').catch(() => null);
+    // Look for search results with updated selectors
+    const propertyCard = await page.$('[data-test="property-card"]').catch(() => null);
     if (propertyCard) {
-      const propertyUrl = await propertyCard.evaluate((el: Element) => el.getAttribute('href')).catch(() => null);
+      const propertyUrl = await propertyCard.$eval('a', (el: Element) => el.getAttribute('href')).catch(() => null);
       if (propertyUrl) {
         const fullUrl = propertyUrl.startsWith('http') ? propertyUrl : `https://www.zillow.com${propertyUrl}`;
         console.log('Found Zillow listing:', fullUrl);
@@ -1036,15 +1038,114 @@ Format each section with bullet points where appropriate. Maintain Capital Bridg
 
 async function getPropertyDataFromAddress(addressData: { street: string, city: string, state: string, zip: string }): Promise<PropertyData | null> {
   try {
-    const listingData = await searchPropertyListings(addressData) as PropertySearchResponse;
-    if (listingData.success) {
-      console.log(`Found property data from ${listingData.source || 'unknown source'}`);
-      return listingData.data;
+    console.log('Searching CoreLogic with address:', addressData);
+      
+    // Search for property using CoreLogic
+    const searchRequest: PropertySearchRequest = {
+      streetAddress: addressData.street,
+      city: addressData.city,
+      state: addressData.state,
+      zipCode: addressData.zip,
+      bestMatch: true
+    };
+
+    console.log('Making CoreLogic search request:', searchRequest);
+    const searchResponse = await coreLogicAPI.searchProperty(searchRequest);
+    console.log('CoreLogic search response:', searchResponse);
+
+    if (searchResponse.properties && searchResponse.properties.length > 0) {
+      const propertyId = searchResponse.properties[0].propertyId;
+      console.log('Found property ID:', propertyId);
+        
+      // Get full analysis for the first matching property
+      const result = await coreLogicAPI.analyzeInvestmentPotential(propertyId);
+      console.log('Analysis complete');
+      return result;
+    } else {
+      console.log('No properties found');
+      return null;
     }
-    return null;
   } catch (error) {
     console.error('Error in getPropertyDataFromAddress:', error);
     return null;
+  }
+}
+
+async function getPropertyDataFromCoreLogic(propertyData: PropertyDetails) {
+  try {
+    // Extract address components from CoreLogic data
+    const address = propertyData.address;
+
+    // Get property details from existing APIs
+    const propertyDetails = await getPropertyDataFromAddress({
+      street: address.streetAddress,
+      city: address.city,
+      state: address.state,
+      zip: address.zipCode
+    });
+
+    if (!propertyDetails) {
+      throw new Error('Could not find property details');
+    }
+
+    return propertyDetails;
+  } catch (error) {
+    console.error('Error in getPropertyDataFromCoreLogic:', error);
+    throw error;
+  }
+}
+
+export async function POST(req: Request): Promise<Response> {
+  try {
+    const body = await req.json();
+    const { inputType, addressFields, propertyData } = body;
+
+    let result;
+
+    if (inputType === 'corelogic' && propertyData) {
+      result = await coreLogicAPI.analyzeInvestmentPotential(propertyData.propertyId);
+    } else if (inputType === 'address' && addressFields) {
+      console.log('Searching CoreLogic with address:', addressFields);
+      
+      // Search for property using CoreLogic
+      const searchRequest: PropertySearchRequest = {
+        streetAddress: addressFields.street,
+        city: addressFields.city,
+        state: addressFields.state,
+        zipCode: addressFields.zip,
+        bestMatch: true
+      };
+
+      console.log('Making CoreLogic search request:', searchRequest);
+      const searchResponse = await coreLogicAPI.searchProperty(searchRequest);
+      console.log('CoreLogic search response:', searchResponse);
+
+      if (searchResponse.properties && searchResponse.properties.length > 0) {
+        const propertyId = searchResponse.properties[0].propertyId;
+        console.log('Found property ID:', propertyId);
+        
+        // Get full analysis for the first matching property
+        result = await coreLogicAPI.analyzeInvestmentPotential(propertyId);
+        console.log('Analysis complete');
+      } else {
+        console.log('No properties found');
+        return NextResponse.json({ 
+          error: 'No properties found matching the provided address' 
+        }, { status: 404 });
+      }
+    } else {
+      return NextResponse.json({ 
+        error: 'Invalid input type or missing required fields' 
+      }, { status: 400 });
+    }
+
+    return NextResponse.json({ data: result });
+  } catch (error) {
+    console.error('API Error:', error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'An error occurred' },
+      { status: 500 }
+    );
   }
 }
 
@@ -1136,147 +1237,4 @@ async function calculateMetrics(propertyData: any, estimatedRent: number) {
     cashOnCash: Math.round(cashOnCash * 100) / 100,
     dscr: Math.round(dscr * 100) / 100
   };
-}
-
-async function getPropertyDataFromCoreLogic(propertyData: PropertyDetails) {
-  try {
-    // Extract address components from CoreLogic data
-    const address = propertyData.address;
-
-    // Get property details from existing APIs
-    const propertyDetails = await getPropertyDataFromAddress({
-      street: address.streetAddress,
-      city: address.city,
-      state: address.state,
-      zip: address.zipCode
-    });
-
-    if (!propertyDetails) {
-      throw new Error('Could not find property details');
-    }
-
-    return propertyDetails;
-  } catch (error) {
-    console.error('Error in getPropertyDataFromCoreLogic:', error);
-    throw error;
-  }
-}
-
-export async function POST(req: Request): Promise<Response> {
-  try {
-    const body = await req.json();
-    const { url, inputType, addressFields, propertyData } = body;
-
-    let result;
-
-    if (inputType === 'corelogic' && propertyData) {
-      result = await getPropertyDataFromCoreLogic(propertyData);
-    } else if (inputType === 'url' && url) {
-      result = await scrapePropertyData(url);
-    } else if (inputType === 'address' && addressFields) {
-      result = await getPropertyDataFromAddress(addressFields);
-    } else if (inputType === 'question') {
-      // Scrape BiggerPockets for relevant information
-      const bpSearchUrl = `https://www.biggerpockets.com/search?q=${encodeURIComponent(url)}`;
-      const browser = await puppeteer.launch({
-        headless: true,
-        args: [
-          '--no-sandbox',
-          '--disable-setuid-sandbox',
-          '--disable-dev-shm-usage',
-          '--disable-gpu'
-        ]
-      });
-      const page = await browser.newPage();
-      await page.goto(bpSearchUrl, { waitUntil: 'networkidle0' });
-      
-      // Get relevant forum posts and discussions
-      const bpResults = await page.evaluate(() => {
-        const posts = document.querySelectorAll('.search-result');
-        return Array.from(posts).slice(0, 5).map(post => {
-          const title = post.querySelector('.search-result__title')?.textContent?.trim() || '';
-          const snippet = post.querySelector('.search-result__excerpt')?.textContent?.trim() || '';
-          return { title, snippet };
-        });
-      });
-
-      await browser.close();
-
-      // Format BiggerPockets insights
-      const bpInsights = bpResults.map(result => 
-        `${result.title}\n${result.snippet}`
-      ).join('\n\n');
-
-      // Create a comprehensive prompt with Capital Bridge Solutions branding
-      const questionPrompt = `
-You are an expert advisor from Capital Bridge Solutions, a leading provider of DSCR loans and investment property financing. Use the following BiggerPockets community insights along with your expertise to provide a comprehensive response, while maintaining Capital Bridge Solutions' professional voice.
-
-QUESTION:
-${url}
-
-BIGGERPOCKETS RESEARCH:
-${bpInsights}
-
-Please structure your response with these exact section titles:
-
-# Quick Answer
-Provide a concise, direct answer to the question
-
-# Expert Analysis
-Detailed explanation incorporating both BiggerPockets insights and Capital Bridge Solutions' expertise
-
-# Market Insights
-Current market conditions and trends related to this topic, referencing relevant BiggerPockets discussions
-
-# Risk Assessment
-Important risks and challenges to consider, including market, property, and financial risks.
-
-# Best Practices
-Recommended approaches and strategies, combining community knowledge with Capital Bridge Solutions' expertise
-
-# Next Steps
-Specific actions the investor should take, emphasizing how Capital Bridge Solutions can help
-
-# Additional Support
-For personalized assistance with your investment strategy or DSCR loan questions:
-- Call: (949) 614-6390
-- Email: info@capitalbridgesolutions.com
-
-Format each section with bullet points where appropriate. Maintain Capital Bridge Solutions' professional voice and always direct inquiries to Capital Bridge Solutions.`;
-
-      // Get AI analysis with enhanced context
-      const completion = await openai.chat.completions.create({
-        model: "gpt-4",
-        messages: [
-          {
-            role: "system",
-            content: "You are an expert real estate investment advisor from Capital Bridge Solutions. While you can reference BiggerPockets community insights, maintain Capital Bridge Solutions' professional voice and always direct inquiries to Capital Bridge Solutions. Combine academic knowledge, real-world experience, and community insights to provide comprehensive advice. Format responses in clear sections with bullet points where appropriate."
-          },
-          {
-            role: "user",
-            content: questionPrompt
-          }
-        ],
-        temperature: 0.7,
-      });
-
-      // Return the enhanced response
-      return NextResponse.json({
-        data: {
-          type: 'question',
-          answer: completion.choices[0].message.content,
-          bpInsights: bpResults
-        }
-      });
-
-    }
-
-    return NextResponse.json({ data: result });
-  } catch (error) {
-    console.error('API Error:', error);
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'An error occurred' },
-      { status: 500 }
-    );
-  }
 }
