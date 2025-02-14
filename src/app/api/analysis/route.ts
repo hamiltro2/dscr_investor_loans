@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import axios from 'axios';
-import { calculateMetrics } from '@/lib/calculations';
+import { calculateInvestmentMetrics, type LoanInputs } from '@/lib/calculations';
 
 interface PropertyData {
   price: number;
@@ -14,42 +14,37 @@ interface PropertyData {
   url: string;
 }
 
-function calculateMetrics(propertyData: PropertyData, downPaymentPercent: number) {
+function analyzeProperty(propertyData: PropertyData, downPaymentPercent: number) {
   const downPayment = propertyData.price * (downPaymentPercent / 100);
   const loanAmount = propertyData.price - downPayment;
-  const interestRate = 0.065; // Current market rate, adjust as needed
   
-  // Monthly payment calculation
-  const monthlyRate = interestRate / 12;
-  const numberOfPayments = 30 * 12; // 30-year fixed
-  const monthlyPayment = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) /
-    (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
+  const inputs: LoanInputs = {
+    purchasePrice: propertyData.price,
+    loanAmount: loanAmount,
+    interestRate: 6.5, // 6.5% current market rate
+    loanTerm: 30, // 30-year fixed
+    monthlyRent: propertyData.estimatedRent,
+    operatingExpenses: propertyData.squareFeet * 1.5 / 12, // $1.50 per sqft annually
+    propertyTaxRate: 1.2, // 1.2% annual rate
+    insuranceCost: 1200, // $1200 annual insurance
+    vacancyRate: 5, // 5% vacancy rate
+    maintenanceReserve: 200 // $200 monthly maintenance reserve
+  };
 
-  // Operating expenses
-  const propertyTax = propertyData.price * 0.012 / 12; // 1.2% annual rate
-  const insurance = 1200 / 12; // $1200 annual insurance
-  const maintenance = propertyData.squareFeet * 1.5 / 12; // $1.50 per sqft annually
-  const vacancy = propertyData.estimatedRent * 0.05; // 5% vacancy rate
-  const propertyManagement = propertyData.estimatedRent * 0.08; // 8% property management fee
-
-  const monthlyExpenses = propertyTax + insurance + maintenance + vacancy + propertyManagement;
-  const monthlyCashFlow = propertyData.estimatedRent - monthlyPayment - monthlyExpenses;
+  const metrics = calculateInvestmentMetrics(inputs);
   
-  const annualNOI = (propertyData.estimatedRent - monthlyExpenses) * 12;
-  const capRate = (annualNOI / propertyData.price) * 100;
-  const cashOnCashReturn = (monthlyCashFlow * 12 / downPayment) * 100;
-  const dscr = propertyData.estimatedRent / (monthlyPayment + monthlyExpenses);
-
   return {
     downPayment,
     loanAmount,
-    monthlyPayment,
-    monthlyExpenses,
-    monthlyCashFlow,
-    annualNOI,
-    capRate,
-    cashOnCashReturn,
-    dscr
+    monthlyPayment: metrics.monthlyPayment,
+    monthlyExpenses: (inputs.operatingExpenses + (inputs.insuranceCost / 12) + 
+      (inputs.purchasePrice * inputs.propertyTaxRate / 100 / 12) + 
+      inputs.maintenanceReserve),
+    monthlyCashFlow: metrics.cashFlow / 12,
+    annualNOI: metrics.noi,
+    capRate: metrics.capRate,
+    cashOnCashReturn: metrics.roi,
+    dscr: metrics.dscr
   };
 }
 
@@ -65,7 +60,7 @@ export async function POST(req: Request) {
     // Calculate metrics for different down payment scenarios
     const scenarios = [20, 25, 30].map(downPaymentPercent => {
       console.log(`Calculating scenario for ${downPaymentPercent}% down payment`);
-      const metrics = calculateMetrics(propertyData, downPaymentPercent);
+      const metrics = analyzeProperty(propertyData, downPaymentPercent);
       console.log(`Metrics for ${downPaymentPercent}%:`, metrics);
       return {
         downPaymentPercent,
