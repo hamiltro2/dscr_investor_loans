@@ -213,9 +213,9 @@ export default function InvestorAnalysisPage() {
               {answer && (
                 <div className="mt-4 bg-gray-700/50 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-4 border-b border-gray-600 pb-3">
-                    <h3 className="text-xl font-semibold text-cyan-400">Capital Bridge Solutions</h3>
-                    <span className="text-gray-400">|</span>
-                    <span className="text-sm text-gray-400">Advanced AI Investment Response</span>
+                    <h3 className="text-xl font-semibold text-cyan-400 leading-none">Capital Bridge Solutions</h3>
+                    <span className="text-gray-400 leading-none">|</span>
+                    <span className="text-sm text-gray-400 leading-none pt-0.5">Advanced AI Investment Response</span>
                   </div>
                   <div className="prose prose-invert prose-blue max-w-none">
                     <div className="text-white" dangerouslySetInnerHTML={{ __html: answer }} />
