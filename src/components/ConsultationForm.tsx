@@ -131,10 +131,9 @@ export default function ConsultationForm({ isOpen, onClose, serviceType }: Consu
                           id="name"
                           name="name"
                           required
-                          disabled={isSubmitting}
-                          className="input"
+                          className="w-full px-4 py-2 text-black rounded-lg border border-dark-700 bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                           value={formData.name}
-                          onChange={handleChange}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         />
                       </div>
 
@@ -147,10 +146,9 @@ export default function ConsultationForm({ isOpen, onClose, serviceType }: Consu
                           id="email"
                           name="email"
                           required
-                          disabled={isSubmitting}
-                          className="input"
+                          className="w-full px-4 py-2 text-black rounded-lg border border-dark-700 bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                           value={formData.email}
-                          onChange={handleChange}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         />
                       </div>
 
@@ -163,10 +161,9 @@ export default function ConsultationForm({ isOpen, onClose, serviceType }: Consu
                           id="phone"
                           name="phone"
                           required
-                          disabled={isSubmitting}
-                          className="input"
+                          className="w-full px-4 py-2 text-black rounded-lg border border-dark-700 bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                           value={formData.phone}
-                          onChange={handleChange}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         />
                       </div>
 
@@ -177,7 +174,7 @@ export default function ConsultationForm({ isOpen, onClose, serviceType }: Consu
                         <select
                           id="preferredTime"
                           name="preferredTime"
-                          className="select"
+                          className="w-full px-4 py-2 text-black rounded-lg border border-dark-700 bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                           value={formData.preferredTime}
                           onChange={handleChange}
                           required
@@ -198,10 +195,9 @@ export default function ConsultationForm({ isOpen, onClose, serviceType }: Consu
                           id="message"
                           name="message"
                           rows={4}
-                          className="textarea"
+                          className="w-full px-4 py-2 text-black rounded-lg border border-dark-700 bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                           value={formData.message}
-                          onChange={handleChange}
-                          disabled={isSubmitting}
+                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         ></textarea>
                       </div>
 

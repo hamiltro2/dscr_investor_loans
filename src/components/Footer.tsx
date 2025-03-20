@@ -47,8 +47,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/investor-analysis" className="text-gray-400 hover:text-primary-500 transition-colors">
-                  AI Real Estate Investor Analysis
+                <Link
+                  href="/investor-analysis"
+                  className="text-gray-300 hover:text-white transition duration-150 ease-in-out"
+                >
+                  AI Real Estate Investor Query
                 </Link>
               </li>
             </ul>

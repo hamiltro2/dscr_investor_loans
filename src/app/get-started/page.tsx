@@ -8,8 +8,8 @@ export default function GetStarted() {
       <section className="bg-gradient-dark py-16">
         <div className="container">
           <div className="text-center mb-12">
-            <h1 className="font-display text-4xl md:text-5xl font-bold mb-4 text-dark-50 bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text text-transparent">
-              Start Your Incredible Investment Journey Now!
+            <h1 className="font-display text-4xl md:text-5xl font-bold mb-4 text-blue-500">
+              Start Your Successful Investment Journey Now!
             </h1>
             <p className="text-xl text-dark-200 max-w-2xl mx-auto">
               Fill out the form below and we'll help you find the perfect loan solution for your needs.

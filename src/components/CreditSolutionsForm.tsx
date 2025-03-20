@@ -101,9 +101,9 @@ export default function CreditSolutionsForm() {
             name="name"
             required
             disabled={isSubmitting}
-            className="input"
+            className="w-full px-4 py-2 text-black rounded-lg border border-dark-700 bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             value={formData.name}
-            onChange={handleChange}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           />
         </div>
 
@@ -117,9 +117,9 @@ export default function CreditSolutionsForm() {
             name="email"
             required
             disabled={isSubmitting}
-            className="input"
+            className="w-full px-4 py-2 text-black rounded-lg border border-dark-700 bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             value={formData.email}
-            onChange={handleChange}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           />
         </div>
 
@@ -133,9 +133,9 @@ export default function CreditSolutionsForm() {
             name="phone"
             required
             disabled={isSubmitting}
-            className="input"
+            className="w-full px-4 py-2 text-black rounded-lg border border-dark-700 bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             value={formData.phone}
-            onChange={handleChange}
+            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
           />
         </div>
 
@@ -148,7 +148,7 @@ export default function CreditSolutionsForm() {
             name="creditScore"
             required
             disabled={isSubmitting}
-            className="input"
+            className="w-full px-4 py-2 text-black rounded-lg border border-dark-700 bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             value={formData.creditScore}
             onChange={handleChange}
           >
@@ -172,12 +172,11 @@ export default function CreditSolutionsForm() {
             rows={4}
             required
             disabled={isSubmitting}
-            className="textarea"
+            className="w-full px-4 py-2 text-black rounded-lg border border-dark-700 bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             value={formData.message}
-            onChange={handleChange}
-            spellCheck="false"
-            suppressHydrationWarning
-          ></textarea>
+            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+            placeholder="Tell us about your credit situation and goals..."
+          />
         </div>
 
         <button

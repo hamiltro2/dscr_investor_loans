@@ -1,9 +1,5 @@
 import { NextResponse } from 'next/server';
-import OpenAI from 'openai';
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+import { getAIResponse, formatAIResponse } from '@/lib/ai';
 
 export async function POST(request: Request) {
   try {
@@ -43,35 +39,21 @@ export async function POST(request: Request) {
       `;
     }
 
-    const completion = await openai.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content: "You are an expert real estate investment advisor with deep knowledge of DSCR loans, rental properties, and investment strategies. Provide clear, actionable advice with specific numbers and calculations when relevant."
-        },
-        {
-          role: "user",
-          content: prompt
-        }
-      ],
-      model: "gpt-4-turbo-preview",
-      temperature: 0.7,
-    });
+    const systemPrompt = "You are an expert real estate investment advisor with deep knowledge of DSCR loans, rental properties, and investment strategies. Provide clear, actionable advice with specific numbers and calculations when relevant.";
 
-    const answer = completion.choices[0].message.content;
+    const { content: answer, provider } = await getAIResponse(prompt, systemPrompt);
 
     if (!answer) {
       return NextResponse.json({ error: 'Failed to generate answer' }, { status: 500 });
     }
 
-    // Convert markdown to HTML
-    const formattedAnswer = answer
-      .replace(/\n/g, '<br>')
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/# (.*?)(\n|$)/g, '<h2 class="text-xl font-semibold mb-3">$1</h2>')
-      .replace(/## (.*?)(\n|$)/g, '<h3 class="text-lg font-semibold mb-2">$1</h3>');
+    // Format the response
+    const formattedAnswer = formatAIResponse(answer);
 
-    return NextResponse.json({ answer: formattedAnswer });
+    return NextResponse.json({ 
+      answer: formattedAnswer,
+      provider // Include the provider in the response for monitoring
+    });
   } catch (error) {
     console.error('Error processing question:', error);
     return NextResponse.json(

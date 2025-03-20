@@ -107,27 +107,45 @@ export default function Home() {
   const testimonials = [
     {
       author: {
-        name: 'John D.',
-        handle: '@johndoe',
-        imageUrl: 'https://example.com/johndoe.jpg'
+        name: 'Michael Thompson',
+        role: 'Real Estate Investor',
+        location: 'San Francisco, CA'
       },
-      body: 'The process was incredibly smooth. Got approved much faster than expected!'
+      body: 'Their DSCR loan program helped me expand my portfolio from 3 to 12 properties in just 18 months. The streamlined process and competitive rates made scaling my business possible.',
+      highlight: 'Portfolio expanded from 3 to 12 properties'
     },
     {
       author: {
-        name: 'Sarah M.',
-        handle: '@sarahm',
-        imageUrl: 'https://example.com/sarahm.jpg'
+        name: 'Sandra Martinez',
+        role: 'Commercial Property Developer',
+        location: 'Austin, TX'
       },
-      body: 'Best rates I\'ve found for investment properties. Highly recommend!'
+      body: 'The construction loan terms were exactly what we needed for our mixed-use development. Their team understood the complexities of our project and provided solutions at every step.',
+      highlight: '$14M mixed-use development funded'
     },
     {
       author: {
-        name: 'Mike R.',
-        handle: '@miker',
-        imageUrl: 'https://example.com/miker.jpg'
+        name: 'Robert Chen',
+        role: 'Multi-Family Investor',
+        location: 'Seattle, WA'
       },
-      body: 'Their team really understands the needs of real estate investors.'
+      body: 'Refinancing our portfolio of apartment buildings was seamless. Their expertise in multi-family properties and market-leading rates saved us thousands in monthly payments.',
+      highlight: '$2.3M annual savings through refinancing'
+    }
+  ];
+
+  const highlights = [
+    {
+      title: "Quick Pre-Approval in 24-48 Hours",
+      description: "Get a fast response on your investment property loan application."
+    },
+    {
+      title: "No Tax Returns Required & Self-Employed",
+      description: "Streamlined documentation process focused on the property's income potential."
+    },
+    {
+      title: "Rates Starting at 6.99%",
+      description: "Competitive rates for your investment property financing needs."
     }
   ];
 
@@ -135,11 +153,11 @@ export default function Home() {
     <Suspense fallback={<div>Loading...</div>}>
       <main className="min-h-screen">
         {/* Hero Section */}
-        <section className="relative isolate pt-14 pb-20 sm:pb-24">
+        <section className="relative isolate pt-14 pb-8 sm:pb-10">
           <div className="absolute inset-0 bg-gradient-radial from-primary-500/20 via-transparent to-transparent" />
           <div className="container relative">
             <div className="max-w-3xl mx-auto text-center">
-              <h1 className="font-display text-5xl font-bold mb-6 text-dark-50 bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600">
+              <h1 className="title-glow font-display text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--primary)/.7)]">
                 No Investor Left Behind
               </h1>
               <p className="text-xl mb-8 text-white">
@@ -148,7 +166,7 @@ export default function Home() {
               <div className="flex gap-4 justify-center">
                 <Link 
                   href="/investor-analysis"
-                  className="group relative inline-flex items-center justify-center gap-3 px-10 py-6 
+                  className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 
                     bg-dark-800 text-emerald-400 rounded-lg border border-emerald-500/30
                     transition-all duration-300 shadow-lg hover:shadow-emerald-500/25
                     hover:bg-dark-700 hover:border-emerald-500/50 hover:text-emerald-300
@@ -162,7 +180,7 @@ export default function Home() {
                 >
                   <span className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-transparent rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                   <TypewriterText 
-                    text="Try Our AI Investment Analysis"
+                    text="Try Our AI Investor Query"
                     className="relative text-xl font-semibold tracking-wide"
                   />
                   <svg 
@@ -185,9 +203,9 @@ export default function Home() {
         </section>
 
         {/* Features Section */}
-        <section className="py-12 sm:py-16 bg-dark-950">
+        <section className="py-8 sm:py-12 bg-dark-950">
           <div className="container">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {cards.map((card, index) => (
                 <InfoCard key={index} {...card} />
               ))}
@@ -196,37 +214,38 @@ export default function Home() {
         </section>
 
         {/* Testimonials Section */}
-        <div className="py-12 sm:py-16">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="mx-auto max-w-xl text-center">
-              <h2 className="text-lg font-semibold leading-8 tracking-tight text-emerald-500">Client Reviews</h2>
-              <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                Trusted by Real Estate Investors
-              </p>
-            </div>
-            <div className="mx-auto mt-16 max-w-2xl lg:max-w-none">
-              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                {testimonials.map((testimonial) => (
-                  <div key={testimonial.author.handle}>
-                    <figure className="relative h-full rounded-2xl bg-dark-800/30 p-8 transition-all duration-300 
-                      hover:bg-dark-800/50 group ring-1 ring-white/10 hover:ring-emerald-500/50
-                      before:absolute before:inset-0 before:rounded-2xl before:transition-all before:duration-300
-                      before:ring-1 before:ring-emerald-500/0 hover:before:ring-emerald-500/20
-                      after:absolute after:inset-0 after:rounded-2xl after:transition-all after:duration-300
-                      after:ring-2 after:ring-emerald-500/0 hover:after:ring-emerald-500/10">
-                      <blockquote className="relative text-base leading-6">
-                        <p className="text-gray-300 group-hover:text-white transition-colors duration-300">{`"${testimonial.body}"`}</p>
-                      </blockquote>
-                      <figcaption className="relative mt-6 flex items-center gap-x-4 border-t border-white/10 pt-6">
-                        <div className="h-10 w-10 rounded-full bg-emerald-500/10 ring-1 ring-white/10 flex items-center justify-center">
-                          <span className="text-lg font-semibold text-emerald-500">{testimonial.author.name.charAt(0)}</span>
+        <div className="py-8 sm:py-12 bg-gradient-to-b from-dark-950/50 to-dark-900/30">
+          <div className="container">
+            <div className="mx-auto max-w-2xl lg:max-w-4xl">
+              <div className="text-center mb-10">
+                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl font-display bg-clip-text text-transparent bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--primary)/.7)]">
+                  Trusted by Real Estate Investors Nationwide
+                </h2>
+                <p className="mt-4 text-lg text-dark-200">
+                  See how we've helped investors achieve their real estate goals
+                </p>
+              </div>
+              <div className="grid gap-8 lg:grid-cols-3">
+                {testimonials.map((testimonial, index) => (
+                  <div
+                    key={index}
+                    className="relative rounded-2xl bg-dark-900/50 p-6 shadow-xl ring-1 ring-dark-800/10"
+                  >
+                    <div className="relative">
+                      <div className="text-lg font-medium leading-8 text-dark-50">
+                        {testimonial.body}
+                      </div>
+                      <div className="mt-4 border-t border-dark-800/60 pt-4">
+                        <div className="font-display font-semibold text-primary-500">
+                          {testimonial.highlight}
                         </div>
-                        <div>
-                          <div className="font-semibold text-white group-hover:text-emerald-400 transition-colors duration-300">{testimonial.author.name}</div>
-                          <div className="text-sm text-gray-400 group-hover:text-emerald-300/70 transition-colors duration-300">{testimonial.author.handle}</div>
+                        <div className="mt-2">
+                          <div className="font-semibold text-dark-50">{testimonial.author.name}</div>
+                          <div className="text-dark-300 text-sm">{testimonial.author.role}</div>
+                          <div className="text-dark-400 text-sm">{testimonial.author.location}</div>
                         </div>
-                      </figcaption>
-                    </figure>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -234,47 +253,41 @@ export default function Home() {
           </div>
         </div>
 
-        {/* CTA Section */}
-        <section className="relative isolate py-12 sm:py-16 bg-gradient-dark">
+        {/* Call to Action Section */}
+        <section className="py-6 sm:py-8 relative isolate">
           <div className="absolute inset-0 bg-gradient-radial from-primary-500/10 via-transparent to-transparent" />
           <div className="container relative">
-            <div className="max-w-3xl mx-auto text-center mb-12">
-              <h2 className="text-4xl font-display font-bold mb-6 text-dark-50 bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600">
-                Ready to Scale Your Real Estate Portfolio?
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="title-glow font-display text-4xl sm:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--primary)/.7)]">
+                Start Your Successful Investment Journey Now!
               </h2>
-              <div className="flex flex-col gap-4 items-center">
-                <div className="flex items-center gap-2 text-primary-400">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  <p className="text-lg">Quick Pre-Approval in 24-48 Hours</p>
-                </div>
-                <div className="flex items-center gap-2 text-primary-400">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  <p className="text-lg">No Tax Returns Required</p>
-                </div>
-                <div className="flex items-center gap-2 text-primary-400">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  <p className="text-lg">Rates Starting at 6.99%</p>
-                </div>
+              <p className="text-xl mb-4 text-dark-200">
+                Take the first step towards building your real estate portfolio with our expert guidance and competitive rates.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                {highlights.map((highlight, index) => (
+                  <div key={index} className="flex flex-col items-center text-center p-6 rounded-xl bg-dark-900/40 border border-emerald-600/30">
+                    <div className="mb-4 p-3 rounded-full bg-emerald-500/10">
+                      <svg className="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <h3 className="text-lg font-semibold text-emerald-400 mb-2">{highlight.title}</h3>
+                    <p className="text-dark-300 text-sm">{highlight.description}</p>
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="max-w-4xl mx-auto">
-              <div className="bg-dark-800/50 p-8 rounded-xl backdrop-blur-sm border border-primary-500/20 shadow-2xl">
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold text-white mb-4">
-                    Start Your Pre-Approval Now
-                  </h3>
-                  <p className="text-gray-300">
-                    Fill out our simple form below and get a response within 24 hours. No hard credit pull required!
-                  </p>
-                </div>
+          </div>
+        </section>
+
+        {/* Form Section */}
+        <section className="py-6 sm:py-8">
+          <div className="container">
+            <div className="max-w-3xl mx-auto">
+              <Suspense fallback={<div>Loading...</div>}>
                 <MultiStepForm />
-              </div>
+              </Suspense>
             </div>
           </div>
         </section>

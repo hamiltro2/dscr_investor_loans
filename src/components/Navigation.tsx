@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Menu, Building2 } from 'lucide-react'
+import { Menu } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const navigation = [
@@ -10,7 +10,7 @@ const navigation = [
   { name: 'Services', href: '/services' },
   { name: 'Calculators', href: '/calculators' },
   { name: 'Credit Solutions', href: '/credit-solutions' },
-  { name: 'AI Real Estate Investor Analysis', href: '/investor-analysis' },
+  { name: 'AI Real Estate Investor Query', href: '/investor-analysis' },
 ]
 
 export default function Navigation() {
@@ -34,10 +34,14 @@ export default function Navigation() {
           className="flex items-center gap-2"
           onMouseEnter={() => handleLinkHover('/')}
         >
-          <Building2 className="h-6 w-6 text-primary-500 icon-glow" />
-          <span className="text-xl font-bold logo-text text-dark-50">
-            Capital Bridge Solutions
-          </span>
+          <div className="flex items-center gap-2">
+            <svg className="w-8 h-8 text-blue-500" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 21H21M4 18H20M6 15H18M8 12H16M10 9H14M12 3L2 18H22L12 3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <span className="text-2xl font-bold text-blue-500">
+              Capital Bridge Solutions
+            </span>
+          </div>
         </Link>
 
         {/* Desktop Navigation - Centered */}

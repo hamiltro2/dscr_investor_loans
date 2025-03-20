@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import puppeteer from 'puppeteer';
-import * as cheerio from 'cheerio';
 
 async function searchBiggerPockets(question: string) {
   const searchQuery = encodeURIComponent(question);
@@ -18,47 +17,26 @@ async function searchBiggerPockets(question: string) {
     console.log('Searching BiggerPockets:', searchUrl);
     await page.goto(searchUrl, { waitUntil: 'networkidle0', timeout: 15000 });
 
-    const content = await page.content();
-    const $ = cheerio.load(content);
-
-    // Get search results
-    const results: { title: string; url: string; excerpt: string }[] = [];
-    const searchResults = $('.search-result');
-
-    searchResults.each((_, element) => {
-      const title = $(element).find('.search-result__title').text().trim();
-      const url = 'https://www.biggerpockets.com' + $(element).find('.search-result__title a').attr('href');
-      const excerpt = $(element).find('.search-result__excerpt').text().trim();
-
-      if (title && url) {
-        results.push({ title, url, excerpt });
-      }
+    // Use Puppeteer's built-in evaluation instead of cheerio
+    const results = await page.evaluate(() => {
+      const posts = Array.from(document.querySelectorAll('.search-result'));
+      return posts.slice(0, 5).map(post => {
+        const titleEl = post.querySelector('.search-result__title');
+        const contentEl = post.querySelector('.search-result__content');
+        const urlEl = post.querySelector('a');
+        
+        return {
+          title: titleEl?.textContent?.trim() || '',
+          content: contentEl?.textContent?.trim() || '',
+          url: urlEl?.href || ''
+        };
+      });
     });
 
-    // Get content from top 2 most relevant results
-    const relevantContent: string[] = [];
-    for (let i = 0; i < Math.min(2, results.length); i++) {
-      const result = results[i];
-      try {
-        await page.goto(result.url, { waitUntil: 'networkidle0', timeout: 15000 });
-        const articleContent = await page.content();
-        const article$ = cheerio.load(articleContent);
-        
-        // Extract main content
-        const mainContent = article$('.forum-post-content, .blog-post__content').text();
-        if (mainContent) {
-          relevantContent.push(`From "${result.title}":\n${mainContent}`);
-        }
-      } catch (error) {
-        console.error(`Error fetching content from ${result.url}:`, error);
-      }
-    }
-
-    return {
-      searchResults: results,
-      content: relevantContent
-    };
-
+    return results;
+  } catch (error) {
+    console.error('Error searching BiggerPockets:', error);
+    return [];
   } finally {
     await browser.close();
   }
@@ -99,7 +77,7 @@ export async function POST(req: Request) {
             },
             {
               role: 'user',
-              content: `Question: ${question}\n\nContent from real estate sources:\n${biggerPocketsData.content.join('\n\n')}`
+              content: `Question: ${question}\n\nContent from real estate sources:\n${biggerPocketsData.map(result => `${result.title}\n${result.content}`).join('\n\n')}`
             }
           ],
           temperature: 0.7,
@@ -131,7 +109,7 @@ export async function POST(req: Request) {
             },
             {
               role: 'user',
-              content: `Question: ${question}\n\nContent from real estate sources:\n${biggerPocketsData.content.join('\n\n')}`
+              content: `Question: ${question}\n\nContent from real estate sources:\n${biggerPocketsData.map(result => `${result.title}\n${result.content}`).join('\n\n')}`
             }
           ],
           temperature: 0.7,
