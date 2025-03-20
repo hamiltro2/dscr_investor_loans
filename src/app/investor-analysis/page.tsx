@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { askQuestion } from '@/lib/analysis';
+import { getAIResponse } from '@/lib/ai';
 import { PropertyDetail } from '@/types/attom';
 import { InvestmentMetrics } from '@/types/investment';
 import LoadingPulse from '@/components/LoadingPulse';
