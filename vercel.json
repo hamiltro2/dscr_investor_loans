@@ -5,10 +5,5 @@
       "src": "package.json",
       "use": "@vercel/next"
     }
-  ],
-  "env": {
-    "OPENAI_API_KEY": "@openai-api-key",
-    "ATTOM_API_KEY": "@attom-api-key",
-    "DEEPSEEK_API_KEY": "@deepseek-api-key"
-  }
+  ]
 }
