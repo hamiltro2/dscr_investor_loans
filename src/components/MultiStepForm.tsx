@@ -169,13 +169,13 @@ export function MultiStepForm() {
       {isClient && (
         <div className="space-y-4">
           {/* Progress Steps */}
-          <div className="flex justify-between mb-6">
+          <div className="flex justify-between mb-6 overflow-x-auto pb-2 sm:overflow-visible">
             {STEPS.map((step, index) => (
               <div key={step.number} className="flex items-center">
                 <div className="flex flex-col items-center">
                   <button
                     onClick={() => isStepComplete(step.number) && setCurrentStep(step.number)}
-                    className={`w-12 h-12 rounded-full flex items-center justify-center border-2 transition-all ${
+                    className={`w-8 h-8 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border-2 transition-all ${
                       currentStep === step.number
                         ? 'border-primary-500 bg-primary-500 text-white scale-110'
                         : isStepComplete(step.number)
@@ -186,13 +186,13 @@ export function MultiStepForm() {
                     suppressHydrationWarning
                   >
                     {isStepComplete(step.number) ? (
-                      <Check className="w-6 h-6" />
+                      <Check className="w-4 h-4 sm:w-6 sm:h-6" />
                     ) : (
-                      <span className="text-lg" suppressHydrationWarning>{step.number}</span>
+                      <span className="text-sm sm:text-lg" suppressHydrationWarning>{step.number}</span>
                     )}
                   </button>
                   <span 
-                    className={`text-sm mt-2 ${currentStep === step.number ? 'text-primary-500 font-medium' : 'text-dark-300'}`}
+                    className={`text-xs sm:text-sm mt-1 sm:mt-2 ${currentStep === step.number ? 'text-primary-500 font-medium' : 'text-dark-300'}`}
                     suppressHydrationWarning
                   >
                     {step.title}
@@ -200,7 +200,7 @@ export function MultiStepForm() {
                 </div>
                 {index < STEPS.length - 1 && (
                   <div
-                    className={`h-0.5 w-12 mx-2 ${
+                    className={`h-0.5 w-3 sm:w-12 mx-1 sm:mx-2 ${
                       isStepComplete(step.number)
                         ? 'bg-primary-500'
                         : 'bg-dark-700'

@@ -38,7 +38,7 @@ export default function Navigation() {
             <svg className="w-8 h-8 text-blue-500" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M3 21H21M4 18H20M6 15H18M8 12H16M10 9H14M12 3L2 18H22L12 3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <span className="text-2xl font-bold text-blue-500">
+            <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--primary)/.7)]">
               Capital Bridge Solutions
             </span>
           </div>
@@ -81,13 +81,14 @@ export default function Navigation() {
 
           {mobileMenuOpen && (
             <div 
-              className="absolute right-0 mt-2 w-48 rounded-md bg-dark-950 py-2 shadow-lg ring-1 ring-dark-800"
+              className="absolute right-0 mt-2 w-64 rounded-lg bg-white py-3 shadow-xl ring-2 ring-primary-500 z-50 border-2 border-primary-400 overflow-hidden"
             >
+              <div className="absolute inset-0 bg-gradient-to-b from-blue-50 to-white opacity-50 pointer-events-none"></div>
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block px-4 py-2 text-base font-semibold text-dark-200 hover:bg-dark-900 hover:text-dark-50"
+                  className="relative block px-6 py-3 text-lg font-semibold text-gray-800 hover:bg-gray-100 hover:text-primary-600 border-b border-gray-200 last:border-0"
                   onMouseEnter={() => handleLinkHover(item.href)}
                   onClick={() => setMobileMenuOpen(false)}
                 >
@@ -96,7 +97,7 @@ export default function Navigation() {
               ))}
               <Link
                 href="/get-started"
-                className="block px-4 py-2 text-base font-semibold text-primary-500 hover:bg-dark-900"
+                className="relative block px-6 py-3 text-lg font-bold text-gray-800 hover:bg-gray-100 hover:text-primary-600 mt-2"
                 onMouseEnter={() => handleLinkHover('/get-started')}
                 onClick={() => setMobileMenuOpen(false)}
               >
