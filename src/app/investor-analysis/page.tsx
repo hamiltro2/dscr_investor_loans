@@ -132,11 +132,11 @@ export default function InvestorAnalysisPage() {
               <label htmlFor="question" className="block text-sm font-medium text-gray-300 mb-2">
                 Your Question
               </label>
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
                 <input
                   type="text"
                   id="question"
-                  className="flex-1 rounded-md bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 p-2"
+                  className="w-full rounded-md bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 p-2"
                   value={question}
                   onChange={(e) => setQuestion(e.target.value)}
                   placeholder="Ask about real estate investing, DSCR loans, or property analysis..."
@@ -147,7 +147,7 @@ export default function InvestorAnalysisPage() {
                   type="button"
                   onClick={handleAskQuestion}
                   disabled={isAskingQuestion || !question.trim()}
-                  className="bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                  className="w-full sm:w-auto bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                 >
                   {isAskingQuestion ? 'Thinking...' : 'Ask Question'}
                 </button>
