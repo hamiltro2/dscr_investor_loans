@@ -38,7 +38,7 @@ export default function Navigation() {
             <svg className="w-8 h-8 text-blue-500" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M3 21H21M4 18H20M6 15H18M8 12H16M10 9H14M12 3L2 18H22L12 3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--primary)/.7)]">
+            <span className="text-2xl font-bold text-blue-500">
               Capital Bridge Solutions
             </span>
           </div>

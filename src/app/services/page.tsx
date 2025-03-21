@@ -17,9 +17,9 @@ export default function Services() {
   return (
     <main className="min-h-screen">
       {/* Header */}
-      <section className="bg-gradient-dark py-16">
+      <section className="bg-gradient-dark py-10">
         <div className="container">
-          <h1 className="font-display text-4xl font-bold mb-4 text-dark-50">
+          <h1 className="font-display text-4xl font-bold mb-2 text-dark-50">
             Our Lending Solutions
           </h1>
           <p className="text-xl text-dark-200">
@@ -29,7 +29,7 @@ export default function Services() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 bg-dark-950">
+      <section className="py-12 bg-dark-950">
         <div className="container">
           {/* DSCR Loans */}
           <div className="mb-16">

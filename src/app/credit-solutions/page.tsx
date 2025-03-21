@@ -28,9 +28,9 @@ export default function CreditSolutions() {
   return (
     <main className="min-h-screen">
       {/* Header */}
-      <section className="bg-gradient-dark py-16">
+      <section className="bg-gradient-dark py-10">
         <div className="container">
-          <h1 className="font-display text-4xl font-bold mb-4 text-dark-50">
+          <h1 className="font-display text-4xl font-bold mb-2 text-dark-50">
             Bad Credit? No Problem!
           </h1>
           <p className="text-xl text-dark-200 max-w-2xl">
@@ -40,7 +40,7 @@ export default function CreditSolutions() {
       </section>
 
       {/* Solutions Grid */}
-      <section className="py-20 bg-dark-950">
+      <section className="py-12 bg-dark-950">
         <div className="container">
           <div className="grid md:grid-cols-3 gap-8 mb-16">
             <div className="card card-primary relative overflow-hidden">
