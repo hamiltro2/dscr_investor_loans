@@ -89,6 +89,49 @@ export default function CreditSolutions() {
           <h2 className="text-3xl font-display font-bold mb-8 text-dark-50">
             Why Choose Us?
           </h2>
+          
+          {/* Team Image Showcase */}
+          <div className="mb-16">
+            <div className="relative max-w-4xl mx-auto">
+              <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/15 shadow-2xl hover:shadow-3xl transition-all duration-500 ease-out">
+                {/* Subtle ambient glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 via-transparent to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                {/* Image container */}
+                <div className="relative p-6 sm:p-8">
+                  <div className="relative overflow-hidden rounded-xl">
+                    {/* Background pattern */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-blue-500/5 rounded-xl"></div>
+                    
+                    <img 
+                      src="/Capital_Bridge_solutions_team.png" 
+                      alt="Capital Bridge Solutions Expert Team" 
+                      className="w-full h-auto rounded-xl shadow-lg transition-transform duration-500 group-hover:scale-[1.02] relative z-10"
+                    />
+                    
+                    {/* Elegant overlay gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  </div>
+                  
+                  {/* Professional caption */}
+                  <div className="mt-6 text-center">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-500/10 border border-primary-500/20 mb-3">
+                      <div className="w-2 h-2 bg-primary-400 rounded-full animate-pulse"></div>
+                      <span className="text-primary-300 font-medium text-sm uppercase tracking-wider">Our Expert Team</span>
+                    </div>
+                    <p className="text-white/80 text-lg font-light leading-relaxed max-w-2xl mx-auto">
+                      Dedicated professionals with years of experience in credit solutions and real estate lending
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Decorative corner elements */}
+                <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-primary-500/15 to-transparent rounded-br-full opacity-60"></div>
+                <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-blue-500/10 to-transparent rounded-tl-full opacity-60"></div>
+              </div>
+            </div>
+          </div>
+          
           <div className="grid md:grid-cols-3 gap-8">
             <div>
               <h3 className="font-bold mb-2 text-dark-100">Expert Team</h3>
