@@ -27,20 +27,19 @@ export default function Navigation() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-dark-800 bg-dark-950/80 backdrop-blur supports-[backdrop-filter]:bg-dark-950/80">
-      <nav className="container flex h-16 items-center justify-between">
+      <nav className="container flex h-24 items-center justify-between">
         {/* Logo */}
         <Link 
           href="/" 
-          className="flex items-center gap-2"
+          className="flex items-center transition-all duration-300 hover:opacity-80 group"
           onMouseEnter={() => handleLinkHover('/')}
         >
-          <div className="flex items-center gap-2">
-            <svg className="w-8 h-8 text-blue-500" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 21H21M4 18H20M6 15H18M8 12H16M10 9H14M12 3L2 18H22L12 3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <span className="text-2xl font-bold text-blue-500">
-              Capital Bridge Solutions
-            </span>
+          <div className="relative overflow-hidden rounded-lg">
+            <img 
+              src="/logo.png" 
+              alt="Capital Bridge Solutions" 
+              className="h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
           </div>
         </Link>
 

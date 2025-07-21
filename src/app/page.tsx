@@ -157,9 +157,25 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-radial from-primary-500/20 via-transparent to-transparent" />
           <div className="container relative">
             <div className="max-w-3xl mx-auto text-center">
-              <h1 className="title-glow font-display text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--primary)/.7)]">
-                No Investor Left Behind
-              </h1>
+              <div className="mb-8">
+                <div className="inline-block">
+                  <h1 className="title-glow font-display text-6xl sm:text-7xl font-black tracking-tight leading-none mb-2">
+                    <span className="block text-white font-light text-2xl sm:text-3xl uppercase tracking-[0.2em] mb-4 opacity-80">
+                      Our Promise
+                    </span>
+                    <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300">
+                      No Investor
+                    </span>
+                    <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 -mt-2">
+                      Left Behind
+                    </span>
+                  </h1>
+                  <div className="relative mt-6 mx-auto w-32 h-1 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-30"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-600 animate-slideIn"></div>
+                  </div>
+                </div>
+              </div>
               <p className="text-xl mb-8 text-white">
                 We work around the clock to make your investment goals a reality!
               </p>
@@ -198,6 +214,35 @@ export default function Home() {
                   </svg>
                 </Link>
               </div>
+              
+              {/* Professional Airbnb Card */}
+              <div className="mt-12 flex justify-center">
+                <div className="max-w-2xl w-full">
+                  <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg">
+                    <div className="flex flex-col items-center space-y-6">
+                      <div className="w-full">
+                        <img 
+                          src="/airbnb.png" 
+                          alt="Airbnb Investment Analysis" 
+                          className="w-full h-auto object-contain rounded-xl"
+                        />
+                      </div>
+                      <div className="text-center space-y-3">
+                        <h3 className="text-2xl font-bold text-gray-900 tracking-tight">
+                          Professional Investment Analysis
+                        </h3>
+                        <p className="text-gray-600 text-lg leading-relaxed max-w-md">
+                          Get comprehensive property insights and investment metrics powered by our AI analysis engine.
+                        </p>
+                        <div className="flex items-center justify-center space-x-2 text-red-500 text-sm font-medium">
+                          <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                          <span>Live Analysis Ready</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -212,6 +257,47 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Featured Image Card */}
+        <div className="py-12 sm:py-16">
+          <div className="container">
+            <div className="mx-auto max-w-4xl">
+              <div className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 shadow-2xl hover:shadow-3xl transition-all duration-700 ease-out">
+                {/* Subtle glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                
+                {/* Content */}
+                <div className="relative p-8 sm:p-12">
+                  <div className="flex flex-col items-center text-center space-y-6">
+                    {/* Image container with elegant styling */}
+                    <div className="relative">
+                      <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+                      <div className="relative overflow-hidden rounded-2xl bg-white/5 backdrop-blur-sm border border-white/20 p-4 shadow-xl">
+                        <img 
+                          src="/14.png" 
+                          alt="Professional showcase" 
+                          className="w-full h-auto max-w-2xl mx-auto rounded-xl shadow-lg transition-transform duration-500 group-hover:scale-[1.02]"
+                        />
+                      </div>
+                    </div>
+                    
+                    {/* Optional caption area */}
+                    <div className="max-w-2xl">
+                      <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-6"></div>
+                      <p className="text-white/80 text-lg font-light leading-relaxed tracking-wide">
+                        Excellence in real estate investment solutions
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Decorative corner accents */}
+                <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-transparent rounded-br-full opacity-50"></div>
+                <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-purple-500/10 to-transparent rounded-tl-full opacity-50"></div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* Testimonials Section */}
         <div className="py-8 sm:py-12 bg-gradient-to-b from-dark-950/50 to-dark-900/30">
