@@ -111,7 +111,7 @@ Format your response using bold uppercase text for main sections and subsections
 
 **NEXT STEPS WITH CAPITAL BRIDGE SOLUTIONS**
 **TAKE ACTION NOW**
-- Contact Capital Bridge Solutions at (949) 614-6390 to discuss your financing options and get expert guidance on this investment opportunity.
+- Contact Capital Bridge Solutions at (949) 614-6360 to discuss your financing options and get expert guidance on this investment opportunity.
 - Fill out our simple form to get pre-approved and receive a custom financing solution tailored to this property.
 - Our team will analyze your investment goals and structure the optimal loan terms to maximize your returns.
 
@@ -122,7 +122,7 @@ Format your response using bold uppercase text for main sections and subsections
 [2-3 bullet points emphasizing how working with Capital Bridge Solutions can help minimize investment risks]
 
 **READY TO MOVE FORWARD?**
-Don't miss out on this investment opportunity. Contact Capital Bridge Solutions now at (949) 614-6390 or fill out our quick form to get started. Our team of experts is ready to help you structure the perfect financing solution for this property.`;
+Don't miss out on this investment opportunity. Contact Capital Bridge Solutions now at (949) 614-6360 or fill out our quick form to get started. Our team of experts is ready to help you structure the perfect financing solution for this property.`;
 
     console.log('Sending prompt to OpenAI API');
     

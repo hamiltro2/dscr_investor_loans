@@ -14,7 +14,7 @@ export function ContactInfo() {
               <div>
                 <h3 className="font-bold mb-1 text-dark-100">Phone</h3>
                 <p className="text-dark-200">
-                  (555) 123-4567
+                  (949) 614-6360
                 </p>
                 <p className="text-sm text-dark-300">
                   Monday - Friday, 9am - 5pm PST
