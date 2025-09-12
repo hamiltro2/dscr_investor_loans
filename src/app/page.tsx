@@ -3,7 +3,7 @@
 import { Zap, TrendingDown, Users } from 'lucide-react'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
+import { Suspense, useState } from 'react'
 import { TypewriterText } from '@/components/TypewriterText'
 import { InfoCard } from '@/components/InfoCard'
 
@@ -29,6 +29,7 @@ const MultiStepForm = dynamic(
 )
 
 export default function Home() {
+  const [showDisclosureModal, setShowDisclosureModal] = useState(false);
   const cards = [
     {
       icon: Zap,
@@ -150,35 +151,107 @@ export default function Home() {
   ];
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <main className="min-h-screen">
-        {/* Hero Section */}
-        <section className="relative isolate pt-14 pb-8 sm:pb-10">
-          <div className="absolute inset-0 bg-gradient-radial from-primary-500/20 via-transparent to-transparent" />
-          <div className="container relative">
-            <div className="max-w-3xl mx-auto text-center">
-              <div className="mb-8">
-                <div className="inline-block">
-                  <h1 className="title-glow font-display text-6xl sm:text-7xl font-black tracking-tight leading-none mb-2">
-                    <span className="block text-white font-light text-2xl sm:text-3xl uppercase tracking-[0.2em] mb-4 opacity-80">
-                      Our Promise
-                    </span>
-                    <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300">
-                      No Investor
-                    </span>
-                    <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 -mt-2">
-                      Left Behind
-                    </span>
-                  </h1>
-                  <div className="relative mt-6 mx-auto w-32 h-1 overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-30"></div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-600 animate-slideIn"></div>
+    <main className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative isolate pt-14 pb-8 sm:pb-10">
+        <div className="absolute inset-0 bg-gradient-radial from-primary-500/20 via-transparent to-transparent" />
+        <div className="container relative">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="mb-8">
+              <div className="inline-block">
+                <h1 className="title-glow font-display text-6xl sm:text-7xl font-black tracking-tight leading-none mb-2">
+                  <span className="block text-white font-light text-2xl sm:text-3xl uppercase tracking-[0.2em] mb-4 opacity-80">
+                    Our Promise
+                  </span>
+                  <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300">
+                    No Investor
+                  </span>
+                  <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 -mt-2">
+                    Left Behind
+                  </span>
+                </h1>
+                <div className="relative mt-6 mx-auto w-32 h-1 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-30"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-600 animate-slideIn"></div>
+                </div>
+              </div>
+            </div>
+            
+            {/* DSCR Loans Promotional Section */}
+            <div className="mt-12 mb-12 flex justify-center">
+              <div className="max-w-xl w-full">
+                <div className="bg-black/90 backdrop-blur-sm border border-blue-500/20 rounded-3xl p-10 text-center space-y-8">
+                  
+                  {/* Rate display */}
+                  <div className="space-y-2">
+                    <div className="flex items-baseline justify-center gap-4">
+                      <span className="text-5xl sm:text-6xl font-light text-white tracking-tight">
+                        5.99%
+                      </span>
+                      <span className="text-lg text-white/70 font-light">
+                        and only
+                      </span>
+                      <span className="text-3xl sm:text-4xl font-light text-white tracking-tight">
+                        0.75%
+                      </span>
+                      <span className="text-lg text-white/70 font-light">
+                        points
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Clean divider */}
+                  <div className="w-24 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent mx-auto"></div>
+
+                  {/* Call to action */}
+                  <div className="space-y-4">
+                    <h3 className="text-2xl sm:text-3xl font-medium text-white tracking-wide">
+                      DSCR LOANS
+                    </h3>
+                    <div className="inline-block px-6 py-2 bg-white/10 border border-white/20 rounded-full">
+                      <span className="text-white font-medium">ACT NOW</span>
+                    </div>
+                  </div>
+
+                  {/* Clean divider */}
+                  <div className="w-24 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent mx-auto"></div>
+
+                  {/* Phone number */}
+                  <div>
+                    <a 
+                      href="tel:+19493393555" 
+                      className="inline-flex items-center gap-3 text-2xl sm:text-3xl font-light text-white hover:text-white/80 transition-colors duration-300"
+                    >
+                      <svg className="w-6 h-6 text-white/60" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                      </svg>
+                      (949) 339-3555
+                    </a>
+                  </div>
+
+                  {/* Advertiser Disclosure */}
+                  <div className="pt-4 border-t border-white/10">
+                    <button
+                      onClick={() => setShowDisclosureModal(true)}
+                      className="text-xs text-white/60 hover:text-white/80 transition-colors duration-300 underline"
+                    >
+                      Advertiser Disclosure
+                    </button>
                   </div>
                 </div>
               </div>
-              <p className="text-xl mb-8 text-white">
-                We work around the clock to make your investment goals a reality!
-              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Hero Content Section */}
+      <section className="relative isolate pt-8 pb-12">
+        <div className="container relative">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-xl mb-8 text-white">
+              We work around the clock to make your investment goals a reality!
+            </p>
               <div className="flex gap-4 justify-center">
                 <Link 
                   href="/investor-analysis"
@@ -246,6 +319,84 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+      {/* Disclosure Modal */}
+      {showDisclosureModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden relative">
+            <div className="p-4 border-b border-gray-200">
+              <div className="flex justify-between items-center">
+                <h2 className="text-xl font-bold text-gray-900">Advertiser Disclosure</h2>
+                <button
+                  onClick={() => setShowDisclosureModal(false)}
+                  className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl font-light w-8 h-8 flex items-center justify-center"
+                >
+                  ×
+                </button>
+              </div>
+              <p className="text-sm text-gray-600 mt-2">Updated {new Date().toLocaleDateString()}</p>
+            </div>
+            
+            <div className="p-4 overflow-y-auto max-h-[calc(80vh-100px)]">
+              <div className="space-y-4 text-gray-800">
+                
+                {/* Programs Available */}
+                <div>
+                  <h3 className="text-xl font-bold text-blue-600 mb-3">6 PROGRAMS AVAILABLE!</h3>
+                  <ul className="space-y-2 text-sm">
+                    <li>• DSCR from 5.99%*</li>
+                    <li>• Loan Amounts to 3.5M</li>
+                    <li>• Interest Only Qualifying Most Programs</li>
+                    <li>• No Ratio Program (No DSCR) to 75% with High FICO</li>
+                    <li>• First Time Homebuyer Program</li>
+                    <li>• First Time Investor Programs</li>
+                  </ul>
+                </div>
+
+                {/* Rates & Info */}
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-2">Rates & Info</h4>
+                  <p className="text-sm mb-2">*Example rate is based on:</p>
+                  <p className="text-sm text-gray-700 mb-2">Purchase or R/T loan, 740 FICO, 5 yr PPP, SFR, 60% LTV, 1.00 DSCR</p>
+                  <p className="text-sm mb-2"><strong>Assumptions:</strong></p>
+                  <p className="text-sm text-gray-700">Assumes a FICO score of 700+</p>
+                  <p className="text-sm mt-2 italic">See Important Additional Disclosures below.</p>
+                </div>
+
+                {/* Important Additional Disclosures */}
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-3">Important Additional Disclosures</h4>
+                  <div className="space-y-3 text-sm text-gray-700 leading-relaxed">
+                    <p>Capitalbridgesolutions.com is not a lender in any transaction and does not make loans, issue loan commitments or lock rates. All credit decisions, including loan approval, prequalification, and the conditional rates and terms you are offered, are the responsibility of the participating lenders and will vary based upon your loan request, your particular financial situation, and criteria determined by the lenders to whom you are matched.</p>
+                    
+                    <p>Not all consumers will qualify for the advertised rates and terms, and the advertised rates may only be available to the most creditworthy consumers. For an exact quote, contact the lender.</p>
+                    
+                    <p>The information collected is not an application for credit or a mortgage loan, nor is it used to pre-qualify you with any participating lender.</p>
+                    
+                    <p>You may not be matched with the lender making a particular conditional loan offer, and capitalbridgesolutions.com does not guarantee that any lender will make you a conditional loan offer.</p>
+                    
+                    <p>Capitalbridgesolutions.com matches you with one or more lenders on its network of non-affiliated participating lenders. See the Privacy Policy for more details.</p>
+                    
+                    <p>If you are offered a loan by a participating lender, the actual interest rate, APR and payment may vary based on the specific terms of the loan selected, verification of information, your credit history, the location and type of property, and other factors as determined by the lender.</p>
+                    
+                    <p>Payment amounts do not include taxes or insurance. The actual payment amount will be greater.</p>
+                    
+                    <p>Not available in all states.</p>
+                    
+                    <p>Rates are subject to change without notice.</p>
+                    
+                    <p>Capitalbridgesolutions.com makes every effort to ensure that the information provided on our website is accurate and up to date. However, Capitalbridgesolutions.com obtains the information from our network of participating lenders and cannot guarantee the completeness or accuracy of the information provided. As such, Capitalbridgesolutions.com makes no representations, recommendations, or endorsements, expressly or implicitly, of any kind regarding the presentation of the information provided or about the participating lenders.</p>
+                    
+                    <p>Capitalbridgesolutions.com may also include hypertext links to participating lenders' and others' websites over which Capitalbridgesolutions.com has no control. Therefore, Capitalbridgesolutions.com makes no representations, recommendations, or endorsements, explicitly or implicitly, of any kind regarding such content, including any potential loan offers or options presented on those websites or the content on any website linked to such websites (including as to any changes or modifications thereto).</p>
+                    
+                    <p>If a lender in our network contacts you and solicits you for a loan application, that lender must make certain disclosures to you as required by the Federal Truth In Lending Act (TILA), the Real Estate Settlement Procedures Act (RESPA), the TILA-RESPA Integrated Disclosure (TRID) Rule, and/or other federal and state laws. These disclosures include details and estimates of your cost of credit and closing costs, notice that your mortgage loan servicing may be transferred, and notice of your right to a copy of any appraisal performed on your home. The Equal Credit Opportunity Act prohibits creditors from discriminating against credit applicants on the basis of race, color, religion, national origin, sex, marital status, age, because all or part of the applicant's income derives from any public assistance program, or because the applicant has, in good faith, exercised any right under the Consumer Credit Protection Act. The Consumer Financial Protection Bureau (CFPB) administers compliance with these laws and may be contacted at: Consumer Financial Protection Bureau, 1700 G Street, NW, Washington, D.C. 20552. The foregoing requirements are mandatory for all lenders, however, Capitalbridgesolutions.com makes no representations as to the adequacy or compliance on behalf of any lender as we do not participate in the loan application process or make any credit decisions.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
         {/* Features Section */}
         <section className="py-8 sm:py-12 bg-dark-950">
@@ -367,17 +518,16 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Form Section */}
-        <section className="py-6 sm:py-8">
-          <div className="container">
-            <div className="max-w-3xl mx-auto">
-              <Suspense fallback={<div>Loading...</div>}>
-                <MultiStepForm />
-              </Suspense>
-            </div>
+      {/* Form Section */}
+      <section className="py-6 sm:py-8">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <Suspense fallback={<div>Loading...</div>}>
+              <MultiStepForm />
+            </Suspense>
           </div>
-        </section>
-      </main>
-    </Suspense>
+        </div>
+      </section>
+    </main>
   )
 }
