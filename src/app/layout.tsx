@@ -34,6 +34,14 @@ export default function RootLayout({
             gtag('config', 'AW-1002915679');
           `}
         </Script>
+        {/* Conversion event snippet for phone calls */}
+        <Script id="phone-conversion" strategy="afterInteractive">
+          {`
+            gtag('config', 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D', {
+              'phone_conversion_number': '(949)339-3555'
+            });
+          `}
+        </Script>
         <Navigation />
         {children}
         <Footer />

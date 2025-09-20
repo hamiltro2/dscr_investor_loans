@@ -2,6 +2,13 @@
 
 import Link from 'next/link';
 
+// Declare gtag for TypeScript
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -26,6 +33,7 @@ export function Footer() {
               <a 
                 href="tel:+19496146390" 
                 className="inline-flex items-center gap-3 text-primary-400 hover:text-primary-300 transition-colors font-medium text-lg"
+                onClick={() => window.gtag && window.gtag('event', 'conversion', {'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'})}
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />

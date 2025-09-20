@@ -1,4 +1,13 @@
+'use client';
+
 import Link from 'next/link';
+
+// Declare gtag for TypeScript
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
 
 export default function TermsOfService() {
   return (
@@ -234,7 +243,7 @@ export default function TermsOfService() {
                 </p>
                 <div className="text-gray-300 space-y-2">
                   <p><strong className="text-primary-400">Capital Bridge Solutions</strong></p>
-                  <p>Phone: <a href="tel:+19493393555" className="text-primary-400 hover:text-primary-300">(949) 339-3555</a></p>
+                  <p>Phone: <a href="tel:+19493393555" className="text-primary-400 hover:text-primary-300" onClick={() => window.gtag && window.gtag('event', 'conversion', {'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'})}>(949) 339-3555</a></p>
                   <p>Email: <a href="mailto:info@capitalbridgesolutions.com" className="text-primary-400 hover:text-primary-300">info@capitalbridgesolutions.com</a></p>
                 </div>
               </section>

@@ -7,6 +7,13 @@ import { Suspense, useState } from 'react'
 import { TypewriterText } from '@/components/TypewriterText'
 import { InfoCard } from '@/components/InfoCard'
 
+// Declare gtag for TypeScript
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
 // Only load the MultiStepForm dynamically since it's heavy
 const MultiStepForm = dynamic(
   () => import('@/components/MultiStepForm').then(mod => ({ default: mod.MultiStepForm })),
@@ -221,6 +228,7 @@ export default function Home() {
                     <a 
                       href="tel:+19493393555" 
                       className="inline-flex items-center gap-3 text-2xl sm:text-3xl font-light text-white hover:text-white/80 transition-colors duration-300"
+                      onClick={() => window.gtag && window.gtag('event', 'conversion', {'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'})}
                     >
                       <svg className="w-6 h-6 text-white/60" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
