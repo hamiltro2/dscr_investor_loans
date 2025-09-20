@@ -1,0 +1,19 @@
+/* TEAM */
+Company: Capital Bridge Solutions
+Site: https://www.capitalbridgesolutions.com
+Email: info@capitalbridgesolutions.com
+Phone: (949) 339-3555
+Location: California, United States
+
+/* THANKS */
+Framework: Next.js
+React: Facebook
+Hosting: Vercel
+Analytics: Google Analytics
+Icons: Lucide React
+
+/* SITE */
+Last update: 2025/01/20
+Standards: HTML5, CSS3, JavaScript ES6+
+Components: React, TypeScript, Tailwind CSS
+Software: VS Code, Git

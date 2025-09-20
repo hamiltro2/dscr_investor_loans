@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic'
 import { Suspense, useState } from 'react'
 import { TypewriterText } from '@/components/TypewriterText'
 import { InfoCard } from '@/components/InfoCard'
+import { FAQ } from '@/components/FAQ'
 
 // Declare gtag for TypeScript
 declare global {
@@ -258,7 +259,7 @@ export default function Home() {
         <div className="container relative">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-xl mb-8 text-white">
-              We work around the clock to make your investment goals a reality!
+              Based in Southern California, serving investors nationwide. We work around the clock to make your investment goals a reality!
             </p>
               <div className="flex gap-4 justify-center">
                 <Link 
@@ -525,6 +526,13 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+      {/* FAQ Section */}
+      <section className="py-12 sm:py-16 bg-dark-950/50">
+        <div className="container">
+          <FAQ />
+        </div>
+      </section>
 
       {/* Form Section */}
       <section className="py-6 sm:py-8">

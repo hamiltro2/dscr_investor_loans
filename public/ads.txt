@@ -1,0 +1,8 @@
+# Ads.txt for Capital Bridge Solutions
+# This file helps prevent unauthorized ad inventory sales
+
+# Google AdSense
+google.com, pub-XXXXXXXXXX, DIRECT, f08c47fec0942fa0
+
+# Direct advertisers and partners can be added here
+# Format: <domain>, <publisher ID>, <relationship>, <certification ID>

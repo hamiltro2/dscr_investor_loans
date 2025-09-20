@@ -84,6 +84,12 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/locations" className="text-gray-300 hover:text-primary-400 transition-colors duration-200 flex items-center group text-base">
+                    <span className="w-2 h-2 bg-primary-500 rounded-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                    Locations
+                  </Link>
+                </li>
+                <li>
                   <Link href="/about" className="text-gray-300 hover:text-primary-400 transition-colors duration-200 flex items-center group text-base">
                     <span className="w-2 h-2 bg-primary-500 rounded-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                     About Us
