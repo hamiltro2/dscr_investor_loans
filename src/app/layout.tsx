@@ -78,6 +78,18 @@ export default function RootLayout({
         <meta name="theme-color" content="#3b82f6" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
         
+        {/* Google Tag Manager - as high as possible in head */}
+        <Script id="gtm-head" strategy="afterInteractive">
+          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-M79RZRQ9');`}
+        </Script>
+        
+        <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" />
+        <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE" />
+        
         {/* Structured Data - Organization */}
         <script
           type="application/ld+json"
@@ -322,12 +334,15 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${montserrat.variable} font-sans antialiased min-h-screen flex flex-col`}>
-        {/* Google tag (gtag.js) */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-1002915679"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
+        
+        {/* Google Tag Manager (noscript) - immediately after opening body tag */}
+        <noscript>
+          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M79RZRQ9"
+          height="0" width="0" style={{display:'none',visibility:'hidden'}}></iframe>
+        </noscript>
+        
+        {/* Google Ads Conversion Tracking */}
+        <Script id="google-ads-gtag" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}

@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 declare global {
   interface Window {
     gtag?: (...args: any[]) => void;
+    dataLayer?: any[];
   }
 }
 
@@ -103,6 +104,16 @@ export function MultiStepForm() {
         if (window.gtag) {
           window.gtag('event', 'conversion', {
             'send_to': 'AW-1002915679/aOGJCNjKxa0aEN-Ond4D'
+          });
+        }
+        
+        // Push event to dataLayer for GTM
+        if (window.dataLayer) {
+          window.dataLayer.push({
+            'event': 'form_submission_success',
+            'formType': 'loan_application',
+            'loanType': formData.loanType,
+            'loanAmount': formData.loanAmount
           });
         }
         
