@@ -13,11 +13,17 @@ declare global {
 
 export function ExitIntentPopup() {
   const [isVisible, setIsVisible] = useState(false);
-  const [hasBeenShown, setHasBeenShown] = useState(false);
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hasBeenShown, setHasBeenShown] = useState(false);
+  const [isUserEngaged, setIsUserEngaged] = useState(false);
 
   useEffect(() => {
+    // Don't show on mobile devices
+    if (window.innerWidth < 768) {
+      return;
+    }
+
     // Check if popup has been shown in this session
     const shown = sessionStorage.getItem('exitIntentShown');
     if (shown) {
@@ -25,9 +31,27 @@ export function ExitIntentPopup() {
       return;
     }
 
+    // Track user engagement with forms
+    const handleFormInteraction = () => {
+      setIsUserEngaged(true);
+      // Reset engagement after 30 seconds of no interaction
+      setTimeout(() => setIsUserEngaged(false), 30000);
+    };
+
+    // Listen for form interactions
+    document.addEventListener('focus', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT') {
+        handleFormInteraction();
+      }
+    }, true);
+
+    document.addEventListener('input', handleFormInteraction);
+    document.addEventListener('change', handleFormInteraction);
+
     const handleMouseLeave = (e: MouseEvent) => {
-      // Only trigger when mouse leaves from the top
-      if (e.clientY <= 0 && !hasBeenShown) {
+      // Only trigger when mouse leaves from the top AND user is not engaged with forms
+      if (e.clientY <= 0 && !hasBeenShown && !isUserEngaged) {
         setIsVisible(true);
         setHasBeenShown(true);
         sessionStorage.setItem('exitIntentShown', 'true');
@@ -37,11 +61,14 @@ export function ExitIntentPopup() {
     // Add delay before activating to avoid immediate triggers
     const timer = setTimeout(() => {
       document.addEventListener('mouseleave', handleMouseLeave);
-    }, 5000);
+    }, 10000); // Increased to 10 seconds
 
     return () => {
       clearTimeout(timer);
       document.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener('focus', handleFormInteraction, true);
+      document.removeEventListener('input', handleFormInteraction);
+      document.removeEventListener('change', handleFormInteraction);
     };
   }, [hasBeenShown]);
 
