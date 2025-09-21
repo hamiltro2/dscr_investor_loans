@@ -88,20 +88,27 @@ export async function POST(request: Request) {
     const htmlContent = getEmailContent(formType, data);
     const subject = getEmailSubject(formType, data);
 
-    // Send success response immediately
-    const response = NextResponse.json({ success: true });
-
-    // Send email asynchronously
-    transporter.sendMail({
-      from: `Capital Bridge Solutions <${process.env.SMTP_FROM}>`,
-      to: recipients,
-      subject,
-      html: htmlContent,
-      replyTo: data.email,
-    }).then(info => {
+    // Send email and wait for confirmation
+    try {
+      const info = await transporter.sendMail({
+        from: `Capital Bridge Solutions <${process.env.SMTP_FROM}>`,
+        to: recipients,
+        subject,
+        html: htmlContent,
+        replyTo: data.email,
+      });
+      
       console.log('Email sent successfully:', info.messageId);
-    }).catch(error => {
-      console.error('Error sending email:', error);
+      console.log('Accepted:', info.accepted);
+      console.log('Form data:', data);
+      
+      return NextResponse.json({ 
+        success: true,
+        messageId: info.messageId,
+        accepted: info.accepted
+      });
+    } catch (emailError: any) {
+      console.error('Error sending email:', emailError);
       console.error('SMTP Config:', {
         host: process.env.SMTP_HOST,
         port: process.env.SMTP_PORT,
@@ -109,9 +116,14 @@ export async function POST(request: Request) {
         from: process.env.SMTP_FROM,
         to: recipients
       });
-    });
-
-    return response;
+      console.error('Form data that failed:', data);
+      
+      // Still return success to user but log the error
+      return NextResponse.json({ 
+        success: true,
+        warning: 'Form received but email notification failed'
+      });
+    }
   } catch (error) {
     console.error('Error processing request:', error);
     return NextResponse.json(
