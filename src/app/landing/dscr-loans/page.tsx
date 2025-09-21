@@ -5,10 +5,12 @@ import Link from 'next/link';
 import { Check, TrendingUp, Clock, Calculator, Phone, ArrowRight } from 'lucide-react';
 import { MultiStepForm } from '@/components/MultiStepForm';
 
-// Declare gtag for TypeScript
+// Declare gtag and dataLayer for TypeScript
 declare global {
   interface Window {
     gtag?: (...args: any[]) => void;
+    dataLayer?: any[];
+    highIntentFired?: boolean;
   }
 }
 
@@ -18,6 +20,79 @@ export default function DSCRLoansLandingPage() {
   useEffect(() => {
     // Capture URL parameters for personalization
     setUrlParams(new URLSearchParams(window.location.search));
+    
+    // High Intent User Tracking
+    let scrollDepth = 0;
+    let timeOnPage = 0;
+    let formInteractions = 0;
+    
+    // Track scroll depth
+    const handleScroll = () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      scrollDepth = Math.max(scrollDepth, Math.round((winScroll / height) * 100));
+    };
+    
+    // Track time on page
+    const startTime = Date.now();
+    const timeInterval = setInterval(() => {
+      timeOnPage = Math.floor((Date.now() - startTime) / 1000);
+      
+      // Check for high intent signals
+      if (
+        (scrollDepth > 50 && timeOnPage > 30) || // Engaged reader
+        (formInteractions > 0 && timeOnPage > 10) || // Form interest
+        (scrollDepth > 75 && timeOnPage > 60) // Deep engagement
+      ) {
+        // Push high intent event to dataLayer
+        if (window.dataLayer && !window.highIntentFired) {
+          window.highIntentFired = true;
+          window.dataLayer.push({
+            'event': 'high_intent_user_identified',
+            'intent_score': calculateIntentScore(),
+            'scroll_depth': scrollDepth,
+            'time_on_page': timeOnPage,
+            'form_interactions': formInteractions
+          });
+        }
+      }
+    }, 5000);
+    
+    // Track form interactions
+    const handleFormInteraction = () => {
+      formInteractions++;
+    };
+    
+    // Calculate intent score
+    const calculateIntentScore = () => {
+      let score = 0;
+      if (scrollDepth > 75) score += 30;
+      else if (scrollDepth > 50) score += 20;
+      else if (scrollDepth > 25) score += 10;
+      
+      if (timeOnPage > 120) score += 30;
+      else if (timeOnPage > 60) score += 20;
+      else if (timeOnPage > 30) score += 10;
+      
+      if (formInteractions > 2) score += 40;
+      else if (formInteractions > 0) score += 30;
+      
+      return Math.min(score, 100);
+    };
+    
+    // Add event listeners
+    window.addEventListener('scroll', handleScroll);
+    document.addEventListener('focus', (e) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        handleFormInteraction();
+      }
+    }, true);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearInterval(timeInterval);
+    };
   }, []);
 
   const benefits = [
