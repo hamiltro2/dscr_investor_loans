@@ -58,10 +58,10 @@ export function ExitIntentPopup() {
       }
     };
 
-    // Add delay before activating to avoid immediate triggers
+    // Add small delay before activating to avoid immediate triggers
     const timer = setTimeout(() => {
       document.addEventListener('mouseleave', handleMouseLeave);
-    }, 10000); // Increased to 10 seconds
+    }, 2000); // 2 seconds to avoid immediate trigger on page load
 
     return () => {
       clearTimeout(timer);
@@ -132,10 +132,10 @@ export function ExitIntentPopup() {
               {/* Close button */}
               <button
                 onClick={() => setIsVisible(false)}
-                className="absolute top-4 right-4 p-2 rounded-full bg-dark-800/50 hover:bg-dark-700 transition-colors"
+                className="absolute top-4 right-4 p-2 rounded-full bg-dark-800/50 hover:bg-dark-700 transition-colors z-10"
                 aria-label="Close popup"
               >
-                <X className="w-5 h-5 text-gray-400" />
+                <X className="w-5 h-5 text-gray-400 hover:text-white" />
               </button>
 
               <div className="relative p-8 md:p-12">
