@@ -4,11 +4,14 @@ import nodemailer from 'nodemailer';
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT),
-  secure: true,
+  secure: process.env.SMTP_PORT === '465', // true for 465, false for other ports
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASSWORD,
   },
+  tls: {
+    rejectUnauthorized: false
+  }
 });
 
 function getEmailSubject(formType: string, data: any): string {
@@ -95,9 +98,17 @@ export async function POST(request: Request) {
       subject,
       html: htmlContent,
       replyTo: data.email,
+    }).then(info => {
+      console.log('Email sent successfully:', info.messageId);
     }).catch(error => {
       console.error('Error sending email:', error);
-      // Log to your error tracking service here if needed
+      console.error('SMTP Config:', {
+        host: process.env.SMTP_HOST,
+        port: process.env.SMTP_PORT,
+        user: process.env.SMTP_USER,
+        from: process.env.SMTP_FROM,
+        to: recipients
+      });
     });
 
     return response;
