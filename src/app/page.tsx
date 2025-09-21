@@ -7,6 +7,7 @@ import { Suspense, useState } from 'react'
 import { TypewriterText } from '@/components/TypewriterText'
 import { InfoCard } from '@/components/InfoCard'
 import { FAQ } from '@/components/FAQ'
+import { AIOptimizedContent } from '@/components/AIOptimizedContent'
 
 // Declare gtag for TypeScript
 declare global {
@@ -544,6 +545,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+      
+      {/* AI Optimized Content - Hidden but readable by Google AI */}
+      <AIOptimizedContent />
     </main>
   )
 }

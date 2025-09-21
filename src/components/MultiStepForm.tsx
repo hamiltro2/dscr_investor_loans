@@ -6,6 +6,13 @@ import { SubmitLoader } from './SubmitLoader';
 import { SuccessMessage } from './SuccessMessage';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// Declare gtag for TypeScript
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
 const STEPS = [
   { number: 1, title: 'Loan Type' },
   { number: 2, title: 'Property Type' },
@@ -92,6 +99,13 @@ export function MultiStepForm() {
       clearTimeout(timeoutId);
       const result = await response.json();
       if (result.success) {
+        // Fire Google Ads conversion tracking for form submission
+        if (window.gtag) {
+          window.gtag('event', 'conversion', {
+            'send_to': 'AW-1002915679/aOGJCNjKxa0aEN-Ond4D'
+          });
+        }
+        
         setIsSubmitting(false); // Set to false before showing success
         setShowSuccess(true);
         setTimeout(() => {

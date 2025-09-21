@@ -4,6 +4,9 @@ import Script from 'next/script'
 import './globals.css'
 import Navigation from '@/components/Navigation'
 import { Footer } from '@/components/Footer'
+import { ExitIntentPopup } from '@/components/ExitIntentPopup'
+import { TrustBar } from '@/components/TrustBar'
+import { IntentTracking } from '@/components/IntentTracking'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat' })
@@ -291,6 +294,32 @@ export default function RootLayout({
             })
           }}
         />
+        
+        {/* Structured Data - Service */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Service",
+              "serviceType": "DSCR Loans",
+              "provider": {
+                "@id": "https://www.capitalbridgesolutions.com/#organization"
+              },
+              "areaServed": "United States",
+              "description": "Debt Service Coverage Ratio loans for real estate investors. No tax returns required. Qualify based on rental income.",
+              "offers": {
+                "@type": "Offer",
+                "priceSpecification": {
+                  "@type": "UnitPriceSpecification",
+                  "price": "5.99",
+                  "priceCurrency": "USD",
+                  "unitText": "percent APR starting rate"
+                }
+              }
+            })
+          }}
+        />
       </head>
       <body className={`${inter.variable} ${montserrat.variable} font-sans antialiased min-h-screen flex flex-col`}>
         {/* Google tag (gtag.js) */}
@@ -317,6 +346,9 @@ export default function RootLayout({
         <Navigation />
         {children}
         <Footer />
+        <ExitIntentPopup />
+        <TrustBar />
+        <IntentTracking />
       </body>
     </html>
   )

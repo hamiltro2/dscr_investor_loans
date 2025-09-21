@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { trackFAQClick } from './IntentTracking';
 
 interface FAQItem {
   question: string;
@@ -64,6 +65,11 @@ export function FAQ() {
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
+    
+    // Track FAQ interaction for intent scoring
+    if (openIndex !== index) {
+      trackFAQClick(faqs[index].question);
+    }
   };
 
   return (

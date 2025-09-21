@@ -1,9 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { SubmitLoader } from './SubmitLoader';
 import { SuccessMessage } from './SuccessMessage';
+import { motion } from 'framer-motion';
+
+// Declare gtag for TypeScript
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
 
 export default function CreditSolutionsForm() {
   const [formData, setFormData] = useState({
@@ -48,6 +55,13 @@ export default function CreditSolutionsForm() {
       const result = await response.json();
       
       if (result.success) {
+        // Fire Google Ads conversion tracking for form submission
+        if (window.gtag) {
+          window.gtag('event', 'conversion', {
+            'send_to': 'AW-1002915679/aOGJCNjKxa0aEN-Ond4D'
+          });
+        }
+        
         resetForm();
         setShowSuccess(true);
       } else {
