@@ -29,12 +29,6 @@ export function TrustBar() {
       color: "text-yellow-400"
     },
     {
-      icon: <Award className="w-5 h-5" />,
-      label: "BBB Rating",
-      value: "A+",
-      color: "text-primary-400"
-    },
-    {
       icon: <TrendingUp className="w-5 h-5" />,
       label: "Funded",
       value: "$2.5B+",
@@ -118,18 +112,23 @@ export function TrustBar() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.5 }}
                 >
-                  <a
-                    href="#apply-now"
+                  <button
+                    onClick={() => {
+                      const formElement = document.querySelector('form');
+                      if (formElement) {
+                        formElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                      }
+                    }}
                     className="bg-gradient-to-r from-primary-500 to-primary-600 text-white px-6 py-2.5 rounded-lg font-semibold text-sm hover:from-primary-600 hover:to-primary-700 transition-all duration-300 shadow-lg hover:shadow-primary-500/25 flex items-center gap-2"
                   >
-                    Get Pre-Approved
+                    Get Approved
                     <motion.span
                       animate={{ x: [0, 5, 0] }}
                       transition={{ repeat: Infinity, duration: 1.5 }}
                     >
                       →
                     </motion.span>
-                  </a>
+                  </button>
                 </motion.div>
               </div>
 
