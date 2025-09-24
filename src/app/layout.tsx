@@ -70,13 +70,43 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Capital Bridge Solutions",
+    "url": "https://www.capitalbridgesolutions.com",
+    "logo": "https://www.capitalbridgesolutions.com/Small_logo_CBS.png",
+    "image": "https://www.capitalbridgesolutions.com/Small_logo_CBS.png",
+    "description": "Specialized DSCR loans, hard money loans, and investment property financing for real estate investors.",
+    "telephone": "+19493393555",
+    "email": "info@capitalbridgesolutions.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "CA",
+      "addressCountry": "US"
+    },
+    "sameAs": [
+      "https://www.capitalbridgesolutions.com"
+    ],
+    "areaServed": {
+      "@type": "Country",
+      "name": "United States"
+    }
+  };
+
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <link rel="icon" href="/Small_logo_CBS.png" type="image/png" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="canonical" href="https://www.capitalbridgesolutions.com" />
         <meta name="theme-color" content="#3b82f6" />
-        <link rel="apple-touch-icon" href="/icon-192.png" />
+        <link rel="apple-touch-icon" href="/Small_logo_CBS.png" />
         
         {/* Google Tag Manager - as high as possible in head */}
         <Script id="gtm-head" strategy="afterInteractive">
