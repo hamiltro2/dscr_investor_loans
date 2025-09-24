@@ -95,7 +95,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
+    <html lang="en" className={`dark ${inter.variable} ${montserrat.variable}`}>
       <head>
         <script
           type="application/ld+json"
@@ -363,7 +363,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${montserrat.variable} font-sans antialiased min-h-screen flex flex-col`}>
+      <body className={`${inter.variable} ${montserrat.variable} font-sans antialiased min-h-screen flex flex-col bg-dark-950 text-white`}>
         
         {/* Google Tag Manager (noscript) - immediately after opening body tag */}
         <noscript>
