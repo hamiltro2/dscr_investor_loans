@@ -19,6 +19,22 @@ const blogPosts = [
     date: '2024-09-23',
     readTime: '12 min read',
     category: 'Loan Guides'
+  },
+  {
+    slug: 'dscr-loan-requirements-california-2024',
+    title: 'DSCR Loan Requirements California 2024: What You Need to Know',
+    excerpt: 'Complete breakdown of 2024 DSCR loan requirements including credit scores, down payments, property types, and documentation needed.',
+    date: '2024-09-23',
+    readTime: '10 min read',
+    category: 'Loan Guides'
+  },
+  {
+    slug: 'no-tax-return-investment-property-loans',
+    title: 'No Tax Return Investment Property Loans California',
+    excerpt: 'Discover 6 types of investment property loans that don\'t require tax returns. Perfect for self-employed and privacy-conscious investors.',
+    date: '2024-09-23',
+    readTime: '11 min read',
+    category: 'Alternative Financing'
   }
 ];
 
