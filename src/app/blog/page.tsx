@@ -51,6 +51,22 @@ const blogPosts = [
     date: '2024-09-23',
     readTime: '10 min read',
     category: 'STR Financing'
+  },
+  {
+    slug: 'dscr-vs-hard-money-loans',
+    title: 'DSCR vs Hard Money Loans: Which is Better for CA Investors?',
+    excerpt: 'Complete comparison of DSCR loans vs hard money. See rates, terms, costs, and when to use each type of financing for maximum profit.',
+    date: '2024-09-24',
+    readTime: '11 min read',
+    category: 'Loan Comparisons'
+  },
+  {
+    slug: 'fix-and-flip-dscr-loans-california',
+    title: 'Fix and Flip DSCR Loans California: Complete Strategy Guide',
+    excerpt: 'Learn advanced strategies for using DSCR loans in fix-and-flip projects. Flip-to-rent model, BRRRR method, and building wealth while flipping.',
+    date: '2024-09-24',
+    readTime: '12 min read',
+    category: 'Investment Strategies'
   }
 ];
 
