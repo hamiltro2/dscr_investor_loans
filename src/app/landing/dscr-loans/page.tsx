@@ -101,7 +101,7 @@ export default function DSCRLoansLandingPage() {
     'Self-Employed Friendly',
     '24-48 Hour Approval',
     'Rates from 5.99%',
-    'Up to $3.5 Million'
+    'Up to $30 Million'
   ];
 
   const features = [

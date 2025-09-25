@@ -355,7 +355,7 @@ export default function Home() {
                   <h3 className="text-xl font-bold text-blue-600 mb-3">6 PROGRAMS AVAILABLE!</h3>
                   <ul className="space-y-2 text-sm">
                     <li>• DSCR from 5.99%*</li>
-                    <li>• Loan Amounts to 3.5M</li>
+                    <li>• Loan Amounts to 30M</li>
                     <li>• Interest Only Qualifying Most Programs</li>
                     <li>• No Ratio Program (No DSCR) to 75% with High FICO</li>
                     <li>• First Time Homebuyer Program</li>
