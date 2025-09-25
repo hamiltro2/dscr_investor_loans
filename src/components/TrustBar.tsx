@@ -112,14 +112,9 @@ export function TrustBar() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.5 }}
                 >
-                  <button
-                    onClick={() => {
-                      const formElement = document.querySelector('form');
-                      if (formElement) {
-                        formElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                      }
-                    }}
-                    className="bg-gradient-to-r from-primary-500 to-primary-600 text-white px-6 py-2.5 rounded-lg font-semibold text-sm hover:from-primary-600 hover:to-primary-700 transition-all duration-300 shadow-lg hover:shadow-primary-500/25 flex items-center gap-2"
+                  <a
+                    href="/landing/dscr-loans"
+                    className="bg-gradient-to-r from-primary-500 to-primary-600 text-white px-6 py-2.5 rounded-lg font-semibold text-sm hover:from-primary-600 hover:to-primary-700 transition-all duration-300 shadow-lg hover:shadow-primary-500/25 flex items-center gap-2 inline-flex"
                   >
                     Get Approved
                     <motion.span
@@ -128,7 +123,7 @@ export function TrustBar() {
                     >
                       →
                     </motion.span>
-                  </button>
+                  </a>
                 </motion.div>
               </div>
 

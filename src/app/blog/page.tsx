@@ -67,6 +67,22 @@ const blogPosts = [
     date: '2024-09-24',
     readTime: '12 min read',
     category: 'Investment Strategies'
+  },
+  {
+    slug: 'dscr-loan-rates-california-2024',
+    title: 'DSCR Loan Rates California 2024: Current Rates & Factors',
+    excerpt: 'Current DSCR rates from 7.25-9.75%. Complete rate tables by credit score, factors affecting your rate, and strategies to get the best pricing.',
+    date: '2024-09-24',
+    readTime: '10 min read',
+    category: 'Rates & Terms'
+  },
+  {
+    slug: 'how-to-qualify-for-dscr-loan',
+    title: 'How to Qualify for DSCR Loan: Complete California Guide',
+    excerpt: 'Step-by-step qualification guide covering requirements, DSCR calculations, documents needed, and insider tips for getting approved.',
+    date: '2024-09-24',
+    readTime: '13 min read',
+    category: 'Loan Guides'
   }
 ];
 
