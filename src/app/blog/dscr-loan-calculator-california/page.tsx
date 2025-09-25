@@ -110,7 +110,7 @@ export default function DSCRCalculatorPage() {
                         type="number"
                         value={monthlyRent}
                         onChange={(e) => setMonthlyRent(e.target.value)}
-                        className="w-full pl-10 pr-4 py-3 bg-dark-700 border border-gray-600 rounded-lg text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
+                        className="w-full pl-10 pr-4 py-3 bg-white text-black border border-gray-300 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
                       />
                     </div>
                   </div>
@@ -125,7 +125,7 @@ export default function DSCRCalculatorPage() {
                         type="number"
                         value={propertyPrice}
                         onChange={(e) => setPropertyPrice(e.target.value)}
-                        className="w-full pl-10 pr-4 py-3 bg-dark-700 border border-gray-600 rounded-lg text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
+                        className="w-full pl-10 pr-4 py-3 bg-white text-black border border-gray-300 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
                       />
                     </div>
                   </div>
@@ -136,9 +136,10 @@ export default function DSCRCalculatorPage() {
                     </label>
                     <input
                       type="number"
-                      value={downPayment}
-                      onChange={(e) => setDownPayment(e.target.value)}
-                      className="w-full px-4 py-3 bg-dark-700 border border-gray-600 rounded-lg text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
+                      value={monthlyRent}
+                      onChange={(e) => setMonthlyRent(e.target.value)}
+                      className="w-full px-4 py-3 bg-white text-black border border-gray-300 rounded-lg focus:border-primary-500 focus:outline-none"
+                      placeholder="5000"
                     />
                   </div>
 
@@ -151,7 +152,7 @@ export default function DSCRCalculatorPage() {
                       step="0.1"
                       value={interestRate}
                       onChange={(e) => setInterestRate(e.target.value)}
-                      className="w-full px-4 py-3 bg-dark-700 border border-gray-600 rounded-lg text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
+                      className="w-full px-4 py-3 bg-white text-black border border-gray-300 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
                     />
                   </div>
 
@@ -166,7 +167,7 @@ export default function DSCRCalculatorPage() {
                           type="number"
                           value={propertyTaxes}
                           onChange={(e) => setPropertyTaxes(e.target.value)}
-                          className="w-full pl-10 pr-4 py-3 bg-dark-700 border border-gray-600 rounded-lg text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
+                          className="w-full pl-10 pr-4 py-3 bg-white text-black border border-gray-300 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
                         />
                       </div>
                     </div>
@@ -181,7 +182,7 @@ export default function DSCRCalculatorPage() {
                           type="number"
                           value={insurance}
                           onChange={(e) => setInsurance(e.target.value)}
-                          className="w-full pl-10 pr-4 py-3 bg-dark-700 border border-gray-600 rounded-lg text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
+                          className="w-full pl-10 pr-4 py-3 bg-white text-black border border-gray-300 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
                         />
                       </div>
                     </div>
@@ -197,7 +198,7 @@ export default function DSCRCalculatorPage() {
                         type="number"
                         value={hoa}
                         onChange={(e) => setHoa(e.target.value)}
-                        className="w-full pl-10 pr-4 py-3 bg-dark-700 border border-gray-600 rounded-lg text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
+                        className="w-full pl-10 pr-4 py-3 bg-white text-black border border-gray-300 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
                       />
                     </div>
                   </div>

@@ -35,6 +35,22 @@ const blogPosts = [
     date: '2024-09-23',
     readTime: '11 min read',
     category: 'Alternative Financing'
+  },
+  {
+    slug: 'dscr-loan-620-credit-score',
+    title: 'DSCR Loan 620 Credit Score: How to Get Approved',
+    excerpt: 'Get approved for a DSCR loan with 620 credit score. Learn requirements, interest rates, and proven strategies for California investment properties.',
+    date: '2024-09-23',
+    readTime: '9 min read',
+    category: 'Credit & Qualification'
+  },
+  {
+    slug: 'airbnb-dscr-loans-california',
+    title: 'Airbnb DSCR Loans California: STR Financing Guide',
+    excerpt: 'Finance your short-term rental with projected Airbnb income. Top California markets, lender requirements, and success strategies for STR investors.',
+    date: '2024-09-23',
+    readTime: '10 min read',
+    category: 'STR Financing'
   }
 ];
 
