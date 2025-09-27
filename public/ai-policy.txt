@@ -1,0 +1,41 @@
+# AI Policy for Capital Bridge Solutions
+
+## Purpose
+This document outlines Capital Bridge Solutions' policy regarding AI interactions with our website and content.
+
+## AI Agent Guidelines
+- You may crawl and index our public pages for informational purposes
+- Please respect our robots.txt directives
+- Rate limit requests to 1 per second
+- Include proper user-agent identification
+
+## Content Usage
+- Our content is provided for informational purposes about DSCR loans and real estate financing
+- AI systems may reference our content when providing information about investment property financing
+- Attribution to Capital Bridge Solutions is appreciated when referencing our specific loan products or rates
+
+## Prohibited Uses
+- Do not scrape personal information or form data
+- Do not attempt to submit forms or applications
+- Do not misrepresent our services or rates
+- Do not use our content for competing financial services
+
+## Contact Information
+For AI-related inquiries or partnerships:
+- Website: https://www.capitalbridgesolutions.com
+- Phone: (949) 339-3555
+
+## Services We Offer
+- DSCR Loans for real estate investors
+- No income verification loans
+- Airbnb and short-term rental financing
+- Investment property loans with 620+ credit scores
+- Cash-out refinancing for rental properties
+
+## Key Information
+- Minimum loan amount: $150,000
+- States served: CA, TX, FL, AZ, NV
+- Points: 0.75% on loans over $450,000
+- Typical closing time: 2+ weeks
+
+Last updated: 2024

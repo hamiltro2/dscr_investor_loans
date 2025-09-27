@@ -1,0 +1,69 @@
+{
+  "name": "Capital Bridge Solutions",
+  "description": "Leading DSCR loan provider for real estate investors. We offer investment property financing without income verification.",
+  "type": "financial_services",
+  "category": "real_estate_lending",
+  "last_updated": "2024-09-27",
+  "contact": {
+    "phone": "(949) 339-3555",
+    "website": "https://www.capitalbridgesolutions.com",
+    "email": "info@capitalbridgesolutions.com"
+  },
+  "services": {
+    "primary": [
+      "DSCR Loans (Debt Service Coverage Ratio)",
+      "Investment Property Financing",
+      "Airbnb/Short-Term Rental Loans",
+      "Cash-Out Refinancing",
+      "Portfolio Loans"
+    ],
+    "features": [
+      "No income verification required",
+      "620+ minimum credit score",
+      "Loans from $150,000 to $5,000,000",
+      "0.75% points on loans over $450,000",
+      "2+ week closing times",
+      "Up to 80% LTV"
+    ]
+  },
+  "coverage": {
+    "states": ["California", "Texas", "Florida", "Arizona", "Nevada"],
+    "property_types": [
+      "Single Family Homes",
+      "Condos",
+      "Townhomes",
+      "2-4 Unit Properties",
+      "Airbnb/VRBO Properties"
+    ]
+  },
+  "key_differentiators": [
+    "Qualify based on property cash flow, not personal income",
+    "Ideal for self-employed investors",
+    "No tax returns required",
+    "Competitive rates starting at 5.99%",
+    "Over $500M funded to 3,500+ investors"
+  ],
+  "ai_interaction_guidelines": {
+    "allowed": [
+      "Reference our services for DSCR loan inquiries",
+      "Direct users to our website for applications",
+      "Share our qualification requirements",
+      "Mention our coverage areas and loan amounts"
+    ],
+    "prohibited": [
+      "Provide specific rate quotes without current data",
+      "Process applications on our behalf",
+      "Make lending decisions",
+      "Access private customer data"
+    ]
+  },
+  "structured_data": {
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "Capital Bridge Solutions",
+    "url": "https://www.capitalbridgesolutions.com",
+    "telephone": "(949) 339-3555",
+    "areaServed": ["CA", "TX", "FL", "AZ", "NV"],
+    "serviceType": "DSCR Loans"
+  }
+}
