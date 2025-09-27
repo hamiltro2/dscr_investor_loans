@@ -11,6 +11,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/investor-analysis',
     '/credit-solutions',
     '/calculators',
+    '/calculators/dscr',
+    '/calculators/hard-money',
     '/locations',
     '/locations/california',
     '/locations/texas',

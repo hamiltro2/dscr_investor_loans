@@ -2,6 +2,8 @@
 
 import { Calculator } from '@/components/Calculator';
 import { MultiStepForm } from '@/components/MultiStepForm';
+import Link from 'next/link';
+import { Calculator as CalculatorIcon, Hammer, TrendingUp, ArrowRight } from 'lucide-react';
 
 export default function Calculators() {
   const calculateDSCR = (values: Record<string, number | string>) => {
@@ -76,11 +78,61 @@ export default function Calculators() {
     <main className="flex min-h-screen flex-col bg-gray-900">
       <div className="container mx-auto px-4 py-8">
         <div className="space-y-8">
-          <div className="text-center">
+          <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-white mb-4">Investment Property Calculators</h1>
             <p className="text-xl text-white">
               Use our calculators to analyze potential investment properties and determine the best financing options for your needs.
             </p>
+          </div>
+
+          {/* Calculator Cards */}
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <Link href="/calculators/dscr" className="group">
+              <div className="card p-8 bg-dark-900/50 border border-dark-800 hover:border-primary-500/50 transition-all duration-300">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="p-3 bg-primary-500/20 rounded-xl group-hover:bg-primary-500/30 transition-colors">
+                    <TrendingUp className="w-8 h-8 text-primary-400" />
+                  </div>
+                  <div className="flex-1">
+                    <h2 className="text-2xl font-bold text-white mb-2">DSCR Loan Calculator</h2>
+                    <p className="text-dark-200 mb-4">
+                      Calculate your Debt Service Coverage Ratio to see if your property qualifies for DSCR financing. 
+                      No personal income verification required.
+                    </p>
+                    <div className="flex items-center gap-2 text-primary-400 group-hover:text-primary-300">
+                      <span className="font-medium">Use Calculator</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
+            <Link href="/calculators/hard-money" className="group">
+              <div className="card p-8 bg-dark-900/50 border border-dark-800 hover:border-primary-500/50 transition-all duration-300">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="p-3 bg-primary-500/20 rounded-xl group-hover:bg-primary-500/30 transition-colors">
+                    <Hammer className="w-8 h-8 text-primary-400" />
+                  </div>
+                  <div className="flex-1">
+                    <h2 className="text-2xl font-bold text-white mb-2">Hard Money Loan Calculator</h2>
+                    <p className="text-dark-200 mb-4">
+                      Estimate loan amounts and costs for fix & flip projects. 
+                      Get funded in days with asset-based lending.
+                    </p>
+                    <div className="flex items-center gap-2 text-primary-400 group-hover:text-primary-300">
+                      <span className="font-medium">Use Calculator</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-white mb-4">Quick Calculators</h2>
+            <p className="text-dark-200">Or use our quick calculators below for instant estimates</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">

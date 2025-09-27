@@ -86,6 +86,8 @@ export default function RootLayout({
       "addressCountry": "US"
     },
     "sameAs": [
+      "https://www.instagram.com/thecapitalbridgesolutions/",
+      "https://www.tiktok.com/@capitalbridgesolutions",
       "https://www.capitalbridgesolutions.com"
     ],
     "areaServed": {
