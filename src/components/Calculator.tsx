@@ -102,7 +102,7 @@ export function Calculator({
             <div className="relative">
               {field.prefix && (
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <span className="text-dark-400">{field.prefix}</span>
+                  <span className="text-gray-500">{field.prefix}</span>
                 </div>
               )}
               {field.type === 'select' ? (
@@ -110,7 +110,7 @@ export function Calculator({
                   id={field.name}
                   value={values[field.name] || ''}
                   onChange={(e) => handleChange(field.name, e.target.value)}
-                  className={`block w-full rounded-md border-0 bg-dark-800 text-dark-100 shadow-sm ring-1 ring-inset ring-dark-700 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6 pl-3 pr-10 py-2 ${inputClassName}`}
+                  className={`block w-full rounded-md border-0 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6 pl-3 pr-10 py-2 ${inputClassName}`}
                 >
                   <option value="">Select...</option>
                   {field.options?.map((option) => (
@@ -128,7 +128,7 @@ export function Calculator({
                   step={field.step}
                   value={values[field.name] || ''}
                   onChange={(e) => handleChange(field.name, e.target.value)}
-                  className={`block w-full rounded-md border-0 bg-dark-800 text-dark-100 shadow-sm ring-1 ring-inset ring-dark-700 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6 ${
+                  className={`block w-full rounded-md border-0 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6 ${
                     field.prefix ? 'pl-8' : 'pl-3'
                   } ${field.suffix ? 'pr-12' : 'pr-3'} py-2 ${inputClassName}`}
                   placeholder="0"
@@ -136,7 +136,7 @@ export function Calculator({
               )}
               {field.suffix && (
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <span className="text-dark-400">{field.suffix}</span>
+                  <span className="text-gray-500">{field.suffix}</span>
                 </div>
               )}
             </div>

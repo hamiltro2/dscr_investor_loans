@@ -48,6 +48,7 @@ export const metadata: Metadata = {
     title: 'Capital Bridge Solutions - DSCR Loans & Investment Financing',
     description: 'Get approved for investment property loans in 24-48 hours. No tax returns required. Competitive rates starting at 5.99%.',
     images: ['/logo.png'],
+    creator: '@capitalbridgesol',
   },
   robots: {
     index: true,
@@ -153,7 +154,7 @@ export default function RootLayout({
               "sameAs": [
                 "https://www.facebook.com/capitalbridgesolutions",
                 "https://www.linkedin.com/company/capital-bridge-solutions",
-                "https://twitter.com/capitalbridgesol"
+                "https://x.com/capitalbridgesol"
               ],
               "priceRange": "$$",
               "openingHoursSpecification": [

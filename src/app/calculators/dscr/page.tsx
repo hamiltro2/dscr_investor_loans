@@ -192,7 +192,7 @@ export default function DSCRCalculatorPage() {
                   titleClassName="text-white text-2xl"
                   description="Enter your property details below to calculate the debt service coverage ratio."
                   descriptionClassName="text-dark-200"
-                  inputClassName="text-white bg-dark-800 border-dark-700"
+                  inputClassName="text-black bg-white border-gray-300"
                   labelClassName="text-white"
                   resultClassName="text-white"
                   tipsClassName="text-dark-200"

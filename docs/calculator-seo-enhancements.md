@@ -52,7 +52,7 @@ Implemented comprehensive SEO enhancements for DSCR and Hard Money loan calculat
 ### 3. **Social Sharing Component**
 
 #### Features:
-- Facebook, Twitter, LinkedIn, Email sharing
+- Facebook, X, LinkedIn, Email sharing
 - Copy link functionality with visual feedback
 - Analytics tracking for share events
 - Responsive design with hover effects
@@ -74,7 +74,7 @@ window.gtag('event', 'share', {
 - Unique title tags for each calculator
 - Descriptive meta descriptions with keywords
 - Open Graph tags for social media
-- Twitter Card implementation
+- X (Twitter) Card implementation
 - Canonical URLs to prevent duplicate content
 
 #### URL Structure:
