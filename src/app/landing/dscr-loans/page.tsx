@@ -125,17 +125,48 @@ export default function DSCRLoansLandingPage() {
   return (
     <div className="min-h-screen bg-dark-950">
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-12 md:py-16 lg:py-20 overflow-hidden">
         {/* City Skyline Background */}
         <div className="absolute inset-0">
           {/* Base gradient */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-primary-600/10" />
           
-          {/* City skyline SVG */}
-          <div className="absolute bottom-0 left-0 right-0 opacity-[0.05]">
+          {/* City skyline SVG - Mobile optimized */}
+          <div className="absolute bottom-0 left-0 right-0 opacity-[0.08] md:opacity-[0.05] h-[200px] md:h-[300px] lg:h-[400px]">
+            {/* Mobile version - simplified */}
+            <svg 
+              viewBox="0 0 600 400" 
+              className="w-full h-full md:hidden"
+              preserveAspectRatio="xMidYEnd slice"
+            >
+              {/* Simplified buildings for mobile */}
+              <g className="text-white">
+                <rect x="0" y="200" width="80" height="200" fill="currentColor" />
+                <rect x="100" y="150" width="100" height="250" fill="currentColor" />
+                <rect x="220" y="180" width="90" height="220" fill="currentColor" />
+                <rect x="330" y="120" width="110" height="280" fill="currentColor" />
+                <rect x="460" y="160" width="85" height="240" fill="currentColor" />
+                <rect x="560" y="140" width="40" height="260" fill="currentColor" />
+              </g>
+              {/* Simple window lights for mobile */}
+              <g className="text-primary-400">
+                <circle cx="40" cy="220" r="1.5" fill="currentColor" opacity="0.8" />
+                <circle cx="40" cy="250" r="1.5" fill="currentColor" opacity="0.4" />
+                <circle cx="40" cy="280" r="1.5" fill="currentColor" opacity="0.9" />
+                <circle cx="150" cy="170" r="1.5" fill="currentColor" opacity="0.7" />
+                <circle cx="150" cy="200" r="1.5" fill="currentColor" opacity="0.3" />
+                <circle cx="265" cy="200" r="1.5" fill="currentColor" opacity="0.8" />
+                <circle cx="265" cy="230" r="1.5" fill="currentColor" opacity="0.5" />
+                <circle cx="385" cy="140" r="1.5" fill="currentColor" opacity="0.9" />
+                <circle cx="385" cy="170" r="1.5" fill="currentColor" opacity="0.4" />
+                <circle cx="502" cy="180" r="1.5" fill="currentColor" opacity="0.7" />
+              </g>
+            </svg>
+            
+            {/* Desktop version - full detail */}
             <svg 
               viewBox="0 0 1200 400" 
-              className="w-full h-full"
+              className="w-full h-full hidden md:block"
               preserveAspectRatio="xMidYEnd slice"
             >
               {/* Background buildings - far layer with architectural details */}
