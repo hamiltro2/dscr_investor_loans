@@ -217,6 +217,17 @@ export default function Home() {
                     <h3 className="text-2xl sm:text-3xl font-medium text-white tracking-wide">
                       DSCR LOANS
                     </h3>
+                    
+                    {/* NEW: 85% LTV Purchase */}
+                    <div className="flex items-center justify-center gap-3">
+                      <span className="text-xl sm:text-2xl font-semibold text-white">
+                        85% LTV Purchase
+                      </span>
+                      <span className="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-green-500/50 animate-pulse">
+                        NEW
+                      </span>
+                    </div>
+                    
                     <div className="inline-block px-6 py-2 bg-white/10 border border-white/20 rounded-full">
                       <span className="text-white font-medium">ACT NOW</span>
                     </div>
