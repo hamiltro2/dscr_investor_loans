@@ -3,7 +3,7 @@
   "description": "Leading DSCR loan provider for real estate investors. We offer investment property financing without income verification.",
   "type": "financial_services",
   "category": "real_estate_lending",
-  "last_updated": "2024-09-27",
+  "last_updated": "2024-10-01",
   "contact": {
     "phone": "(949) 339-3555",
     "website": "https://www.capitalbridgesolutions.com",
@@ -27,11 +27,12 @@
       "Loans from $150,000 to $5,000,000",
       "0.75% points on loans over $450,000",
       "2+ week closing times",
-      "Up to 80% LTV"
+      "Up to 85% LTV on purchases (NEW)",
+      "Up to 80% LTV on refinances"
     ]
   },
   "coverage": {
-    "states": ["California", "Texas", "Florida", "Arizona", "Nevada"],
+    "states": ["All 50 US States", "California", "Texas", "Florida", "Arizona", "Nevada"],
     "property_types": [
       "Single Family Homes",
       "Condos",
