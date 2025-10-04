@@ -52,11 +52,11 @@ export function BlogImage({
           itemProp="contentUrl"
         />
         
-        {/* Clickable "Read The Article" section at bottom - only if we have a matching article */}
+        {/* Clickable area positioned above "Read The Article" text - only if we have a matching article */}
         {articleLink && (
           <Link 
             href={articleLink}
-            className="absolute bottom-0 left-0 right-0 h-16 flex items-center justify-center hover:opacity-90 transition-opacity cursor-pointer"
+            className="absolute bottom-16 left-0 right-0 h-20 flex items-center justify-center hover:opacity-90 transition-opacity cursor-pointer"
             aria-label="Read the full article"
           >
             <span className="sr-only">Read The Article</span>
