@@ -31,13 +31,15 @@
     <priority>0.7</priority>
   </url>
   
+  <!-- Blog Main Page -->
   <url>
     <loc>https://www.capitalbridgesolutions.com/blog</loc>
-    <lastmod>2024-09-23</lastmod>
+    <lastmod>2024-10-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
+  <!-- Blog Articles - Original 10 -->
   <url>
     <loc>https://www.capitalbridgesolutions.com/blog/dscr-loan-calculator-california</loc>
     <lastmod>2024-09-23</lastmod>
@@ -51,53 +53,170 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+  
   <url>
     <loc>https://www.capitalbridgesolutions.com/blog/dscr-loan-requirements-california-2024</loc>
     <lastmod>2024-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+  
   <url>
     <loc>https://www.capitalbridgesolutions.com/blog/no-tax-return-investment-property-loans</loc>
     <lastmod>2024-09-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
+  
   <url>
     <loc>https://www.capitalbridgesolutions.com/blog/dscr-loan-620-credit-score</loc>
     <lastmod>2024-09-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
+  
   <url>
     <loc>https://www.capitalbridgesolutions.com/blog/airbnb-dscr-loans-california</loc>
     <lastmod>2024-09-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
+  
   <url>
     <loc>https://www.capitalbridgesolutions.com/blog/dscr-vs-hard-money-loans</loc>
     <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
+  
   <url>
     <loc>https://www.capitalbridgesolutions.com/blog/fix-and-flip-dscr-loans-california</loc>
     <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
+  
   <url>
     <loc>https://www.capitalbridgesolutions.com/blog/dscr-loan-rates-california-2024</loc>
     <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
+  
   <url>
     <loc>https://www.capitalbridgesolutions.com/blog/how-to-qualify-for-dscr-loan</loc>
     <lastmod>2024-09-24</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Blog Articles - State Guides (New) -->
+  <url>
+    <loc>https://www.capitalbridgesolutions.com/blog/dscr-loans-texas</loc>
+    <lastmod>2024-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.capitalbridgesolutions.com/blog/dscr-loans-florida</loc>
+    <lastmod>2024-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.capitalbridgesolutions.com/blog/dscr-loans-arizona</loc>
+    <lastmod>2024-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.capitalbridgesolutions.com/blog/dscr-loans-georgia</loc>
+    <lastmod>2024-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.capitalbridgesolutions.com/blog/dscr-loans-nevada</loc>
+    <lastmod>2024-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Blog Articles - Advanced Topics (New) -->
+  <url>
+    <loc>https://www.capitalbridgesolutions.com/blog/dscr-loans-multi-family</loc>
+    <lastmod>2024-10-04</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.capitalbridgesolutions.com/blog/dscr-vs-conventional-loans</loc>
+    <lastmod>2024-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.capitalbridgesolutions.com/blog/dscr-loan-refinancing</loc>
+    <lastmod>2024-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.capitalbridgesolutions.com/blog/portfolio-dscr-loans</loc>
+    <lastmod>2024-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.capitalbridgesolutions.com/blog/dscr-loans-foreign-investors</loc>
+    <lastmod>2024-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Blog Articles - Market Insights (New) -->
+  <url>
+    <loc>https://www.capitalbridgesolutions.com/blog/dscr-loan-predictions-2025</loc>
+    <lastmod>2024-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.capitalbridgesolutions.com/blog/dscr-loan-tax-benefits</loc>
+    <lastmod>2024-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.capitalbridgesolutions.com/blog/dscr-loans-market-downturn</loc>
+    <lastmod>2024-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Blog Articles - Case Studies (New) -->
+  <url>
+    <loc>https://www.capitalbridgesolutions.com/blog/case-study-first-time-investor-620-credit</loc>
+    <lastmod>2024-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.capitalbridgesolutions.com/blog/case-study-10-property-portfolio</loc>
+    <lastmod>2024-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.capitalbridgesolutions.com/credit-solutions</loc>
@@ -203,7 +322,7 @@
   
   <url>
     <loc>https://www.capitalbridgesolutions.com/sitemap.xml</loc>
-    <lastmod>2024-09-27</lastmod>
+    <lastmod>2024-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

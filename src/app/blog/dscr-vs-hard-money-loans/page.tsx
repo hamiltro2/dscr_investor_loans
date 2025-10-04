@@ -3,10 +3,22 @@
 import Link from 'next/link';
 import { Scale, Clock, DollarSign, Percent, Shield, TrendingUp, AlertCircle, CheckCircle, XCircle, ArrowRight } from 'lucide-react';
 import { FAQContinued, CTASection } from './faq-cta';
+import { BlogImage } from '@/components/BlogImage';
+import { ArticleSchema } from '@/components/ArticleSchema';
 
 export default function DSCRvsHardMoneyPage() {
   return (
-    <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
+    <>
+      <ArticleSchema 
+        headline="DSCR vs Hard Money Loans: Which is Better for California Investors?"
+        description="Compare DSCR loans vs hard money for California real estate. See rates, terms, costs, and strategies. Learn when to use each type for maximum profit."
+        datePublished="2024-09-24T00:00:00.000Z"
+        dateModified="2024-09-24T00:00:00.000Z"
+        author="Capital Bridge Solutions"
+        image="/DSCR_vs_HardMoney_loans.png"
+        url="https://www.capitalbridgesolutions.com/blog/dscr-vs-hard-money-loans"
+      />
+      <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
       {/* Hero Section */}
       <section className="relative py-16 border-b border-primary-500/20">
         <div className="container mx-auto px-4">
@@ -38,6 +50,15 @@ export default function DSCRvsHardMoneyPage() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
+            <BlogImage 
+              src="/DSCR_vs_HardMoney_loans.png"
+              alt="DSCR vs Hard Money Loans - Complete comparison for California real estate investors choosing the best financing option"
+              width={1200}
+              height={630}
+              priority={true}
+              caption="DSCR vs Hard Money Loans - Which financing option is right for your investment strategy?"
+            />
+            
             <div className="prose prose-invert max-w-none">
               <p className="text-xl text-gray-300 mb-8">
                 California real estate investors often face a critical decision: DSCR loans or hard money loans? 
@@ -252,6 +273,7 @@ export default function DSCRvsHardMoneyPage() {
 
       {/* CTA Section */}
       <CTASection />
-    </article>
+      </article>
+    </>
   );
 }

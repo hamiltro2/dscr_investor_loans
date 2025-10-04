@@ -12,10 +12,10 @@ export const metadata: Metadata = {
     siteName: 'Capital Bridge Solutions',
     images: [
       {
-        url: '/Small_logo_CBS.png',
-        width: 192,
-        height: 192,
-        alt: 'Capital Bridge Solutions - No Tax Return Loans',
+        url: '/No_Tax_Return_Investment_Property_loans.png',
+        width: 1200,
+        height: 630,
+        alt: 'No Tax Return Investment Property Loans California - 6 financing options',
       },
     ],
     locale: 'en_US',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'No Tax Return Investment Loans California',
     description: '6 ways to get investment property loans without tax returns in California.',
-    images: ['/Small_logo_CBS.png'],
+    images: ['/No_Tax_Return_Investment_Property_loans.png'],
   },
   alternates: {
     canonical: '/blog/no-tax-return-investment-property-loans',

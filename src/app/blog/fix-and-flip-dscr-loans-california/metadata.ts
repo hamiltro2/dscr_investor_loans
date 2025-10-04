@@ -12,10 +12,10 @@ export const metadata: Metadata = {
     siteName: 'Capital Bridge Solutions',
     images: [
       {
-        url: '/Small_logo_CBS.png',
-        width: 192,
-        height: 192,
-        alt: 'Capital Bridge Solutions - Fix & Flip DSCR',
+        url: '/Fix_and_flip_DSCR_loans_California.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fix and Flip DSCR Loans California - Advanced strategies for property flippers',
       },
     ],
     locale: 'en_US',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Fix & Flip with DSCR Loans - California Guide',
     description: 'Advanced strategies for using DSCR loans in your flipping business. Keep the best, flip the rest!',
-    images: ['/Small_logo_CBS.png'],
+    images: ['/Fix_and_flip_DSCR_loans_California.png'],
   },
   alternates: {
     canonical: 'https://www.capitalbridgesolutions.com/blog/fix-and-flip-dscr-loans-california',

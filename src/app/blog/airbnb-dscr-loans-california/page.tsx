@@ -3,10 +3,22 @@
 import Link from 'next/link';
 import { Home, TrendingUp, DollarSign, MapPin, Calendar, Shield, Calculator, CheckCircle, AlertCircle, ArrowRight } from 'lucide-react';
 import { CaseStudySection, FAQSection, CTASection } from './case-study-faq';
+import { BlogImage } from '@/components/BlogImage';
+import { ArticleSchema } from '@/components/ArticleSchema';
 
 export default function AirbnbDSCRLoansPage() {
   return (
-    <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
+    <>
+      <ArticleSchema 
+        headline="Airbnb DSCR Loans California: STR Financing Guide"
+        description="Finance your Airbnb investment with DSCR loans in California. Qualify with STR income projections, no tax returns needed. Top markets & strategies included."
+        datePublished="2024-09-23T00:00:00.000Z"
+        dateModified="2024-09-23T00:00:00.000Z"
+        author="Capital Bridge Solutions"
+        image="/Airbnb_DSCR_Loans.png"
+        url="https://www.capitalbridgesolutions.com/blog/airbnb-dscr-loans-california"
+      />
+      <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
       {/* Hero Section */}
       <section className="relative py-16 border-b border-primary-500/20">
         <div className="container mx-auto px-4">
@@ -38,6 +50,15 @@ export default function AirbnbDSCRLoansPage() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
+            <BlogImage 
+              src="/Airbnb_DSCR_Loans.png"
+              alt="Airbnb DSCR Loans California - Short-term rental financing for investment properties with no income verification required"
+              width={1200}
+              height={630}
+              priority={true}
+              caption="Finance your Airbnb investment property with DSCR loans - qualify based on rental income alone"
+            />
+            
             <div className="prose prose-invert max-w-none">
               <p className="text-xl text-gray-300 mb-8">
                 Short-term rental properties in California offer exceptional income potential, often generating 
@@ -327,6 +348,7 @@ export default function AirbnbDSCRLoansPage() {
 
       {/* CTA Section */}
       <CTASection />
-    </article>
+      </article>
+    </>
   );
 }

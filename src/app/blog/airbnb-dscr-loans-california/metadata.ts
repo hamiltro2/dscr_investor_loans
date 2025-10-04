@@ -12,10 +12,10 @@ export const metadata: Metadata = {
     siteName: 'Capital Bridge Solutions',
     images: [
       {
-        url: '/Small_logo_CBS.png',
-        width: 192,
-        height: 192,
-        alt: 'Capital Bridge Solutions - Airbnb DSCR Loans',
+        url: '/Airbnb_DSCR_Loans.png',
+        width: 1200,
+        height: 630,
+        alt: 'Airbnb DSCR Loans California - Short-term rental financing for investment properties',
       },
     ],
     locale: 'en_US',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Airbnb DSCR Loans California - STR Financing',
     description: 'Finance your short-term rental with projected Airbnb income. Top CA markets, requirements, and success strategies.',
-    images: ['/Small_logo_CBS.png'],
+    images: ['/Airbnb_DSCR_Loans.png'],
   },
   alternates: {
     canonical: 'https://www.capitalbridgesolutions.com/blog/airbnb-dscr-loans-california',

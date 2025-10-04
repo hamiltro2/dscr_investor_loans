@@ -12,10 +12,10 @@ export const metadata: Metadata = {
     siteName: 'Capital Bridge Solutions',
     images: [
       {
-        url: '/Small_logo_CBS.png',
-        width: 192,
-        height: 192,
-        alt: 'Capital Bridge Solutions - DSCR Qualification Guide',
+        url: '/How_to_qualify for DSCR loans.png',
+        width: 1200,
+        height: 630,
+        alt: 'How to Qualify for DSCR Loan California - Complete step-by-step guide',
       },
     ],
     locale: 'en_US',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'How to Qualify for DSCR Loan - Complete Guide',
     description: 'Learn the requirements, process, and strategies to qualify for DSCR loans. No tax returns needed.',
-    images: ['/Small_logo_CBS.png'],
+    images: ['/How_to_qualify for DSCR loans.png'],
   },
   alternates: {
     canonical: 'https://www.capitalbridgesolutions.com/blog/how-to-qualify-for-dscr-loan',

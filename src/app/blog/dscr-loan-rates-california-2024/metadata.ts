@@ -12,10 +12,10 @@ export const metadata: Metadata = {
     siteName: 'Capital Bridge Solutions',
     images: [
       {
-        url: '/Small_logo_CBS.png',
-        width: 192,
-        height: 192,
-        alt: 'Capital Bridge Solutions - DSCR Rates Guide',
+        url: '/DSCR-Loans-599.png',
+        width: 1200,
+        height: 630,
+        alt: 'DSCR Loan Rates California 2024 - Current interest rates starting at 5.99%',
       },
     ],
     locale: 'en_US',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'DSCR Loan Rates California 2024',
     description: 'Current rates 7.25-9.75%. See complete rate tables and learn how to get the best DSCR loan rate.',
-    images: ['/Small_logo_CBS.png'],
+    images: ['/DSCR-Loans-599.png'],
   },
   alternates: {
     canonical: 'https://www.capitalbridgesolutions.com/blog/dscr-loan-rates-california-2024',

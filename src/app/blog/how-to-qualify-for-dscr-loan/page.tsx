@@ -3,10 +3,22 @@
 import Link from 'next/link';
 import { CheckCircle, XCircle, FileText, Calculator, Shield, DollarSign, Home, Clock, Target, AlertCircle, ArrowRight } from 'lucide-react';
 import { ChallengesSection, FAQSection, CTASection } from './challenges-faq-cta';
+import { BlogImage } from '@/components/BlogImage';
+import { ArticleSchema } from '@/components/ArticleSchema';
 
 export default function HowToQualifyPage() {
   return (
-    <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
+    <>
+      <ArticleSchema 
+        headline="How to Qualify for DSCR Loan: Complete California Guide"
+        description="Step-by-step guide to qualifying for a DSCR loan in California. Requirements, calculations, documents needed, and expert tips for approval."
+        datePublished="2024-09-24T00:00:00.000Z"
+        dateModified="2024-09-24T00:00:00.000Z"
+        author="Capital Bridge Solutions"
+        image="/How_to_qualify for DSCR loans.png"
+        url="https://www.capitalbridgesolutions.com/blog/how-to-qualify-for-dscr-loan"
+      />
+      <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
       {/* Hero Section */}
       <section className="relative py-16 border-b border-primary-500/20">
         <div className="container mx-auto px-4">
@@ -38,6 +50,15 @@ export default function HowToQualifyPage() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
+            <BlogImage 
+              src="/How_to_qualify for DSCR loans.png"
+              alt="How to Qualify for DSCR Loan California - Complete step-by-step guide to getting approved for investment property financing"
+              width={1200}
+              height={630}
+              priority={true}
+              caption="How to Qualify for DSCR Loans - Your complete guide to approval in California"
+            />
+            
             <div className="prose prose-invert max-w-none">
               <p className="text-xl text-gray-300 mb-8">
                 Qualifying for a DSCR loan in California is fundamentally different from traditional mortgage 
@@ -388,6 +409,7 @@ export default function HowToQualifyPage() {
 
       {/* CTA Section */}
       <CTASection />
-    </article>
+      </article>
+    </>
   );
 }

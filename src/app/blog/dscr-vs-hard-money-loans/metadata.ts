@@ -12,10 +12,10 @@ export const metadata: Metadata = {
     siteName: 'Capital Bridge Solutions',
     images: [
       {
-        url: '/Small_logo_CBS.png',
-        width: 192,
-        height: 192,
-        alt: 'Capital Bridge Solutions - DSCR vs Hard Money',
+        url: '/DSCR_vs_HardMoney_loans.png',
+        width: 1200,
+        height: 630,
+        alt: 'DSCR vs Hard Money Loans - Complete comparison for California investors',
       },
     ],
     locale: 'en_US',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'DSCR vs Hard Money Loans - Which is Better?',
     description: 'Complete comparison guide for California investors. See when to use DSCR loans vs hard money for maximum profit.',
-    images: ['/Small_logo_CBS.png'],
+    images: ['/DSCR_vs_HardMoney_loans.png'],
   },
   alternates: {
     canonical: 'https://www.capitalbridgesolutions.com/blog/dscr-vs-hard-money-loans',

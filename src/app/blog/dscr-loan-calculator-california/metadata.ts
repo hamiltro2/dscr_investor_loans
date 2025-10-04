@@ -12,10 +12,10 @@ export const metadata: Metadata = {
     siteName: 'Capital Bridge Solutions',
     images: [
       {
-        url: '/Small_logo_CBS.png',
-        width: 192,
-        height: 192,
-        alt: 'Capital Bridge Solutions - DSCR Loan Calculator',
+        url: '/DSCR_Loan_Calculator.png',
+        width: 1200,
+        height: 630,
+        alt: 'Free DSCR Loan Calculator California - Calculate debt service coverage ratio for investment properties',
       },
     ],
     locale: 'en_US',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'DSCR Loan Calculator California | Free Tool',
     description: 'Calculate your DSCR loan eligibility instantly. See if your investment property qualifies.',
-    images: ['/Small_logo_CBS.png'],
+    images: ['/DSCR_Loan_Calculator.png'],
   },
   alternates: {
     canonical: '/blog/dscr-loan-calculator-california',

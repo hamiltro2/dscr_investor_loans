@@ -3,10 +3,22 @@
 import Link from 'next/link';
 import { CheckCircle, XCircle, TrendingUp, FileText, Calculator, Phone, ArrowRight, AlertCircle, DollarSign, Home } from 'lucide-react';
 import { FAQSection, CTASection } from './faq-section';
+import { BlogImage } from '@/components/BlogImage';
+import { ArticleSchema } from '@/components/ArticleSchema';
 
 export default function DSCRSelfEmployedPage() {
   return (
-    <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
+    <>
+      <ArticleSchema 
+        headline="DSCR Loans for Self-Employed in California: Complete Guide"
+        description="No tax returns? No problem. Learn how self-employed investors qualify for DSCR loans based on property income, not personal income. Get approved in 24-48 hours."
+        datePublished="2024-09-23T00:00:00.000Z"
+        dateModified="2024-09-23T00:00:00.000Z"
+        author="Capital Bridge Solutions"
+        image="/Self-employed-DSCR_loans.png"
+        url="https://www.capitalbridgesolutions.com/blog/dscr-loans-self-employed-california"
+      />
+      <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
       {/* Hero Section */}
       <section className="relative py-16 border-b border-primary-500/20">
         <div className="container mx-auto px-4">
@@ -38,6 +50,15 @@ export default function DSCRSelfEmployedPage() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
+            <BlogImage 
+              src="/Self-employed-DSCR_loans.png"
+              alt="DSCR Loans for Self-Employed California - No tax returns required for investment property financing"
+              width={1200}
+              height={630}
+              priority={true}
+              caption="Self-Employed? Get DSCR loans without tax returns or income verification"
+            />
+            
             <div className="prose prose-invert max-w-none">
               <p className="text-xl text-gray-300 mb-8">
                 As a self-employed real estate investor in California, you've likely faced the frustration 
@@ -577,6 +598,7 @@ export default function DSCRSelfEmployedPage() {
 
       {/* CTA Section */}
       <CTASection />
-    </article>
+      </article>
+    </>
   );
 }

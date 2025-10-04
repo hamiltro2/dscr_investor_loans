@@ -3,10 +3,22 @@
 import Link from 'next/link';
 import { CheckCircle, XCircle, FileX, TrendingUp, Shield, Clock, DollarSign, AlertCircle, ArrowRight } from 'lucide-react';
 import { FAQSection, CTASection } from './faq-cta';
+import { BlogImage } from '@/components/BlogImage';
+import { ArticleSchema } from '@/components/ArticleSchema';
 
 export default function NoTaxReturnLoansPage() {
   return (
-    <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
+    <>
+      <ArticleSchema 
+        headline="No Tax Return Investment Property Loans California"
+        description="Discover 6 types of investment property loans that don't require tax returns. DSCR, bank statement, asset-based, and more. Perfect for California investors."
+        datePublished="2024-09-23T00:00:00.000Z"
+        dateModified="2024-09-23T00:00:00.000Z"
+        author="Capital Bridge Solutions"
+        image="/No_Tax_Return_Investment_Property_loans.png"
+        url="https://www.capitalbridgesolutions.com/blog/no-tax-return-investment-property-loans"
+      />
+      <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
       {/* Hero Section */}
       <section className="relative py-16 border-b border-primary-500/20">
         <div className="container mx-auto px-4">
@@ -38,6 +50,15 @@ export default function NoTaxReturnLoansPage() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
+            <BlogImage 
+              src="/No_Tax_Return_Investment_Property_loans.png"
+              alt="No Tax Return Investment Property Loans California - Get approved without tax returns or income verification"
+              width={1200}
+              height={630}
+              priority={true}
+              caption="No Tax Returns Required - Finance investment properties based on rental income alone"
+            />
+            
             <div className="prose prose-invert max-w-none">
               <p className="text-xl text-gray-300 mb-8">
                 California real estate investors are increasingly turning to no tax return investment 
@@ -569,6 +590,7 @@ export default function NoTaxReturnLoansPage() {
 
       {/* CTA Section */}
       <CTASection />
-    </article>
+      </article>
+    </>
   );
 }

@@ -3,10 +3,22 @@
 import Link from 'next/link';
 import { TrendingUp, Percent, Calculator, Shield, Home, DollarSign, Clock, Target, AlertCircle, CheckCircle, ArrowRight } from 'lucide-react';
 import { FAQSection, CTASection } from './faq-cta';
+import { BlogImage } from '@/components/BlogImage';
+import { ArticleSchema } from '@/components/ArticleSchema';
 
 export default function DSCRRatesPage() {
   return (
-    <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
+    <>
+      <ArticleSchema 
+        headline="DSCR Loan Rates California 2024: Current Rates & Factors"
+        description="Current DSCR loan rates in California range from 7.25% to 9.75%. See rate tables by credit score, learn what affects your rate, and get the best pricing."
+        datePublished="2024-09-24T00:00:00.000Z"
+        dateModified="2024-09-24T00:00:00.000Z"
+        author="Capital Bridge Solutions"
+        image="/DSCR-Loans-599.png"
+        url="https://www.capitalbridgesolutions.com/blog/dscr-loan-rates-california-2024"
+      />
+      <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
       {/* Hero Section */}
       <section className="relative py-16 border-b border-primary-500/20">
         <div className="container mx-auto px-4">
@@ -38,6 +50,15 @@ export default function DSCRRatesPage() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
+            <BlogImage 
+              src="/DSCR-Loans-599.png"
+              alt="DSCR Loan Rates California 2024 - Current interest rates starting at 5.99% for investment property loans"
+              width={1200}
+              height={630}
+              priority={true}
+              caption="DSCR Loan Rates from 5.99% - Get the best rates for your California investment property"
+            />
+            
             <div className="prose prose-invert max-w-none">
               <p className="text-xl text-gray-300 mb-8">
                 DSCR loan rates in California currently range from 7.25% to 9.75%, influenced by factors like 
@@ -229,6 +250,7 @@ export default function DSCRRatesPage() {
 
       {/* CTA Section */}
       <CTASection />
-    </article>
+      </article>
+    </>
   );
 }

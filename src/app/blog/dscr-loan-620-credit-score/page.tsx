@@ -3,10 +3,22 @@
 import Link from 'next/link';
 import { CheckCircle, XCircle, Shield, TrendingUp, AlertCircle, DollarSign, Clock, Target, ArrowRight, Home } from 'lucide-react';
 import { CTASection } from './cta-section';
+import { BlogImage } from '@/components/BlogImage';
+import { ArticleSchema } from '@/components/ArticleSchema';
 
 export default function DSCR620CreditPage() {
   return (
-    <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
+    <>
+      <ArticleSchema 
+        headline="DSCR Loan 620 Credit Score: How to Get Approved in California"
+        description="Get approved for a DSCR loan with a 620 credit score in California. Learn requirements, strategies, and real success stories. No income verification needed."
+        datePublished="2024-09-23T00:00:00.000Z"
+        dateModified="2024-09-23T00:00:00.000Z"
+        author="Capital Bridge Solutions"
+        image="/DSCR_Loans_620_Credit_Score.png"
+        url="https://www.capitalbridgesolutions.com/blog/dscr-loan-620-credit-score"
+      />
+      <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
       {/* Hero Section */}
       <section className="relative py-16 border-b border-primary-500/20">
         <div className="container mx-auto px-4">
@@ -38,6 +50,15 @@ export default function DSCR620CreditPage() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
+            <BlogImage 
+              src="/DSCR_Loans_620_Credit_Score.png"
+              alt="DSCR Loans with 620 Credit Score - Get approved for investment property loans with minimum credit requirements in California"
+              width={1200}
+              height={630}
+              priority={true}
+              caption="620 credit score? You can still qualify for DSCR loans - here's how"
+            />
+            
             <div className="prose prose-invert max-w-none">
               <p className="text-xl text-gray-300 mb-8">
                 Having a 620 credit score doesn't have to stop you from investing in California real estate. 
@@ -298,6 +319,7 @@ export default function DSCR620CreditPage() {
 
       {/* CTA Section */}
       <CTASection />
-    </article>
+      </article>
+    </>
   );
 }

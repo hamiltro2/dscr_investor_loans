@@ -12,10 +12,10 @@ export const metadata: Metadata = {
     siteName: 'Capital Bridge Solutions',
     images: [
       {
-        url: '/Small_logo_CBS.png',
-        width: 192,
-        height: 192,
-        alt: 'Capital Bridge Solutions - DSCR Requirements Guide',
+        url: '/DSCR_loan_Requirements.png',
+        width: 1200,
+        height: 630,
+        alt: 'DSCR Loan Requirements California 2024 - Complete qualification guide',
       },
     ],
     locale: 'en_US',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'DSCR Loan Requirements California 2024',
     description: 'Complete guide to DSCR loan requirements. Min 620 credit, 20% down, no tax returns.',
-    images: ['/Small_logo_CBS.png'],
+    images: ['/DSCR_loan_Requirements.png'],
   },
   alternates: {
     canonical: '/blog/dscr-loan-requirements-california-2024',

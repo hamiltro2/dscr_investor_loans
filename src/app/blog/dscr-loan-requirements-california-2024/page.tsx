@@ -3,10 +3,22 @@
 import Link from 'next/link';
 import { CheckCircle, AlertCircle, FileText, TrendingUp, Home, DollarSign, Shield, Clock, ArrowRight } from 'lucide-react';
 import { FAQContinued, CTASection } from './faq-cta';
+import { BlogImage } from '@/components/BlogImage';
+import { ArticleSchema } from '@/components/ArticleSchema';
 
 export default function DSCRRequirementsPage() {
   return (
-    <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
+    <>
+      <ArticleSchema 
+        headline="DSCR Loan Requirements California 2024: What You Need to Know"
+        description="Complete breakdown of 2024 DSCR loan requirements in California. Credit scores from 620, down payments from 20%, and no tax returns needed."
+        datePublished="2024-09-23T00:00:00.000Z"
+        dateModified="2024-09-23T00:00:00.000Z"
+        author="Capital Bridge Solutions"
+        image="/DSCR_loan_Requirements.png"
+        url="https://www.capitalbridgesolutions.com/blog/dscr-loan-requirements-california-2024"
+      />
+      <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
       {/* Hero Section */}
       <section className="relative py-16 border-b border-primary-500/20">
         <div className="container mx-auto px-4">
@@ -38,6 +50,15 @@ export default function DSCRRequirementsPage() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
+            <BlogImage 
+              src="/DSCR_loan_Requirements.png"
+              alt="DSCR Loan Requirements California 2024 - Complete guide to qualifying for investment property loans with no income verification"
+              width={1200}
+              height={630}
+              priority={true}
+              caption="2024 DSCR Loan Requirements - Everything you need to qualify for investment property financing"
+            />
+            
             <div className="prose prose-invert max-w-none">
               <p className="text-xl text-gray-300 mb-8">
                 DSCR loan requirements in California have evolved significantly in 2024, offering more 
@@ -556,6 +577,7 @@ export default function DSCRRequirementsPage() {
 
       {/* CTA Section */}
       <CTASection />
-    </article>
+      </article>
+    </>
   );
 }

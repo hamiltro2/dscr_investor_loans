@@ -12,10 +12,10 @@ export const metadata: Metadata = {
     siteName: 'Capital Bridge Solutions',
     images: [
       {
-        url: '/Small_logo_CBS.png',
-        width: 192,
-        height: 192,
-        alt: 'Capital Bridge Solutions - DSCR Loans for Self-Employed',
+        url: '/Self-employed-DSCR_loans.png',
+        width: 1200,
+        height: 630,
+        alt: 'DSCR Loans for Self-Employed California - No tax returns required',
       },
     ],
     locale: 'en_US',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'DSCR Loans for Self-Employed California | No Tax Returns',
     description: 'Get investment property loans without tax returns. Perfect for self-employed investors.',
-    images: ['/Small_logo_CBS.png'],
+    images: ['/Self-employed-DSCR_loans.png'],
   },
   alternates: {
     canonical: '/blog/dscr-loans-self-employed-california',
