@@ -312,6 +312,200 @@ export default function BestDSCRLendersCaliforniaPage() {
             </div>
           </div>
 
+          {/* California Markets Served */}
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold text-white mb-6">DSCR Lenders Serving All California Markets</h2>
+            <p className="text-gray-300 mb-8">
+              Our recommended lenders serve real estate investors across California, from major metro areas to emerging markets. 
+              Whether you're investing in high-priced coastal properties or cash-flowing inland markets, these lenders have you covered.
+            </p>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="bg-dark-800 border border-primary-500/20 rounded-xl p-6">
+                <h3 className="text-xl font-bold text-white mb-4">Southern California</h3>
+                <ul className="space-y-2 text-gray-400">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
+                    <span>Los Angeles & Orange County</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
+                    <span>San Diego & North County</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
+                    <span>Inland Empire (Riverside, San Bernardino)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
+                    <span>Palm Springs & Coachella Valley</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="bg-dark-800 border border-primary-500/20 rounded-xl p-6">
+                <h3 className="text-xl font-bold text-white mb-4">Bay Area</h3>
+                <ul className="space-y-2 text-gray-400">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
+                    <span>San Francisco & Peninsula</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
+                    <span>San Jose & Silicon Valley</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
+                    <span>Oakland & East Bay</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
+                    <span>Marin County</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="bg-dark-800 border border-primary-500/20 rounded-xl p-6">
+                <h3 className="text-xl font-bold text-white mb-4">Central California</h3>
+                <ul className="space-y-2 text-gray-400">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
+                    <span>Sacramento & Placer County</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
+                    <span>Fresno & Central Valley</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
+                    <span>Monterey & Santa Cruz</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
+                    <span>Stockton & Modesto</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="bg-dark-800 border border-primary-500/20 rounded-xl p-6">
+                <h3 className="text-xl font-bold text-white mb-4">Other Markets</h3>
+                <ul className="space-y-2 text-gray-400">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
+                    <span>Lake Tahoe & Truckee</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
+                    <span>Wine Country (Napa, Sonoma)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
+                    <span>Santa Barbara & Central Coast</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
+                    <span>Bakersfield & Kern County</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Competitive Comparison */}
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold text-white mb-6">How Do These Lenders Compare to Griffin Funding?</h2>
+            <p className="text-gray-300 mb-8">
+              Griffin Funding is a well-known California lender, but our top-rated lenders offer several advantages for real estate investors:
+            </p>
+
+            <div className="bg-dark-800 border border-primary-500/20 rounded-xl overflow-hidden mb-8">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-dark-900">
+                    <tr>
+                      <th className="px-6 py-4 text-left text-white font-bold">Feature</th>
+                      <th className="px-6 py-4 text-left text-white font-bold">Our Top Picks</th>
+                      <th className="px-6 py-4 text-left text-white font-bold">Griffin Funding</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-700">
+                    <tr>
+                      <td className="px-6 py-4 font-semibold text-white">Starting Rates</td>
+                      <td className="px-6 py-4 text-green-400 font-bold">7.25%</td>
+                      <td className="px-6 py-4 text-gray-300">7.50%+</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 font-semibold text-white">Minimum Down Payment</td>
+                      <td className="px-6 py-4 text-green-400">15-20%</td>
+                      <td className="px-6 py-4 text-gray-300">15-20%</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 font-semibold text-white">Minimum Credit Score</td>
+                      <td className="px-6 py-4 text-green-400">620</td>
+                      <td className="px-6 py-4 text-gray-300">620</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 font-semibold text-white">Approval Time</td>
+                      <td className="px-6 py-4 text-green-400 font-bold">24-48 hours</td>
+                      <td className="px-6 py-4 text-gray-300">3-5 days</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 font-semibold text-white">Closing Time</td>
+                      <td className="px-6 py-4 text-green-400 font-bold">2-3 weeks</td>
+                      <td className="px-6 py-4 text-gray-300">30 days</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 font-semibold text-white">Maximum Loan Amount</td>
+                      <td className="px-6 py-4 text-gray-300">$5M-$10M</td>
+                      <td className="px-6 py-4 text-green-400 font-bold">$20M</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 font-semibold text-white">Nationwide Coverage</td>
+                      <td className="px-6 py-4 text-green-400">✓ Yes</td>
+                      <td className="px-6 py-4 text-gray-300">CA only</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 font-semibold text-white">Technology Platform</td>
+                      <td className="px-6 py-4 text-green-400 font-bold">Advanced online tools</td>
+                      <td className="px-6 py-4 text-gray-300">Standard</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-green-900/20 border border-green-500/20 rounded-xl p-6">
+                <h3 className="text-xl font-bold text-green-400 mb-3">✓ Lower Rates</h3>
+                <p className="text-gray-300">
+                  Our top lenders start at 7.25% vs Griffin's typical 7.5-8%. On a $500K loan, that's $1,250-$3,750 saved annually.
+                </p>
+              </div>
+
+              <div className="bg-green-900/20 border border-green-500/20 rounded-xl p-6">
+                <h3 className="text-xl font-bold text-green-400 mb-3">✓ Faster Approval</h3>
+                <p className="text-gray-300">
+                  Get approved in 24-48 hours vs Griffin's 3-5 days. Close in 2-3 weeks vs 30 days. Speed matters in competitive markets.
+                </p>
+              </div>
+
+              <div className="bg-green-900/20 border border-green-500/20 rounded-xl p-6">
+                <h3 className="text-xl font-bold text-green-400 mb-3">✓ More Options</h3>
+                <p className="text-gray-300">
+                  Our lenders offer nationwide coverage, advanced technology, and multiple loan products beyond just DSCR.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-8 bg-primary-900/20 border border-primary-500/20 rounded-xl p-6">
+              <p className="text-gray-300">
+                <strong className="text-white">Bottom Line:</strong> While Griffin Funding is a solid choice for California investors, 
+                our top-rated lenders offer better rates, faster approval, and more flexibility. Compare quotes from 3-5 lenders 
+                (including Griffin) to ensure you're getting the best deal.
+              </p>
+            </div>
+          </div>
+
           {/* Detailed Lender Reviews */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-white mb-8">Detailed Lender Reviews</h2>
@@ -671,6 +865,102 @@ export default function BestDSCRLendersCaliforniaPage() {
                 <p className="text-gray-400">
                   How quickly do they respond to your initial inquiry? This indicates how they'll communicate 
                   throughout the loan process. Slow responses = delays later.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* People Also Ask Section */}
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold text-white mb-8">People Also Ask</h2>
+            
+            <div className="space-y-6">
+              <div className="bg-dark-800 border border-primary-500/20 rounded-xl p-6">
+                <h3 className="text-xl font-bold text-white mb-4">Is Griffin Funding a good DSCR lender?</h3>
+                <p className="text-gray-400 mb-4">
+                  Griffin Funding is a reputable California-based lender with solid DSCR loan programs. They offer loans up to $20M 
+                  and accept 620 credit scores. However, their rates typically start at 7.5-8%, which is higher than our top-rated 
+                  lenders (starting at 7.25%). They also take 30 days to close vs 2-3 weeks for faster lenders.
+                </p>
+                <p className="text-gray-400">
+                  <strong className="text-white">Best for:</strong> Investors needing very large loans ($10M+) or those who prefer 
+                  working with a California-only lender. For most investors, our top picks offer better rates and faster closing.
+                </p>
+              </div>
+
+              <div className="bg-dark-800 border border-primary-500/20 rounded-xl p-6">
+                <h3 className="text-xl font-bold text-white mb-4">What's better than Griffin Funding for DSCR loans?</h3>
+                <p className="text-gray-400 mb-4">
+                  Several lenders outperform Griffin Funding in key areas:
+                </p>
+                <ul className="space-y-2 text-gray-400 mb-4">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                    <span><strong className="text-white">Capital Bridge Solutions</strong> - Lower rates (7.25% vs 7.5%+), faster approval (24-48hrs vs 3-5 days)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                    <span><strong className="text-white">Visio Lending</strong> - Better technology platform, nationwide coverage, similar rates</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                    <span><strong className="text-white">LendSure</strong> - More flexible programs, accepts lower DSCR ratios</span>
+                  </li>
+                </ul>
+                <p className="text-gray-400">
+                  The best choice depends on your specific situation. Get quotes from 3-5 lenders (including Griffin) to compare.
+                </p>
+              </div>
+
+              <div className="bg-dark-800 border border-primary-500/20 rounded-xl p-6">
+                <h3 className="text-xl font-bold text-white mb-4">Who has the lowest DSCR loan rates in California?</h3>
+                <p className="text-gray-400 mb-4">
+                  As of October 2024, the lowest DSCR loan rates in California start at <strong className="text-green-400">7.25%</strong> for 
+                  well-qualified borrowers (720+ credit, 25%+ down, 1.25+ DSCR). Capital Bridge Solutions and Visio Lending consistently 
+                  offer the most competitive rates.
+                </p>
+                <p className="text-gray-400 mb-4">
+                  <strong className="text-white">Rate factors:</strong>
+                </p>
+                <ul className="space-y-2 text-gray-400">
+                  <li>• <strong>Credit Score:</strong> 720+ gets best rates, 620-680 pays 8.5-9.75%</li>
+                  <li>• <strong>Down Payment:</strong> 25%+ gets better rates than 20%</li>
+                  <li>• <strong>DSCR Ratio:</strong> 1.25+ qualifies for lowest rates</li>
+                  <li>• <strong>Property Type:</strong> Single-family gets better rates than multi-unit</li>
+                  <li>• <strong>Loan Amount:</strong> $250K-$2M sweet spot for best pricing</li>
+                </ul>
+              </div>
+
+              <div className="bg-dark-800 border border-primary-500/20 rounded-xl p-6">
+                <h3 className="text-xl font-bold text-white mb-4">Are DSCR lenders better than traditional banks for investment properties?</h3>
+                <p className="text-gray-400 mb-4">
+                  For investment properties, DSCR lenders are often better than traditional banks, especially for:
+                </p>
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <h4 className="font-bold text-green-400 mb-2">✓ DSCR Lenders Win:</h4>
+                    <ul className="space-y-1 text-sm text-gray-400">
+                      <li>• No tax returns or W2s required</li>
+                      <li>• Faster approval (24-48 hours)</li>
+                      <li>• Unlimited properties allowed</li>
+                      <li>• Self-employed friendly</li>
+                      <li>• Qualify by property income</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-yellow-400 mb-2">✓ Banks Win:</h4>
+                    <ul className="space-y-1 text-sm text-gray-400">
+                      <li>• Lower rates (0.5-1% less)</li>
+                      <li>• No prepayment penalties</li>
+                      <li>• Better for primary residences</li>
+                      <li>• Established relationships</li>
+                    </ul>
+                  </div>
+                </div>
+                <p className="text-gray-400">
+                  <strong className="text-white">Bottom line:</strong> If you're self-employed, have multiple properties, or want fast 
+                  approval without income docs, DSCR lenders are better. If you have W2 income and only 1-2 properties, banks may offer 
+                  lower rates.
                 </p>
               </div>
             </div>
