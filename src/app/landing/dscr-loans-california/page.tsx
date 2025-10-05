@@ -1,0 +1,347 @@
+'use client';
+
+import { useState } from 'react';
+import { Phone, CheckCircle, Calculator, Clock, TrendingUp, Shield } from 'lucide-react';
+
+export default function DSCRLoansCaliforniaLanding() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    loanAmount: '',
+    propertyType: '',
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Track conversion
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'conversion', {
+        'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'
+      });
+    }
+
+    // Track form submission
+    if (typeof window !== 'undefined' && window.dataLayer) {
+      window.dataLayer.push({
+        event: 'form_submission_success',
+        formType: 'dscr_landing_page',
+        loanAmount: formData.loanAmount,
+        propertyType: formData.propertyType
+      });
+    }
+
+    // Here you would normally send to your backend
+    console.log('Form submitted:', formData);
+    alert('Thank you! We\'ll contact you within 24 hours.');
+  };
+
+  const handlePhoneClick = () => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'conversion', {
+        'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'
+      });
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-dark-950 to-dark-900">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary-900/20 to-dark-950 border-b border-primary-500/20">
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Headline & Benefits */}
+            <div>
+              <div className="inline-flex items-center gap-2 bg-primary-500/10 border border-primary-500/20 rounded-full px-4 py-2 mb-6">
+                <CheckCircle className="w-4 h-4 text-primary-400" />
+                <span className="text-sm text-primary-400 font-medium">No Tax Returns Required</span>
+              </div>
+
+              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 leading-tight">
+                DSCR Loans California
+                <span className="block text-primary-400 mt-2">Get Approved in 24-48 Hours</span>
+              </h1>
+
+              <p className="text-xl text-gray-300 mb-8">
+                Qualify by rental income alone. No W2s, no tax returns, no income verification. 
+                Perfect for real estate investors with 620+ credit score.
+              </p>
+
+              {/* Key Benefits */}
+              <div className="grid sm:grid-cols-2 gap-4 mb-8">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-primary-400 flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="font-semibold text-white mb-1">No Income Verification</h3>
+                    <p className="text-sm text-gray-400">Qualify by property cash flow</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-primary-400 flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="font-semibold text-white mb-1">620 Credit Score OK</h3>
+                    <p className="text-sm text-gray-400">Flexible credit requirements</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-primary-400 flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="font-semibold text-white mb-1">20% Down Payment</h3>
+                    <p className="text-sm text-gray-400">Up to 80% LTV available</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-primary-400 flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="font-semibold text-white mb-1">Unlimited Properties</h3>
+                    <p className="text-sm text-gray-400">Build your portfolio faster</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Phone CTA */}
+              <a
+                href="tel:+19493393555"
+                onClick={handlePhoneClick}
+                className="inline-flex items-center gap-3 bg-primary-500 hover:bg-primary-600 text-white font-bold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-primary-500/50"
+              >
+                <Phone className="w-6 h-6" />
+                <div className="text-left">
+                  <div className="text-sm opacity-90">Call Now for Instant Quote</div>
+                  <div className="text-xl">(949) 339-3555</div>
+                </div>
+              </a>
+            </div>
+
+            {/* Right Column - Lead Form */}
+            <div className="bg-dark-800 border border-primary-500/20 rounded-2xl p-8 shadow-2xl">
+              <h2 className="text-2xl font-bold text-white mb-2">Get Your Free Quote</h2>
+              <p className="text-gray-400 mb-6">Fill out the form below and we'll contact you within 24 hours</p>
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
+                    placeholder="John Smith"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
+                    placeholder="john@example.com"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
+                    Phone Number *
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    required
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
+                    placeholder="(949) 123-4567"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="loanAmount" className="block text-sm font-medium text-gray-300 mb-2">
+                    Loan Amount Needed *
+                  </label>
+                  <select
+                    id="loanAmount"
+                    required
+                    value={formData.loanAmount}
+                    onChange={(e) => setFormData({ ...formData, loanAmount: e.target.value })}
+                    className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
+                  >
+                    <option value="">Select loan amount</option>
+                    <option value="100k-250k">$100,000 - $250,000</option>
+                    <option value="250k-500k">$250,000 - $500,000</option>
+                    <option value="500k-1m">$500,000 - $1,000,000</option>
+                    <option value="1m+">$1,000,000+</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="propertyType" className="block text-sm font-medium text-gray-300 mb-2">
+                    Property Type *
+                  </label>
+                  <select
+                    id="propertyType"
+                    required
+                    value={formData.propertyType}
+                    onChange={(e) => setFormData({ ...formData, propertyType: e.target.value })}
+                    className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
+                  >
+                    <option value="">Select property type</option>
+                    <option value="single-family">Single Family</option>
+                    <option value="multi-family">Multi-Family (2-4 units)</option>
+                    <option value="condo">Condo/Townhouse</option>
+                    <option value="commercial">Commercial</option>
+                  </select>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-primary-500 hover:bg-primary-600 text-white font-bold py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-primary-500/50"
+                >
+                  Get My Free Quote
+                </button>
+
+                <p className="text-xs text-gray-500 text-center">
+                  By submitting, you agree to our Terms of Service and Privacy Policy
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-16 bg-dark-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-white text-center mb-12">Why Choose DSCR Loans?</h2>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-dark-800 border border-primary-500/20 rounded-xl p-6">
+              <Clock className="w-12 h-12 text-primary-400 mb-4" />
+              <h3 className="text-xl font-bold text-white mb-3">Fast Approval</h3>
+              <p className="text-gray-400">
+                Get approved in 24-48 hours. No lengthy income verification process. Quick closing in 2-3 weeks.
+              </p>
+            </div>
+
+            <div className="bg-dark-800 border border-primary-500/20 rounded-xl p-6">
+              <Calculator className="w-12 h-12 text-primary-400 mb-4" />
+              <h3 className="text-xl font-bold text-white mb-3">Qualify by Cash Flow</h3>
+              <p className="text-gray-400">
+                Your property's rental income is all that matters. DSCR of 1.0+ qualifies. No personal income docs needed.
+              </p>
+            </div>
+
+            <div className="bg-dark-800 border border-primary-500/20 rounded-xl p-6">
+              <TrendingUp className="w-12 h-12 text-primary-400 mb-4" />
+              <h3 className="text-xl font-bold text-white mb-3">Scale Your Portfolio</h3>
+              <p className="text-gray-400">
+                No limit on number of properties. Perfect for investors building large portfolios quickly.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Rates Section */}
+      <section className="py-16 bg-dark-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-gradient-to-r from-primary-900/20 to-dark-800 border border-primary-500/20 rounded-2xl p-8 md:p-12">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <h2 className="text-3xl font-bold text-white mb-4">Competitive Rates for California Investors</h2>
+                <p className="text-gray-300 mb-6">
+                  Our DSCR loan rates are competitive and designed for real estate investors. Rates vary based on credit score, down payment, and property type.
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-3 text-gray-300">
+                    <CheckCircle className="w-5 h-5 text-primary-400 flex-shrink-0" />
+                    <span>Rates from 7.25% for qualified borrowers</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-gray-300">
+                    <CheckCircle className="w-5 h-5 text-primary-400 flex-shrink-0" />
+                    <span>Fixed and adjustable rate options</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-gray-300">
+                    <CheckCircle className="w-5 h-5 text-primary-400 flex-shrink-0" />
+                    <span>30-year amortization available</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-gray-300">
+                    <CheckCircle className="w-5 h-5 text-primary-400 flex-shrink-0" />
+                    <span>Interest-only options for cash flow</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="bg-dark-900 border border-primary-500/20 rounded-xl p-8">
+                <h3 className="text-2xl font-bold text-white mb-6">Quick Requirements Check</h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center pb-3 border-b border-gray-700">
+                    <span className="text-gray-400">Minimum Credit Score</span>
+                    <span className="text-white font-semibold">620</span>
+                  </div>
+                  <div className="flex justify-between items-center pb-3 border-b border-gray-700">
+                    <span className="text-gray-400">Minimum Down Payment</span>
+                    <span className="text-white font-semibold">20%</span>
+                  </div>
+                  <div className="flex justify-between items-center pb-3 border-b border-gray-700">
+                    <span className="text-gray-400">Minimum DSCR</span>
+                    <span className="text-white font-semibold">1.0</span>
+                  </div>
+                  <div className="flex justify-between items-center pb-3 border-b border-gray-700">
+                    <span className="text-gray-400">Property Types</span>
+                    <span className="text-white font-semibold">1-4 Units</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-400">Max LTV</span>
+                    <span className="text-white font-semibold">80%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-gradient-to-r from-primary-900/20 to-dark-900">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Shield className="w-16 h-16 text-primary-400 mx-auto mb-6" />
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Ready to Get Started?
+          </h2>
+          <p className="text-xl text-gray-300 mb-8">
+            Join hundreds of California investors who trust us for their DSCR loan needs
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="tel:+19493393555"
+              onClick={handlePhoneClick}
+              className="inline-flex items-center justify-center gap-3 bg-primary-500 hover:bg-primary-600 text-white font-bold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-primary-500/50"
+            >
+              <Phone className="w-6 h-6" />
+              <span>(949) 339-3555</span>
+            </a>
+            <a
+              href="#form"
+              className="inline-flex items-center justify-center gap-3 bg-dark-800 hover:bg-dark-700 border border-primary-500/20 text-white font-bold px-8 py-4 rounded-lg transition-all duration-300"
+            >
+              <Calculator className="w-6 h-6" />
+              <span>Get Free Quote</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
