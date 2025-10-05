@@ -287,59 +287,6 @@ export default function RootLayout({
           }}
         />
         
-        {/* Structured Data - FAQPage */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              "mainEntity": [
-                {
-                  "@type": "Question",
-                  "name": "Can I get a DSCR loan with bad credit or a low credit score?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes! At Capital Bridge Solutions, we offer DSCR loan programs for borrowers with credit scores as low as 620. We focus on the property's income potential rather than just your credit score."
-                  }
-                },
-                {
-                  "@type": "Question",
-                  "name": "I'm self-employed - can I still qualify for an investment property loan?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Absolutely! Our DSCR loans don't require tax returns, W-2s, or employment verification. We qualify you based on the rental income from the investment property."
-                  }
-                },
-                {
-                  "@type": "Question",
-                  "name": "How much do you charge in points?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "For loans over $450,000, we charge only 0.75% in points - significantly lower than many competitors. All costs are clearly disclosed upfront."
-                  }
-                },
-                {
-                  "@type": "Question",
-                  "name": "What's the lowest interest rate I can get?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Rates start as low as 5.99% for well-qualified borrowers. We work hard to get you the lowest rate possible based on your circumstances."
-                  }
-                },
-                {
-                  "@type": "Question",
-                  "name": "How fast can I get approved and close on a property?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "We offer 24-48 hour pre-approvals and can close most loans in 2-3 weeks. For time-sensitive deals, we have expedited programs."
-                  }
-                }
-              ]
-            })
-          }}
-        />
-        
         {/* Structured Data - Service */}
         <script
           type="application/ld+json"
