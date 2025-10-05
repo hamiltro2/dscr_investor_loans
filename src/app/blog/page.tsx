@@ -90,6 +90,22 @@ const blogPosts = [
   },
   // Self-Employed & No Tax Returns
   {
+    slug: 'best-dscr-loan-lenders-california',
+    title: 'Best DSCR Loan Lenders California 2024 [Top 10 Comparison]',
+    excerpt: 'Compare the best DSCR loan lenders in California. Expert reviews, rates, requirements, and detailed comparisons to find the perfect lender.',
+    date: '2024-10-06',
+    readTime: '14 min read',
+    category: 'Lender Reviews'
+  },
+  {
+    slug: 'investment-property-loans-self-employed',
+    title: 'Investment Property Loans for Self-Employed [2024 Complete Guide]',
+    excerpt: 'Get investment property loans as a self-employed borrower. DSCR loans require no tax returns or income verification. 620 credit OK.',
+    date: '2024-10-06',
+    readTime: '13 min read',
+    category: 'Loan Guides'
+  },
+  {
     slug: 'no-income-verification-loans',
     title: 'No Income Verification Loans for Investment Property [2024 Guide]',
     excerpt: 'Get investment property loans without income verification. DSCR loans require no tax returns, W2s, or pay stubs. Qualify by rental income alone.',
