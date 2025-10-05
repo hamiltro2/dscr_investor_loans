@@ -1,30 +1,8 @@
-import { Metadata } from 'next';
+'use client';
+
 import { Phone, Calculator, CheckCircle, AlertCircle, TrendingUp, FileX, DollarSign, Clock, Shield, Users } from 'lucide-react';
 import { ArticleSchema } from '@/components/ArticleSchema';
 import { BlogImage } from '@/components/BlogImage';
-
-export const metadata: Metadata = {
-  title: 'Investment Property Loans for Self-Employed [2024 Complete Guide]',
-  description: 'Get investment property loans as a self-employed borrower. DSCR loans require no tax returns or income verification. 620 credit OK. Rates from 7.25%.',
-  keywords: [
-    'investment property loan self employed',
-    'self employed investment loan',
-    'self employed rental property loan',
-    'investment loan for self employed',
-    'self employed real estate loan',
-    'self employed investment property financing',
-    'dscr loan self employed',
-    'no tax return investment loan self employed'
-  ],
-  openGraph: {
-    title: 'Investment Property Loans for Self-Employed [2024 Guide]',
-    description: 'Complete guide to investment property loans for self-employed borrowers. Learn how DSCR loans let you qualify without tax returns.',
-    type: 'article',
-    url: 'https://www.capitalbridgesolutions.com/blog/investment-property-loans-self-employed',
-    publishedTime: '2024-10-06T00:00:00Z',
-    authors: ['Capital Bridge Solutions'],
-  },
-};
 
 export default function InvestmentPropertyLoansSelfEmployedPage() {
   const handlePhoneClick = () => {

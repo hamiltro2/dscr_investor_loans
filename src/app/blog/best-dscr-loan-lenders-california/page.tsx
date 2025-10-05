@@ -1,30 +1,8 @@
-import { Metadata } from 'next';
+'use client';
+
 import { Phone, Calculator, CheckCircle, AlertCircle, Star, TrendingUp, Shield, Award, Users, DollarSign } from 'lucide-react';
 import { ArticleSchema } from '@/components/ArticleSchema';
 import { BlogImage } from '@/components/BlogImage';
-
-export const metadata: Metadata = {
-  title: 'Best DSCR Loan Lenders California 2024 [Top 10 Comparison]',
-  description: 'Compare the best DSCR loan lenders in California. Rates, requirements, pros/cons, and expert reviews. Find the right lender for your investment property.',
-  keywords: [
-    'best dscr lenders california',
-    'dscr loan lenders',
-    'dscr lender california',
-    'top dscr loan companies',
-    'best dscr loan companies',
-    'dscr mortgage lenders california',
-    'california dscr lenders',
-    'dscr loan companies'
-  ],
-  openGraph: {
-    title: 'Best DSCR Loan Lenders California 2024 [Top 10 Comparison]',
-    description: 'Expert comparison of the best DSCR loan lenders in California. Rates, requirements, and detailed reviews.',
-    type: 'article',
-    url: 'https://www.capitalbridgesolutions.com/blog/best-dscr-loan-lenders-california',
-    publishedTime: '2024-10-06T02:00:00Z',
-    authors: ['Capital Bridge Solutions'],
-  },
-};
 
 export default function BestDSCRLendersCaliforniaPage() {
   const handlePhoneClick = () => {
