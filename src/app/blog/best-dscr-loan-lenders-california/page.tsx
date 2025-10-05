@@ -30,7 +30,7 @@ export default function BestDSCRLendersCaliforniaPage() {
         "name": "What should I look for in a DSCR lender?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "When choosing a DSCR lender, look for: (1) Competitive interest rates (7.25-9.75%), (2) Low minimum credit scores (620-640), (3) Fast approval times (24-48 hours), (4) Flexible down payment options (20-25%), (5) No property limits, (6) Experience with California properties, (7) Transparent fees, and (8) Responsive customer service. Also check if they offer features you need like interest-only payments or cash-out refinancing."
+          "text": "Look for competitive rates (7.25-9.75%), low credit minimums (620-640), fast approval (24-48 hours), flexible down payments (20-25%), no property limits, California experience, transparent fees, and responsive service."
         }
       },
       {
@@ -54,7 +54,7 @@ export default function BestDSCRLendersCaliforniaPage() {
         "name": "How do I compare DSCR lenders?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "To compare DSCR lenders, evaluate: (1) Interest rates by credit tier, (2) Minimum credit score requirements, (3) Down payment options, (4) Approval and closing speed, (5) Fees (origination, processing, underwriting), (6) Loan limits (minimum and maximum), (7) Property types accepted, (8) Geographic coverage, (9) Customer reviews, and (10) Special features like interest-only options or portfolio loans. Get quotes from 3-5 lenders to compare total costs."
+          "text": "Compare interest rates, credit minimums, down payment options, approval speed, fees, loan limits, property types, coverage area, reviews, and special features. Get quotes from 3-5 lenders to compare total costs."
         }
       },
       {
@@ -78,7 +78,7 @@ export default function BestDSCRLendersCaliforniaPage() {
         "name": "What fees do California DSCR lenders charge?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "California DSCR lenders typically charge: (1) Origination fee: 0.5-2% of loan amount, (2) Processing fee: $400-800, (3) Underwriting fee: $500-1,000, (4) Appraisal fee: $500-800, (5) Title and escrow fees: varies by county. Total closing costs typically range from 2-4% of the loan amount. Some lenders offer no-fee options with slightly higher interest rates. Always get a Loan Estimate to compare total costs."
+          "text": "Typical fees include origination (0.5-2%), processing ($400-800), underwriting ($500-1,000), appraisal ($500-800), and title/escrow fees. Total closing costs range from 2-4% of loan amount. Get a Loan Estimate to compare."
         }
       }
     ]
