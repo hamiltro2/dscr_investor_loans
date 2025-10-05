@@ -1,29 +1,8 @@
-import { Metadata } from 'next';
+'use client';
+
 import { Phone, Calculator, CheckCircle, AlertCircle, TrendingUp, FileText, DollarSign, Clock, Shield } from 'lucide-react';
 import { ArticleSchema } from '@/components/ArticleSchema';
 import { BlogImage } from '@/components/BlogImage';
-
-export const metadata: Metadata = {
-  title: 'No Income Verification Loans for Investment Property [2024 Guide]',
-  description: 'Get investment property loans without income verification. DSCR loans require no tax returns, W2s, or pay stubs. Qualify by rental income alone. 620 credit OK.',
-  keywords: [
-    'no income verification loan',
-    'no income verification investment loan',
-    'investment property loan no income verification',
-    'no doc investment loan',
-    'rental property loan no income verification',
-    'dscr loan no income verification',
-    'no income check investment loan',
-    'stated income investment property loan'
-  ],
-  openGraph: {
-    title: 'No Income Verification Loans for Investment Property [2024]',
-    description: 'Complete guide to no income verification loans. Learn how DSCR loans let you qualify without tax returns, W2s, or income docs.',
-    type: 'article',
-    publishedTime: '2024-10-04T00:00:00Z',
-    authors: ['Capital Bridge Solutions'],
-  },
-};
 
 export default function NoIncomeVerificationLoansPage() {
   const handlePhoneClick = () => {
