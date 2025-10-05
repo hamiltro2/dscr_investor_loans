@@ -168,6 +168,17 @@ export default function BestDSCRLendersCaliforniaPage() {
               specific situation—whether you have excellent credit or are working with a 620 score, buying your first 
               rental or your 20th property.
             </p>
+            <p className="text-xl text-gray-300 leading-relaxed">
+              Before choosing a lender, make sure you understand the{' '}
+              <a href="/blog/dscr-loan-requirements-california-2024" className="text-primary-400 hover:text-primary-300 underline">
+                DSCR loan requirements in California
+              </a>
+              {' '}and check current{' '}
+              <a href="/blog/dscr-loan-rates-california-2024" className="text-primary-400 hover:text-primary-300 underline">
+                DSCR loan rates
+              </a>
+              {' '}to ensure you're getting a competitive deal.
+            </p>
           </div>
 
           {/* Quick Comparison Table */}

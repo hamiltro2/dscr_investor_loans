@@ -539,6 +539,39 @@ export default function Home() {
           </div>
         </section>
 
+      {/* Latest Articles Section */}
+      <section className="py-12 sm:py-16 bg-dark-900/50">
+        <div className="container">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600">
+              Latest DSCR Loan Guides
+            </h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              <Link href="/blog/best-dscr-loan-lenders-california" className="bg-dark-800/50 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition-all duration-300 group">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">Best DSCR Loan Lenders California 2024</h3>
+                <p className="text-gray-400 text-sm mb-4">Compare the top DSCR lenders in California. Expert reviews, rates, and requirements to find the perfect lender.</p>
+                <span className="text-primary-400 text-sm font-semibold">Read Guide →</span>
+              </Link>
+              <Link href="/blog/investment-property-loans-self-employed" className="bg-dark-800/50 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition-all duration-300 group">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">Investment Property Loans for Self-Employed</h3>
+                <p className="text-gray-400 text-sm mb-4">Get investment property loans without tax returns. Perfect for self-employed investors and 1099 contractors.</p>
+                <span className="text-primary-400 text-sm font-semibold">Read Guide →</span>
+              </Link>
+              <Link href="/blog/no-income-verification-loans" className="bg-dark-800/50 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition-all duration-300 group">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">No Income Verification Loans</h3>
+                <p className="text-gray-400 text-sm mb-4">Qualify for investment property loans without income documentation. No tax returns, W2s, or pay stubs required.</p>
+                <span className="text-primary-400 text-sm font-semibold">Read Guide →</span>
+              </Link>
+            </div>
+            <div className="text-center mt-8">
+              <Link href="/blog" className="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 font-semibold transition-colors">
+                View All Articles →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="py-12 sm:py-16 bg-dark-950/50">
         <div className="container">

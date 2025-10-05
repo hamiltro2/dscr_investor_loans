@@ -168,6 +168,21 @@ export default function NoIncomeVerificationLoansPage() {
               These loans, also known as DSCR (Debt Service Coverage Ratio) loans, qualify you based on your 
               property's rental income—not your personal income. No tax returns. No W2s. No income documentation.
             </p>
+            <p className="text-xl text-gray-300 leading-relaxed">
+              Perfect for{' '}
+              <a href="/blog/investment-property-loans-self-employed" className="text-primary-400 hover:text-primary-300 underline">
+                self-employed investors
+              </a>
+              {' '}and those seeking{' '}
+              <a href="/blog/no-tax-return-investment-property-loans" className="text-primary-400 hover:text-primary-300 underline">
+                investment property loans without tax returns
+              </a>
+              . Compare{' '}
+              <a href="/blog/best-dscr-loan-lenders-california" className="text-primary-400 hover:text-primary-300 underline">
+                the best DSCR lenders in California
+              </a>
+              {' '}to find the right fit.
+            </p>
           </div>
 
           {/* Quick Stats */}

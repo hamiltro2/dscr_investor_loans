@@ -168,6 +168,17 @@ export default function InvestmentPropertyLoansSelfEmployedPage() {
               are designed specifically for self-employed real estate investors. No tax returns. No income verification. 
               No analysis of your business structure. Just simple qualification based on your property's rental income.
             </p>
+            <p className="text-xl text-gray-300 leading-relaxed">
+              Learn more about{' '}
+              <a href="/blog/no-tax-return-investment-property-loans" className="text-primary-400 hover:text-primary-300 underline">
+                investment property loans without tax returns
+              </a>
+              {' '}or explore{' '}
+              <a href="/blog/no-income-verification-loans" className="text-primary-400 hover:text-primary-300 underline">
+                no income verification loan options
+              </a>
+              {' '}for self-employed investors.
+            </p>
           </div>
 
           {/* The Self-Employed Challenge */}
