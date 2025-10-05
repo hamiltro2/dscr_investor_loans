@@ -92,7 +92,7 @@ export default function BestDSCRLendersCaliforniaPage() {
         datePublished="2024-10-06T02:00:00Z"
         dateModified="2024-10-06T02:00:00Z"
         author="Capital Bridge Solutions"
-        image="/best-dscr-lenders-california.png"
+        image="/DSCR_Loan_Calculator.png"
         url="https://www.capitalbridgesolutions.com/blog/best-dscr-loan-lenders-california"
       />
 

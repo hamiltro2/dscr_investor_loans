@@ -92,7 +92,7 @@ export default function InvestmentPropertyLoansSelfEmployedPage() {
         datePublished="2024-10-06T00:00:00Z"
         dateModified="2024-10-06T00:00:00Z"
         author="Capital Bridge Solutions"
-        image="/dscr-loans-self-employed.png"
+        image="/Self-employed-DSCR_loans.png"
         url="https://www.capitalbridgesolutions.com/blog/investment-property-loans-self-employed"
       />
 
