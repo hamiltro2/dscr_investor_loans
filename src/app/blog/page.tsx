@@ -90,6 +90,14 @@ const blogPosts = [
   },
   // Self-Employed & No Tax Returns
   {
+    slug: 'no-income-verification-loans',
+    title: 'No Income Verification Loans for Investment Property [2024 Guide]',
+    excerpt: 'Get investment property loans without income verification. DSCR loans require no tax returns, W2s, or pay stubs. Qualify by rental income alone.',
+    date: '2024-10-04',
+    readTime: '11 min read',
+    category: 'Loan Guides'
+  },
+  {
     slug: 'dscr-loans-self-employed-california',
     title: 'DSCR Loans for Self-Employed: Complete Guide',
     excerpt: 'No tax returns? No problem. Learn how self-employed investors qualify for DSCR loans based on property income, not personal income.',
