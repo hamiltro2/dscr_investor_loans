@@ -30,7 +30,7 @@ export default function InvestmentPropertyLoansSelfEmployedPage() {
         "name": "What are the requirements for self-employed investment property loans?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Requirements for self-employed investment property loans include: (1) 620-640 minimum credit score, (2) 20-25% down payment, (3) Property with DSCR of 1.0 or higher, (4) 6-12 months reserves, and (5) Investment property only. You do NOT need tax returns, W2s, pay stubs, or income verification. The property's rental income must cover the mortgage payment."
+          "text": "Requirements include 620-640 credit score, 20-25% down payment, DSCR of 1.0+, and 6-12 months reserves. No tax returns, W2s, or income verification needed. Property rental income must cover the mortgage."
         }
       },
       {
@@ -46,7 +46,7 @@ export default function InvestmentPropertyLoansSelfEmployedPage() {
         "name": "How do tax write-offs affect investment property loan qualification?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "With traditional loans, tax write-offs hurt qualification because they reduce your taxable income. Lenders see lower income and may deny your loan. With DSCR loans, tax write-offs don't matter at all. You can maximize business deductions to reduce taxes while still qualifying for investment property loans based on rental income. This lets self-employed investors have the best of both worlds."
+          "text": "With traditional loans, write-offs hurt qualification by reducing taxable income. With DSCR loans, write-offs don't matter. You can maximize deductions while qualifying based on rental income."
         }
       },
       {
@@ -54,7 +54,7 @@ export default function InvestmentPropertyLoansSelfEmployedPage() {
         "name": "What is the best loan for self-employed real estate investors?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "DSCR loans are the best option for self-employed real estate investors. They offer: (1) No income verification or tax returns, (2) Fast approval in 24-48 hours, (3) Unlimited properties, (4) Qualification based on property cash flow, and (5) No impact from business write-offs. This makes them ideal for self-employed investors building large portfolios."
+          "text": "DSCR loans are best for self-employed investors. They offer no income verification, fast 24-48 hour approval, unlimited properties, qualification by cash flow, and no impact from business write-offs."
         }
       },
       {
@@ -62,7 +62,7 @@ export default function InvestmentPropertyLoansSelfEmployedPage() {
         "name": "Can 1099 contractors get investment property loans?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, 1099 contractors can easily get investment property loans through DSCR programs. Traditional lenders require 2 years of 1099 income and average it, often underestimating earning power. DSCR loans don't look at 1099s at all - only the property's rental income. This makes them perfect for contractors, freelancers, and gig workers with variable income."
+          "text": "Yes, 1099 contractors can easily get DSCR investment loans. DSCR programs don't look at 1099s - only property rental income. Perfect for contractors, freelancers, and gig workers with variable income."
         }
       },
       {
@@ -70,7 +70,7 @@ export default function InvestmentPropertyLoansSelfEmployedPage() {
         "name": "How long does it take to get approved for a self-employed investment loan?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Self-employed investment loans through DSCR programs can be approved in 24-48 hours. Traditional loans take 30-45 days because lenders must verify employment, analyze tax returns, and calculate business income. DSCR loans skip all that documentation, making approval much faster. Total time from application to closing is typically 2-3 weeks."
+          "text": "DSCR loans can be approved in 24-48 hours versus 30-45 days for traditional loans. DSCR skips employment verification and tax return analysis. Total time from application to closing is 2-3 weeks."
         }
       },
       {
