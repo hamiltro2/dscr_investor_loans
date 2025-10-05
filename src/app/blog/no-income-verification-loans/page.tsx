@@ -22,7 +22,7 @@ export default function NoIncomeVerificationLoansPage() {
         "name": "What is a no income verification loan?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A no income verification loan is a type of mortgage that doesn't require traditional income documentation like tax returns, W2s, or pay stubs. Instead, lenders qualify borrowers based on the property's rental income or debt service coverage ratio (DSCR). These loans are ideal for self-employed investors, real estate professionals, and anyone who wants to avoid extensive income documentation."
+          "text": "A no income verification loan qualifies borrowers based on property rental income, not personal income. No tax returns, W2s, or pay stubs required. Ideal for self-employed investors and real estate professionals."
         }
       },
       {
@@ -30,7 +30,7 @@ export default function NoIncomeVerificationLoansPage() {
         "name": "How do you qualify for a no income verification loan?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "To qualify for a no income verification loan, you typically need: (1) A minimum credit score of 620-640, (2) 20-25% down payment, (3) Property with positive cash flow (DSCR of 1.0 or higher), (4) Reserves of 6-12 months, and (5) Investment property (not primary residence). The property's rental income must cover the mortgage payment, taxes, insurance, and HOA fees."
+          "text": "Requirements: 620-640 credit score, 20-25% down payment, DSCR of 1.0+, 6-12 months reserves, and investment property only. Property rental income must cover mortgage, taxes, insurance, and HOA fees."
         }
       },
       {
@@ -38,7 +38,7 @@ export default function NoIncomeVerificationLoansPage() {
         "name": "What documents do you need for a no income verification loan?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "For a no income verification loan, you need: (1) Photo ID and proof of citizenship/residency, (2) Credit report authorization, (3) Bank statements showing reserves, (4) Property appraisal, (5) Lease agreement or rental market analysis. You do NOT need tax returns, W2s, pay stubs, employment verification, or profit & loss statements."
+          "text": "Required: Photo ID, credit authorization, bank statements, property appraisal, and lease/rental analysis. NOT needed: tax returns, W2s, pay stubs, employment verification, or P&L statements."
         }
       },
       {
@@ -46,7 +46,7 @@ export default function NoIncomeVerificationLoansPage() {
         "name": "Are no income verification loans more expensive?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No income verification loans typically have interest rates 0.5% to 1.5% higher than conventional loans due to perceived higher risk. However, they often save money for self-employed borrowers who would otherwise need to show higher income, pay more taxes, or be denied entirely. The convenience and speed often outweigh the slightly higher rate."
+          "text": "Rates are typically 0.5-1.5% higher than conventional loans. However, they save money for self-employed borrowers who would otherwise pay more taxes or be denied. Convenience and speed often outweigh the rate."
         }
       },
       {
@@ -54,7 +54,7 @@ export default function NoIncomeVerificationLoansPage() {
         "name": "Can self-employed borrowers get no income verification loans?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, no income verification loans are perfect for self-employed borrowers. Self-employed individuals often write off business expenses to reduce taxable income, making traditional loan qualification difficult. With DSCR loans, your business tax returns don't matter - only the property's rental income. This allows self-employed investors to maximize tax deductions while still qualifying for investment property loans."
+          "text": "Yes, perfect for self-employed borrowers. Business tax returns don't matter - only property rental income. This lets self-employed investors maximize tax deductions while qualifying for loans."
         }
       },
       {
@@ -62,7 +62,7 @@ export default function NoIncomeVerificationLoansPage() {
         "name": "What is the minimum DSCR ratio required?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Most lenders require a minimum DSCR (Debt Service Coverage Ratio) of 1.0 to 1.25. A DSCR of 1.0 means the rental income exactly covers the mortgage payment. A DSCR of 1.25 means rental income is 25% higher than the payment. Higher DSCR ratios (1.25+) typically qualify for better interest rates and terms."
+          "text": "Most lenders require DSCR of 1.0 to 1.25. DSCR of 1.0 means rental income covers the payment. DSCR of 1.25 means income is 25% higher. Higher ratios (1.25+) get better rates."
         }
       },
       {
@@ -70,7 +70,7 @@ export default function NoIncomeVerificationLoansPage() {
         "name": "How long does it take to get approved for a no income verification loan?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No income verification loans can be approved in 24-48 hours since there's no need to verify employment or analyze tax returns. The entire process from application to closing typically takes 2-3 weeks, compared to 30-45 days for conventional loans. This speed makes them ideal for competitive real estate markets where quick closings matter."
+          "text": "Approval in 24-48 hours with no employment verification or tax return analysis. Application to closing takes 2-3 weeks versus 30-45 days for conventional loans. Ideal for competitive markets."
         }
       },
       {
@@ -78,7 +78,7 @@ export default function NoIncomeVerificationLoansPage() {
         "name": "Can you use a no income verification loan for a primary residence?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No, DSCR and no income verification loans are only available for investment properties, not primary residences or second homes. The property must be rented out to generate income that qualifies you for the loan. If you need a no doc loan for a primary residence, you may need to explore bank statement loans or other alternative documentation programs."
+          "text": "No, DSCR loans are only for investment properties, not primary residences or second homes. Property must be rented to generate qualifying income. For primary residences, explore bank statement loans."
         }
       }
     ]
