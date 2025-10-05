@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     authors: ['Capital Bridge Solutions'],
     images: [
       {
-        url: '/dscr-loans-self-employed.png',
+        url: '/Self-employed-DSCR_loans.png',
         width: 1200,
         height: 630,
         alt: 'Investment Property Loans for Self-Employed - DSCR Loans Guide',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Investment Property Loans for Self-Employed [2024]',
     description: 'Get investment property loans without tax returns. DSCR loans designed for self-employed investors.',
-    images: ['/dscr-loans-self-employed.png'],
+    images: ['/Self-employed-DSCR_loans.png'],
   },
   alternates: {
     canonical: 'https://www.capitalbridgesolutions.com/blog/investment-property-loans-self-employed',

@@ -148,7 +148,7 @@ export default function BestDSCRLendersCaliforniaPage() {
           
           {/* Featured Image */}
           <BlogImage 
-            src="/best-dscr-lenders-california.png"
+            src="/DSCR_Loan_Calculator.png"
             alt="Best DSCR Loan Lenders California - Expert comparison and reviews"
             width={1200}
             height={630}

@@ -148,7 +148,7 @@ export default function InvestmentPropertyLoansSelfEmployedPage() {
           
           {/* Featured Image */}
           <BlogImage 
-            src="/dscr-loans-self-employed.png"
+            src="/Self-employed-DSCR_loans.png"
             alt="Investment Property Loans for Self-Employed - DSCR loans without tax returns"
             width={1200}
             height={630}

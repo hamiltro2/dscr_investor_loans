@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     authors: ['Capital Bridge Solutions'],
     images: [
       {
-        url: '/best-dscr-lenders-california.png',
+        url: '/DSCR_Loan_Calculator.png',
         width: 1200,
         height: 630,
         alt: 'Best DSCR Loan Lenders California - Expert Comparison',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Best DSCR Loan Lenders California 2024 [Top 10]',
     description: 'Compare the best DSCR loan lenders in California. Expert reviews and rate comparisons.',
-    images: ['/best-dscr-lenders-california.png'],
+    images: ['/DSCR_Loan_Calculator.png'],
   },
   alternates: {
     canonical: 'https://www.capitalbridgesolutions.com/blog/best-dscr-loan-lenders-california',
