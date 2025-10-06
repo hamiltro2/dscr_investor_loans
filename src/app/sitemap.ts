@@ -22,6 +22,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/landing/dscr-loans',
     '/privacy',
     '/terms',
+    '/blog',
+    '/blog/dscr-loan-calculator-california',
+    '/blog/dscr-loan-rates-california-2025',
+    '/blog/dscr-loan-requirements-california-2025',
+    '/blog/best-dscr-loan-lenders-california',
+    '/blog/dscr-loans-texas',
+    '/blog/dscr-loans-florida',
+    '/blog/dscr-loans-arizona',
+    '/blog/dscr-loans-georgia',
+    '/blog/dscr-loans-nevada',
   ]
   
   // Define AI guidance files with custom priorities

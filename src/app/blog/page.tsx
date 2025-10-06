@@ -7,50 +7,50 @@ const blogPosts = [
   // Featured Calculator
   {
     slug: 'dscr-loan-calculator-california',
-    title: 'DSCR Loan Calculator California: Free Tool + 2024 Rates',
-    excerpt: 'Calculate your DSCR loan eligibility instantly. See real examples for Los Angeles, Orange County, and San Diego properties with current rates.',
-    date: '2024-09-23',
+    title: 'DSCR Loan Calculator California: Free Tool + 2025 Rates',
+    excerpt: 'Calculate your DSCR loan eligibility instantly. See real examples for Los Angeles, Orange County, and San Diego properties with current rates starting at 5.99%.',
+    date: '2025-01-05',
     readTime: '8 min read',
     category: 'Tools & Calculators'
   },
   // State-Specific Guides
   {
     slug: 'dscr-loans-texas',
-    title: 'DSCR Loans Texas: Investment Property Financing Guide 2024',
-    excerpt: 'Complete guide to DSCR loans in Texas. Dallas, Houston, Austin, San Antonio markets. No income verification, rates from 7.25%.',
-    date: '2024-10-04',
+    title: 'DSCR Loans Texas: Investment Property Financing Guide 2025',
+    excerpt: 'Complete guide to DSCR loans in Texas. Dallas, Houston, Austin, San Antonio markets. No income verification, rates starting at 5.99%.',
+    date: '2025-01-05',
     readTime: '12 min read',
     category: 'State Guides'
   },
   {
     slug: 'dscr-loans-florida',
-    title: 'DSCR Loans Florida: Vacation Rental & Investment Guide 2024',
-    excerpt: 'Get DSCR loans in Florida for vacation rentals and investment properties. Orlando, Miami, Tampa markets covered.',
-    date: '2024-10-04',
+    title: 'DSCR Loans Florida: Vacation Rental & Investment Guide 2025',
+    excerpt: 'Get DSCR loans in Florida for vacation rentals and investment properties. Orlando, Miami, Tampa markets. Rates from 5.99%.',
+    date: '2025-01-05',
     readTime: '13 min read',
     category: 'State Guides'
   },
   {
     slug: 'dscr-loans-arizona',
-    title: 'DSCR Loans Arizona: Phoenix & Scottsdale Investment Guide',
-    excerpt: 'Arizona DSCR loans for vacation rentals and investment properties. Phoenix, Scottsdale, Tucson markets with strong rental demand.',
-    date: '2024-10-04',
+    title: 'DSCR Loans Arizona: Phoenix & Scottsdale Investment Guide 2025',
+    excerpt: 'Arizona DSCR loans for vacation rentals and investment properties. Phoenix, Scottsdale, Tucson markets. Rates from 5.99%.',
+    date: '2025-01-05',
     readTime: '11 min read',
     category: 'State Guides'
   },
   {
     slug: 'dscr-loans-georgia',
-    title: 'DSCR Loans Georgia: Atlanta Investment Property Guide 2024',
-    excerpt: 'Get DSCR loans in Georgia with no income verification. Atlanta, Savannah markets with strong job growth and affordable entry.',
-    date: '2024-10-04',
+    title: 'DSCR Loans Georgia: Atlanta Investment Property Guide 2025',
+    excerpt: 'Get DSCR loans in Georgia with no income verification. Atlanta, Savannah markets. Rates from 5.99%.',
+    date: '2025-01-05',
     readTime: '11 min read',
     category: 'State Guides'
   },
   {
     slug: 'dscr-loans-nevada',
-    title: 'DSCR Loans Nevada: Las Vegas & Reno Investment Guide',
-    excerpt: 'Nevada DSCR loans for vacation rentals and investment properties. No state income tax, strong tourism market.',
-    date: '2024-10-04',
+    title: 'DSCR Loans Nevada: Las Vegas & Reno Investment Guide 2025',
+    excerpt: 'Nevada DSCR loans for vacation rentals and investment properties. No state income tax, rates from 5.99%.',
+    date: '2025-01-05',
     readTime: '12 min read',
     category: 'State Guides'
   },
@@ -73,27 +73,27 @@ const blogPosts = [
   },
   // Requirements & Rates
   {
-    slug: 'dscr-loan-requirements-california-2024',
-    title: 'DSCR Loan Requirements California 2024: What You Need to Know',
-    excerpt: 'Complete breakdown of 2024 DSCR loan requirements including credit scores, down payments, property types, and documentation needed.',
-    date: '2024-09-23',
+    slug: 'dscr-loan-requirements-california-2025',
+    title: 'DSCR Loan Requirements California 2025: What You Need to Know',
+    excerpt: 'Complete breakdown of 2025 DSCR loan requirements including credit scores, down payments, property types, and documentation needed.',
+    date: '2025-01-05',
     readTime: '10 min read',
     category: 'Loan Guides'
   },
   {
-    slug: 'dscr-loan-rates-california-2024',
-    title: 'DSCR Loan Rates California 2024: Current Rates & Factors',
-    excerpt: 'Current DSCR rates from 7.25-9.75%. Complete rate tables by credit score, factors affecting your rate, and strategies to get the best pricing.',
-    date: '2024-09-24',
+    slug: 'dscr-loan-rates-california-2025',
+    title: 'DSCR Loan Rates California 2025: Current Rates & Factors',
+    excerpt: 'Current DSCR rates starting at 5.99%. Complete rate tables by credit score, factors affecting your rate, and strategies to get the best pricing.',
+    date: '2025-01-05',
     readTime: '10 min read',
     category: 'Rates & Terms'
   },
   // Self-Employed & No Tax Returns
   {
     slug: 'best-dscr-loan-lenders-california',
-    title: 'Best DSCR Loan Lenders California 2024 [Top 10 Comparison]',
-    excerpt: 'Compare the best DSCR loan lenders in California. Expert reviews, rates, requirements, and detailed comparisons to find the perfect lender.',
-    date: '2024-10-06',
+    title: 'Best DSCR Loan Lenders California 2025 [Top 10 Comparison]',
+    excerpt: 'Compare the best DSCR loan lenders in California. Expert reviews, rates starting at 5.99%, requirements, and detailed comparisons to find the perfect lender.',
+    date: '2025-01-05',
     readTime: '14 min read',
     category: 'Lender Reviews'
   },
