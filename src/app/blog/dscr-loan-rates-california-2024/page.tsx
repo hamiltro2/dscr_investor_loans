@@ -10,10 +10,10 @@ export default function DSCRRatesPage() {
   return (
     <>
       <ArticleSchema 
-        headline="DSCR Loan Rates California 2024: Current Rates & Factors"
-        description="Current DSCR loan rates in California range from 7.25% to 9.75%. See rate tables by credit score, learn what affects your rate, and get the best pricing."
+        headline="DSCR Loan Rates California 2025: Current Rates & Factors"
+        description="Current DSCR loan rates in California start as low as 5.99%. See rate tables by credit score, learn what affects your rate, and get the best pricing."
         datePublished="2024-09-24T00:00:00.000Z"
-        dateModified="2024-09-24T00:00:00.000Z"
+        dateModified="2025-01-05T00:00:00.000Z"
         author="Capital Bridge Solutions"
         image="/DSCR-Loans-599.png"
         url="https://www.capitalbridgesolutions.com/blog/dscr-loan-rates-california-2024"
@@ -28,15 +28,15 @@ export default function DSCRRatesPage() {
               <span>/</span>
               <Link href="/blog" className="hover:text-primary-400">Blog</Link>
               <span>/</span>
-              <span className="text-white">DSCR Loan Rates California 2024</span>
+              <span className="text-white">DSCR Loan Rates California 2025</span>
             </nav>
             
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              DSCR Loan Rates California 2024: Current Rates & Factors
+              DSCR Loan Rates California 2025: Current Rates & Factors
             </h1>
             
             <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
-              <span>Updated: September 24, 2024</span>
+              <span>Updated: January 5, 2025</span>
               <span>•</span>
               <span>10 min read</span>
               <span>•</span>
@@ -61,7 +61,7 @@ export default function DSCRRatesPage() {
             
             <div className="prose prose-invert max-w-none">
               <p className="text-xl text-gray-300 mb-8">
-                DSCR loan rates in California currently range from 7.25% to 9.75%, influenced by factors like 
+                DSCR loan rates in California currently start as low as 5.99%, influenced by factors like 
                 credit score, down payment, property type, and market conditions. This comprehensive guide breaks 
                 down current rates, what affects your pricing, and strategies to secure the best possible rate 
                 for your investment property in today's market.
@@ -74,8 +74,8 @@ export default function DSCRRatesPage() {
                 </h2>
                 <div className="grid md:grid-cols-3 gap-4">
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-primary-400">7.25%</div>
-                    <p className="text-sm text-gray-300">Best Rate (740+ credit)</p>
+                    <div className="text-3xl font-bold text-primary-400">5.99%</div>
+                    <p className="text-sm text-gray-300">Best Rate (760+ credit)</p>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-white">8.25%</div>
@@ -114,23 +114,23 @@ export default function DSCRRatesPage() {
                 <tbody className="text-gray-300">
                   <tr className="border-t border-gray-700">
                     <td className="py-4 px-6 font-semibold">760+</td>
-                    <td className="py-4 px-6 text-center">7.25%</td>
-                    <td className="py-4 px-6 text-center">7.00%</td>
-                    <td className="py-4 px-6 text-center">6.75%</td>
+                    <td className="py-4 px-6 text-center">5.99%</td>
+                    <td className="py-4 px-6 text-center">5.75%</td>
+                    <td className="py-4 px-6 text-center">5.50%</td>
                     <td className="py-4 px-6 text-center text-green-400">Best Pricing</td>
                   </tr>
                   <tr className="border-t border-gray-700 bg-dark-700/30">
                     <td className="py-4 px-6 font-semibold">740-759</td>
-                    <td className="py-4 px-6 text-center">7.50%</td>
-                    <td className="py-4 px-6 text-center">7.25%</td>
-                    <td className="py-4 px-6 text-center">7.00%</td>
+                    <td className="py-4 px-6 text-center">6.25%</td>
+                    <td className="py-4 px-6 text-center">5.99%</td>
+                    <td className="py-4 px-6 text-center">5.75%</td>
                     <td className="py-4 px-6 text-center">+0.25%</td>
                   </tr>
                   <tr className="border-t border-gray-700">
                     <td className="py-4 px-6 font-semibold">720-739</td>
-                    <td className="py-4 px-6 text-center">7.75%</td>
-                    <td className="py-4 px-6 text-center">7.50%</td>
-                    <td className="py-4 px-6 text-center">7.25%</td>
+                    <td className="py-4 px-6 text-center">6.50%</td>
+                    <td className="py-4 px-6 text-center">6.25%</td>
+                    <td className="py-4 px-6 text-center">5.99%</td>
                     <td className="py-4 px-6 text-center">+0.50%</td>
                   </tr>
                   <tr className="border-t border-gray-700 bg-dark-700/30">
@@ -166,7 +166,7 @@ export default function DSCRRatesPage() {
             </div>
 
             <p className="text-sm text-gray-400 mt-4">
-              *Rates as of September 2024. Subject to change based on market conditions. Additional adjustments may apply.
+              *Rates as of January 2025. Subject to change based on market conditions. Additional adjustments may apply.
             </p>
           </div>
         </div>

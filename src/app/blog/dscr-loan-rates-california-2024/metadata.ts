@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'DSCR Loan Rates California 2024 | Current Rates 7.25-9.75%',
-  description: 'Current DSCR loan rates in California range from 7.25% to 9.75%. See rate tables by credit score, learn what affects your rate, and get the best pricing.',
-  keywords: 'DSCR loan rates California, DSCR loan rates 2024, California investment property rates, current DSCR rates, DSCR loan interest rates',
+  title: 'DSCR Loan Rates California 2025 | Current Rates Starting at 5.99%',
+  description: 'Current DSCR loan rates in California start as low as 5.99%. See rate tables by credit score, learn what affects your rate, and get the best pricing.',
+  keywords: 'DSCR loan rates California, DSCR loan rates 2025, California investment property rates, current DSCR rates, DSCR loan interest rates',
   authors: [{ name: 'Capital Bridge Solutions' }],
   openGraph: {
     title: 'DSCR Loan Rates California 2024 - Current Rate Guide',
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'DSCR Loan Rates California 2024',
-    description: 'Current rates 7.25-9.75%. See complete rate tables and learn how to get the best DSCR loan rate.',
+    title: 'DSCR Loan Rates California 2025',
+    description: 'Current rates starting at 5.99%. See complete rate tables and learn how to get the best DSCR loan rate.',
     images: ['/DSCR-Loans-599.png'],
   },
   alternates: {
