@@ -92,7 +92,7 @@ export default function BestDSCRLendersCaliforniaPage() {
         datePublished="2024-10-06T02:00:00Z"
         dateModified="2025-01-05T00:00:00Z"
         author="Capital Bridge Solutions"
-        image="/DSCR_Loan_Calculator.png"
+        image="/Best_DSCR_Loan_Lenders_California.png"
         url="https://www.capitalbridgesolutions.com/blog/best-dscr-loan-lenders-california"
       />
 
@@ -148,8 +148,8 @@ export default function BestDSCRLendersCaliforniaPage() {
           
           {/* Featured Image */}
           <BlogImage 
-            src="/DSCR_Loan_Calculator.png"
-            alt="Best DSCR Loan Lenders California - Expert comparison and reviews"
+            src="/Best_DSCR_Loan_Lenders_California.png"
+            alt="Best DSCR Loan Lenders California 2025 - Expert comparison and reviews"
             width={1200}
             height={630}
             priority={true}

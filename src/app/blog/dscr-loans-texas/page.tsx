@@ -9,12 +9,12 @@ export default function DSCRLoansTexasPage() {
   return (
     <>
       <ArticleSchema 
-        headline="DSCR Loans Texas: Investment Property Financing Guide 2024"
-        description="Complete guide to DSCR loans in Texas. No income verification, rates from 7.25%, covering Dallas, Houston, Austin, San Antonio markets. Get approved in 48 hours."
+        headline="DSCR Loans Texas: Investment Property Financing Guide 2025"
+        description="Complete guide to DSCR loans in Texas. No income verification, rates from 5.99%, covering Dallas, Houston, Austin, San Antonio markets. Get approved in 48 hours."
         datePublished="2024-10-04T00:00:00.000Z"
-        dateModified="2024-10-04T00:00:00.000Z"
+        dateModified="2025-01-05T00:00:00.000Z"
         author="Capital Bridge Solutions"
-        image="/DSCR-Loans-599.png"
+        image="/DSCR_Loans_Texas.png"
         url="https://www.capitalbridgesolutions.com/blog/dscr-loans-texas"
       />
       <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
@@ -31,11 +31,11 @@ export default function DSCRLoansTexasPage() {
             </nav>
             
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              DSCR Loans Texas: Investment Property Financing Guide 2024
+              DSCR Loans Texas: Investment Property Financing Guide 2025
             </h1>
             
             <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
-              <span>Updated: October 4, 2024</span>
+              <span>Updated: January 5, 2025</span>
               <span>•</span>
               <span>12 min read</span>
               <span>•</span>
@@ -50,8 +50,8 @@ export default function DSCRLoansTexasPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <BlogImage 
-              src="/DSCR-Loans-599.png"
-              alt="DSCR Loans Texas - Investment property financing with no income verification for Dallas, Houston, Austin, San Antonio"
+              src="/DSCR_Loans_Texas.png"
+              alt="DSCR Loans Texas 2025 - Investment property financing with no income verification for Dallas, Houston, Austin, San Antonio"
               width={1200}
               height={630}
               priority={true}

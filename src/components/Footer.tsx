@@ -177,7 +177,7 @@ export function Footer() {
                     <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"></div>
                     <div>
                       <h4 className="text-white font-medium mb-1">Licensed & Regulated</h4>
-                      <p className="text-gray-400 text-sm leading-relaxed">NMLS licensed with full regulatory compliance</p>
+                      <p className="text-gray-400 text-sm leading-relaxed">NMLS #[YOUR NMLS NUMBER] • Equal Housing Lender</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
@@ -211,7 +211,7 @@ export function Footer() {
               <span className="text-gray-600">•</span>
               <Link href="/terms" className="hover:text-primary-400 transition-colors">Terms of Service</Link>
               <span className="text-gray-600">•</span>
-              <span className="text-primary-400 font-medium">NMLS Licensed</span>
+              <span className="text-primary-400 font-medium">NMLS #[YOUR NMLS NUMBER]</span>
             </div>
           </div>
         </div>

@@ -9,12 +9,12 @@ export default function DSCRLoansMultiFamilyPage() {
   return (
     <>
       <ArticleSchema 
-        headline="DSCR Loans for Multi-Family Properties | 2-4 Unit Financing Guide"
-        description="Get DSCR loans for multi-family properties. Finance duplexes, triplexes, and 4-plexes with higher income and better DSCR ratios. No income verification required."
+        headline="DSCR Loans for Multi-Family Properties | 2-4 Unit Financing Guide 2025"
+        description="Get DSCR loans for multi-family properties. Finance duplexes, triplexes, and 4-plexes with higher income and better DSCR ratios. Rates from 5.99%."
         datePublished="2024-10-04T00:00:00.000Z"
-        dateModified="2024-10-04T00:00:00.000Z"
+        dateModified="2025-01-05T00:00:00.000Z"
         author="Capital Bridge Solutions"
-        image="/DSCR_loan_Requirements.png"
+        image="/DSCR_Loans_for_Multi-family_properties.png"
         url="https://www.capitalbridgesolutions.com/blog/dscr-loans-multi-family"
       />
       <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
@@ -32,7 +32,7 @@ export default function DSCRLoansMultiFamilyPage() {
               DSCR Loans for Multi-Family Properties: Complete 2-4 Unit Guide
             </h1>
             <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
-              <span>Updated: October 4, 2024</span>
+              <span>Updated: January 5, 2025</span>
               <span>•</span>
               <span>11 min read</span>
               <span>•</span>
@@ -46,8 +46,8 @@ export default function DSCRLoansMultiFamilyPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <BlogImage 
-              src="/DSCR_loan_Requirements.png"
-              alt="DSCR Loans for Multi-Family Properties - Finance duplexes, triplexes, and 4-plexes"
+              src="/DSCR_Loans_for_Multi-family_properties.png"
+              alt="DSCR Loans for Multi-Family Properties 2025 - Finance duplexes, triplexes, and 4-plexes"
               width={1200}
               height={630}
               priority={true}

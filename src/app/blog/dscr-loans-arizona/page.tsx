@@ -9,12 +9,12 @@ export default function DSCRLoansArizonaPage() {
   return (
     <>
       <ArticleSchema 
-        headline="DSCR Loans Arizona: Phoenix & Scottsdale Investment Guide 2024"
-        description="Get DSCR loans in Arizona for vacation rentals and investment properties. Phoenix, Scottsdale, Tucson markets. No income verification, rates from 7.25%."
+        headline="DSCR Loans Arizona: Phoenix & Scottsdale Investment Guide 2025"
+        description="Get DSCR loans in Arizona for vacation rentals and investment properties. Phoenix, Scottsdale, Tucson markets. No income verification, rates from 5.99%."
         datePublished="2024-10-04T00:00:00.000Z"
-        dateModified="2024-10-04T00:00:00.000Z"
+        dateModified="2025-01-05T00:00:00.000Z"
         author="Capital Bridge Solutions"
-        image="/Airbnb_DSCR_Loans.png"
+        image="/DSCR_Loans_Arizona.png"
         url="https://www.capitalbridgesolutions.com/blog/dscr-loans-arizona"
       />
       <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
@@ -30,11 +30,11 @@ export default function DSCRLoansArizonaPage() {
             </nav>
             
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              DSCR Loans Arizona: Phoenix & Scottsdale Investment Guide 2024
+              DSCR Loans Arizona: Phoenix & Scottsdale Investment Guide 2025
             </h1>
             
             <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
-              <span>Updated: October 4, 2024</span>
+              <span>Updated: January 5, 2025</span>
               <span>•</span>
               <span>11 min read</span>
               <span>•</span>
@@ -48,8 +48,8 @@ export default function DSCRLoansArizonaPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <BlogImage 
-              src="/Airbnb_DSCR_Loans.png"
-              alt="DSCR Loans Arizona - Investment property financing for Phoenix, Scottsdale, Tucson markets"
+              src="/DSCR_Loans_Arizona.png"
+              alt="DSCR Loans Arizona 2025 - Investment property financing for Phoenix, Scottsdale, Tucson markets"
               width={1200}
               height={630}
               priority={true}
