@@ -35,8 +35,8 @@ export default function PrivacyPolicy() {
               <p className="text-gray-300 leading-relaxed">
                 Capital Bridge Solutions ("we," "our," or "us") is committed to protecting your privacy. 
                 This Privacy Policy explains how we collect, use, disclose, and safeguard your information 
-                when you visit our website or use our services related to DSCR (Debt Service Coverage Ratio) 
-                loans and real estate investment financing.
+                when you visit our website, use our Chrome Extension, or use our services related to DSCR 
+                (Debt Service Coverage Ratio) loans and real estate investment financing.
               </p>
             </div>
 
@@ -117,6 +117,61 @@ export default function PrivacyPolicy() {
                   <li>• Request deletion of your information (subject to legal requirements)</li>
                   <li>• File complaints with regulatory authorities</li>
                 </ul>
+              </section>
+
+              <section className="bg-dark-900/30 rounded-lg p-6 border border-dark-800/50">
+                <h2 className="text-2xl font-semibold text-white mb-4">Chrome Extension Privacy</h2>
+                <p className="text-gray-300 mb-4">
+                  Our Chrome Extension ("Capital Bridge Solutions - DSCR & Hard Money Calculator") collects and processes data as follows:
+                </p>
+                
+                <h3 className="text-xl font-medium text-primary-400 mb-3">Data Collection</h3>
+                <ul className="text-gray-300 space-y-2 mb-4">
+                  <li>• <strong>Property Data:</strong> The extension reads publicly available property information (price, address, bedrooms, bathrooms, square footage) from real estate listing websites you visit (Zillow, Redfin, etc.).</li>
+                  <li>• <strong>User Input:</strong> Data you manually enter into calculator fields (purchase price, rent, expenses).</li>
+                  <li>• <strong>Contact Information:</strong> When you submit the lead form, we collect your name, email, and phone number.</li>
+                  <li>• <strong>Usage Data:</strong> We track how many AI analyses you perform to enforce daily limits (3 free per day).</li>
+                </ul>
+
+                <h3 className="text-xl font-medium text-primary-400 mb-3">Local Storage</h3>
+                <p className="text-gray-300 mb-4">
+                  The extension stores data locally in your browser:
+                </p>
+                <ul className="text-gray-300 space-y-2 mb-4">
+                  <li>• Calculator input values (for convenience)</li>
+                  <li>• AI analysis cache (24-hour cache to reduce API costs)</li>
+                  <li>• Daily usage counter (resets at midnight)</li>
+                  <li>• No personal data is stored locally without your consent</li>
+                </ul>
+
+                <h3 className="text-xl font-medium text-primary-400 mb-3">Third-Party Services</h3>
+                <ul className="text-gray-300 space-y-2 mb-4">
+                  <li>• <strong>Perplexity AI:</strong> When you use the AI analysis feature, property data is sent to Perplexity AI's API for analysis. Perplexity's privacy policy applies: <a href="https://www.perplexity.ai/privacy" className="text-primary-400 hover:underline" target="_blank">perplexity.ai/privacy</a></li>
+                  <li>• <strong>Our API:</strong> Lead form submissions are sent to our secure servers via HTTPS.</li>
+                </ul>
+
+                <h3 className="text-xl font-medium text-primary-400 mb-3">Permissions Explained</h3>
+                <ul className="text-gray-300 space-y-2 mb-4">
+                  <li>• <strong>activeTab:</strong> Allows reading property data from the current listing page</li>
+                  <li>• <strong>storage:</strong> Saves your calculator inputs and caches AI results</li>
+                  <li>• <strong>host_permissions:</strong> Access to real estate websites to extract listing data</li>
+                </ul>
+
+                <h3 className="text-xl font-medium text-primary-400 mb-3">Data Security</h3>
+                <p className="text-gray-300 mb-4">
+                  • All data transmission uses HTTPS encryption<br/>
+                  • API keys are never exposed in the extension code<br/>
+                  • No data is shared with third parties except as explicitly stated<br/>
+                  • You can delete all local data by uninstalling the extension
+                </p>
+
+                <h3 className="text-xl font-medium text-primary-400 mb-3">Your Control</h3>
+                <p className="text-gray-300">
+                  • The extension only analyzes properties when you click the "Analyze" button<br/>
+                  • Lead form submission is completely optional<br/>
+                  • You can uninstall the extension at any time to remove all local data<br/>
+                  • Contact us to request deletion of submitted lead data
+                </p>
               </section>
 
               <section className="bg-dark-900/30 rounded-lg p-6 border border-dark-800/50">
