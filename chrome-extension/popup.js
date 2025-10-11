@@ -77,15 +77,22 @@ document.addEventListener('DOMContentLoaded', function() {
         if (response && response.price) {
           console.log('Popup requested and received data:', response);
           
-          // Fill in fields
+          // Fill in fields with null checks
           if (response.price) {
-            document.getElementById('purchase-price').value = response.price;
-            document.getElementById('hm-purchase-price').value = response.price;
-            document.getElementById('roi-purchase-price').value = response.price;
+            const purchasePriceEl = document.getElementById('purchase-price');
+            const hmPurchasePriceEl = document.getElementById('hm-purchase-price');
+            const roiPurchasePriceEl = document.getElementById('roi-purchase-price');
+            
+            if (purchasePriceEl) purchasePriceEl.value = response.price;
+            if (hmPurchasePriceEl) hmPurchasePriceEl.value = response.price;
+            if (roiPurchasePriceEl) roiPurchasePriceEl.value = response.price;
           }
           if (response.rent) {
-            document.getElementById('monthly-rent').value = response.rent;
-            document.getElementById('roi-monthly-rent').value = response.rent;
+            const monthlyRentEl = document.getElementById('monthly-rent');
+            const roiMonthlyRentEl = document.getElementById('roi-monthly-rent');
+            
+            if (monthlyRentEl) monthlyRentEl.value = response.rent;
+            if (roiMonthlyRentEl) roiMonthlyRentEl.value = response.rent;
           }
         }
       });

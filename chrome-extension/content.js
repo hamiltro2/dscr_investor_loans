@@ -113,22 +113,67 @@ function extractPropertyData() {
       }
     }
 
-    // Bedrooms
-    const bedsElement = document.querySelector('[data-test="bed-value"]');
-    if (bedsElement) {
-      propertyData.bedrooms = extractNumber(bedsElement.textContent);
+    // Bedrooms - Try multiple selectors
+    const bedSelectors = ['[data-test="bed-value"]', 'span[data-testid="bed-bath-item"]', '.dp-subtext'];
+    for (const selector of bedSelectors) {
+      const el = document.querySelector(selector);
+      if (el && el.textContent.includes('bed')) {
+        propertyData.bedrooms = extractNumber(el.textContent);
+        console.log('Found bedrooms:', propertyData.bedrooms);
+        break;
+      }
+    }
+    
+    // If still not found, try to parse from page text
+    if (!propertyData.bedrooms) {
+      const bodyText = document.body.innerText;
+      const bedMatch = bodyText.match(/(\d+)\s*bed/i);
+      if (bedMatch) {
+        propertyData.bedrooms = parseInt(bedMatch[1]);
+        console.log('Found bedrooms from text:', propertyData.bedrooms);
+      }
     }
 
-    // Bathrooms
-    const bathsElement = document.querySelector('[data-test="bath-value"]');
-    if (bathsElement) {
-      propertyData.bathrooms = extractNumber(bathsElement.textContent);
+    // Bathrooms - Try multiple selectors
+    const bathSelectors = ['[data-test="bath-value"]', 'span[data-testid="bed-bath-item"]'];
+    for (const selector of bathSelectors) {
+      const el = document.querySelector(selector);
+      if (el && el.textContent.includes('bath')) {
+        propertyData.bathrooms = extractNumber(el.textContent);
+        console.log('Found bathrooms:', propertyData.bathrooms);
+        break;
+      }
+    }
+    
+    // If still not found, try to parse from page text
+    if (!propertyData.bathrooms) {
+      const bodyText = document.body.innerText;
+      const bathMatch = bodyText.match(/(\d+(?:\.\d+)?)\s*bath/i);
+      if (bathMatch) {
+        propertyData.bathrooms = parseFloat(bathMatch[1]);
+        console.log('Found bathrooms from text:', propertyData.bathrooms);
+      }
     }
 
-    // Square footage
-    const sqftElement = document.querySelector('[data-test="sqft-value"]');
-    if (sqftElement) {
-      propertyData.sqft = extractNumber(sqftElement.textContent);
+    // Square footage - Try multiple selectors
+    const sqftSelectors = ['[data-test="sqft-value"]', 'span[data-testid="bed-bath-beyond-item"]'];
+    for (const selector of sqftSelectors) {
+      const el = document.querySelector(selector);
+      if (el && el.textContent.includes('sqft')) {
+        propertyData.sqft = extractNumber(el.textContent);
+        console.log('Found sqft:', propertyData.sqft);
+        break;
+      }
+    }
+    
+    // If still not found, try to parse from page text
+    if (!propertyData.sqft) {
+      const bodyText = document.body.innerText;
+      const sqftMatch = bodyText.match(/([\d,]+)\s*sqft/i);
+      if (sqftMatch) {
+        propertyData.sqft = parseInt(sqftMatch[1].replace(/,/g, ''));
+        console.log('Found sqft from text:', propertyData.sqft);
+      }
     }
 
     // Property tax
@@ -441,6 +486,16 @@ function initializeExtension() {
     window.currentPropertyType = propertyData.type || 'Residential';
     window.currentPropertyPrice = propertyData.price;
     window.currentPropertyRent = propertyData.rent;
+
+    // Log all extracted data for debugging
+    console.log('Capital Bridge Solutions: Extracted property data:', {
+      address: propertyData.address,
+      price: propertyData.price,
+      bedrooms: propertyData.bedrooms,
+      bathrooms: propertyData.bathrooms,
+      sqft: propertyData.sqft,
+      rent: propertyData.rent
+    });
 
     if (propertyData.price || propertyData.rent) {
       console.log('Capital Bridge Solutions: Sending data to popup');
