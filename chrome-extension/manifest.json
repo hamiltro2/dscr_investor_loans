@@ -59,7 +59,8 @@
     "*://*.trulia.com/*",
     "*://*.biggerpockets.com/*",
     "*://*.roofstock.com/*",
-    "*://*.loopnet.com/*"
+    "*://*.loopnet.com/*",
+    "https://www.capitalbridgesolutions.com/*"
   ],
   "background": {
     "service_worker": "background.js"

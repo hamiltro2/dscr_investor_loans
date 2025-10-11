@@ -43,7 +43,7 @@ class LeadModal {
         <div class="modal-container">
           <div class="modal-header">
             <div class="modal-title">
-              🏠 Interested in This Property?
+              🏢 Get Approved for a loan on this property!
             </div>
             <button class="modal-close" id="modal-close-btn">&times;</button>
           </div>
@@ -213,15 +213,27 @@ class LeadModal {
         })
       });
 
+      console.log('Response status:', response.status);
+      console.log('Response headers:', response.headers);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Server error response:', errorText);
+        throw new Error(`Server returned ${response.status}: ${errorText}`);
+      }
+
       const result = await response.json();
+      console.log('Result:', result);
 
       if (result.success) {
         this.showSuccess();
       } else {
-        throw new Error('Submission failed');
+        throw new Error(result.error || 'Submission failed');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
+      console.error('Error name:', error.name);
+      console.error('Error message:', error.message);
       errorContainer.innerHTML = `
         <div class="error-message">
           ❌ There was an error submitting your request. Please try again or call us directly at (949) 339-3555.

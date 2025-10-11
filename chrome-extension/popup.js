@@ -170,9 +170,9 @@ function calculateDSCR() {
           ✓ No income verification required<br>
           ✓ Close in 10-15 days
         </div>
-        <a href="https://www.capitalbridgesolutions.com" target="_blank" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #10b981; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">
+        <button id="dscr-preapproved-btn" style="display: inline-block; margin-top: 10px; padding: 8px 16px; background: #10b981; color: white; border: none; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer;">
           Get Pre-Approved →
-        </a>
+        </button>
       </div>
     `;
   } else if (dscr >= 1.0) {

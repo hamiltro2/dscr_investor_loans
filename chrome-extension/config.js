@@ -17,7 +17,7 @@ const CONFIG = {
   // === PREMIUM SETTINGS ===
   PREMIUM_PRICE_MONTHLY: 9.99,
   PREMIUM_PRICE_ANNUAL: 99.99,
-  PREMIUM_UPGRADE_URL: 'https://www.capitalbridgesolutions.com/premium',
+  PREMIUM_UPGRADE_URL: 'https://www.capitalbridgesolutions.com/get-started',
   
   // === BRANDING ===
   COMPANY_NAME: 'Capital Bridge Solutions',
