@@ -38,16 +38,18 @@ function extractPropertyData() {
 
   // Zillow extraction
   if (hostname.includes('zillow.com')) {
-    // Price - Updated selectors for Zillow's current structure
+    // Price - Target the main listing price (usually the LARGEST price on page)
     let priceFound = false;
+    let allPrices = [];
     
-    // Method 1: Try specific Zillow price selectors first
+    // Method 1: Find ALL prices on the page and take the largest one near the top
+    // This is typically the listing price
     const priceSelectors = [
       'span[data-testid="price"]',
       '[data-test="property-value"]',
-      'h1 + div span[class*="Text"]', // Price often follows h1
-      '.ds-home-details-chip span',
-      '.ds-summary-row span'
+      'h2',
+      'h3',
+      'h1 + div span'
     ];
     
     for (const selector of priceSelectors) {
@@ -55,38 +57,41 @@ function extractPropertyData() {
         const elements = document.querySelectorAll(selector);
         for (const el of elements) {
           const text = el.textContent.trim();
-          // Must start with $ and be a reasonable property price
-          if (text.startsWith('$') && text.match(/^\$[\d,]+$/)) {
+          // Must be ONLY a price (no extra text)
+          if (text.match(/^\$[\d,]+$/)) {
             const price = extractPrice(text);
             if (price >= 50000 && price <= 50000000) {
-              propertyData.price = price;
-              priceFound = true;
-              console.log('Found Zillow price:', price, 'from selector:', selector);
-              break;
+              // Get element's position on page
+              const rect = el.getBoundingClientRect();
+              const isNearTop = rect.top < 500; // Within first 500px of viewport
+              
+              allPrices.push({
+                price: price,
+                element: el,
+                selector: selector,
+                isNearTop: isNearTop,
+                fontSize: parseFloat(window.getComputedStyle(el).fontSize)
+              });
             }
           }
         }
-        if (priceFound) break;
       } catch (e) {
         continue;
       }
     }
     
-    // Method 2: Look for h2/h3 with price if selectors failed
-    if (!priceFound) {
-      const headings = document.querySelectorAll('h2, h3, h4');
-      for (const heading of headings) {
-        const text = heading.textContent.trim();
-        if (text.match(/^\$[\d,]+$/)) {
-          const price = extractPrice(text);
-          if (price >= 50000 && price <= 50000000) {
-            propertyData.price = price;
-            priceFound = true;
-            console.log('Found Zillow price from heading:', price);
-            break;
-          }
-        }
-      }
+    // Sort by: near top first, then by largest font size, then by highest price
+    if (allPrices.length > 0) {
+      allPrices.sort((a, b) => {
+        if (a.isNearTop !== b.isNearTop) return b.isNearTop - a.isNearTop;
+        if (Math.abs(a.fontSize - b.fontSize) > 5) return b.fontSize - a.fontSize;
+        return b.price - a.price;
+      });
+      
+      propertyData.price = allPrices[0].price;
+      priceFound = true;
+      console.log('Found Zillow price:', allPrices[0].price, 'from:', allPrices[0].selector, '(fontSize:', allPrices[0].fontSize + 'px)');
+      console.log('All prices found:', allPrices.map(p => p.price));
     }
 
     // Rent estimate
