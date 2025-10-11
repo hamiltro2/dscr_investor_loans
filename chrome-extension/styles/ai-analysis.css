@@ -7,8 +7,8 @@
 .ai-section {
   margin: 20px 0;
   padding: 20px;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  border: 1px solid #2a4d8f;
+  background: #1a1a2e;
+  border: 1px solid #2563eb;
   border-radius: 12px;
   position: relative;
   overflow: hidden;
@@ -21,14 +21,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #3b82f6);
-  background-size: 200% 100%;
-  animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  background: #0ea5e9;
 }
 
 /* AI Header */
@@ -59,7 +52,7 @@
 }
 
 .ai-badge {
-  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  background: #0ea5e9;
   color: white;
   padding: 4px 10px;
   border-radius: 12px;
@@ -103,7 +96,7 @@
 .ai-analyze-button {
   width: 100%;
   padding: 16px 24px;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: #2563eb;
   border: none;
   border-radius: 10px;
   color: white;
@@ -115,23 +108,6 @@
   justify-content: center;
   gap: 10px;
   transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.ai-analyze-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.ai-analyze-button:hover::before {
-  left: 100%;
 }
 
 .ai-analyze-button:hover {
@@ -196,7 +172,7 @@
 
 .loading-progress-bar {
   height: 100%;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  background: #0ea5e9;
   border-radius: 2px;
   animation: progress 2s ease-in-out infinite;
 }
@@ -248,8 +224,8 @@
 .deal-score {
   text-align: center;
   padding: 20px;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-  border: 1px solid rgba(59, 130, 246, 0.3);
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(14, 165, 233, 0.4);
   border-radius: 12px;
   margin-bottom: 20px;
 }
@@ -257,10 +233,7 @@
 .score-number {
   font-size: 48px;
   font-weight: 800;
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #0ea5e9;
   margin-bottom: 5px;
 }
 
@@ -281,7 +254,7 @@
 
 .score-indicator.excellent { background: #10b981; }
 .score-indicator.strong { background: #3b82f6; }
-.score-indicator.good { background: #8b5cf6; }
+.score-indicator.good { background: #0ea5e9; }
 .score-indicator.fair { background: #f59e0b; }
 .score-indicator.poor { background: #ef4444; }
 
@@ -488,8 +461,8 @@
 .premium-prompt {
   text-align: center;
   padding: 20px;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
-  border: 2px dashed rgba(139, 92, 246, 0.5);
+  background: rgba(59, 130, 246, 0.1);
+  border: 2px dashed rgba(14, 165, 233, 0.5);
   border-radius: 12px;
   margin-top: 15px;
 }
@@ -516,7 +489,7 @@
 .premium-button {
   display: inline-block;
   padding: 12px 24px;
-  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  background: #0ea5e9;
   border: none;
   border-radius: 8px;
   color: white;
@@ -529,7 +502,8 @@
 
 .premium-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 10px 30px rgba(14, 165, 233, 0.4);
+  background: #06b6d4;
 }
 
 /* Action Buttons */
@@ -562,13 +536,14 @@
 }
 
 .action-button.primary {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: #2563eb;
   color: white;
   border: none;
 }
 
 .action-button.primary:hover {
-  box-shadow: 0 5px 20px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 5px 20px rgba(37, 99, 235, 0.4);
+  background: #1d4ed8;
 }
 
 .action-button svg {
