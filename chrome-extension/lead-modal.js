@@ -31,6 +31,13 @@ class LeadModal {
    * Render modal HTML
    */
   render() {
+    console.log('Rendering modal with data:', this.propertyData);
+    
+    if (!document.body) {
+      console.error('document.body not available!');
+      throw new Error('Document body not ready');
+    }
+    
     const html = `
       <div class="modal-overlay">
         <div class="modal-container">
@@ -105,7 +112,13 @@ class LeadModal {
       </div>
     `;
 
-    document.body.insertAdjacentHTML('beforeend', html);
+    try {
+      document.body.insertAdjacentHTML('beforeend', html);
+      console.log('Modal HTML inserted successfully');
+    } catch (error) {
+      console.error('Error inserting modal HTML:', error);
+      throw error;
+    }
   }
 
   /**

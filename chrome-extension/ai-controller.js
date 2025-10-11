@@ -272,10 +272,14 @@ class AIController {
         try {
           // Open modal with property data
           const modal = new LeadModal();
+          console.log('Modal instance created');
           modal.show(this.currentPropertyData);
+          console.log('Modal show() called');
         } catch (error) {
           console.error('Error opening modal:', error);
-          alert('❌ Error opening form. Please try again.');
+          console.error('Error stack:', error.stack);
+          console.error('Property data:', this.currentPropertyData);
+          alert('❌ Error opening form. Please try again.\n\nError: ' + error.message);
         }
       });
     }
