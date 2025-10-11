@@ -870,6 +870,171 @@ function extractPropertyData() {
     }
   }
 
+  // UNIVERSAL EXTRACTION FALLBACK
+  // If we didn't get key data from site-specific extraction, use universal text parsing
+  console.log('🌍 Running universal extraction fallback...');
+  
+  const bodyText = document.body.innerText;
+  const pageHTML = document.body.innerHTML.toLowerCase();
+  
+  // Universal Price Extraction - if not found yet
+  if (!propertyData.price) {
+    let allPrices = [];
+    const priceElements = document.querySelectorAll('h1, h2, h3, div, span');
+    
+    for (const el of priceElements) {
+      const text = el.textContent.trim();
+      if (text.match(/^\$[\d,]+$/)) {
+        const price = extractPrice(text);
+        if (price >= 50000 && price <= 50000000) {
+          const rect = el.getBoundingClientRect();
+          const isNearTop = rect.top < 600;
+          const fontSize = parseFloat(window.getComputedStyle(el).fontSize);
+          
+          allPrices.push({
+            price: price,
+            fontSize: fontSize,
+            isNearTop: isNearTop,
+            tagName: el.tagName.toLowerCase()
+          });
+        }
+      }
+    }
+    
+    if (allPrices.length > 0) {
+      allPrices.sort((a, b) => {
+        const aIsHeading = a.tagName === 'h1' || a.tagName === 'h2';
+        const bIsHeading = b.tagName === 'h1' || b.tagName === 'h2';
+        if (aIsHeading !== bIsHeading) return bIsHeading ? 1 : -1;
+        if (a.isNearTop !== b.isNearTop) return b.isNearTop - a.isNearTop;
+        if (Math.abs(a.fontSize - b.fontSize) > 5) return b.fontSize - a.fontSize;
+        return a.price - b.price;
+      });
+      
+      propertyData.price = allPrices[0].price;
+      console.log('✅ Universal extraction found price:', propertyData.price);
+    }
+  }
+  
+  // Universal Address Extraction
+  if (!propertyData.address) {
+    const h1 = document.querySelector('h1');
+    if (h1 && h1.textContent.match(/\d+\s+\w+.*(?:St|Street|Ave|Avenue|Rd|Road|Dr|Drive|Blvd|Boulevard|Way|Lane|Ln|Ct|Court)/i)) {
+      propertyData.address = h1.textContent.trim();
+      console.log('✅ Universal extraction found address:', propertyData.address);
+    }
+  }
+  
+  // Universal Bedrooms Extraction
+  if (!propertyData.bedrooms) {
+    const bedMatch = bodyText.match(/(\d+)\s*(?:bed|bd|bedroom)/i);
+    if (bedMatch) {
+      propertyData.bedrooms = parseInt(bedMatch[1]);
+      console.log('✅ Universal extraction found bedrooms:', propertyData.bedrooms);
+    }
+  }
+  
+  // Universal Bathrooms Extraction
+  if (!propertyData.bathrooms) {
+    const bathMatch = bodyText.match(/(\d+(?:\.\d+)?)\s*(?:bath|ba|bathroom)/i);
+    if (bathMatch) {
+      propertyData.bathrooms = parseFloat(bathMatch[1]);
+      console.log('✅ Universal extraction found bathrooms:', propertyData.bathrooms);
+    }
+  }
+  
+  // Universal Square Footage Extraction
+  if (!propertyData.sqft) {
+    const sqftMatch = bodyText.match(/([\d,]+)\s*(?:sqft|sq\s*ft|square\s*feet)/i);
+    if (sqftMatch) {
+      propertyData.sqft = parseInt(sqftMatch[1].replace(/,/g, ''));
+      console.log('✅ Universal extraction found sqft:', propertyData.sqft);
+    }
+  }
+  
+  // Universal Year Built Extraction
+  if (!propertyData.yearBuilt) {
+    const yearMatch = bodyText.match(/(?:built|year built)[:\s]+(\d{4})|built in (\d{4})/i);
+    if (yearMatch) {
+      propertyData.yearBuilt = parseInt(yearMatch[1] || yearMatch[2]);
+      console.log('✅ Universal extraction found year built:', propertyData.yearBuilt);
+    }
+  }
+  
+  // Universal Property Type Extraction
+  if (!propertyData.type) {
+    if (bodyText.match(/\bcondominium\b|\bcondo\b/i)) propertyData.type = 'Condominium';
+    else if (bodyText.match(/single[- ]family|single family/i)) propertyData.type = 'Single Family';
+    else if (bodyText.match(/townhouse|townhome|town home/i)) propertyData.type = 'Townhouse';
+    else if (bodyText.match(/multi[- ]family|multifamily|duplex|triplex|fourplex/i)) propertyData.type = 'Multi-Family';
+    else if (bodyText.match(/apartment/i)) propertyData.type = 'Apartment';
+    
+    if (propertyData.type) {
+      console.log('✅ Universal extraction found property type:', propertyData.type);
+    }
+  }
+  
+  // Universal HOA Fees Extraction
+  if (!propertyData.hoaFees) {
+    const hoaMatch = bodyText.match(/\$?([\d,]+)\s*(?:\/mo|\/month|per month)?\s*(?:monthly\s*)?(?:HOA|hoa|association)/i);
+    if (hoaMatch) {
+      propertyData.hoaFees = parseInt(hoaMatch[1].replace(/,/g, ''));
+      if (propertyData.hoaFees > 0 && propertyData.hoaFees < 10000) {
+        console.log('✅ Universal extraction found HOA fees:', propertyData.hoaFees);
+      } else {
+        propertyData.hoaFees = null;
+      }
+    }
+  }
+  
+  // Universal Property Tax Extraction
+  if (!propertyData.propertyTax) {
+    const taxMatch = bodyText.match(/(?:annual|yearly)?\s*(?:property\s*)?tax(?:es)?[:\s]+\$?([\d,]+)/i);
+    if (taxMatch) {
+      propertyData.propertyTax = parseInt(taxMatch[1].replace(/,/g, ''));
+      if (propertyData.propertyTax > 0 && propertyData.propertyTax < 1000000) {
+        console.log('✅ Universal extraction found property tax:', propertyData.propertyTax);
+      } else {
+        propertyData.propertyTax = null;
+      }
+    }
+  }
+  
+  // Universal Lot Size Extraction
+  if (!propertyData.lotSize) {
+    const lotMatch = bodyText.match(/([\d,]+(?:\.\d+)?)\s*(?:sqft|sq\s*ft|square\s*feet)\s*lot/i);
+    if (lotMatch) {
+      propertyData.lotSize = parseInt(lotMatch[1].replace(/,/g, ''));
+      console.log('✅ Universal extraction found lot size:', propertyData.lotSize);
+    }
+  }
+  
+  // Universal Parking/Garage Extraction
+  if (!propertyData.parking) {
+    const parkingMatch = bodyText.match(/(\d+)\s*(?:car\s*)?(?:garage|parking)/i);
+    if (parkingMatch) {
+      propertyData.parking = parkingMatch[1] + ' car garage';
+      console.log('✅ Universal extraction found parking:', propertyData.parking);
+    }
+  }
+  
+  // Parse city, state, zip from address if we have it
+  if (propertyData.address && !propertyData.city) {
+    const addrMatch = propertyData.address.match(/,\s*([^,]+),\s*([A-Z]{2})\s*(\d{5})/);
+    if (addrMatch) {
+      propertyData.city = addrMatch[1].trim();
+      propertyData.state = addrMatch[2];
+      propertyData.zipCode = addrMatch[3];
+    }
+  }
+  
+  // Calculate price per sqft if we have both
+  if (!propertyData.pricePerSqft && propertyData.price && propertyData.sqft) {
+    propertyData.pricePerSqft = Math.round(propertyData.price / propertyData.sqft);
+  }
+  
+  console.log('🌍 Universal extraction complete');
+
   return propertyData;
 }
 
