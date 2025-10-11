@@ -263,14 +263,16 @@ class AIController {
    * Render expenses breakdown
    */
   renderExpenses(expenses) {
+    const safeNum = (val) => (val && typeof val === 'number') ? val.toLocaleString() : '0';
+    
     return `
-      ${expenses.propertyTax ? `<div class="expense-item"><span class="expense-label">Property Tax</span><span class="expense-value">$${expenses.propertyTax.toLocaleString()}</span></div>` : ''}
-      ${expenses.insurance ? `<div class="expense-item"><span class="expense-label">Insurance</span><span class="expense-value">$${expenses.insurance.toLocaleString()}</span></div>` : ''}
-      ${expenses.hoa ? `<div class="expense-item"><span class="expense-label">HOA Fees</span><span class="expense-value">$${expenses.hoa.toLocaleString()}</span></div>` : ''}
-      ${expenses.maintenance ? `<div class="expense-item"><span class="expense-label">Maintenance Reserve</span><span class="expense-value">$${expenses.maintenance.toLocaleString()}</span></div>` : ''}
-      ${expenses.vacancy ? `<div class="expense-item"><span class="expense-label">Vacancy Factor</span><span class="expense-value">$${expenses.vacancy.toLocaleString()}</span></div>` : ''}
-      ${expenses.propertyManagement ? `<div class="expense-item"><span class="expense-label">Property Management</span><span class="expense-value">$${expenses.propertyManagement.toLocaleString()}</span></div>` : ''}
-      <div class="expense-item"><span class="expense-label">Total Monthly Expenses</span><span class="expense-value">$${expenses.total.toLocaleString()}</span></div>
+      ${expenses.propertyTax ? `<div class="expense-item"><span class="expense-label">Property Tax</span><span class="expense-value">$${safeNum(expenses.propertyTax)}</span></div>` : ''}
+      ${expenses.insurance ? `<div class="expense-item"><span class="expense-label">Insurance</span><span class="expense-value">$${safeNum(expenses.insurance)}</span></div>` : ''}
+      ${expenses.hoa ? `<div class="expense-item"><span class="expense-label">HOA Fees</span><span class="expense-value">$${safeNum(expenses.hoa)}</span></div>` : ''}
+      ${expenses.maintenance ? `<div class="expense-item"><span class="expense-label">Maintenance Reserve</span><span class="expense-value">$${safeNum(expenses.maintenance)}</span></div>` : ''}
+      ${expenses.vacancy ? `<div class="expense-item"><span class="expense-label">Vacancy Factor</span><span class="expense-value">$${safeNum(expenses.vacancy)}</span></div>` : ''}
+      ${expenses.propertyManagement ? `<div class="expense-item"><span class="expense-label">Property Management</span><span class="expense-value">$${safeNum(expenses.propertyManagement)}</span></div>` : ''}
+      <div class="expense-item"><span class="expense-label">Total Monthly Expenses</span><span class="expense-value">$${safeNum(expenses.total)}</span></div>
     `;
   }
 
@@ -284,12 +286,15 @@ class AIController {
       low: '#ef4444'
     };
     
+    const safeNum = (val) => (val && typeof val === 'number') ? val.toLocaleString() : '0';
+    const confidence = rental.confidence || 'medium';
+    
     return `
       <div class="rent-estimate">
-        <div class="rent-amount">$${rental.estimatedRent.toLocaleString()}</div>
-        <div class="rent-range">Range: $${rental.lowRange.toLocaleString()} - $${rental.highRange.toLocaleString()}/mo</div>
-        <span class="rent-confidence" style="border-color: ${confidenceColors[rental.confidence]}; color: ${confidenceColors[rental.confidence]}">
-          ${rental.confidence.toUpperCase()} CONFIDENCE
+        <div class="rent-amount">$${safeNum(rental.estimatedRent)}</div>
+        <div class="rent-range">Range: $${safeNum(rental.lowRange)} - $${safeNum(rental.highRange)}/mo</div>
+        <span class="rent-confidence" style="border-color: ${confidenceColors[confidence]}; color: ${confidenceColors[confidence]}">
+          ${confidence.toUpperCase()} CONFIDENCE
         </span>
       </div>
       ${rental.comparables ? `<p class="comparables-text">${rental.comparables}</p>` : ''}
@@ -300,13 +305,15 @@ class AIController {
    * Render financing options
    */
   renderFinancing(financing) {
-    const isNegativeCashFlow = financing.cashFlow < 0;
+    const safeNum = (val) => (val && typeof val === 'number') ? val.toLocaleString() : 'N/A';
+    const cashFlow = financing.cashFlow || 0;
+    const isNegativeCashFlow = cashFlow < 0;
     
     return `
       <div class="financing-highlight">
-        <div class="loan-type">${financing.loanType}</div>
+        <div class="loan-type">${financing.loanType || 'DSCR Loan'}</div>
         <p style="color: #94a3b8; font-size: 13px; margin-top: 5px;">
-          ${financing.downPayment}% down at ${financing.interestRate}% interest
+          ${financing.downPayment || 20}% down at ${financing.interestRate || 5.99}% interest
         </p>
         ${financing.recommendation ? `
         <p style="color: #64748b; font-size: 12px; margin-top: 8px; line-height: 1.5;">
@@ -318,11 +325,11 @@ class AIController {
       <div class="financing-details">
         <div class="financing-detail">
           <div class="detail-label">Loan Amount</div>
-          <div class="detail-value">$${financing.loanAmount ? financing.loanAmount.toLocaleString() : 'N/A'}</div>
+          <div class="detail-value">$${safeNum(financing.loanAmount)}</div>
         </div>
         <div class="financing-detail">
           <div class="detail-label">Monthly Payment</div>
-          <div class="detail-value">$${financing.monthlyPayment.toLocaleString()}</div>
+          <div class="detail-value">$${safeNum(financing.monthlyPayment)}</div>
         </div>
         <div class="financing-detail">
           <div class="detail-label">DSCR Ratio</div>
@@ -332,7 +339,7 @@ class AIController {
       
       <div class="cash-flow ${isNegativeCashFlow ? 'negative' : ''}">
         <div class="cash-flow-label">Monthly Cash Flow</div>
-        <div class="cash-flow-amount">${isNegativeCashFlow ? '-' : '+'}$${Math.abs(financing.cashFlow).toLocaleString()}</div>
+        <div class="cash-flow-amount">${isNegativeCashFlow ? '-' : '+'}$${Math.abs(cashFlow).toLocaleString()}</div>
       </div>
     `;
   }
