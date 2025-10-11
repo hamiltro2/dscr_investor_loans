@@ -93,19 +93,24 @@ Provide a detailed investment analysis in JSON format with:
    - confidence: confidence level (low/medium/high)
    - comparables: brief description of rental comps
 
-3. **financing**: Analyze using DSCR loan options (we specialize in DSCR loans)
+3. **financing**: Calculate DSCR loan financing (we specialize in DSCR loans)
+   - IMPORTANT: You MUST calculate actual numbers, not return null or undefined
+   - Purchase price: $${price.toLocaleString()}
    - Calculate TWO scenarios:
-     a) 15% down payment at 5.99% interest
-     b) 20% down payment at 5.99% interest
-   - For the BEST option, provide:
-     - loanType: "DSCR Loan"
-     - downPayment: percentage (15 or 20)
-     - interestRate: 5.99
-     - loanAmount: loan amount
-     - monthlyPayment: estimated monthly P&I payment
-     - dscr: debt service coverage ratio
-     - cashFlow: monthly cash flow after all expenses
-     - recommendation: brief explanation why this option is better
+     a) 15% down at 5.99% interest: Loan = price * 0.85
+     b) 20% down at 5.99% interest: Loan = price * 0.80
+   - Monthly payment formula: M = P[r(1+r)^n]/[(1+r)^n-1] where r=0.0599/12, n=360
+   - DSCR = Monthly Rent / Monthly Payment
+   - Cash Flow = Monthly Rent - Monthly Payment - Total Expenses
+   - Choose the BEST scenario and return:
+     - loanType: "DSCR Loan" (string)
+     - downPayment: 15 or 20 (number, not percentage)
+     - interestRate: 5.99 (number)
+     - loanAmount: calculated loan amount (number)
+     - monthlyPayment: calculated P&I payment (number)
+     - dscr: calculated DSCR ratio (number, 2 decimals)
+     - cashFlow: calculated monthly cash flow (number)
+     - recommendation: brief explanation why this option is better (string)
 
 4. **score**: Investment quality score
    - overall: score from 1-10
@@ -115,6 +120,16 @@ Provide a detailed investment analysis in JSON format with:
 5. **risks**: Array of potential risks (max 3)
 
 6. **opportunities**: Array of value-add opportunities (max 3)
+
+CRITICAL: Return ONLY valid JSON with actual calculated numbers. Example structure:
+{
+  "expenses": {"propertyTax": 250, "insurance": 150, "hoa": 0, "maintenance": 100, "vacancy": 150, "propertyManagement": 120, "total": 770},
+  "rental": {"estimatedRent": 2500, "lowRange": 2300, "highRange": 2700, "confidence": "medium", "comparables": "Based on..."},
+  "financing": {"loanType": "DSCR Loan", "downPayment": 20, "interestRate": 5.99, "loanAmount": 320000, "monthlyPayment": 1900, "dscr": 1.32, "cashFlow": 830, "recommendation": "20% down..."},
+  "score": {"overall": 7, "rating": "Good", "rationale": "Solid..."},
+  "risks": ["Risk 1", "Risk 2"],
+  "opportunities": ["Opportunity 1"]
+}
 
 Return ONLY valid JSON, no markdown formatting.`;
   }
@@ -157,6 +172,55 @@ Return ONLY valid JSON, no markdown formatting.`;
   }
 
   /**
+   * Validate and calculate financing if AI didn't provide proper numbers
+   * @private
+   */
+  _validateFinancing(financing, propertyData, rental, expenses) {
+    // Check if financing data is complete
+    const hasValidData = financing && 
+                        financing.loanAmount && 
+                        financing.monthlyPayment && 
+                        financing.dscr &&
+                        financing.cashFlow !== undefined;
+    
+    if (hasValidData) {
+      console.log('AI provided valid financing data');
+      return financing;
+    }
+    
+    console.log('AI financing data incomplete, calculating manually...');
+    
+    // Calculate financing manually using 20% down, 5.99% interest
+    const price = propertyData.price;
+    const downPaymentPercent = 20;
+    const interestRate = 5.99;
+    const loanAmount = price * (1 - downPaymentPercent / 100);
+    
+    // Calculate monthly payment: M = P[r(1+r)^n]/[(1+r)^n-1]
+    const monthlyRate = interestRate / 100 / 12;
+    const numPayments = 360; // 30 years
+    const monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / 
+                          (Math.pow(1 + monthlyRate, numPayments) - 1);
+    
+    // Calculate DSCR and cash flow
+    const monthlyRent = rental?.estimatedRent || 0;
+    const totalExpenses = expenses?.total || 0;
+    const dscr = monthlyRent > 0 ? (monthlyRent / monthlyPayment).toFixed(2) : 0;
+    const cashFlow = monthlyRent - monthlyPayment - totalExpenses;
+    
+    return {
+      loanType: financing?.loanType || 'DSCR Loan',
+      downPayment: downPaymentPercent,
+      interestRate: interestRate,
+      loanAmount: Math.round(loanAmount),
+      monthlyPayment: Math.round(monthlyPayment),
+      dscr: parseFloat(dscr),
+      cashFlow: Math.round(cashFlow),
+      recommendation: financing?.recommendation || `20% down provides a DSCR of ${dscr}, ${dscr >= 1.25 ? 'meeting typical DSCR loan requirements' : 'which may require additional reserves or higher down payment'}.`
+    };
+  }
+
+  /**
    * Parse AI response
    * @private
    */
@@ -186,6 +250,9 @@ Return ONLY valid JSON, no markdown formatting.`;
 
       // Add address to root for easy access in UI
       parsed.address = propertyData.address;
+
+      // Validate and fix financing data if missing
+      parsed.financing = this._validateFinancing(parsed.financing, propertyData, parsed.rental, parsed.expenses);
 
       return parsed;
     } catch (error) {
