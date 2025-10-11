@@ -139,6 +139,15 @@ class AIController {
    */
   displayResults(analysis) {
     const html = `
+      <!-- Property Address -->
+      <div class="property-address-header">
+        <svg class="address-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+          <circle cx="12" cy="10" r="3"></circle>
+        </svg>
+        <div class="address-text">${analysis.address || 'Property Analysis'}</div>
+      </div>
+
       <!-- Deal Score -->
       <div class="deal-score">
         <div class="score-number">${analysis.score.overall}<span style="font-size: 24px;">/10</span></div>
@@ -152,8 +161,11 @@ class AIController {
       <!-- Monthly Expenses -->
       <div class="analysis-section">
         <div class="section-header">
-          <span class="section-icon">💰</span>
-          <span>True Monthly Expenses</span>
+          <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+          <span>Monthly Expenses</span>
         </div>
         <div class="section-content">
           ${this.renderExpenses(analysis.expenses)}
@@ -163,8 +175,11 @@ class AIController {
       <!-- Rental Analysis -->
       <div class="analysis-section">
         <div class="section-header">
-          <span class="section-icon">🏠</span>
-          <span>Rental Analysis</span>
+          <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>Rental Comps</span>
         </div>
         <div class="section-content">
           ${this.renderRentalAnalysis(analysis.rental)}
@@ -174,8 +189,11 @@ class AIController {
       <!-- Financing -->
       <div class="analysis-section">
         <div class="section-header">
-          <span class="section-icon">💵</span>
-          <span>Best Financing Option</span>
+          <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+            <line x1="1" y1="10" x2="23" y2="10"></line>
+          </svg>
+          <span>Financing</span>
         </div>
         <div class="section-content">
           ${this.renderFinancing(analysis.financing)}
@@ -186,8 +204,12 @@ class AIController {
       ${analysis.risks && analysis.risks.length > 0 ? `
       <div class="analysis-section">
         <div class="section-header">
-          <span class="section-icon">⚠️</span>
-          <span>Potential Risks</span>
+          <svg class="section-icon risk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+            <line x1="12" y1="9" x2="12" y2="13"></line>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+          <span>Risks</span>
         </div>
         <div class="section-content">
           ${analysis.risks.map(risk => `<div class="list-item">${risk}</div>`).join('')}
@@ -199,8 +221,10 @@ class AIController {
       ${analysis.opportunities && analysis.opportunities.length > 0 ? `
       <div class="analysis-section">
         <div class="section-header">
-          <span class="section-icon">💡</span>
-          <span>Value-Add Opportunities</span>
+          <svg class="section-icon opportunity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>Opportunities</span>
         </div>
         <div class="section-content">
           ${analysis.opportunities.map(opp => `<div class="list-item opportunity">${opp}</div>`).join('')}
@@ -211,10 +235,18 @@ class AIController {
       <!-- Actions -->
       <div class="ai-actions">
         <button class="action-button primary" onclick="window.open('https://www.capitalbridgesolutions.com/get-started', '_blank')">
-          <span>📞</span> Get Pre-Approved
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          Get Pre-Approved
         </button>
         <button class="action-button" onclick="aiController.saveAnalysis()">
-          <span>💾</span> Save Analysis
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+            <polyline points="7 3 7 8 15 8"></polyline>
+          </svg>
+          Save Analysis
         </button>
       </div>
     `;
@@ -224,7 +256,7 @@ class AIController {
     
     // Reset button
     this.analyzeBtn.disabled = false;
-    this.analyzeBtn.innerHTML = '<span class="button-icon">🔄</span><span>Analyze Again</span>';
+    this.analyzeBtn.innerHTML = '<svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg><span>Analyze Again</span>';
   }
 
   /**

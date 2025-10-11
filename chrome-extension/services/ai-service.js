@@ -178,6 +178,9 @@ Return ONLY valid JSON, no markdown formatting.`;
         cacheExpiry: Date.now() + this.CACHE_DURATION
       };
 
+      // Add address to root for easy access in UI
+      parsed.address = propertyData.address;
+
       return parsed;
     } catch (error) {
       console.error('Parse error:', error);
