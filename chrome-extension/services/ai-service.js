@@ -93,13 +93,19 @@ Provide a detailed investment analysis in JSON format with:
    - confidence: confidence level (low/medium/high)
    - comparables: brief description of rental comps
 
-3. **financing**: Best loan structure
-   - loanType: recommended loan type (DSCR/Conventional/Hard Money)
-   - downPayment: recommended down payment percentage
-   - interestRate: current market rate estimate
-   - monthlyPayment: estimated monthly P&I payment
-   - dscr: debt service coverage ratio
-   - cashFlow: monthly cash flow after all expenses
+3. **financing**: Analyze using DSCR loan options (we specialize in DSCR loans)
+   - Calculate TWO scenarios:
+     a) 15% down payment at 5.99% interest
+     b) 20% down payment at 5.99% interest
+   - For the BEST option, provide:
+     - loanType: "DSCR Loan"
+     - downPayment: percentage (15 or 20)
+     - interestRate: 5.99
+     - loanAmount: loan amount
+     - monthlyPayment: estimated monthly P&I payment
+     - dscr: debt service coverage ratio
+     - cashFlow: monthly cash flow after all expenses
+     - recommendation: brief explanation why this option is better
 
 4. **score**: Investment quality score
    - overall: score from 1-10

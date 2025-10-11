@@ -308,9 +308,18 @@ class AIController {
         <p style="color: #94a3b8; font-size: 13px; margin-top: 5px;">
           ${financing.downPayment}% down at ${financing.interestRate}% interest
         </p>
+        ${financing.recommendation ? `
+        <p style="color: #64748b; font-size: 12px; margin-top: 8px; line-height: 1.5;">
+          💡 ${financing.recommendation}
+        </p>
+        ` : ''}
       </div>
       
       <div class="financing-details">
+        <div class="financing-detail">
+          <div class="detail-label">Loan Amount</div>
+          <div class="detail-value">$${financing.loanAmount ? financing.loanAmount.toLocaleString() : 'N/A'}</div>
+        </div>
         <div class="financing-detail">
           <div class="detail-label">Monthly Payment</div>
           <div class="detail-value">$${financing.monthlyPayment.toLocaleString()}</div>
