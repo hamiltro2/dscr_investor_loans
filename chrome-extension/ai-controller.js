@@ -234,25 +234,44 @@ class AIController {
 
       <!-- Actions -->
       <div class="ai-actions">
-        <button class="action-button primary" onclick="window.open('https://www.capitalbridgesolutions.com/get-started', '_blank')">
+        <button class="action-button primary" id="get-preapproved-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
           </svg>
           Get Pre-Approved
         </button>
-        <button class="action-button" onclick="aiController.saveAnalysis()">
+        <button class="action-button" id="save-analysis-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-            <polyline points="17 21 17 13 7 13 7 21"></polyline>
-            <polyline points="7 3 7 8 15 8"></polyline>
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
-          Save Analysis
+          Email Analysis
         </button>
       </div>
     `;
     
     this.resultsContainer.innerHTML = html;
     this.resultsContainer.classList.remove('hidden');
+    
+    // Attach event listeners to action buttons
+    const preApprovedBtn = document.getElementById('get-preapproved-btn');
+    const saveBtn = document.getElementById('save-analysis-btn');
+    
+    if (preApprovedBtn) {
+      preApprovedBtn.addEventListener('click', () => {
+        console.log('Get Pre-Approved clicked');
+        // Open modal with property data
+        const modal = new LeadModal();
+        modal.show(this.currentPropertyData);
+      });
+    }
+    
+    if (saveBtn) {
+      saveBtn.addEventListener('click', () => {
+        console.log('Save Analysis clicked');
+        this.saveAnalysis();
+      });
+    }
     
     // Reset button
     this.analyzeBtn.disabled = false;
@@ -409,28 +428,26 @@ class AIController {
   }
 
   /**
-   * Save analysis to storage
+   * Email analysis
    */
   async saveAnalysis() {
     try {
-      const timestamp = new Date().toISOString();
-      const savedAnalyses = await chrome.storage.local.get('saved_analyses');
-      const analyses = savedAnalyses.saved_analyses || [];
+      // Get property address for subject
+      const address = this.currentPropertyData?.address || 'Property Analysis';
       
-      analyses.unshift({
-        timestamp,
-        propertyData: this.currentPropertyData,
-        html: this.resultsContainer.innerHTML
-      });
+      // Build email body with analysis details
+      const analysisText = this.resultsContainer.innerText;
       
-      // Keep only last 10
-      await chrome.storage.local.set({
-        saved_analyses: analyses.slice(0, 10)
-      });
+      // Create mailto link
+      const subject = encodeURIComponent(`Property Analysis - ${address}`);
+      const body = encodeURIComponent(analysisText);
       
-      alert('✅ Analysis saved! You can view it in your history.');
+      // Open email client
+      window.open(`mailto:?subject=${subject}&body=${body}`, '_blank');
+      
+      console.log('✅ Email client opened with analysis');
     } catch (error) {
-      alert('❌ Failed to save analysis');
+      alert('❌ Failed to open email client');
       console.error(error);
     }
   }

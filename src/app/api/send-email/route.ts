@@ -24,6 +24,8 @@ function getEmailSubject(formType: string, data: any): string {
       return 'New Credit Solutions Inquiry';
     case 'consultation':
       return `New Consultation Request - ${data.serviceType}`;
+    case 'extension':
+      return 'CBS Chrome Extension Request';
     default:
       return 'New Inquiry - Capital Bridge Solutions';
   }
@@ -73,6 +75,23 @@ function getEmailContent(formType: string, data: any): string {
         <p><strong>Service Type:</strong> ${data.serviceType}</p>
         <p><strong>Preferred Time:</strong> ${data.preferredTime}</p>
         <p><strong>Message:</strong> ${data.message}</p>
+      `;
+    
+    case 'extension':
+      return `
+        <h2>🏠 Chrome Extension - Property Interest</h2>
+        ${baseContent}
+        <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;">
+        <h3>Property Details:</h3>
+        <p><strong>Address:</strong> ${data.propertyAddress}</p>
+        <p><strong>Price:</strong> ${data.propertyPrice}</p>
+        ${data.propertyBeds ? `<p><strong>Bedrooms:</strong> ${data.propertyBeds}</p>` : ''}
+        ${data.propertyBaths ? `<p><strong>Bathrooms:</strong> ${data.propertyBaths}</p>` : ''}
+        ${data.propertySqft ? `<p><strong>Square Feet:</strong> ${data.propertySqft}</p>` : ''}
+        ${data.estimatedRent && data.estimatedRent !== 'N/A' ? `<p><strong>Estimated Rent:</strong> ${data.estimatedRent}</p>` : ''}
+        ${data.hoaFees && data.hoaFees !== 'N/A' ? `<p><strong>HOA Fees:</strong> ${data.hoaFees}</p>` : ''}
+        ${data.propertyTax && data.propertyTax !== 'N/A' ? `<p><strong>Property Tax:</strong> ${data.propertyTax}</p>` : ''}
+        <p><strong>Source:</strong> ${data.source}</p>
       `;
     
     default:
