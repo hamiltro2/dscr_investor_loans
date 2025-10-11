@@ -38,55 +38,53 @@ function extractPropertyData() {
 
   // Zillow extraction
   if (hostname.includes('zillow.com')) {
-    // Price - Find the large price near the top
+    // Price - Updated selectors for Zillow's current structure
     let priceFound = false;
     
-    // Method 1: Look for specific price in the visible text
-    const bodyText = document.body.innerText;
-    const priceRegex = /\$[\d,]+/g;
-    const prices = bodyText.match(priceRegex);
+    // Method 1: Try specific Zillow price selectors first
+    const priceSelectors = [
+      'span[data-testid="price"]',
+      '[data-test="property-value"]',
+      'h1 + div span[class*="Text"]', // Price often follows h1
+      '.ds-home-details-chip span',
+      '.ds-summary-row span'
+    ];
     
-    if (prices && prices.length > 0) {
-      // The property price is usually the largest number
-      const numericPrices = prices.map(p => {
-        const num = parseInt(p.replace(/[$,]/g, ''));
-        return { original: p, numeric: num };
-      }).filter(p => p.numeric >= 50000 && p.numeric <= 50000000); // Reasonable property range
-      
-      if (numericPrices.length > 0) {
-        // Sort by value and take the first large one
-        numericPrices.sort((a, b) => b.numeric - a.numeric);
-        propertyData.price = numericPrices[0].numeric;
-        priceFound = true;
+    for (const selector of priceSelectors) {
+      try {
+        const elements = document.querySelectorAll(selector);
+        for (const el of elements) {
+          const text = el.textContent.trim();
+          // Must start with $ and be a reasonable property price
+          if (text.startsWith('$') && text.match(/^\$[\d,]+$/)) {
+            const price = extractPrice(text);
+            if (price >= 50000 && price <= 50000000) {
+              propertyData.price = price;
+              priceFound = true;
+              console.log('Found Zillow price:', price, 'from selector:', selector);
+              break;
+            }
+          }
+        }
+        if (priceFound) break;
+      } catch (e) {
+        continue;
       }
     }
     
-    // Method 2: Try standard selectors if Method 1 failed
+    // Method 2: Look for h2/h3 with price if selectors failed
     if (!priceFound) {
-      const priceSelectors = [
-        '[data-test="property-value"]',
-        'span[data-testid="price"]',
-        '.ds-summary-row span',
-        'h2 span',
-        '[class*="price"]'
-      ];
-      
-      for (const selector of priceSelectors) {
-        try {
-          const elements = document.querySelectorAll(selector);
-          for (const el of elements) {
-            if (el.textContent.includes('$') && el.textContent.match(/\$[\d,]+/)) {
-              const price = extractPrice(el.textContent);
-              if (price >= 50000) {
-                propertyData.price = price;
-                priceFound = true;
-                break;
-              }
-            }
+      const headings = document.querySelectorAll('h2, h3, h4');
+      for (const heading of headings) {
+        const text = heading.textContent.trim();
+        if (text.match(/^\$[\d,]+$/)) {
+          const price = extractPrice(text);
+          if (price >= 50000 && price <= 50000000) {
+            propertyData.price = price;
+            priceFound = true;
+            console.log('Found Zillow price from heading:', price);
+            break;
           }
-          if (priceFound) break;
-        } catch (e) {
-          continue;
         }
       }
     }
@@ -97,10 +95,22 @@ function extractPropertyData() {
       propertyData.rent = extractPrice(rentElement.textContent);
     }
 
-    // Address
-    const addressElement = document.querySelector('h1[class*="address"]');
-    if (addressElement) {
-      propertyData.address = addressElement.textContent.trim();
+    // Address - Try multiple selectors
+    const addressSelectors = [
+      'h1[data-test="property-address"]',
+      'h1',
+      '[data-testid="property-address"]',
+      'h1[class*="address"]',
+      '.ds-address-container h1'
+    ];
+    
+    for (const selector of addressSelectors) {
+      const addressElement = document.querySelector(selector);
+      if (addressElement && addressElement.textContent.trim().length > 10) {
+        propertyData.address = addressElement.textContent.trim();
+        console.log('Found Zillow address:', propertyData.address);
+        break;
+      }
     }
 
     // Bedrooms
