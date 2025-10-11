@@ -380,10 +380,72 @@ function extractPropertyData() {
 
   // Redfin extraction
   else if (hostname.includes('redfin.com')) {
-    // Price
-    const priceElement = document.querySelector('.statsValue, [data-rf-test-id="abp-price"]');
-    if (priceElement) {
-      propertyData.price = extractPrice(priceElement.textContent);
+    // Price - Use smart extraction similar to Zillow
+    let priceFound = false;
+    let allPrices = [];
+    
+    // Find address first for reference
+    const addressRef = document.querySelector('.street-address, [data-rf-test-id="abp-streetLine"]');
+    
+    // Look for all prices on page
+    const priceSelectors = [
+      '.statsValue',  // Common price class
+      '[data-rf-test-id="abp-price"]',
+      'div[class*="price"]',
+      'span[class*="price"]'
+    ];
+    
+    for (const selector of priceSelectors) {
+      try {
+        const elements = document.querySelectorAll(selector);
+        for (const el of elements) {
+          const text = el.textContent.trim();
+          // Must be ONLY a price
+          if (text.match(/^\$[\d,]+$/)) {
+            const price = extractPrice(text);
+            if (price >= 50000 && price <= 50000000) {
+              const rect = el.getBoundingClientRect();
+              const isNearTop = rect.top < 700;
+              const fontSize = parseFloat(window.getComputedStyle(el).fontSize);
+              
+              // Distance from address if found
+              let distanceFromAddress = 9999;
+              if (addressRef) {
+                const addressRect = addressRef.getBoundingClientRect();
+                distanceFromAddress = Math.abs(rect.top - addressRect.top) + 
+                                     Math.abs(rect.left - addressRect.left);
+              }
+              
+              allPrices.push({
+                price: price,
+                fontSize: fontSize,
+                distanceFromAddress: distanceFromAddress,
+                isNearTop: isNearTop
+              });
+            }
+          }
+        }
+      } catch (e) {
+        continue;
+      }
+    }
+    
+    // Sort: near top, largest font, closest to address, prefer lower price
+    if (allPrices.length > 0) {
+      allPrices.sort((a, b) => {
+        if (a.isNearTop !== b.isNearTop) return b.isNearTop - a.isNearTop;
+        if (Math.abs(a.fontSize - b.fontSize) > 5) return b.fontSize - a.fontSize;
+        if (Math.abs(a.distanceFromAddress - b.distanceFromAddress) > 100) {
+          return a.distanceFromAddress - b.distanceFromAddress;
+        }
+        return a.price - b.price; // Prefer lower price if similar
+      });
+      
+      propertyData.price = allPrices[0].price;
+      priceFound = true;
+      console.log('✅ Selected Redfin price:', allPrices[0].price, 
+                  '(fontSize:', allPrices[0].fontSize + 'px, distance from address:', Math.round(allPrices[0].distanceFromAddress) + 'px)');
+      console.log('All Redfin prices found:', allPrices.map(p => p.price));
     }
 
     // Rent estimate
@@ -519,6 +581,56 @@ function extractPropertyData() {
     const priceInput = document.querySelector('input[name="purchase_price"], #purchase-price');
     if (priceInput && priceInput.value) {
       propertyData.price = parseInt(priceInput.value.replace(/[^0-9]/g, ''));
+    } else {
+      // BiggerPockets Marketplace - extract from listing page with smart algorithm
+      let allPrices = [];
+      
+      // Look for all prices on page
+      const priceSelectors = ['h1', 'h2', 'h3', 'div', 'span'];
+      
+      for (const selector of priceSelectors) {
+        try {
+          const elements = document.querySelectorAll(selector);
+          for (const el of elements) {
+            const text = el.textContent.trim();
+            // Must be ONLY a price
+            if (text.match(/^\$[\d,]+$/)) {
+              const price = extractPrice(text);
+              if (price >= 50000 && price <= 50000000) {
+                const rect = el.getBoundingClientRect();
+                const isNearTop = rect.top < 600;
+                const fontSize = parseFloat(window.getComputedStyle(el).fontSize);
+                
+                allPrices.push({
+                  price: price,
+                  fontSize: fontSize,
+                  isNearTop: isNearTop,
+                  tagName: el.tagName.toLowerCase()
+                });
+              }
+            }
+          }
+        } catch (e) {
+          continue;
+        }
+      }
+      
+      // Sort: h1/h2 first, near top, largest font, prefer lower price
+      if (allPrices.length > 0) {
+        allPrices.sort((a, b) => {
+          const aIsHeading = a.tagName === 'h1' || a.tagName === 'h2';
+          const bIsHeading = b.tagName === 'h1' || b.tagName === 'h2';
+          if (aIsHeading !== bIsHeading) return bIsHeading ? 1 : -1;
+          if (a.isNearTop !== b.isNearTop) return b.isNearTop - a.isNearTop;
+          if (Math.abs(a.fontSize - b.fontSize) > 5) return b.fontSize - a.fontSize;
+          return a.price - b.price; // Prefer lower price
+        });
+        
+        propertyData.price = allPrices[0].price;
+        console.log('✅ Selected BiggerPockets price:', allPrices[0].price, 
+                    '(fontSize:', allPrices[0].fontSize + 'px, tag:', allPrices[0].tagName + ')');
+        console.log('All BiggerPockets prices found:', allPrices.map(p => `$${p.price.toLocaleString()} (${p.tagName})`).join(', '));
+      }
     }
     
     const rentInput = document.querySelector('input[name="monthly_rent"], #monthly-rent');
