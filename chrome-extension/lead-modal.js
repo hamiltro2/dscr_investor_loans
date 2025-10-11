@@ -260,3 +260,6 @@ class LeadModal {
 
 // Export for use in other files
 window.LeadModal = LeadModal;
+
+// Verify it loaded
+console.log('✅ LeadModal loaded successfully');

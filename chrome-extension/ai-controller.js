@@ -260,9 +260,23 @@ class AIController {
     if (preApprovedBtn) {
       preApprovedBtn.addEventListener('click', () => {
         console.log('Get Pre-Approved clicked');
-        // Open modal with property data
-        const modal = new LeadModal();
-        modal.show(this.currentPropertyData);
+        console.log('Property data:', this.currentPropertyData);
+        
+        // Check if LeadModal is available
+        if (typeof LeadModal === 'undefined') {
+          console.error('LeadModal not found! Check if lead-modal.js is loaded.');
+          alert('❌ Error: Modal not available. Please reload the extension.');
+          return;
+        }
+        
+        try {
+          // Open modal with property data
+          const modal = new LeadModal();
+          modal.show(this.currentPropertyData);
+        } catch (error) {
+          console.error('Error opening modal:', error);
+          alert('❌ Error opening form. Please try again.');
+        }
       });
     }
     
