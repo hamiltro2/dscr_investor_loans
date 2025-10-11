@@ -582,29 +582,54 @@ function extractPropertyData() {
     if (priceInput && priceInput.value) {
       propertyData.price = parseInt(priceInput.value.replace(/[^0-9]/g, ''));
     } else {
-      // BiggerPockets Marketplace - extract from listing page with smart algorithm
+      // BiggerPockets Marketplace - extract from listing page with IMPROVED algorithm
       let allPrices = [];
-      
-      // Look for all prices on page
-      const priceSelectors = ['h1', 'h2', 'h3', 'div', 'span'];
+      const priceSelectors = ['h1', 'h2', 'h3', 'div', 'span', 'p'];
       
       for (const selector of priceSelectors) {
         try {
           const elements = document.querySelectorAll(selector);
           for (const el of elements) {
+            // Skip inputs and form elements
+            if (el.closest('form') || el.closest('input') || el.tagName === 'INPUT') {
+              continue;
+            }
+            
             const text = el.textContent.trim();
-            // Must be ONLY a price
             if (text.match(/^\$[\d,]+$/)) {
               const price = extractPrice(text);
               if (price >= 50000 && price <= 50000000) {
                 const rect = el.getBoundingClientRect();
+                const styles = window.getComputedStyle(el);
+                
+                // Skip hidden or tiny elements
+                if (styles.display === 'none' || styles.visibility === 'hidden' || 
+                    rect.width < 50 || rect.height < 10) {
+                  continue;
+                }
+                
+                const fontSize = parseFloat(styles.fontSize);
                 const isNearTop = rect.top < 600;
-                const fontSize = parseFloat(window.getComputedStyle(el).fontSize);
+                const isVisible = rect.top >= 0 && rect.top < window.innerHeight;
+                const isOnLeftSide = rect.left < window.innerWidth * 0.5;
+                
+                // Check if in calculator or form
+                const isInCalculator = el.closest('[class*="calculator"]') || 
+                                      el.closest('[class*="form"]') ||
+                                      el.closest('[id*="calculator"]');
+                
+                // Check for listing context
+                const parentText = el.parentElement?.textContent || '';
+                const hasListingContext = parentText.match(/for sale|list price|asking/i);
                 
                 allPrices.push({
                   price: price,
                   fontSize: fontSize,
                   isNearTop: isNearTop,
+                  isVisible: isVisible,
+                  isOnLeftSide: isOnLeftSide,
+                  isInCalculator: isInCalculator,
+                  hasListingContext: hasListingContext,
                   tagName: el.tagName.toLowerCase()
                 });
               }
@@ -615,20 +640,38 @@ function extractPropertyData() {
         }
       }
       
-      // Sort: h1/h2 first, near top, largest font, prefer lower price
       if (allPrices.length > 0) {
         allPrices.sort((a, b) => {
-          const aIsHeading = a.tagName === 'h1' || a.tagName === 'h2';
-          const bIsHeading = b.tagName === 'h1' || b.tagName === 'h2';
+          // Exclude calculator/form prices first
+          if (a.isInCalculator !== b.isInCalculator) return a.isInCalculator ? 1 : -1;
+          
+          // Prioritize listing context
+          if (a.hasListingContext !== b.hasListingContext) return b.hasListingContext ? 1 : -1;
+          
+          // Prefer heading tags
+          const aIsHeading = a.tagName === 'h1' || a.tagName === 'h2' || a.tagName === 'h3';
+          const bIsHeading = b.tagName === 'h1' || b.tagName === 'h2' || b.tagName === 'h3';
           if (aIsHeading !== bIsHeading) return bIsHeading ? 1 : -1;
-          if (a.isNearTop !== b.isNearTop) return b.isNearTop - a.isNearTop;
+          
+          // Must be visible and near top
+          if (a.isVisible !== b.isVisible) return b.isVisible ? 1 : -1;
+          if (a.isNearTop !== b.isNearTop) return b.isNearTop ? 1 : -1;
+          
+          // Prefer left side
+          if (a.isOnLeftSide !== b.isOnLeftSide) return b.isOnLeftSide ? 1 : -1;
+          
+          // Larger font
           if (Math.abs(a.fontSize - b.fontSize) > 5) return b.fontSize - a.fontSize;
-          return a.price - b.price; // Prefer lower price
+          
+          // Prefer lower price
+          return a.price - b.price;
         });
         
         propertyData.price = allPrices[0].price;
         console.log('✅ Selected BiggerPockets price:', allPrices[0].price, 
-                    '(fontSize:', allPrices[0].fontSize + 'px, tag:', allPrices[0].tagName + ')');
+                    '(tag:', allPrices[0].tagName, 'fontSize:', allPrices[0].fontSize + 'px',
+                    'inCalc:', allPrices[0].isInCalculator ? 'yes' : 'no',
+                    'leftSide:', allPrices[0].isOnLeftSide ? 'yes' : 'no', ')');
         console.log('All BiggerPockets prices found:', allPrices.map(p => `$${p.price.toLocaleString()} (${p.tagName})`).join(', '));
       }
     }
@@ -877,42 +920,98 @@ function extractPropertyData() {
   const bodyText = document.body.innerText;
   const pageHTML = document.body.innerHTML.toLowerCase();
   
-  // Universal Price Extraction - if not found yet
+  // Universal Price Extraction - IMPROVED ALGORITHM
   if (!propertyData.price) {
     let allPrices = [];
-    const priceElements = document.querySelectorAll('h1, h2, h3, div, span');
+    const priceElements = document.querySelectorAll('h1, h2, h3, div, span, p');
     
     for (const el of priceElements) {
+      // Skip if element is an input or inside a form
+      if (el.tagName === 'INPUT' || el.closest('form') || el.closest('input')) {
+        continue;
+      }
+      
       const text = el.textContent.trim();
+      
+      // Must be ONLY a price (no other text)
       if (text.match(/^\$[\d,]+$/)) {
         const price = extractPrice(text);
         if (price >= 50000 && price <= 50000000) {
           const rect = el.getBoundingClientRect();
+          const styles = window.getComputedStyle(el);
+          
+          // Skip if element is hidden or too small
+          if (styles.display === 'none' || styles.visibility === 'hidden' || 
+              rect.width < 50 || rect.height < 10) {
+            continue;
+          }
+          
+          const fontSize = parseFloat(styles.fontSize);
           const isNearTop = rect.top < 600;
-          const fontSize = parseFloat(window.getComputedStyle(el).fontSize);
+          const isVisible = rect.top >= 0 && rect.top < window.innerHeight;
+          
+          // Check context around the price for listing indicators
+          const parentText = el.parentElement?.textContent || '';
+          const hasListingContext = parentText.match(/for sale|list price|asking|price:/i);
+          
+          // Check if it's the main property price (not in a calculator or form)
+          const isInCalculator = el.closest('[class*="calculator"]') || 
+                                el.closest('[class*="form"]') ||
+                                el.closest('[id*="calculator"]');
+          
+          // Position scoring
+          const leftPosition = rect.left;
+          const isOnLeftSide = leftPosition < window.innerWidth * 0.5;
           
           allPrices.push({
             price: price,
             fontSize: fontSize,
             isNearTop: isNearTop,
-            tagName: el.tagName.toLowerCase()
+            isVisible: isVisible,
+            tagName: el.tagName.toLowerCase(),
+            hasListingContext: hasListingContext,
+            isInCalculator: isInCalculator,
+            isOnLeftSide: isOnLeftSide,
+            element: el
           });
         }
       }
     }
     
     if (allPrices.length > 0) {
+      // Advanced sorting algorithm
       allPrices.sort((a, b) => {
-        const aIsHeading = a.tagName === 'h1' || a.tagName === 'h2';
-        const bIsHeading = b.tagName === 'h1' || b.tagName === 'h2';
+        // Exclude calculator/form prices
+        if (a.isInCalculator !== b.isInCalculator) return a.isInCalculator ? 1 : -1;
+        
+        // Prioritize prices with listing context
+        if (a.hasListingContext !== b.hasListingContext) return b.hasListingContext ? 1 : -1;
+        
+        // Prioritize heading tags (h1, h2, h3)
+        const aIsHeading = a.tagName === 'h1' || a.tagName === 'h2' || a.tagName === 'h3';
+        const bIsHeading = b.tagName === 'h1' || b.tagName === 'h2' || b.tagName === 'h3';
         if (aIsHeading !== bIsHeading) return bIsHeading ? 1 : -1;
-        if (a.isNearTop !== b.isNearTop) return b.isNearTop - a.isNearTop;
+        
+        // Must be visible and near top
+        if (a.isVisible !== b.isVisible) return b.isVisible ? 1 : -1;
+        if (a.isNearTop !== b.isNearTop) return b.isNearTop ? 1 : -1;
+        
+        // Prefer left side (where main price usually is)
+        if (a.isOnLeftSide !== b.isOnLeftSide) return b.isOnLeftSide ? 1 : -1;
+        
+        // Larger font = more prominent
         if (Math.abs(a.fontSize - b.fontSize) > 5) return b.fontSize - a.fontSize;
+        
+        // Prefer lower price if everything else is equal (conservative)
         return a.price - b.price;
       });
       
       propertyData.price = allPrices[0].price;
-      console.log('✅ Universal extraction found price:', propertyData.price);
+      console.log('✅ Universal extraction found price:', allPrices[0].price, 
+                  '(tag:', allPrices[0].tagName, 'fontSize:', allPrices[0].fontSize + 'px',
+                  'context:', allPrices[0].hasListingContext ? 'yes' : 'no',
+                  'inCalc:', allPrices[0].isInCalculator ? 'yes' : 'no', ')');
+      console.log('All prices considered:', allPrices.map(p => `$${p.price.toLocaleString()}`).join(', '));
     }
   }
   
