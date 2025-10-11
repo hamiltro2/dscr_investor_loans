@@ -23,33 +23,72 @@ function extractNumber(text) {
 function extractPropertyData() {
   const hostname = window.location.hostname;
   let propertyData = {
+    // Basic info
     price: null,
     rent: null,
     address: null,
+    city: null,
+    state: null,
+    zipCode: null,
+    
+    // Property details
     type: null,
     bedrooms: null,
     bathrooms: null,
     sqft: null,
+    lotSize: null,
     yearBuilt: null,
+    parking: null,
+    
+    // Financial
     propertyTax: null,
     hoaFees: null,
+    insurance: null,
+    
+    // Market data
+    daysOnMarket: null,
+    pricePerSqft: null,
+    mlsNumber: null,
+    
+    // Location scores
+    walkScore: null,
+    schoolRating: null,
+    
+    // Listing details
+    listingAgent: null,
+    description: null,
+    
     source: hostname
   };
 
   // Zillow extraction
   if (hostname.includes('zillow.com')) {
-    // Price - Target the main listing price (usually the LARGEST price on page)
+    // First, find the address element as a reference point
+    let addressElement = null;
+    const addressSelectors = [
+      'h1[data-test="property-address"]',
+      'h1',
+      '[data-testid="property-address"]',
+      'h1[class*="address"]'
+    ];
+    
+    for (const selector of addressSelectors) {
+      addressElement = document.querySelector(selector);
+      if (addressElement && addressElement.textContent.trim().length > 10) {
+        console.log('Found address element:', addressElement.textContent.trim());
+        break;
+      }
+    }
+    
+    // Price - Find the main listing price (closest to address, largest font, near top)
     let priceFound = false;
     let allPrices = [];
     
-    // Method 1: Find ALL prices on the page and take the largest one near the top
-    // This is typically the listing price
     const priceSelectors = [
-      'span[data-testid="price"]',
-      '[data-test="property-value"]',
-      'h2',
+      'h2',  // Most common for main price
       'h3',
-      'h1 + div span'
+      'span[data-testid="price"]',
+      '[data-test="property-value"]'
     ];
     
     for (const selector of priceSelectors) {
@@ -57,20 +96,30 @@ function extractPropertyData() {
         const elements = document.querySelectorAll(selector);
         for (const el of elements) {
           const text = el.textContent.trim();
-          // Must be ONLY a price (no extra text)
+          // Must be ONLY a price (no extra text like "price/sqft")
           if (text.match(/^\$[\d,]+$/)) {
             const price = extractPrice(text);
             if (price >= 50000 && price <= 50000000) {
-              // Get element's position on page
               const rect = el.getBoundingClientRect();
-              const isNearTop = rect.top < 500; // Within first 500px of viewport
+              const isNearTop = rect.top < 600; // Within first 600px
+              const fontSize = parseFloat(window.getComputedStyle(el).fontSize);
+              
+              // Calculate distance from address element if we found it
+              let distanceFromAddress = 9999;
+              if (addressElement) {
+                const addressRect = addressElement.getBoundingClientRect();
+                distanceFromAddress = Math.abs(rect.top - addressRect.top) + 
+                                     Math.abs(rect.left - addressRect.left);
+              }
               
               allPrices.push({
                 price: price,
                 element: el,
                 selector: selector,
                 isNearTop: isNearTop,
-                fontSize: parseFloat(window.getComputedStyle(el).fontSize)
+                fontSize: fontSize,
+                distanceFromAddress: distanceFromAddress,
+                tagName: el.tagName.toLowerCase()
               });
             }
           }
@@ -80,18 +129,34 @@ function extractPropertyData() {
       }
     }
     
-    // Sort by: near top first, then by largest font size, then by highest price
+    // Sort by: h2/h3 tags first, then closest to address, then largest font, then highest price
     if (allPrices.length > 0) {
       allPrices.sort((a, b) => {
+        // Prioritize h2 and h3 tags (main listing price is usually in these)
+        const aIsHeading = a.tagName === 'h2' || a.tagName === 'h3';
+        const bIsHeading = b.tagName === 'h2' || b.tagName === 'h3';
+        if (aIsHeading !== bIsHeading) return bIsHeading ? 1 : -1;
+        
+        // Must be near top
         if (a.isNearTop !== b.isNearTop) return b.isNearTop - a.isNearTop;
-        if (Math.abs(a.fontSize - b.fontSize) > 5) return b.fontSize - a.fontSize;
-        return b.price - a.price;
+        
+        // Closest to address is usually the listing price
+        if (Math.abs(a.distanceFromAddress - b.distanceFromAddress) > 100) {
+          return a.distanceFromAddress - b.distanceFromAddress;
+        }
+        
+        // Largest font size
+        if (Math.abs(a.fontSize - b.fontSize) > 3) return b.fontSize - a.fontSize;
+        
+        // Prefer lower price if close (conservative approach)
+        return a.price - b.price;
       });
       
       propertyData.price = allPrices[0].price;
       priceFound = true;
-      console.log('Found Zillow price:', allPrices[0].price, 'from:', allPrices[0].selector, '(fontSize:', allPrices[0].fontSize + 'px)');
-      console.log('All prices found:', allPrices.map(p => p.price));
+      console.log('✅ Selected Zillow price:', allPrices[0].price, 'from:', allPrices[0].selector, 
+                  '(fontSize:', allPrices[0].fontSize + 'px, distance from address:', Math.round(allPrices[0].distanceFromAddress) + 'px)');
+      console.log('All prices found:', allPrices.map(p => `$${p.price.toLocaleString()} (${p.tagName})`).join(', '));
     }
 
     // Rent estimate
@@ -100,8 +165,8 @@ function extractPropertyData() {
       propertyData.rent = extractPrice(rentElement.textContent);
     }
 
-    // Address - Try multiple selectors
-    const addressSelectors = [
+    // Address - Try multiple selectors to save the address
+    const addressSelectorsForSaving = [
       'h1[data-test="property-address"]',
       'h1',
       '[data-testid="property-address"]',
@@ -109,10 +174,10 @@ function extractPropertyData() {
       '.ds-address-container h1'
     ];
     
-    for (const selector of addressSelectors) {
-      const addressElement = document.querySelector(selector);
-      if (addressElement && addressElement.textContent.trim().length > 10) {
-        propertyData.address = addressElement.textContent.trim();
+    for (const selector of addressSelectorsForSaving) {
+      const addrEl = document.querySelector(selector);
+      if (addrEl && addrEl.textContent.trim().length > 10) {
+        propertyData.address = addrEl.textContent.trim();
         console.log('Found Zillow address:', propertyData.address);
         break;
       }
@@ -181,16 +246,135 @@ function extractPropertyData() {
       }
     }
 
-    // Property tax
+    // Property tax - Try multiple methods
+    let taxFound = false;
+    
+    // Method 1: Data attribute selector
     const taxElement = document.querySelector('[data-test="property-tax-value"]');
     if (taxElement) {
       propertyData.propertyTax = extractPrice(taxElement.textContent);
+      taxFound = true;
+      console.log('Found property tax:', propertyData.propertyTax);
+    }
+    
+    // Method 2: Search for "Annual tax" or "Property tax" text
+    if (!taxFound) {
+      const bodyText = document.body.innerText;
+      const taxMatch = bodyText.match(/(?:Annual tax|Property tax)[:\s]+\$?([\d,]+)/i);
+      if (taxMatch) {
+        propertyData.propertyTax = parseInt(taxMatch[1].replace(/,/g, ''));
+        console.log('Found property tax from text:', propertyData.propertyTax);
+      }
     }
 
-    // HOA fees
+    // HOA fees - Try multiple methods
+    let hoaFound = false;
+    
+    // Method 1: Data attribute selector
     const hoaElement = document.querySelector('[data-test="hoa-value"]');
     if (hoaElement) {
       propertyData.hoaFees = extractPrice(hoaElement.textContent);
+      hoaFound = true;
+      console.log('Found HOA fees:', propertyData.hoaFees);
+    }
+    
+    // Method 2: Search for "monthly HOA fee" or "HOA dues" text (like "$2,298 monthly HOA fee")
+    if (!hoaFound) {
+      const bodyText = document.body.innerText;
+      const hoaMatch = bodyText.match(/\$?([\d,]+)\s*(?:monthly HOA fee|HOA dues|per month HOA)/i);
+      if (hoaMatch) {
+        propertyData.hoaFees = parseInt(hoaMatch[1].replace(/,/g, ''));
+        hoaFound = true;
+        console.log('Found HOA fees from text:', propertyData.hoaFees);
+      }
+    }
+    
+    // Method 3: Look for elements containing "HOA" text
+    if (!hoaFound) {
+      const allText = Array.from(document.querySelectorAll('*')).map(el => el.textContent);
+      for (const text of allText) {
+        if (text.includes('HOA') && text.match(/\$[\d,]+/)) {
+          const hoaPrice = extractPrice(text);
+          if (hoaPrice > 0 && hoaPrice < 10000) {
+            propertyData.hoaFees = hoaPrice;
+            console.log('Found HOA fees from element scan:', propertyData.hoaFees);
+            break;
+          }
+        }
+      }
+    }
+    
+    // Extract additional Zillow data
+    const bodyText = document.body.innerText;
+    
+    // Year built
+    const yearMatch = bodyText.match(/Built in (\d{4})|Year built[:\s]+(\d{4})/i);
+    if (yearMatch) {
+      propertyData.yearBuilt = parseInt(yearMatch[1] || yearMatch[2]);
+      console.log('Found year built:', propertyData.yearBuilt);
+    }
+    
+    // Lot size
+    const lotMatch = bodyText.match(/([\d,]+(?:\.\d+)?)\s*(?:sqft|sq ft|square feet)\s*lot/i);
+    if (lotMatch) {
+      propertyData.lotSize = parseInt(lotMatch[1].replace(/,/g, ''));
+      console.log('Found lot size:', propertyData.lotSize);
+    }
+    
+    // Property type (Condominium, Single Family, etc.)
+    const typeMatch = bodyText.match(/(?:Property type|Home type)[:\s]+([\w\s]+?)(?:\n|,|$)/i);
+    if (typeMatch) {
+      propertyData.type = typeMatch[1].trim();
+      console.log('Found property type:', propertyData.type);
+    } else {
+      // Try looking for common types
+      if (bodyText.match(/Condominium|Condo/i)) propertyData.type = 'Condominium';
+      else if (bodyText.match(/Single Family|Single-Family/i)) propertyData.type = 'Single Family';
+      else if (bodyText.match(/Townhouse|Town Home/i)) propertyData.type = 'Townhouse';
+      else if (bodyText.match(/Multi-family|Multifamily/i)) propertyData.type = 'Multi-Family';
+    }
+    
+    // Parking/Garage
+    const parkingMatch = bodyText.match(/(\d+)\s*(?:Garage|Parking|Car garage)/i);
+    if (parkingMatch) {
+      propertyData.parking = parkingMatch[1] + ' car garage';
+      console.log('Found parking:', propertyData.parking);
+    }
+    
+    // Days on Market
+    const domMatch = bodyText.match(/(\d+)\s*days?\s*on\s*(?:Zillow|market)/i);
+    if (domMatch) {
+      propertyData.daysOnMarket = parseInt(domMatch[1]);
+      console.log('Found days on market:', propertyData.daysOnMarket);
+    }
+    
+    // Price per sqft
+    if (propertyData.price && propertyData.sqft) {
+      propertyData.pricePerSqft = Math.round(propertyData.price / propertyData.sqft);
+    }
+    
+    // Walk Score
+    const walkMatch = bodyText.match(/Walk\s*Score[:\s®]+(\d+)/i);
+    if (walkMatch) {
+      propertyData.walkScore = parseInt(walkMatch[1]);
+      console.log('Found walk score:', propertyData.walkScore);
+    }
+    
+    // School rating
+    const schoolMatch = bodyText.match(/GreatSchools[:\s]+(\d+)\/10|Rating[:\s]+(\d+)\/10/i);
+    if (schoolMatch) {
+      propertyData.schoolRating = parseInt(schoolMatch[1] || schoolMatch[2]);
+      console.log('Found school rating:', propertyData.schoolRating);
+    }
+    
+    // Parse address components (city, state, zip)
+    if (propertyData.address) {
+      const addrMatch = propertyData.address.match(/,\s*([^,]+),\s*([A-Z]{2})\s*(\d{5})/);
+      if (addrMatch) {
+        propertyData.city = addrMatch[1].trim();
+        propertyData.state = addrMatch[2];
+        propertyData.zipCode = addrMatch[3];
+      }
     }
   }
 
@@ -237,6 +421,48 @@ function extractPropertyData() {
     if (taxElement) {
       propertyData.propertyTax = extractPrice(taxElement.textContent);
     }
+    
+    // HOA fees - Redfin specific extraction
+    const bodyText = document.body.innerText;
+    const hoaMatch = bodyText.match(/HOA[:\s]+\$?([\d,]+)(?:\/mo|\/month)?/i);
+    if (hoaMatch) {
+      propertyData.hoaFees = parseInt(hoaMatch[1].replace(/,/g, ''));
+      console.log('Found Redfin HOA fees:', propertyData.hoaFees);
+    }
+    
+    // Additional Redfin data extraction
+    const yearMatch = bodyText.match(/Built[:\s]+(\d{4})|Year Built[:\s]+(\d{4})/i);
+    if (yearMatch) {
+      propertyData.yearBuilt = parseInt(yearMatch[1] || yearMatch[2]);
+    }
+    
+    const lotMatch = bodyText.match(/([\d,]+)\s*(?:sqft|sq\.\s*ft\.?)\s*Lot/i);
+    if (lotMatch) {
+      propertyData.lotSize = parseInt(lotMatch[1].replace(/,/g, ''));
+    }
+    
+    const typeMatch = bodyText.match(/Property Type[:\s]+([\w\s-]+?)(?:\n|,|$)/i);
+    if (typeMatch) {
+      propertyData.type = typeMatch[1].trim();
+    }
+    
+    const domMatch = bodyText.match(/(\d+)\s*days?\s*on\s*(?:Redfin|market)/i);
+    if (domMatch) {
+      propertyData.daysOnMarket = parseInt(domMatch[1]);
+    }
+    
+    if (propertyData.price && propertyData.sqft) {
+      propertyData.pricePerSqft = Math.round(propertyData.price / propertyData.sqft);
+    }
+    
+    if (propertyData.address) {
+      const addrMatch = propertyData.address.match(/,\s*([^,]+),\s*([A-Z]{2})\s*(\d{5})/);
+      if (addrMatch) {
+        propertyData.city = addrMatch[1].trim();
+        propertyData.state = addrMatch[2];
+        propertyData.zipCode = addrMatch[3];
+      }
+    }
   }
 
   // Realtor.com extraction
@@ -270,6 +496,73 @@ function extractPropertyData() {
     if (sqftElement) {
       propertyData.sqft = extractNumber(sqftElement.textContent);
     }
+    
+    // HOA fees and Property Tax - text-based extraction
+    const bodyText = document.body.innerText;
+    
+    const hoaMatch = bodyText.match(/HOA[:\s]+\$?([\d,]+)(?:\/mo|\/month)?/i);
+    if (hoaMatch) {
+      propertyData.hoaFees = parseInt(hoaMatch[1].replace(/,/g, ''));
+      console.log('Found Realtor.com HOA fees:', propertyData.hoaFees);
+    }
+    
+    const taxMatch = bodyText.match(/(?:Annual tax|Property tax)[:\s]+\$?([\d,]+)/i);
+    if (taxMatch) {
+      propertyData.propertyTax = parseInt(taxMatch[1].replace(/,/g, ''));
+      console.log('Found Realtor.com property tax:', propertyData.propertyTax);
+    }
+  }
+  
+  // BiggerPockets extraction
+  else if (hostname.includes('biggerpockets.com')) {
+    // BiggerPockets calculator - extract from input fields
+    const priceInput = document.querySelector('input[name="purchase_price"], #purchase-price');
+    if (priceInput && priceInput.value) {
+      propertyData.price = parseInt(priceInput.value.replace(/[^0-9]/g, ''));
+    }
+    
+    const rentInput = document.querySelector('input[name="monthly_rent"], #monthly-rent');
+    if (rentInput && rentInput.value) {
+      propertyData.rent = parseInt(rentInput.value.replace(/[^0-9]/g, ''));
+    }
+    
+    const hoaInput = document.querySelector('input[name="hoa"], #hoa-fees');
+    if (hoaInput && hoaInput.value) {
+      propertyData.hoaFees = parseInt(hoaInput.value.replace(/[^0-9]/g, ''));
+    }
+    
+    const taxInput = document.querySelector('input[name="property_taxes"], #property-taxes');
+    if (taxInput && taxInput.value) {
+      propertyData.propertyTax = parseInt(taxInput.value.replace(/[^0-9]/g, ''));
+    }
+    
+    // Additional BiggerPockets fields
+    const insuranceInput = document.querySelector('input[name="insurance"], #insurance');
+    if (insuranceInput && insuranceInput.value) {
+      propertyData.insurance = parseInt(insuranceInput.value.replace(/[^0-9]/g, ''));
+    }
+    
+    const bedsInput = document.querySelector('input[name="bedrooms"], #bedrooms');
+    if (bedsInput && bedsInput.value) {
+      propertyData.bedrooms = parseInt(bedsInput.value.replace(/[^0-9]/g, ''));
+    }
+    
+    const bathsInput = document.querySelector('input[name="bathrooms"], #bathrooms');
+    if (bathsInput && bathsInput.value) {
+      propertyData.bathrooms = parseFloat(bathsInput.value.replace(/[^0-9.]/g, ''));
+    }
+    
+    const sqftInput = document.querySelector('input[name="sqft"], #square-feet');
+    if (sqftInput && sqftInput.value) {
+      propertyData.sqft = parseInt(sqftInput.value.replace(/[^0-9]/g, ''));
+    }
+    
+    const addressInput = document.querySelector('input[name="address"], #property-address');
+    if (addressInput && addressInput.value) {
+      propertyData.address = addressInput.value.trim();
+    }
+    
+    console.log('BiggerPockets data extracted from calculator');
   }
 
   // LoopNet extraction (Commercial)
@@ -495,11 +788,24 @@ function initializeExtension() {
     // Log all extracted data for debugging
     console.log('Capital Bridge Solutions: Extracted property data:', {
       address: propertyData.address,
+      city: propertyData.city,
+      state: propertyData.state,
+      zipCode: propertyData.zipCode,
       price: propertyData.price,
       bedrooms: propertyData.bedrooms,
       bathrooms: propertyData.bathrooms,
       sqft: propertyData.sqft,
-      rent: propertyData.rent
+      lotSize: propertyData.lotSize,
+      yearBuilt: propertyData.yearBuilt,
+      type: propertyData.type,
+      parking: propertyData.parking,
+      rent: propertyData.rent,
+      hoaFees: propertyData.hoaFees,
+      propertyTax: propertyData.propertyTax,
+      daysOnMarket: propertyData.daysOnMarket,
+      pricePerSqft: propertyData.pricePerSqft,
+      walkScore: propertyData.walkScore,
+      schoolRating: propertyData.schoolRating
     });
 
     if (propertyData.price || propertyData.rent) {

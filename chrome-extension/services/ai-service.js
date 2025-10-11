@@ -62,7 +62,7 @@ class AIService {
    * @private
    */
   _buildPrompt(propertyData) {
-    const { price, address, beds, baths, sqft, propertyType, rent } = propertyData;
+    const { price, address, beds, baths, sqft, propertyType, rent, hoaFees, propertyTax } = propertyData;
     
     return `You are a real estate investment analyst. Analyze this property for investment potential:
 
@@ -74,13 +74,15 @@ Property Details:
 - Bathrooms: ${baths || 'N/A'}
 - Square Feet: ${sqft ? sqft.toLocaleString() : 'N/A'}
 ${rent ? `- Listed Rent: $${rent.toLocaleString()}/month` : ''}
+${hoaFees ? `- HOA Fees: $${hoaFees.toLocaleString()}/month (ACTUAL from listing)` : ''}
+${propertyTax ? `- Annual Property Tax: $${propertyTax.toLocaleString()} (ACTUAL from listing)` : ''}
 
 Provide a detailed investment analysis in JSON format with:
 
 1. **expenses**: Monthly operating expenses breakdown
-   - propertyTax: estimated monthly property tax
+   ${propertyTax ? `- propertyTax: ${Math.round(propertyTax / 12)} (MUST use this exact monthly value from listing)` : '- propertyTax: estimated monthly property tax'}
    - insurance: estimated monthly insurance
-   - hoa: HOA fees (if applicable)
+   ${hoaFees ? `- hoa: ${hoaFees} (MUST use this exact monthly value from listing)` : '- hoa: HOA fees (if applicable, or 0 if none)'}
    - maintenance: monthly maintenance reserve
    - vacancy: vacancy factor (5-10%)
    - propertyManagement: property management fee
