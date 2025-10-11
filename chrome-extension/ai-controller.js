@@ -59,6 +59,10 @@ class AIController {
       this.isAnalyzing = true;
       this.showLoading();
 
+      // Store property data for modal use
+      this.currentPropertyData = propertyData;
+      console.log('Stored property data:', this.currentPropertyData);
+      
       // Call AI service
       const analysis = await aiService.analyzeProperty(propertyData);
       
