@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Capital Bridge Solutions Calculator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 900px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      color: white;
+      padding: 10px 40px 12px 40px;
+      text-align: center;
+    }
+
+    .logo {
+      width: 320px;
+      max-width: 90%;
+      margin-bottom: 5px;
+      filter: brightness(0) invert(1);
+    }
+
+    .header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 18px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 40px;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #f8fafc;
+      border-radius: 12px;
+      border-left: 4px solid #3b82f6;
+    }
+
+    .step-number {
+      background: #3b82f6;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-right: 20px;
+    }
+
+    .step-content h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: #1e293b;
+    }
+
+    .step-content p {
+      color: #64748b;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .step-image {
+      margin-top: 10px;
+      padding: 10px;
+      background: white;
+      border-radius: 8px;
+      border: 2px dashed #cbd5e1;
+      text-align: center;
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .feature {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      border: 2px solid #e2e8f0;
+      text-align: center;
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 15px auto;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .feature-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .feature h4 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: #1e293b;
+    }
+
+    .feature p {
+      font-size: 14px;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    .sites-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .site-badge {
+      background: white;
+      padding: 12px 15px;
+      border-radius: 8px;
+      border: 2px solid #e2e8f0;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e293b;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .site-badge:hover {
+      border-color: #3b82f6;
+      background: #eff6ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(59, 130, 246, 0.2);
+    }
+
+    .site-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      color: white;
+    }
+
+    .site-logo.zillow { background: linear-gradient(135deg, #0074e4 0%, #005bb5 100%); }
+    .site-logo.redfin { background: linear-gradient(135deg, #a02021 0%, #7a1819 100%); }
+    .site-logo.loopnet { background: linear-gradient(135deg, #ff6c2f 0%, #e55a20 100%); }
+    .site-logo.roofstock { background: linear-gradient(135deg, #00c389 0%, #00a372 100%); }
+    .site-logo.realtor { background: linear-gradient(135deg, #d92228 0%, #b51d23 100%); }
+    .site-logo.biggerpockets { background: linear-gradient(135deg, #00ab51 0%, #008a42 100%); }
+
+    .cta-section {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .cta-section h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .cta-section p {
+      font-size: 16px;
+      margin-bottom: 20px;
+      opacity: 0.9;
+    }
+
+    .button {
+      background: white;
+      color: #059669;
+      padding: 15px 40px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .secondary-button {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+      margin-left: 10px;
+    }
+
+    .secondary-button:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .footer a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+
+    .pro-tip {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .pro-tip strong {
+      color: #92400e;
+    }
+
+    .pro-tip p {
+      color: #78350f;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="images/logo.svg" alt="Capital Bridge Solutions" class="logo">
+      <h1>Welcome to Your Investment Calculator!</h1>
+      <p>You just installed the most powerful real estate analysis tool on the web</p>
+    </div>
+
+    <div class="content">
+      <!-- Getting Started Steps -->
+      <h2 style="margin-bottom: 20px; color: #1e293b;">Get Started in 3 Easy Steps:</h2>
+      
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 8px;"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg>Pin the Extension</h3>
+          <p>Make sure our calculator is always visible and easy to access:</p>
+          <ol style="margin-left: 20px; color: #64748b; line-height: 1.8;">
+            <li>Look for the puzzle piece icon (🧩) in your Chrome toolbar</li>
+            <li>Click it to see all extensions</li>
+            <li>Find "Capital Bridge Solutions" and click the pin icon 📌</li>
+            <li>Our CBS logo will now always be visible!</li>
+          </ol>
+          <div class="step-image">
+            <strong>Look for our CBS logo in the top-right corner! →</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 8px;"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Visit Any Property Listing</h3>
+          <p>Go to your favorite real estate website and open any property:</p>
+          <div class="sites-grid">
+            <a href="https://www.zillow.com" target="_blank" class="site-badge" style="text-decoration: none; color: inherit;">
+              <div class="site-logo zillow">Z</div>
+              <span>Zillow</span>
+            </a>
+            <a href="https://www.redfin.com" target="_blank" class="site-badge" style="text-decoration: none; color: inherit;">
+              <div class="site-logo redfin">R</div>
+              <span>Redfin</span>
+            </a>
+            <a href="https://www.loopnet.com" target="_blank" class="site-badge" style="text-decoration: none; color: inherit;">
+              <div class="site-logo loopnet">L</div>
+              <span>LoopNet</span>
+            </a>
+            <a href="https://www.roofstock.com" target="_blank" class="site-badge" style="text-decoration: none; color: inherit;">
+              <div class="site-logo roofstock">R</div>
+              <span>Roofstock</span>
+            </a>
+            <a href="https://www.realtor.com" target="_blank" class="site-badge" style="text-decoration: none; color: inherit;">
+              <div class="site-logo realtor">R</div>
+              <span>Realtor.com</span>
+            </a>
+            <a href="https://www.biggerpockets.com" target="_blank" class="site-badge" style="text-decoration: none; color: inherit;">
+              <div class="site-logo biggerpockets">BP</div>
+              <span>BiggerPockets</span>
+            </a>
+          </div>
+          <p style="margin-top: 15px;"><strong>And 5 more sites!</strong> Works on residential, commercial, and multi-family properties.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 8px;"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>Click & Calculate</h3>
+          <p>Click our icon and watch the magic happen:</p>
+          <ul style="margin-left: 20px; color: #64748b; line-height: 1.8;">
+            <li>✅ Purchase price auto-fills</li>
+            <li>✅ Rent estimate auto-fills</li>
+            <li>✅ Property taxes auto-fill (if available)</li>
+            <li>✅ Bedrooms, baths, sqft auto-fill</li>
+            <li>✅ Click "Calculate" → Instant results!</li>
+          </ul>
+          <div class="pro-tip">
+            <strong>💡 Pro Tip:</strong>
+            <p>You can also use the calculator manually on any website - even if we don't auto-fill the data!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Features Grid -->
+      <h2 style="margin: 40px 0 20px 0; color: #1e293b; text-align: center;">What Makes This Extension Special:</h2>
+      
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+          </div>
+          <h4>Auto-Fill Technology</h4>
+          <p>Extracts data from 11+ real estate websites automatically. No more copy/paste!</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
+          </div>
+          <h4>3 Pro Calculators</h4>
+          <p>DSCR, Hard Money, and ROI calculators - everything investors need.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+          </div>
+          <h4>Lender Requirements</h4>
+          <p>See if deals meet real lender criteria instantly. No guesswork!</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+          </div>
+          <h4>Lightning Fast</h4>
+          <p>Analyze 10 properties in the time it used to take for 1.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </div>
+          <h4>100% Free</h4>
+          <p>No premium tiers, no trials, no credit card. Free forever!</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <h4>Private & Secure</h4>
+          <p>All calculations happen locally. We never see your data.</p>
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="cta-section">
+        <h2>Ready to Analyze Your First Property?</h2>
+        <p>Visit any property listing and click our icon to get started!</p>
+        <a href="https://www.zillow.com" target="_blank" class="button">Try on Zillow Now</a>
+        <a href="https://www.capitalbridgesolutions.com" target="_blank" class="button secondary-button">Learn About DSCR Loans</a>
+      </div>
+
+      <!-- Additional Resources -->
+      <div style="margin-top: 40px; padding: 30px; background: #f8fafc; border-radius: 12px;">
+        <h3 style="margin-bottom: 15px; color: #1e293b;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 8px;"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+          Need Help?
+        </h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+          <div>
+            <strong style="color: #1e293b;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Call Us:
+            </strong><br>
+            <a href="tel:+19493393555" style="color: #3b82f6; text-decoration: none;">(949) 339-3555</a>
+          </div>
+          <div>
+            <strong style="color: #1e293b;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              Visit Website:
+            </strong><br>
+            <a href="https://www.capitalbridgesolutions.com" target="_blank" style="color: #3b82f6; text-decoration: none;">capitalbridgesolutions.com</a>
+          </div>
+          <div>
+            <strong style="color: #1e293b;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Leave a Review:
+            </strong><br>
+            <a href="#" id="reviewLink" style="color: #3b82f6; text-decoration: none;">Rate us 5 stars!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>Made with ❤️ by <a href="https://www.capitalbridgesolutions.com" target="_blank">Capital Bridge Solutions</a></p>
+      <p style="margin-top: 10px;">DSCR loans from 5.99% | No income verification required</p>
+    </div>
+  </div>
+
+  <script src="welcome.js"></script>
+</body>
+</html>

@@ -1,0 +1,533 @@
+/**
+ * AI Analysis Component Styles
+ * Beautiful, modern UI for AI-powered property analysis
+ */
+
+/* AI Section Container */
+.ai-section {
+  margin: 20px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 1px solid #2a4d8f;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #3b82f6);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* AI Header */
+.ai-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.ai-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.ai-icon {
+  font-size: 24px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.ai-badge {
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Usage Stats */
+.usage-stats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.usage-stats-icon {
+  font-size: 18px;
+}
+
+.usage-stats-text {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.usage-count {
+  color: #3b82f6;
+  font-weight: 700;
+}
+
+.usage-limit {
+  color: #64748b;
+}
+
+/* AI Analyze Button */
+.ai-analyze-button {
+  width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-analyze-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.ai-analyze-button:hover::before {
+  left: 100%;
+}
+
+.ai-analyze-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+}
+
+.ai-analyze-button:active {
+  transform: translateY(0);
+}
+
+.ai-analyze-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.ai-analyze-button .button-icon {
+  font-size: 20px;
+}
+
+/* Loading State */
+.ai-loading {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 20px;
+  border: 4px solid rgba(59, 130, 246, 0.2);
+  border-top: 4px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: #94a3b8;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.loading-subtext {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.loading-progress {
+  width: 100%;
+  height: 4px;
+  background: rgba(59, 130, 246, 0.2);
+  border-radius: 2px;
+  margin-top: 15px;
+  overflow: hidden;
+}
+
+.loading-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: 2px;
+  animation: progress 2s ease-in-out infinite;
+}
+
+@keyframes progress {
+  0% { width: 0%; }
+  50% { width: 70%; }
+  100% { width: 100%; }
+}
+
+/* Results Display */
+.ai-results {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Deal Score */
+.deal-score {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.score-number {
+  font-size: 48px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 5px;
+}
+
+.score-rating {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.score-indicator {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.score-indicator.excellent { background: #10b981; }
+.score-indicator.strong { background: #3b82f6; }
+.score-indicator.good { background: #8b5cf6; }
+.score-indicator.fair { background: #f59e0b; }
+.score-indicator.poor { background: #ef4444; }
+
+.score-rationale {
+  color: #94a3b8;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* Analysis Sections */
+.analysis-section {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid #334155;
+  border-radius: 10px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.section-icon {
+  font-size: 20px;
+}
+
+.section-content {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+/* Expense Breakdown */
+.expense-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #334155;
+}
+
+.expense-item:last-child {
+  border-bottom: none;
+  padding-top: 12px;
+  margin-top: 8px;
+  border-top: 2px solid #3b82f6;
+  font-weight: 600;
+  color: #fff;
+}
+
+.expense-label {
+  color: #94a3b8;
+}
+
+.expense-value {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Rental Analysis */
+.rent-estimate {
+  text-align: center;
+  padding: 15px;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.rent-amount {
+  font-size: 32px;
+  font-weight: 700;
+  color: #3b82f6;
+  margin-bottom: 5px;
+}
+
+.rent-range {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.rent-confidence {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  border-radius: 12px;
+  color: #10b981;
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.comparables-text {
+  color: #64748b;
+  font-size: 12px;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* Financing */
+.financing-highlight {
+  padding: 12px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.loan-type {
+  color: #10b981;
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.financing-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.financing-detail {
+  background: rgba(30, 41, 59, 0.5);
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.detail-label {
+  color: #64748b;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+
+.detail-value {
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.cash-flow {
+  text-align: center;
+  padding: 12px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 8px;
+  margin-top: 12px;
+}
+
+.cash-flow.negative {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.cash-flow-amount {
+  font-size: 24px;
+  font-weight: 700;
+  color: #10b981;
+}
+
+.cash-flow.negative .cash-flow-amount {
+  color: #ef4444;
+}
+
+.cash-flow-label {
+  color: #94a3b8;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+/* Risks & Opportunities */
+.list-item {
+  padding: 10px 12px;
+  background: rgba(30, 41, 59, 0.5);
+  border-left: 3px solid #ef4444;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  color: #94a3b8;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.list-item.opportunity {
+  border-left-color: #10b981;
+}
+
+/* Premium Prompt */
+.premium-prompt {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+  border: 2px dashed rgba(139, 92, 246, 0.5);
+  border-radius: 12px;
+  margin-top: 15px;
+}
+
+.premium-icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.premium-title {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.premium-text {
+  color: #94a3b8;
+  font-size: 13px;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.premium-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.premium-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+}
+
+/* Action Buttons */
+.ai-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.action-button {
+  padding: 12px 16px;
+  border: 1px solid #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 8px;
+  color: #3b82f6;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.action-button:hover {
+  background: rgba(59, 130, 246, 0.2);
+  transform: translateY(-1px);
+}
+
+.action-button.primary {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+}
+
+.action-button.primary:hover {
+  box-shadow: 0 5px 20px rgba(59, 130, 246, 0.3);
+}

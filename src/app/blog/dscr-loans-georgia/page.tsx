@@ -46,8 +46,8 @@ export default function DSCRLoansGeorgiaPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <BlogImage 
-              src="/DSCR-Loans-599.png"
-              alt="DSCR Loans Georgia - Atlanta investment property financing with no income verification"
+              src="/DSCR_Loans_Georgia.png"
+              alt="DSCR Loans Georgia 2025 - Atlanta investment property financing with no income verification"
               width={1200}
               height={630}
               priority={true}

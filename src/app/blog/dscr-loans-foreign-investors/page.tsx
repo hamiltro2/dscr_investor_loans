@@ -46,8 +46,8 @@ export default function DSCRForeignInvestorsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <BlogImage 
-              src="/DSCR_loan_Requirements.png"
-              alt="DSCR Loans for Foreign Investors - ITIN and non-US citizen financing guide"
+              src="/DSCR_Loans_Foreign_Investors.png"
+              alt="DSCR Loans for Foreign Investors 2025 - ITIN and non-US citizen financing guide"
               width={1200}
               height={630}
               priority={true}

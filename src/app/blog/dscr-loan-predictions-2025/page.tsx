@@ -46,8 +46,8 @@ export default function DSCRPredictions2025Page() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <BlogImage 
-              src="/DSCR-Loans-599.png"
-              alt="DSCR Loan Market Predictions 2025 - Rate forecasts and market trends"
+              src="/Expert_Predictions_DSCR_Loans.png"
+              alt="DSCR Loan Market Predictions 2025 - Expert rate forecasts and market trends"
               width={1200}
               height={630}
               priority={true}

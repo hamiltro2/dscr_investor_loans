@@ -1,0 +1,520 @@
+// Content script to extract property data from real estate websites
+
+// Function to extract price from various formats
+function extractPrice(text) {
+  if (!text) return null;
+  
+  // Remove commas and dollar signs, extract number
+  const match = text.match(/[\d,]+/);
+  if (match) {
+    return parseInt(match[0].replace(/,/g, ''));
+  }
+  return null;
+}
+
+// Function to extract number from text
+function extractNumber(text) {
+  if (!text) return null;
+  const match = text.match(/[\d.]+/);
+  return match ? parseFloat(match[0]) : null;
+}
+
+// Extract property data based on the website
+function extractPropertyData() {
+  const hostname = window.location.hostname;
+  let propertyData = {
+    price: null,
+    rent: null,
+    address: null,
+    type: null,
+    bedrooms: null,
+    bathrooms: null,
+    sqft: null,
+    yearBuilt: null,
+    propertyTax: null,
+    hoaFees: null,
+    source: hostname
+  };
+
+  // Zillow extraction
+  if (hostname.includes('zillow.com')) {
+    // Price - Find the large price near the top
+    let priceFound = false;
+    
+    // Method 1: Look for specific price in the visible text
+    const bodyText = document.body.innerText;
+    const priceRegex = /\$[\d,]+/g;
+    const prices = bodyText.match(priceRegex);
+    
+    if (prices && prices.length > 0) {
+      // The property price is usually the largest number
+      const numericPrices = prices.map(p => {
+        const num = parseInt(p.replace(/[$,]/g, ''));
+        return { original: p, numeric: num };
+      }).filter(p => p.numeric >= 50000 && p.numeric <= 50000000); // Reasonable property range
+      
+      if (numericPrices.length > 0) {
+        // Sort by value and take the first large one
+        numericPrices.sort((a, b) => b.numeric - a.numeric);
+        propertyData.price = numericPrices[0].numeric;
+        priceFound = true;
+      }
+    }
+    
+    // Method 2: Try standard selectors if Method 1 failed
+    if (!priceFound) {
+      const priceSelectors = [
+        '[data-test="property-value"]',
+        'span[data-testid="price"]',
+        '.ds-summary-row span',
+        'h2 span',
+        '[class*="price"]'
+      ];
+      
+      for (const selector of priceSelectors) {
+        try {
+          const elements = document.querySelectorAll(selector);
+          for (const el of elements) {
+            if (el.textContent.includes('$') && el.textContent.match(/\$[\d,]+/)) {
+              const price = extractPrice(el.textContent);
+              if (price >= 50000) {
+                propertyData.price = price;
+                priceFound = true;
+                break;
+              }
+            }
+          }
+          if (priceFound) break;
+        } catch (e) {
+          continue;
+        }
+      }
+    }
+
+    // Rent estimate
+    const rentElement = document.querySelector('[data-test="rent-zestimate-value"]');
+    if (rentElement) {
+      propertyData.rent = extractPrice(rentElement.textContent);
+    }
+
+    // Address
+    const addressElement = document.querySelector('h1[class*="address"]');
+    if (addressElement) {
+      propertyData.address = addressElement.textContent.trim();
+    }
+
+    // Bedrooms
+    const bedsElement = document.querySelector('[data-test="bed-value"]');
+    if (bedsElement) {
+      propertyData.bedrooms = extractNumber(bedsElement.textContent);
+    }
+
+    // Bathrooms
+    const bathsElement = document.querySelector('[data-test="bath-value"]');
+    if (bathsElement) {
+      propertyData.bathrooms = extractNumber(bathsElement.textContent);
+    }
+
+    // Square footage
+    const sqftElement = document.querySelector('[data-test="sqft-value"]');
+    if (sqftElement) {
+      propertyData.sqft = extractNumber(sqftElement.textContent);
+    }
+
+    // Property tax
+    const taxElement = document.querySelector('[data-test="property-tax-value"]');
+    if (taxElement) {
+      propertyData.propertyTax = extractPrice(taxElement.textContent);
+    }
+
+    // HOA fees
+    const hoaElement = document.querySelector('[data-test="hoa-value"]');
+    if (hoaElement) {
+      propertyData.hoaFees = extractPrice(hoaElement.textContent);
+    }
+  }
+
+  // Redfin extraction
+  else if (hostname.includes('redfin.com')) {
+    // Price
+    const priceElement = document.querySelector('.statsValue, [data-rf-test-id="abp-price"]');
+    if (priceElement) {
+      propertyData.price = extractPrice(priceElement.textContent);
+    }
+
+    // Rent estimate
+    const rentElement = document.querySelector('[data-rf-test-id="rent-estimate"]');
+    if (rentElement) {
+      propertyData.rent = extractPrice(rentElement.textContent);
+    }
+
+    // Address
+    const addressElement = document.querySelector('.street-address, [data-rf-test-id="abp-streetLine"]');
+    if (addressElement) {
+      propertyData.address = addressElement.textContent.trim();
+    }
+
+    // Bedrooms
+    const bedsElement = document.querySelector('[data-rf-test-id="abp-beds"]');
+    if (bedsElement) {
+      propertyData.bedrooms = extractNumber(bedsElement.textContent);
+    }
+
+    // Bathrooms
+    const bathsElement = document.querySelector('[data-rf-test-id="abp-baths"]');
+    if (bathsElement) {
+      propertyData.bathrooms = extractNumber(bathsElement.textContent);
+    }
+
+    // Square footage
+    const sqftElement = document.querySelector('[data-rf-test-id="abp-sqFt"]');
+    if (sqftElement) {
+      propertyData.sqft = extractNumber(sqftElement.textContent);
+    }
+
+    // Property tax
+    const taxElement = document.querySelector('.tax-value');
+    if (taxElement) {
+      propertyData.propertyTax = extractPrice(taxElement.textContent);
+    }
+  }
+
+  // Realtor.com extraction
+  else if (hostname.includes('realtor.com')) {
+    // Price
+    const priceElement = document.querySelector('[data-label="property-meta-price"], .rui__sc-1ij6z0p-0');
+    if (priceElement) {
+      propertyData.price = extractPrice(priceElement.textContent);
+    }
+
+    // Address
+    const addressElement = document.querySelector('[data-label="property-address"]');
+    if (addressElement) {
+      propertyData.address = addressElement.textContent.trim();
+    }
+
+    // Bedrooms
+    const bedsElement = document.querySelector('[data-label="property-meta-beds"]');
+    if (bedsElement) {
+      propertyData.bedrooms = extractNumber(bedsElement.textContent);
+    }
+
+    // Bathrooms
+    const bathsElement = document.querySelector('[data-label="property-meta-baths"]');
+    if (bathsElement) {
+      propertyData.bathrooms = extractNumber(bathsElement.textContent);
+    }
+
+    // Square footage
+    const sqftElement = document.querySelector('[data-label="property-meta-sqft"]');
+    if (sqftElement) {
+      propertyData.sqft = extractNumber(sqftElement.textContent);
+    }
+  }
+
+  // LoopNet extraction (Commercial)
+  else if (hostname.includes('loopnet.com')) {
+    // Price
+    const priceElement = document.querySelector('.price, .listing-price');
+    if (priceElement) {
+      propertyData.price = extractPrice(priceElement.textContent);
+    }
+
+    // Address
+    const addressElement = document.querySelector('.property-address, h1.address');
+    if (addressElement) {
+      propertyData.address = addressElement.textContent.trim();
+    }
+
+    // Square footage
+    const sqftElement = document.querySelector('.building-size, .sqft');
+    if (sqftElement) {
+      propertyData.sqft = extractNumber(sqftElement.textContent);
+    }
+
+    // Cap rate (for commercial)
+    const capRateElement = document.querySelector('.cap-rate');
+    if (capRateElement) {
+      const capRate = extractNumber(capRateElement.textContent);
+      if (capRate && propertyData.price) {
+        // Estimate NOI from cap rate
+        propertyData.rent = Math.round((propertyData.price * capRate / 100) / 12);
+      }
+    }
+  }
+
+  // Roofstock extraction (Turnkey rentals)
+  else if (hostname.includes('roofstock.com')) {
+    // Price
+    const priceElement = document.querySelector('.property-price, [class*="price"]');
+    if (priceElement) {
+      propertyData.price = extractPrice(priceElement.textContent);
+    }
+
+    // Monthly rent
+    const rentElement = document.querySelector('.monthly-rent, [class*="rent"]');
+    if (rentElement) {
+      propertyData.rent = extractPrice(rentElement.textContent);
+    }
+
+    // Address
+    const addressElement = document.querySelector('.property-address, h1');
+    if (addressElement) {
+      propertyData.address = addressElement.textContent.trim();
+    }
+
+    // Bedrooms
+    const bedsElement = document.querySelector('[class*="beds"]');
+    if (bedsElement) {
+      propertyData.bedrooms = extractNumber(bedsElement.textContent);
+    }
+
+    // Bathrooms
+    const bathsElement = document.querySelector('[class*="baths"]');
+    if (bathsElement) {
+      propertyData.bathrooms = extractNumber(bathsElement.textContent);
+    }
+  }
+
+  // BiggerPockets Marketplace
+  else if (hostname.includes('biggerpockets.com')) {
+    // Price
+    const priceElement = document.querySelector('.listing-price, [class*="price"]');
+    if (priceElement) {
+      propertyData.price = extractPrice(priceElement.textContent);
+    }
+
+    // Monthly rent
+    const rentElement = document.querySelector('.monthly-rent, [class*="rent"]');
+    if (rentElement) {
+      propertyData.rent = extractPrice(rentElement.textContent);
+    }
+
+    // Address
+    const addressElement = document.querySelector('.property-address');
+    if (addressElement) {
+      propertyData.address = addressElement.textContent.trim();
+    }
+  }
+
+  // Trulia extraction
+  else if (hostname.includes('trulia.com')) {
+    // Price
+    const priceElement = document.querySelector('[data-testid="home-summary-price"]');
+    if (priceElement) {
+      propertyData.price = extractPrice(priceElement.textContent);
+    }
+
+    // Rent estimate
+    const rentElement = document.querySelector('[data-testid="rent-estimate"]');
+    if (rentElement) {
+      propertyData.rent = extractPrice(rentElement.textContent);
+    }
+
+    // Bedrooms
+    const bedsElement = document.querySelector('[data-testid="bed-count"]');
+    if (bedsElement) {
+      propertyData.bedrooms = extractNumber(bedsElement.textContent);
+    }
+
+    // Bathrooms
+    const bathsElement = document.querySelector('[data-testid="bath-count"]');
+    if (bathsElement) {
+      propertyData.bathrooms = extractNumber(bathsElement.textContent);
+    }
+
+    // Square footage
+    const sqftElement = document.querySelector('[data-testid="sqft"]');
+    if (sqftElement) {
+      propertyData.sqft = extractNumber(sqftElement.textContent);
+    }
+  }
+
+  // Apartments.com (Multi-family)
+  else if (hostname.includes('apartments.com')) {
+    // Price (rent for apartments)
+    const rentElement = document.querySelector('.pricingColumn, .rentInfoDetail');
+    if (rentElement) {
+      propertyData.rent = extractPrice(rentElement.textContent);
+    }
+
+    // Address
+    const addressElement = document.querySelector('.propertyAddress, h1');
+    if (addressElement) {
+      propertyData.address = addressElement.textContent.trim();
+    }
+
+    // Bedrooms
+    const bedsElement = document.querySelector('.bedroomLabel');
+    if (bedsElement) {
+      propertyData.bedrooms = extractNumber(bedsElement.textContent);
+    }
+
+    // Bathrooms
+    const bathsElement = document.querySelector('.bathroomLabel');
+    if (bathsElement) {
+      propertyData.bathrooms = extractNumber(bathsElement.textContent);
+    }
+
+    // Square footage
+    const sqftElement = document.querySelector('.sqftLabel');
+    if (sqftElement) {
+      propertyData.sqft = extractNumber(sqftElement.textContent);
+    }
+  }
+
+  // Mashvisor (Investment analytics)
+  else if (hostname.includes('mashvisor.com')) {
+    // Price
+    const priceElement = document.querySelector('.property-price');
+    if (priceElement) {
+      propertyData.price = extractPrice(priceElement.textContent);
+    }
+
+    // Monthly rent
+    const rentElement = document.querySelector('.rental-income, .monthly-rent');
+    if (rentElement) {
+      propertyData.rent = extractPrice(rentElement.textContent);
+    }
+
+    // Address
+    const addressElement = document.querySelector('.property-address');
+    if (addressElement) {
+      propertyData.address = addressElement.textContent.trim();
+    }
+  }
+
+  // Crexi (Commercial)
+  else if (hostname.includes('crexi.com')) {
+    // Price
+    const priceElement = document.querySelector('.price-value');
+    if (priceElement) {
+      propertyData.price = extractPrice(priceElement.textContent);
+    }
+
+    // Address
+    const addressElement = document.querySelector('.property-address');
+    if (addressElement) {
+      propertyData.address = addressElement.textContent.trim();
+    }
+
+    // Square footage
+    const sqftElement = document.querySelector('.building-size');
+    if (sqftElement) {
+      propertyData.sqft = extractNumber(sqftElement.textContent);
+    }
+  }
+
+  return propertyData;
+}
+
+// Listen for messages from popup
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === 'getPropertyData') {
+    const data = extractPropertyData();
+    sendResponse(data);
+  }
+});
+
+// Wait for page to fully load before extracting data
+function initializeExtension() {
+  // Wait 1 second for dynamic content to load
+  setTimeout(() => {
+    const propertyData = extractPropertyData();
+    console.log('Capital Bridge Solutions: Extracted property data:', propertyData);
+
+    // Store property data in window globals for AI controller access
+    window.currentPropertyAddress = propertyData.address || 'Property Address';
+    window.currentPropertyBeds = propertyData.bedrooms;
+    window.currentPropertyBaths = propertyData.bathrooms;
+    window.currentPropertySqft = propertyData.sqft;
+    window.currentPropertyType = propertyData.type || 'Residential';
+    window.currentPropertyPrice = propertyData.price;
+    window.currentPropertyRent = propertyData.rent;
+
+    if (propertyData.price || propertyData.rent) {
+      console.log('Capital Bridge Solutions: Sending data to popup');
+      chrome.runtime.sendMessage({
+        action: 'propertyData',
+        ...propertyData
+      });
+    } else {
+      console.log('Capital Bridge Solutions: No price or rent found on page');
+    }
+  }, 1000);
+}
+
+// Initialize when page is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeExtension);
+} else {
+  initializeExtension();
+}
+
+// Create floating CTA button to grab attention
+function createFloatingCTA() {
+  // Check if already dismissed for this session
+  const dismissed = sessionStorage.getItem('cbs-cta-dismissed');
+  if (dismissed) return;
+
+  // Only show on property detail pages (not search results)
+  const hostname = window.location.hostname;
+  const isPropertyPage = 
+    (hostname.includes('zillow.com') && window.location.pathname.includes('/homedetails/')) ||
+    (hostname.includes('redfin.com') && window.location.pathname.includes('/home/')) ||
+    (hostname.includes('realtor.com') && window.location.pathname.includes('/realestateandhomes-detail/')) ||
+    (hostname.includes('loopnet.com') && window.location.pathname.includes('/listing/')) ||
+    (hostname.includes('roofstock.com') && window.location.pathname.includes('/property/')) ||
+    window.location.pathname.includes('/property/') ||
+    window.location.pathname.includes('/listing/');
+
+  if (!isPropertyPage) return;
+
+  // Create floating button
+  const floatingCTA = document.createElement('div');
+  floatingCTA.className = 'cbs-floating-cta';
+  
+  // Get extension logo URL
+  const logoUrl = chrome.runtime.getURL('images/icon-48.png');
+  
+  floatingCTA.innerHTML = `
+    <div class="cbs-floating-cta-close" title="Dismiss">×</div>
+    <img src="${logoUrl}" class="cbs-floating-cta-icon" alt="CBS Logo" />
+    <span>Analyze & Get Approved →</span>
+  `;
+
+  // Add to page after a short delay
+  setTimeout(() => {
+    document.body.appendChild(floatingCTA);
+  }, 2000); // Wait 2 seconds after page load
+
+  // Click handler - open extension popup
+  floatingCTA.addEventListener('click', (e) => {
+    if (!e.target.classList.contains('cbs-floating-cta-close')) {
+      // Send message to open popup (Chrome extensions can't programmatically open popup)
+      // But we can track the click
+      chrome.runtime.sendMessage({
+        action: 'track',
+        category: 'floating-cta',
+        type: 'click'
+      });
+      
+      // Show alert to guide user
+      alert('Click the Capital Bridge Solutions icon in your toolbar (top-right) to analyze this property!');
+    }
+  });
+
+  // Close button handler
+  floatingCTA.querySelector('.cbs-floating-cta-close').addEventListener('click', (e) => {
+    e.stopPropagation();
+    floatingCTA.classList.add('hidden');
+    sessionStorage.setItem('cbs-cta-dismissed', 'true');
+  });
+}
+
+// Initialize floating CTA
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', createFloatingCTA);
+} else {
+  createFloatingCTA();
+}

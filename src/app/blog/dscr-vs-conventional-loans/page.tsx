@@ -46,8 +46,8 @@ export default function DSCRvsConventionalPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <BlogImage 
-              src="/DSCR_vs_HardMoney_loans.png"
-              alt="DSCR vs Conventional Loans - Complete comparison for investment property financing"
+              src="/DSCR_vs_Conventional_loan.png"
+              alt="DSCR vs Conventional Loans 2025 - Complete comparison for investment property financing"
               width={1200}
               height={630}
               priority={true}

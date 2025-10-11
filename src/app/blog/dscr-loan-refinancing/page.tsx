@@ -46,8 +46,8 @@ export default function DSCRRefinancingPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <BlogImage 
-              src="/DSCR-Loans-599.png"
-              alt="DSCR Loan Refinancing - Cash-out and rate-term refinance options"
+              src="/DSCR_Loan_Refinancing.png"
+              alt="DSCR Loan Refinancing 2025 - Cash-out and rate-term refinance options"
               width={1200}
               height={630}
               priority={true}
