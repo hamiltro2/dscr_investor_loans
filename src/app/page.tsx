@@ -572,6 +572,60 @@ export default function Home() {
         </div>
       </section>
 
+      {/* California DSCR Loans Section */}
+      <section className="py-12 sm:py-16 bg-gradient-to-br from-primary-500/5 to-blue-500/5">
+        <div className="container">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600">
+                California DSCR Loans
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Comprehensive investment property financing across California's top markets
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              <Link href="/locations/california/los-angeles" className="bg-dark-800/50 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition-all duration-300 group">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">Los Angeles DSCR Loans</h3>
+                <p className="text-gray-400 text-sm mb-4">$825K avg • 4.8% yield • 1.15 DSCR. Diverse neighborhoods from Downtown to Venice Beach.</p>
+                <span className="text-primary-400 text-sm font-semibold">View LA Market →</span>
+              </Link>
+              
+              <Link href="/locations/california/san-diego" className="bg-dark-800/50 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition-all duration-300 group">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">San Diego DSCR Loans</h3>
+                <p className="text-gray-400 text-sm mb-4">$795K avg • 5.2% yield • 1.22 DSCR. Military housing, biotech jobs, vacation rentals.</p>
+                <span className="text-primary-400 text-sm font-semibold">View SD Market →</span>
+              </Link>
+              
+              <Link href="/locations/california/san-francisco" className="bg-dark-800/50 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition-all duration-300 group">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">San Francisco DSCR Loans</h3>
+                <p className="text-gray-400 text-sm mb-4">$1.43M avg • 3.9% yield • 1.08 DSCR. Tech hub with highest rents and appreciation.</p>
+                <span className="text-primary-400 text-sm font-semibold">View SF Market →</span>
+              </Link>
+              
+              <Link href="/locations/california/orange-county" className="bg-dark-800/50 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition-all duration-300 group">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">Orange County DSCR Loans</h3>
+                <p className="text-gray-400 text-sm mb-4">$955K avg • 4.5% yield • 1.18 DSCR. Premium coastal market, our local headquarters.</p>
+                <span className="text-primary-400 text-sm font-semibold">View OC Market →</span>
+              </Link>
+              
+              <Link href="/locations/california/sacramento" className="bg-dark-800/50 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition-all duration-300 group">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">Sacramento DSCR Loans</h3>
+                <p className="text-gray-400 text-sm mb-4">$525K avg • 6.1% yield • 1.35 DSCR. Best cash flow in California, state capital.</p>
+                <span className="text-primary-400 text-sm font-semibold">View Sacramento Market →</span>
+              </Link>
+              
+              <Link href="/locations/california/dscr-loans" className="bg-gradient-to-br from-primary-500/20 to-primary-600/20 border border-primary-500/40 rounded-xl p-6 hover:border-primary-500/60 transition-all duration-300 group">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">Complete CA Guide</h3>
+                <p className="text-gray-400 text-sm mb-4">Comprehensive California DSCR loan guide with 18 FAQs, requirements, and market data.</p>
+                <span className="text-primary-400 text-sm font-semibold">View Full Guide →</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="py-12 sm:py-16 bg-dark-950/50">
         <div className="container">

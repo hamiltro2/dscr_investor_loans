@@ -156,6 +156,34 @@ export default function BestDSCRLendersCaliforniaPage() {
             caption="Compare the best DSCR loan lenders in California"
           />
 
+          {/* California DSCR Hub Callout */}
+          <div className="my-12 bg-gradient-to-r from-primary-500/10 to-blue-500/10 rounded-2xl p-8 border border-primary-500/20">
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              <div className="flex-shrink-0">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center">
+                  <Calculator className="w-8 h-8 text-white" />
+                </div>
+              </div>
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-2xl font-bold text-white mb-2">
+                  Complete California DSCR Loan Guide
+                </h3>
+                <p className="text-gray-300 mb-4">
+                  Explore our comprehensive guide covering all California markets, requirements, FAQs, and neighborhood analyses for LA, San Diego, San Francisco, Orange County, and Sacramento.
+                </p>
+                <a 
+                  href="/locations/california/dscr-loans"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                >
+                  View Complete CA Guide
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
           {/* Introduction */}
           <div className="prose prose-invert prose-lg max-w-none mb-12">
             <p className="text-xl text-gray-300 leading-relaxed">
