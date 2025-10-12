@@ -6,9 +6,6 @@ export default function CompliancePage() {
         
         <div className="bg-dark-800/50 backdrop-blur-sm rounded-xl p-8 border border-primary-500/20 mb-8">
           <h2 className="text-2xl font-semibold text-white mb-4">NMLS Information</h2>
-          <p className="text-gray-300 mb-4">
-            Capital Bridge Solutions | NMLS #[YOUR NMLS NUMBER]
-          </p>
           <p className="text-gray-300">
             For more information about our company, please visit the Nationwide Multistate Licensing System (NMLS) Consumer Access website at{' '}
             <a href="https://www.nmlsconsumeraccess.org" target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:text-primary-300">
