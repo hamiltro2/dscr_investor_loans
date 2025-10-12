@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Capital Bridge Solutions - DSCR & Hard Money Calculator",
   "version": "2.0.0",
-  "description": "AI-powered property analysis with DSCR, hard money & ROI calculators. Auto-fills from 11+ sites. Get rental comps, expense breakdowns & deal scores. By Capital Bridge Solutions.",
+  "description": "AI property analysis + DSCR calculator. Auto-fills from Zillow, Redfin & 17+ sites. Instant rental comps & deal scores.",
   "author": "Capital Bridge Solutions",
   "homepage_url": "https://www.capitalbridgesolutions.com",
   "icons": {
