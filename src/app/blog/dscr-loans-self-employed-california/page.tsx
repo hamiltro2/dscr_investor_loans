@@ -58,6 +58,32 @@ export default function DSCRSelfEmployedPage() {
               priority={true}
               caption="Self-Employed? Get DSCR loans without tax returns or income verification"
             />
+
+            {/* California DSCR Hub Callout */}
+            <div className="my-12 bg-gradient-to-r from-primary-500/10 to-blue-500/10 rounded-2xl p-8 border border-primary-500/20">
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="flex-shrink-0">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center">
+                    <Calculator className="w-8 h-8 text-white" />
+                  </div>
+                </div>
+                <div className="flex-1 text-center md:text-left">
+                  <h3 className="text-2xl font-bold text-white mb-2">
+                    Complete California DSCR Loan Guide
+                  </h3>
+                  <p className="text-gray-300 mb-4">
+                    Explore our comprehensive guide covering all California markets, requirements, FAQs, and neighborhood analyses for LA, San Diego, San Francisco, Orange County, and Sacramento.
+                  </p>
+                  <a 
+                    href="/locations/california/dscr-loans"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                  >
+                    View Complete CA Guide
+                    <ArrowRight className="w-5 h-5" />
+                  </a>
+                </div>
+              </div>
+            </div>
             
             <div className="prose prose-invert max-w-none">
               <p className="text-xl text-gray-300 mb-8">
