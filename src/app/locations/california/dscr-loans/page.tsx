@@ -6,12 +6,15 @@ import { MapPin, Phone, Calculator, TrendingUp, Building2, Home, CheckCircle, Ar
 import CaliforniaFAQ from '@/components/california/CaliforniaFAQ';
 import CaliforniaMarkets from '@/components/california/CaliforniaMarkets';
 import CaliforniaRequirements from '@/components/california/CaliforniaRequirements';
+import CaliforniaSchema from '@/components/california/CaliforniaSchema';
 
 export default function CaliforniaDSCRLoansPage() {
   const [activeTab, setActiveTab] = useState('overview');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-dark-950 via-dark-900 to-dark-950">
+    <>
+      <CaliforniaSchema />
+      <div className="min-h-screen bg-gradient-to-br from-dark-950 via-dark-900 to-dark-950">
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl"></div>
@@ -281,5 +284,6 @@ export default function CaliforniaDSCRLoansPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }
