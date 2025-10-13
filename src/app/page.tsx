@@ -626,6 +626,45 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Self-Employed Borrowers Section */}
+      <section className="py-12 sm:py-16 bg-gradient-to-br from-dark-900 to-dark-950">
+        <div className="container">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600">
+                Mortgage Options for Self-Employed
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                No tax returns required. Bank statement loans, DSCR loans, and alternative income verification for California self-employed professionals.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <Link href="/blog/best-lenders-self-employed-california" className="bg-gradient-to-br from-primary-500/10 to-primary-600/10 border border-primary-500/40 rounded-xl p-6 hover:border-primary-500/60 transition-all duration-300 group">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">Best Lenders for Self-Employed in California 2025</h3>
+                <p className="text-gray-400 text-sm mb-4">Compare top 10 lenders for self-employed borrowers. Bank statement loans, DSCR, and no-doc options. Rates from 5.99%.</p>
+                <span className="text-primary-400 text-sm font-semibold">Read Complete Guide →</span>
+              </Link>
+              
+              <Link href="/blog/investment-property-loans-self-employed" className="bg-dark-800/50 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition-all duration-300 group">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">Investment Property Loans for Self-Employed</h3>
+                <p className="text-gray-400 text-sm mb-4">DSCR loans without tax returns. Perfect for self-employed investors, 1099 contractors, and business owners.</p>
+                <span className="text-primary-400 text-sm font-semibold">Read Guide →</span>
+              </Link>
+            </div>
+            
+            <div className="bg-primary-500/10 border border-primary-500/30 rounded-2xl p-8 text-center">
+              <p className="text-lg text-gray-300 mb-4">
+                <strong className="text-white">Self-employed in California?</strong> Get pre-qualified without tax returns in 24 hours.
+              </p>
+              <Link href="/get-started" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                Get Pre-Qualified Now →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="py-12 sm:py-16 bg-dark-950/50">
         <div className="container">

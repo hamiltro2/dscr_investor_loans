@@ -264,6 +264,35 @@ export default function CaliforniaDSCRLoansPage() {
         </div>
       </section>
 
+      {/* Related Articles */}
+      <section className="py-16 bg-gradient-to-br from-primary-500/5 to-blue-500/5">
+        <div className="container">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-white mb-4">Related Resources</h2>
+              <p className="text-xl text-gray-300">Expert guides to help you maximize your California investments</p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              <Link href="/blog/best-lenders-self-employed-california" className="bg-dark-800/50 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition-all duration-300 group">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">Best Lenders for Self-Employed</h3>
+                <p className="text-gray-400 text-sm mb-4">Compare top lenders for self-employed borrowers in California. No tax returns required.</p>
+                <span className="text-primary-400 text-sm font-semibold">Read Guide →</span>
+              </Link>
+              <Link href="/blog/best-dscr-loan-lenders-california" className="bg-dark-800/50 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition-all duration-300 group">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">Best DSCR Lenders</h3>
+                <p className="text-gray-400 text-sm mb-4">Expert comparison of the top DSCR loan lenders serving California investors.</p>
+                <span className="text-primary-400 text-sm font-semibold">Read Guide →</span>
+              </Link>
+              <Link href="/blog/dscr-loan-calculator-california" className="bg-dark-800/50 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition-all duration-300 group">
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">DSCR Calculator</h3>
+                <p className="text-gray-400 text-sm mb-4">Calculate your debt service coverage ratio and estimate your maximum loan amount.</p>
+                <span className="text-primary-400 text-sm font-semibold">Use Calculator →</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA */}
       <section className="py-16">
         <div className="container">
