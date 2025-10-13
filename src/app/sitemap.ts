@@ -33,6 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/blog/dscr-loan-rates-california-2025',
     '/blog/dscr-loan-requirements-california-2025',
     '/blog/best-dscr-loan-lenders-california',
+    '/blog/best-lenders-self-employed-california',
     '/blog/dscr-loans-texas',
     '/blog/dscr-loans-florida',
     '/blog/dscr-loans-arizona',
