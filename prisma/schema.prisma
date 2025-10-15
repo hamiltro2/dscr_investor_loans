@@ -1,0 +1,138 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Lead model - Core borrower/property data
+model Lead {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Contact Info
+  name    String
+  email   String
+  phone   String
+  channel String? // web, phone, referral, etc.
+
+  // Product Type
+  productType ProductType
+
+  // Property Info
+  address      String?
+  city         String?
+  state        String?
+  zip          String?
+  propertyType String? // SFR, multi-family, commercial, etc.
+
+  // Loan Details
+  loanAmountRequested Decimal?
+  timeline            String? // urgent, 30-days, 60-days, 90-days+
+  exitStrategy        String? // refinance, sell, hold
+
+  // Product-Specific Fields
+  rehabBudget         Decimal? // fix&flip
+  arv                 Decimal? // after repair value (fix&flip)
+  currentMortgageInfo Json? // balloon_refi (balance, rate, maturity)
+  rentalIncome        Decimal? // dscr
+  dscrInputs          Json? // taxes, insurance, hoa, proposedRate
+
+  // Enrichment & Analysis
+  enrichment      Json? // Perplexity results
+  sourceCitations Json? // array of {title, url, text}
+  notes           String? @db.Text
+
+  // Scoring & Status
+  score  Float?
+  status LeadStatus @default(new)
+  offer  Json? // preliminary offer details
+
+  // Consent & Compliance
+  consentGiven Boolean @default(false)
+  consentAt    DateTime?
+
+  // Relations
+  interactions Interaction[]
+  events       Event[]
+
+  @@index([status, createdAt])
+  @@index([productType])
+  @@index([email])
+  @@index([phone])
+  @@index([createdAt])
+}
+
+// Interaction model - Chat history & tool calls
+model Interaction {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  leadId String
+  lead   Lead   @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  role    InteractionRole
+  content Json // structured message content
+  tokens  Int? // token usage for analytics
+
+  toolName   String? // if this was a tool call
+  toolInput  Json? // tool input params
+  toolOutput Json? // tool result
+
+  @@index([leadId, createdAt])
+}
+
+// Event model - System events, alerts, webhooks
+model Event {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  leadId String
+  lead   Lead   @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  type    EventType
+  payload Json
+
+  @@index([leadId, createdAt])
+  @@index([type, createdAt])
+}
+
+// Enums
+enum ProductType {
+  hard_money
+  dscr
+  fix_flip
+  balloon_refi
+  note_finance
+}
+
+enum LeadStatus {
+  new
+  qualified
+  follow_up
+  disqualified
+  closed_won
+  closed_lost
+}
+
+enum InteractionRole {
+  user
+  assistant
+  tool
+  system
+}
+
+enum EventType {
+  alert_sales
+  doc_request
+  schedule
+  crm_webhook
+  enrichment_complete
+  score_update
+}

@@ -1,0 +1,308 @@
+{
+  "name": "Cap - Capital Bridge Loan Companion",
+  "short_name": "Cap",
+  "description": "Meet Cap, your friendly loan companion! Pre-qualify for DSCR, fix & flip, and hard money loans in 2 minutes. Get instant preliminary offers with no credit check required. Expert real estate investment financing made easy.",
+  "version": "1.0.0",
+  "category": "finance",
+  "tags": [
+    "real-estate",
+    "lending",
+    "investment",
+    "loans",
+    "finance",
+    "dscr",
+    "hard-money"
+  ],
+  "developer": {
+    "name": "Capital Bridge Solutions",
+    "email": "support@capitalbridgesolutions.com",
+    "phone": "+19493393555",
+    "website": "https://capitalbridgesolutions.com",
+    "support_url": "https://capitalbridgesolutions.com/#contact"
+  },
+  "branding": {
+    "icon": "https://capitalbridgesolutions.com/icon-512.png",
+    "logo": "https://capitalbridgesolutions.com/logo.png",
+    "primary_color": "#0ea5e9",
+    "accent_color": "#0284c7",
+    "dark_mode_compatible": true
+  },
+  "policies": {
+    "privacy_policy": "https://capitalbridgesolutions.com/privacy-policy.html",
+    "terms_of_service": "https://capitalbridgesolutions.com/terms-of-service.html",
+    "acceptable_use": "https://capitalbridgesolutions.com/terms-of-service.html#prohibited-uses"
+  },
+  "tools": [
+    {
+      "name": "qualify_loan",
+      "description": "Pre-qualify borrower for a real estate investment loan. Collects contact info, property details, loan amount, and product type. Provides instant preliminary offer with rates, terms, and LTV. No credit check required for pre-qualification.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Borrower's full name"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Borrower's email address"
+          },
+          "phone": {
+            "type": "string",
+            "pattern": "^\\+?[1-9]\\d{1,14}$",
+            "description": "Borrower's phone number (E.164 format preferred)"
+          },
+          "productType": {
+            "type": "string",
+            "enum": [
+              "dscr",
+              "fix_flip",
+              "hard_money",
+              "balloon_refi",
+              "note_finance"
+            ],
+            "description": "Type of loan product: dscr (rental property), fix_flip (rehab loans), hard_money (quick cash), balloon_refi (refinance existing loan), note_finance (seller financing)"
+          },
+          "loanAmount": {
+            "type": "number",
+            "minimum": 50000,
+            "maximum": 20000000,
+            "description": "Requested loan amount in USD"
+          },
+          "propertyAddress": {
+            "type": "string",
+            "description": "Property address (used for market research and appraisal)"
+          },
+          "propertyType": {
+            "type": "string",
+            "enum": [
+              "sfr",
+              "multi_family",
+              "commercial",
+              "land",
+              "mixed_use"
+            ],
+            "description": "Type of property: sfr (single family), multi_family (2-4 units or larger), commercial (office/retail), land, mixed_use"
+          },
+          "purchasePrice": {
+            "type": "number",
+            "description": "Property purchase price or current value (for refinance)"
+          },
+          "rehabBudget": {
+            "type": "number",
+            "description": "Estimated rehab budget (required for fix_flip loans)"
+          },
+          "arv": {
+            "type": "number",
+            "description": "After repair value (required for fix_flip loans)"
+          },
+          "rentalIncome": {
+            "type": "number",
+            "description": "Monthly rental income (required for DSCR loans)"
+          },
+          "timeline": {
+            "type": "string",
+            "enum": [
+              "urgent",
+              "30_days",
+              "60_days",
+              "90_plus"
+            ],
+            "description": "How soon borrower needs funding"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "phone",
+          "productType",
+          "loanAmount"
+        ]
+      },
+      "returns": {
+        "type": "object",
+        "properties": {
+          "qualified": {
+            "type": "boolean",
+            "description": "Whether borrower pre-qualifies"
+          },
+          "score": {
+            "type": "number",
+            "description": "Lead quality score (0-100)"
+          },
+          "preliminaryOffer": {
+            "type": "object",
+            "properties": {
+              "interestRate": {
+                "type": "string",
+                "description": "Estimated interest rate range"
+              },
+              "maxLoanAmount": {
+                "type": "number",
+                "description": "Maximum loan amount qualified for"
+              },
+              "maxLTV": {
+                "type": "string",
+                "description": "Maximum loan-to-value ratio"
+              },
+              "estimatedClosing": {
+                "type": "string",
+                "description": "Estimated time to close"
+              },
+              "fees": {
+                "type": "string",
+                "description": "Estimated fees and points"
+              }
+            }
+          },
+          "nextSteps": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Next steps for borrower"
+          },
+          "disclaimer": {
+            "type": "string",
+            "description": "Legal disclaimer about preliminary nature of offer"
+          }
+        }
+      }
+    },
+    {
+      "name": "property_research",
+      "description": "Research property and market data using address. Returns property details, comparable sales, neighborhood analysis, and market trends. Powered by Perplexity AI for real-time data.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "Full property address including city, state, and ZIP"
+          },
+          "propertyType": {
+            "type": "string",
+            "enum": [
+              "sfr",
+              "multi_family",
+              "commercial"
+            ],
+            "description": "Type of property to research"
+          }
+        },
+        "required": [
+          "address"
+        ]
+      },
+      "returns": {
+        "type": "object",
+        "properties": {
+          "propertyDetails": {
+            "type": "object",
+            "description": "Property characteristics and details"
+          },
+          "marketAnalysis": {
+            "type": "object",
+            "description": "Local market trends and data"
+          },
+          "comparables": {
+            "type": "array",
+            "description": "Recent comparable sales"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Data sources and citations"
+          }
+        }
+      }
+    },
+    {
+      "name": "schedule_consultation",
+      "description": "Schedule a phone or video consultation with a loan specialist. Books appointment in calendar and sends confirmation.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "leadId": {
+            "type": "string",
+            "description": "Lead ID from previous qualification"
+          },
+          "preferredDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Preferred date for consultation"
+          },
+          "preferredTime": {
+            "type": "string",
+            "description": "Preferred time (e.g., 'morning', 'afternoon', 'evening')"
+          },
+          "consultationType": {
+            "type": "string",
+            "enum": [
+              "phone",
+              "video",
+              "in_person"
+            ],
+            "description": "Type of consultation"
+          }
+        },
+        "required": [
+          "leadId",
+          "preferredDate"
+        ]
+      }
+    }
+  ],
+  "features": {
+    "voice_enabled": true,
+    "multilingual": false,
+    "real_time_data": true,
+    "file_uploads": false,
+    "requires_authentication": false,
+    "subscription_required": false
+  },
+  "use_cases": [
+    "Real estate investor needs quick loan pre-qualification",
+    "User asks about DSCR loans for rental properties",
+    "Borrower wants to know fix and flip loan rates",
+    "Property research for investment analysis",
+    "Schedule consultation with loan specialist"
+  ],
+  "example_prompts": [
+    "Hey Cap, I need a DSCR loan for a rental property",
+    "Cap, what are your fix and flip loan rates?",
+    "Can you pre-qualify me for a hard money loan, Cap?",
+    "Cap, research this property: 123 Main St, Los Angeles, CA 90001",
+    "I need $500K for a multi-family property"
+  ],
+  "compliance": {
+    "equal_housing_lender": true,
+    "nmls_licensed": false,
+    "fair_lending_compliant": true,
+    "tcpa_compliant": true,
+    "gdpr_compliant": true,
+    "ccpa_compliant": true
+  },
+  "safety": {
+    "content_moderation": true,
+    "rate_limiting": true,
+    "abuse_prevention": true,
+    "pii_protection": true
+  },
+  "metadata": {
+    "last_updated": "2025-10-14",
+    "documentation_url": "https://capitalbridgesolutions.com/docs",
+    "changelog_url": "https://capitalbridgesolutions.com/changelog",
+    "status_page": "https://status.capitalbridgesolutions.com"
+  }
+}

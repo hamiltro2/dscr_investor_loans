@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import PartnerForm from '@/components/PartnerForm';
 
 export const metadata: Metadata = {
   title: 'Join Our Partner Network | Capital Bridge Solutions',
@@ -45,14 +46,14 @@ export default function PartnerNetworkPage() {
       {/* Benefits Section */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
             Why Join Our Partner Network?
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white rounded-lg shadow-lg p-8">
               <div className="text-4xl mb-4">🎯</div>
-              <h3 className="text-xl font-bold mb-4">Targeted Exposure</h3>
+              <h3 className="text-xl font-bold mb-4 text-gray-900">Targeted Exposure</h3>
               <p className="text-gray-600">
                 Get in front of active real estate investors while they're browsing properties on Zillow, Redfin, BiggerPockets, and 20+ other sites.
               </p>
@@ -60,7 +61,7 @@ export default function PartnerNetworkPage() {
 
             <div className="bg-white rounded-lg shadow-lg p-8">
               <div className="text-4xl mb-4">💰</div>
-              <h3 className="text-xl font-bold mb-4">Qualified Leads</h3>
+              <h3 className="text-xl font-bold mb-4 text-gray-900">Qualified Leads</h3>
               <p className="text-gray-600">
                 Receive pre-qualified leads from investors actively analyzing properties. They're ready to buy, renovate, or manage.
               </p>
@@ -68,23 +69,23 @@ export default function PartnerNetworkPage() {
 
             <div className="bg-white rounded-lg shadow-lg p-8">
               <div className="text-4xl mb-4">⭐</div>
-              <h3 className="text-xl font-bold mb-4">Build Your Brand</h3>
+              <h3 className="text-xl font-bold mb-4 text-gray-900">Build Your Brand</h3>
               <p className="text-gray-600">
                 Showcase your expertise with verified badges, reviews, and specialties. Stand out as an investor-focused professional.
               </p>
             </div>
 
             <div className="bg-white rounded-lg shadow-lg p-8">
-              <div className="text-4xl mb-4">📊</div>
-              <h3 className="text-xl font-bold mb-4">Track Performance</h3>
+              <div className="text-4xl mb-4">📧</div>
+              <h3 className="text-xl font-bold mb-4 text-gray-900">Direct Lead Notifications</h3>
               <p className="text-gray-600">
-                Access your partner dashboard to track leads, conversion rates, and ROI. Data-driven insights to grow your business.
+                Receive instant email notifications when investors request your services. Fast response times mean more closed deals.
               </p>
             </div>
 
             <div className="bg-white rounded-lg shadow-lg p-8">
               <div className="text-4xl mb-4">🔒</div>
-              <h3 className="text-xl font-bold mb-4">Exclusive Territory</h3>
+              <h3 className="text-xl font-bold mb-4 text-gray-900">Exclusive Territory</h3>
               <p className="text-gray-600">
                 Founding partners get priority placement and can lock in their service area. Limited spots available per market.
               </p>
@@ -92,7 +93,7 @@ export default function PartnerNetworkPage() {
 
             <div className="bg-white rounded-lg shadow-lg p-8">
               <div className="text-4xl mb-4">💼</div>
-              <h3 className="text-xl font-bold mb-4">Locked-In Pricing</h3>
+              <h3 className="text-xl font-bold mb-4 text-gray-900">Locked-In Pricing</h3>
               <p className="text-gray-600">
                 Founding partners get special pricing that never increases. Lock in your rate before we scale and prices go up.
               </p>
@@ -104,14 +105,14 @@ export default function PartnerNetworkPage() {
       {/* Partner Types */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
             Who We're Looking For
           </h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-white rounded-lg p-6 text-center">
               <div className="text-5xl mb-4">🏠</div>
-              <h3 className="text-xl font-bold mb-3">Deal Finders</h3>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">Deal Finders</h3>
               <ul className="text-left text-gray-600 space-y-2">
                 <li>• Investor-focused agents</li>
                 <li>• Off-market specialists</li>
@@ -122,7 +123,7 @@ export default function PartnerNetworkPage() {
 
             <div className="bg-white rounded-lg p-6 text-center">
               <div className="text-5xl mb-4">🔨</div>
-              <h3 className="text-xl font-bold mb-3">Contractors</h3>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">Contractors</h3>
               <ul className="text-left text-gray-600 space-y-2">
                 <li>• Fix & flip specialists</li>
                 <li>• Fast turnarounds</li>
@@ -133,7 +134,7 @@ export default function PartnerNetworkPage() {
 
             <div className="bg-white rounded-lg p-6 text-center">
               <div className="text-5xl mb-4">🏢</div>
-              <h3 className="text-xl font-bold mb-3">Property Managers</h3>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">Property Managers</h3>
               <ul className="text-left text-gray-600 space-y-2">
                 <li>• Investor-focused</li>
                 <li>• 24/7 support</li>
@@ -144,7 +145,7 @@ export default function PartnerNetworkPage() {
 
             <div className="bg-white rounded-lg p-6 text-center">
               <div className="text-5xl mb-4">💼</div>
-              <h3 className="text-xl font-bold mb-3">Other Professionals</h3>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">Other Professionals</h3>
               <ul className="text-left text-gray-600 space-y-2">
                 <li>• CPAs (RE tax experts)</li>
                 <li>• Real estate attorneys</li>
@@ -159,56 +160,71 @@ export default function PartnerNetworkPage() {
       {/* Pricing */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-4">
+          <h2 className="text-3xl font-bold text-center mb-4 text-gray-900">
             Founding Partner Pricing
           </h2>
           <p className="text-center text-gray-600 mb-12">
-            Lock in special rates before we launch. Prices will increase after launch.
+            Simple, affordable pricing. Lock in founding rates before we scale.
           </p>
           
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="bg-white rounded-lg shadow-xl p-8 border-2 border-gray-200">
-              <h3 className="text-2xl font-bold mb-4">Basic</h3>
-              <div className="text-4xl font-bold mb-2">$99<span className="text-lg text-gray-600">/mo</span></div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Standard</h3>
+              <div className="text-4xl font-bold mb-2 text-gray-900">$49<span className="text-lg text-gray-600">/mo</span></div>
               <p className="text-gray-600 mb-6">Perfect for getting started</p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-start">
                   <span className="text-green-500 mr-2">✓</span>
-                  <span>Standard directory listing</span>
+                  <span className="text-gray-900">Directory listing</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-green-500 mr-2">✓</span>
-                  <span>Profile with specialties</span>
+                  <span className="text-gray-900">Profile with contact info</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-green-500 mr-2">✓</span>
-                  <span>Email support</span>
+                  <span className="text-gray-900">Service area & specialties</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-green-500 mr-2">✓</span>
-                  <span>Basic analytics</span>
+                  <span className="text-gray-900">Direct lead notifications</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                  <span className="text-gray-900">Email support</span>
                 </li>
               </ul>
-              <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+              <a
+                href="#apply"
+                className="block w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition text-center"
+              >
                 Get Started
-              </button>
+              </a>
             </div>
 
             <div className="bg-gradient-to-b from-blue-600 to-blue-800 rounded-lg shadow-xl p-8 border-2 border-blue-600 transform scale-105">
               <div className="bg-yellow-400 text-blue-900 text-xs font-bold px-3 py-1 rounded-full inline-block mb-4">
-                MOST POPULAR
+                RECOMMENDED
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-white">Professional</h3>
-              <div className="text-4xl font-bold mb-2 text-white">$299<span className="text-lg text-blue-200">/mo</span></div>
-              <p className="text-blue-100 mb-6">Best value for growth</p>
+              <h3 className="text-2xl font-bold mb-4 text-white">Featured</h3>
+              <div className="text-4xl font-bold mb-2 text-white">$99<span className="text-lg text-blue-200">/mo</span></div>
+              <p className="text-blue-100 mb-6">Maximum visibility & leads</p>
               <ul className="space-y-3 mb-8 text-white">
                 <li className="flex items-start">
                   <span className="text-yellow-400 mr-2">✓</span>
-                  <span>Featured listing placement</span>
+                  <span>Everything in Standard, plus:</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-yellow-400 mr-2">✓</span>
-                  <span>Verified badge</span>
+                  <span>Featured placement (top of list)</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-yellow-400 mr-2">✓</span>
+                  <span>Verified partner badge</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-yellow-400 mr-2">✓</span>
+                  <span>Priority lead routing</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-yellow-400 mr-2">✓</span>
@@ -216,262 +232,65 @@ export default function PartnerNetworkPage() {
                 </li>
                 <li className="flex items-start">
                   <span className="text-yellow-400 mr-2">✓</span>
-                  <span>Advanced analytics dashboard</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-yellow-400 mr-2">✓</span>
-                  <span>Lead tracking & CRM</span>
+                  <span>Profile photo & bio</span>
                 </li>
               </ul>
-              <button className="w-full bg-white text-blue-600 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+              <a
+                href="#apply"
+                className="block w-full bg-white text-blue-600 py-3 rounded-lg font-semibold hover:bg-gray-100 transition text-center"
+              >
                 Get Started
-              </button>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-xl p-8 border-2 border-gray-200">
-              <h3 className="text-2xl font-bold mb-4">Enterprise</h3>
-              <div className="text-4xl font-bold mb-2">$799<span className="text-lg text-gray-600">/mo</span></div>
-              <p className="text-gray-600 mb-6">Dominate your market</p>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span>Exclusive territory rights</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span>Top placement guarantee</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span>Dedicated account manager</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span>Custom integrations</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">✓</span>
-                  <span>API access</span>
-                </li>
-              </ul>
-              <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-                Get Started
-              </button>
+              </a>
             </div>
           </div>
         </div>
       </section>
 
       {/* Contact Form */}
-      <section className="py-16 bg-gray-50">
+      <section id="apply" className="py-16 bg-gray-50">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-lg shadow-xl p-8">
-            <h2 className="text-3xl font-bold text-center mb-4">
-              Become a Founding Partner
-            </h2>
-            <p className="text-center text-gray-600 mb-8">
-              Fill out the form below and we'll get back to you within 24 hours
-            </p>
-            
-            <form className="space-y-6" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
-                    First Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
-                    Last Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Email Address *
-                  </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone Number *
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
-                  Company Name *
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="partnerType" className="block text-sm font-medium text-gray-700 mb-2">
-                  Partner Type *
-                </label>
-                <select
-                  id="partnerType"
-                  name="partnerType"
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
-                >
-                  <option value="">Select a type...</option>
-                  <option value="deal-finder">Real Estate Agent / Deal Finder</option>
-                  <option value="contractor">Contractor / Renovation Specialist</option>
-                  <option value="property-manager">Property Manager</option>
-                  <option value="cpa">CPA / Tax Professional</option>
-                  <option value="attorney">Real Estate Attorney</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-2">
-                  Service Area / Location *
-                </label>
-                <input
-                  type="text"
-                  id="location"
-                  name="location"
-                  required
-                  placeholder="e.g., Los Angeles, CA"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white placeholder-gray-400"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="tier" className="block text-sm font-medium text-gray-700 mb-2">
-                  Interested In *
-                </label>
-                <select
-                  id="tier"
-                  name="tier"
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
-                >
-                  <option value="">Select a tier...</option>
-                  <option value="basic">Basic - $99/month</option>
-                  <option value="professional">Professional - $299/month</option>
-                  <option value="enterprise">Enterprise - $799/month</option>
-                  <option value="unsure">Not sure yet</option>
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                  Tell Us About Your Business
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={4}
-                  placeholder="Years in business, specialties, why you want to join..."
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white placeholder-gray-400"
-                ></textarea>
-              </div>
-
-              <div className="flex items-start">
-                <input
-                  type="checkbox"
-                  id="agree"
-                  name="agree"
-                  required
-                  className="mt-1 mr-3"
-                />
-                <label htmlFor="agree" className="text-sm text-gray-600">
-                  I agree to be contacted about the partner network and understand that Capital Bridge Solutions will review my application. *
-                </label>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-800 text-white py-4 rounded-lg font-semibold text-lg hover:from-blue-700 hover:to-blue-900 transition shadow-lg"
-              >
-                Submit Application
-              </button>
-
-              <p className="text-center text-sm text-gray-500">
-                We'll review your application and get back to you within 24 hours
-              </p>
-            </form>
-          </div>
+          <PartnerForm />
         </div>
       </section>
 
       {/* FAQ */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
             Frequently Asked Questions
           </h2>
           
           <div className="space-y-6">
             <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-bold mb-2">How many partners will you accept per market?</h3>
+              <h3 className="text-lg font-bold mb-2 text-gray-900">How many partners will you accept per market?</h3>
               <p className="text-gray-600">
                 We limit partners to maintain quality. Typically 5-10 per category per major market. Founding partners get priority and can lock in exclusive territories.
               </p>
             </div>
 
             <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-bold mb-2">When will the extension launch?</h3>
+              <h3 className="text-lg font-bold mb-2 text-gray-900">When will the extension launch?</h3>
               <p className="text-gray-600">
                 We're launching in Q1 2025. Founding partners will be featured from day one and get early access to leads.
               </p>
             </div>
 
             <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-bold mb-2">How do I receive leads?</h3>
+              <h3 className="text-lg font-bold mb-2 text-gray-900">How do I receive leads?</h3>
               <p className="text-gray-600">
-                Leads come through your partner dashboard with email/SMS notifications. You'll get contact info, property details, and investor intent.
+                You'll receive instant email notifications with the investor's contact info, property details, and their specific needs. Simply respond directly to connect.
               </p>
             </div>
 
             <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-bold mb-2">Can I cancel anytime?</h3>
+              <h3 className="text-lg font-bold mb-2 text-gray-900">Can I cancel anytime?</h3>
               <p className="text-gray-600">
                 Yes, monthly subscriptions can be canceled anytime. However, founding partner pricing is only available now - if you cancel and rejoin later, standard pricing applies.
               </p>
             </div>
 
             <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-bold mb-2">What makes a good partner?</h3>
+              <h3 className="text-lg font-bold mb-2 text-gray-900">What makes a good partner?</h3>
               <p className="text-gray-600">
                 We look for licensed professionals with investor experience, good reviews, and a track record of success. You should be responsive, professional, and investor-focused.
               </p>
@@ -491,7 +310,7 @@ export default function PartnerNetworkPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="#contact"
+              href="#apply"
               className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition inline-block"
             >
               Apply Now

@@ -35,4 +35,7 @@ chrome-extension/config.local.js
 *.tsbuildinfo
 next-env.d.ts
 
+# Knowledge base (generated file with embeddings)
+knowledge-base.json
+
 .vercel
