@@ -23,7 +23,11 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+.env
 .env*.local
+
+# test files
+test-*.js
 
 # Chrome extension local config (contains API keys)
 chrome-extension/config.local.js

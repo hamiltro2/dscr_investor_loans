@@ -17,7 +17,7 @@ const CONFIG = {
   // === PREMIUM SETTINGS ===
   PREMIUM_PRICE_MONTHLY: 9.99,
   PREMIUM_PRICE_ANNUAL: 99.99,
-  PREMIUM_UPGRADE_URL: 'https://www.capitalbridgesolutions.com/get-started',
+  PREMIUM_UPGRADE_URL: 'https://www.capitalbridgesolutions.com/partner-network#apply',
   
   // === BRANDING ===
   COMPANY_NAME: 'Capital Bridge Solutions',
@@ -25,7 +25,7 @@ const CONFIG = {
   COMPANY_PHONE_LINK: 'tel:+19493393555',
   COMPANY_WEBSITE: 'https://www.capitalbridgesolutions.com',
   PRE_APPROVAL_URL: 'https://www.capitalbridgesolutions.com/get-started',
-  PARTNER_NETWORK_URL: 'https://www.capitalbridgesolutions.com/partner-network',
+  PARTNER_NETWORK_URL: 'https://www.capitalbridgesolutions.com/partner-network#apply',
   
   // === FEATURE FLAGS ===
   ENABLE_AI_ANALYSIS: true, // Set to false to disable AI feature
