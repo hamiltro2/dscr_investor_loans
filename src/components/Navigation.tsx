@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Menu } from 'lucide-react'
+import { Menu, MessageCircle, Sparkles } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const navigation = [
@@ -45,8 +45,37 @@ export default function Navigation() {
         </Link>
 
         {/* Desktop Navigation - Centered */}
-        <div className="hidden lg:flex lg:flex-1 lg:justify-center lg:gap-x-8">
-          {navigation.map((item) => (
+        <div className="hidden lg:flex lg:flex-1 lg:justify-center lg:gap-x-6 lg:items-center">
+          {navigation.slice(0, 2).map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              className="text-sm font-semibold leading-6 text-dark-200 hover:text-dark-50 transition-colors"
+              onMouseEnter={() => handleLinkHover(item.href)}
+            >
+              {item.name}
+            </Link>
+          ))}
+          
+          {/* Chat with Cap Button */}
+          <button
+            onClick={() => {
+              // Dispatch custom event to open ChatWidget
+              window.dispatchEvent(new Event('openChatWidget'));
+            }}
+            className="group relative inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-lg font-semibold text-sm hover:from-primary-600 hover:to-primary-700 transition-all shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer"
+          >
+            <MessageCircle className="w-4 h-4 group-hover:animate-pulse" />
+            <span>Chat with Cap</span>
+            <span className="absolute -top-1 -right-1 flex h-5 w-5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-5 w-5 bg-yellow-400 items-center justify-center">
+                <Sparkles className="w-3 h-3 text-white" />
+              </span>
+            </span>
+          </button>
+          
+          {navigation.slice(2).map((item) => (
             <Link
               key={item.name}
               href={item.href}
@@ -84,6 +113,21 @@ export default function Navigation() {
               className="absolute right-0 mt-2 w-64 rounded-lg bg-white py-3 shadow-xl ring-2 ring-primary-500 z-50 border-2 border-primary-400 overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-b from-blue-50 to-white opacity-50 pointer-events-none"></div>
+              
+              {/* Chat with Cap - Featured in Mobile */}
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  // Dispatch custom event to open ChatWidget
+                  window.dispatchEvent(new Event('openChatWidget'));
+                }}
+                className="relative flex items-center gap-3 mx-3 mb-3 px-4 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-lg font-bold hover:from-primary-600 hover:to-primary-700 transition-all shadow-md w-full cursor-pointer"
+              >
+                <MessageCircle className="w-5 h-5" />
+                <span>Chat with Cap</span>
+                <Sparkles className="w-4 h-4 ml-auto" />
+              </button>
+              
               {navigation.map((item) => (
                 <Link
                   key={item.name}

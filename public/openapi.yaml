@@ -1,0 +1,187 @@
+openapi: 3.1.0
+info:
+  title: Capital Bridge Solutions - DSCR Loan Expert
+  description: |
+    Expert DSCR loan advisor for real estate investors. 
+    
+    We specialize in:
+    - DSCR loans (no income verification)
+    - Fix & Flip financing
+    - Hard Money loans
+    - Airbnb/Short-term rental financing
+    
+    Our advantages:
+    - Only 0.75% origination fee (vs 2-3 points competitors)
+    - Rates starting at 5.99%
+    - Up to 85% LTV (vs 75% industry standard)
+    - 7-14 day closes
+    - 620+ credit score minimum
+  version: 1.0.0
+  contact:
+    name: Capital Bridge Solutions
+    url: https://www.capitalbridgesolutions.com
+    email: team@capitalbridgesolutions.com
+
+servers:
+  - url: https://www.capitalbridgesolutions.com
+    description: Production server
+
+paths:
+  /api/knowledge/search:
+    post:
+      operationId: searchKnowledgeBase
+      summary: Search DSCR loan knowledge base
+      description: |
+        Search our comprehensive knowledge base of 106 articles covering:
+        - DSCR loan requirements and rates
+        - Credit score scenarios (620+ minimum)
+        - Property types (Airbnb, multi-family, fix & flip)
+        - Self-employed investor scenarios
+        - State-specific guides (TX, FL, AZ, GA, NV, CA)
+        - Comparisons (DSCR vs conventional, vs hard money)
+        - Tax benefits and portfolio strategies
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                  description: Search query (e.g., "620 credit score requirements", "Airbnb DSCR loans")
+                topK:
+                  type: integer
+                  description: Number of results to return (default 3)
+                  default: 3
+              required:
+                - query
+      responses:
+        '200':
+          description: Search results from knowledge base
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        content:
+                          type: string
+                        url:
+                          type: string
+                        relevance:
+                          type: number
+        '400':
+          description: Bad request
+        '500':
+          description: Server error
+
+  /api/contact:
+    post:
+      operationId: submitContactForm
+      summary: Submit investor inquiry
+      description: |
+        Submit investor contact information for loan pre-qualification.
+        Our team will respond within 2 hours during business hours.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                formType:
+                  type: string
+                  enum: [loan, consultation]
+                  description: Type of inquiry
+                data:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Investor's full name
+                    email:
+                      type: string
+                      format: email
+                      description: Email address
+                    phone:
+                      type: string
+                      description: Phone number
+                    loanType:
+                      type: string
+                      enum: [DSCR, "Fix & Flip", "Hard Money", "Balloon Refi"]
+                      description: Type of loan needed
+                    propertyType:
+                      type: string
+                      description: Property type (e.g., single-family, multi-family, Airbnb)
+                    loanAmount:
+                      type: string
+                      description: Estimated loan amount needed
+                    creditScore:
+                      type: string
+                      description: Approximate credit score range
+                    message:
+                      type: string
+                      description: Additional details or questions
+                  required:
+                    - name
+                    - email
+                    - phone
+              required:
+                - formType
+                - data
+      responses:
+        '200':
+          description: Contact form submitted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  success:
+                    type: boolean
+        '400':
+          description: Invalid form data
+        '500':
+          description: Server error
+
+components:
+  schemas:
+    KnowledgeResult:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Article title
+        content:
+          type: string
+          description: Relevant content excerpt
+        url:
+          type: string
+          description: Link to full article
+        relevance:
+          type: number
+          description: Relevance score (0-100)
+    
+    ContactSubmission:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        loanType:
+          type: string
+        message:
+          type: string

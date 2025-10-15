@@ -93,6 +93,15 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
+                  <button 
+                    onClick={() => window.dispatchEvent(new Event('openChatWidget'))}
+                    className="text-gray-300 hover:text-primary-400 transition-colors duration-200 flex items-center group text-base cursor-pointer w-full text-left"
+                  >
+                    <span className="w-2 h-2 bg-primary-500 rounded-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                    Chat with Cap AI 🤖
+                  </button>
+                </li>
+                <li>
                   <Link href="/services" className="text-gray-300 hover:text-primary-400 transition-colors duration-200 flex items-center group text-base">
                     <span className="w-2 h-2 bg-primary-500 rounded-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                     Services

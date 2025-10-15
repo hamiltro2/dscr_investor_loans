@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/get-started',
     '/investor-analysis',
     '/credit-solutions',
+    '/cap', // AI Chatbot landing page
     '/calculators',
     '/calculators/dscr',
     '/calculators/hard-money',
@@ -29,18 +30,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/privacy',
     '/terms',
     '/blog',
+    // All blog articles
+    '/blog/dscr-loan-620-credit-score',
+    '/blog/airbnb-dscr-loans-california',
+    '/blog/no-tax-return-investment-property-loans',
     '/blog/dscr-loan-calculator-california',
     '/blog/dscr-loan-rates-california-2025',
     '/blog/dscr-loan-requirements-california-2025',
+    '/blog/dscr-vs-hard-money-loans',
+    '/blog/fix-and-flip-dscr-loans-california',
+    '/blog/how-to-qualify-for-dscr-loan',
+    '/blog/dscr-loans-self-employed-california',
     '/blog/best-dscr-loan-lenders-california',
     '/blog/best-lenders-self-employed-california',
     '/blog/best-lenders-self-employed-reddit',
     '/blog/best-lenders-self-employed-bad-credit',
+    '/blog/investment-property-loans-self-employed',
+    '/blog/no-income-verification-loans',
     '/blog/dscr-loans-texas',
     '/blog/dscr-loans-florida',
     '/blog/dscr-loans-arizona',
     '/blog/dscr-loans-georgia',
     '/blog/dscr-loans-nevada',
+    '/blog/dscr-loans-multi-family',
+    '/blog/dscr-vs-conventional-loans',
+    '/blog/dscr-loan-refinancing',
+    '/blog/portfolio-dscr-loans',
+    '/blog/dscr-loans-foreign-investors',
+    '/blog/dscr-loan-predictions-2025',
+    '/blog/dscr-loan-tax-benefits',
+    '/blog/dscr-loans-market-downturn',
+    '/blog/case-study-first-time-investor-620-credit',
+    '/blog/case-study-10-property-portfolio',
   ]
   
   // Define AI guidance files with custom priorities
@@ -56,7 +77,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: (route === '' ? 'weekly' : 'monthly') as 'weekly' | 'monthly',
-    priority: route === '' ? 1 : route.includes('services') || route.includes('get-started') ? 0.9 : 0.7,
+    priority: route === '' ? 1 : 
+             route === '/cap' ? 0.95 : // High priority for unique AI chatbot
+             route.includes('services') || route.includes('get-started') ? 0.9 : 
+             0.7,
   }))
   
   // Generate sitemap entries for AI files
