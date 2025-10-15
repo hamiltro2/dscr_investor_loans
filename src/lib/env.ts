@@ -11,10 +11,10 @@ const envSchema = z.object({
   
   // AI APIs
   OPENAI_API_KEY: z.string().min(1),
-  PERPLEXITY_API_KEY: z.string().min(1),
+  PERPLEXITY_API_KEY: z.string().min(1).optional(),
   
-  // Security
-  WEBHOOK_SIGNING_SECRET: z.string().min(32),
+  // Security (optional until CRM webhook is implemented)
+  WEBHOOK_SIGNING_SECRET: z.string().min(32).optional(),
   
   // App Config (client-side safe)
   NEXT_PUBLIC_APP_NAME: z.string().default('Loan Flow'),
