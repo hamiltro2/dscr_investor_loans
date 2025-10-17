@@ -168,25 +168,31 @@ export async function scoreLead(lead: Lead): Promise<ScoreResult> {
 
   // ========== DSCR Calculation ==========
   let dscr = 0;
-  if (lead.productType === 'dscr' && lead.rentalIncome && lead.dscrInputs) {
-    const inputs = lead.dscrInputs as any;
+  if (lead.productType === 'dscr' && lead.rentalIncome && loanAmount > 0) {
+    // Get detailed inputs if available, otherwise use defaults
+    const inputs = (lead.dscrInputs as any) || {};
     const taxes = inputs.monthlyTaxes || 0;
     const insurance = inputs.monthlyInsurance || 0;
     const hoa = inputs.monthlyHOA || 0;
-    const rate = inputs.proposedRate || 0.10;
+    const rate = inputs.proposedRate || 0.0599; // Default to 5.99%
 
-    dscr = calculateDSCR(
-      Number(lead.rentalIncome),
-      taxes,
-      insurance,
-      hoa,
-      loanAmount,
-      rate
-    );
+    // Simple DSCR calculation: Rental Income / Monthly Payment
+    // Monthly payment for 30-year loan at given rate
+    const monthlyRate = rate / 12;
+    const numPayments = 360; // 30 years
+    const monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+    
+    // NOI (Net Operating Income) = Rental Income - Operating Expenses
+    const noi = Number(lead.rentalIncome) - taxes - insurance - hoa;
+    
+    // DSCR = NOI / Monthly Payment
+    if (monthlyPayment > 0) {
+      dscr = noi / monthlyPayment;
+    }
 
     const dscrAdj = getDSCRAdjustment(dscr);
     score += dscrAdj;
-    reasoning += `DSCR ${dscr.toFixed(2)} → ${dscrAdj >= 0 ? '+' : ''}${dscrAdj}\n`;
+    reasoning += `DSCR ${dscr.toFixed(2)} (Rent: $${lead.rentalIncome}, Payment: $${monthlyPayment.toFixed(0)}) → ${dscrAdj >= 0 ? '+' : ''}${dscrAdj}\n`;
 
     if (dscr < 1.0) {
       riskFlags.push('Negative cash flow (DSCR < 1.0)');
@@ -299,7 +305,16 @@ function generateOffer(
         notes: 'Interest-only payments. Rates depend on experience, property condition, and exit strategy. Not a commitment to lend.',
       };
 
-    case 'dscr':
+    case 'dscr': {
+      // Calculate monthly payment for DSCR loan
+      const rate = dscr >= 1.25 ? 0.0599 : 0.07; // Use lower rate for strong DSCR
+      const monthlyRate = rate / 12;
+      const numPayments = 360;
+      const monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+      
+      const monthlyRent = lead.rentalIncome ? Number(lead.rentalIncome) : undefined;
+      const monthlyCashFlow = monthlyRent ? monthlyRent - monthlyPayment : undefined;
+      
       return {
         productType: 'dscr',
         amountRange: [loanAmount * 0.95, loanAmount * 1.0],
@@ -308,8 +323,12 @@ function generateOffer(
         balloon: false,
         ltvApprox: ltv > 0 ? ltv * 100 : undefined,
         dscrApprox: dscr > 0 ? dscr : undefined,
+        monthlyPayment: monthlyPayment > 0 ? monthlyPayment : undefined,
+        monthlyRent,
+        monthlyCashFlow,
         notes: 'DSCR loans require property cash flow ≥ 1.10. Rates depend on DSCR, LTV, and credit. Not a commitment to lend.',
       };
+    }
 
     case 'balloon_refi':
       return {

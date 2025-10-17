@@ -114,6 +114,9 @@ export const PreliminaryOfferSchema = z.object({
   balloon: z.boolean().optional(),
   ltvApprox: z.number().min(0).max(100).optional(),
   dscrApprox: z.number().positive().optional(),
+  monthlyPayment: z.number().positive().optional(),
+  monthlyRent: z.number().positive().optional(),
+  monthlyCashFlow: z.number().optional(),
   notes: z.string().optional(),
 });
 

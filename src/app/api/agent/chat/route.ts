@@ -6,10 +6,12 @@
 
 import OpenAI from 'openai';
 import { env } from '@/lib/env';
-import { prisma } from '@/lib/db';
+import { NextRequest, NextResponse } from 'next/server';
+import { searchKnowledgeBase } from '@/lib/knowledge-base';
 import { perplexitySearch } from '@/lib/perplexity';
-import { searchKnowledgeBase, formatKnowledgeResults } from '@/lib/knowledge-base';
 import { scoreLead as scoreLeadFn } from '@/lib/scoring';
+import { prisma } from '@/lib/db';
+import { sendCapLeadNotification } from '@/lib/email';
 import {
   LeadInputSchema,
   PerplexityQuerySchema,
@@ -29,17 +31,8 @@ export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
 
-    // Create chat completion with tools enabled
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o', // Best for conversational AI: fastest, cheapest, native voice support
-      stream: false, // Disable streaming when using tools
-      messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        ...messages,
-      ],
-      temperature: 0.7,
-      max_tokens: 1000,
-      tools: [
+    // Define tools once for reuse
+    const tools = [
         {
           type: 'function',
           function: {
@@ -175,7 +168,19 @@ export async function POST(req: Request) {
             },
           },
         },
+      ];
+
+    // Create chat completion with tools enabled
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      stream: false,
+      messages: [
+        { role: 'system', content: SYSTEM_PROMPT },
+        ...messages,
       ],
+      temperature: 0.7,
+      max_tokens: 1000,
+      tools: tools as any,
       tool_choice: 'auto',
     });
 
@@ -195,7 +200,143 @@ export async function POST(req: Request) {
             case 'searchKnowledgeBase': {
               const { query, topK = 3 } = JSON.parse(toolCall.function.arguments);
               const results = await searchKnowledgeBase(query, topK);
-              result = formatKnowledgeResults(results);
+              // Format results for the AI
+              result = {
+                results: results.map(r => ({
+                  title: r.chunk.title,
+                  url: r.chunk.url,
+                  content: r.chunk.content,
+                  similarity: r.similarity,
+                })),
+                count: results.length,
+              };
+              break;
+            }
+
+            case 'saveLead': {
+              const { leadDraft } = JSON.parse(toolCall.function.arguments);
+              const validated = LeadInputSchema.parse(leadDraft);
+
+              // Check if lead exists by email/phone
+              const existing = await prisma.lead.findFirst({
+                where: {
+                  OR: [
+                    { email: validated.email },
+                    { phone: validated.phone },
+                  ],
+                },
+              });
+
+              let lead;
+              let isNewLead = false;
+              
+              if (existing) {
+                // Update existing
+                lead = await prisma.lead.update({
+                  where: { id: existing.id },
+                  data: {
+                    ...validated,
+                    consentAt: validated.consentGiven ? new Date() : undefined,
+                  },
+                });
+                isNewLead = false;
+              } else {
+                // Create new
+                lead = await prisma.lead.create({
+                  data: {
+                    ...validated,
+                    channel: 'web_chat',
+                    consentAt: validated.consentGiven ? new Date() : undefined,
+                  },
+                });
+                isNewLead = true;
+              }
+
+              // Log interaction
+              await prisma.interaction.create({
+                data: {
+                  leadId: lead.id,
+                  role: 'tool',
+                  content: { tool: 'saveLead', result: 'success' },
+                  toolName: 'saveLead',
+                  toolInput: validated,
+                  toolOutput: { leadId: lead.id, status: isNewLead ? 'created' : 'updated' },
+                },
+              });
+
+              result = SaveLeadResponseSchema.parse({
+                leadId: lead.id,
+                status: isNewLead ? 'created' : 'updated',
+              });
+              break;
+            }
+
+            case 'scoreLead': {
+              const { leadId } = JSON.parse(toolCall.function.arguments);
+
+              // Get lead
+              const lead = await prisma.lead.findUnique({
+                where: { id: leadId },
+              });
+
+              if (!lead) {
+                throw new Error('Lead not found');
+              }
+
+              // Score it
+              const scoreResult = await scoreLeadFn(lead);
+
+              // Update lead with score
+              await prisma.lead.update({
+                where: { id: leadId },
+                data: {
+                  score: scoreResult.score,
+                  status: scoreResult.disposition === 'qualified' ? 'qualified' :
+                         scoreResult.disposition === 'follow_up' ? 'follow_up' :
+                         'disqualified',
+                  offer: scoreResult.preliminaryOffer as any,
+                },
+              });
+
+              // Log interaction
+              await prisma.interaction.create({
+                data: {
+                  leadId,
+                  role: 'tool',
+                  content: { tool: 'scoreLead', result: scoreResult },
+                  toolName: 'scoreLead',
+                  toolInput: { leadId },
+                  toolOutput: scoreResult,
+                },
+              });
+
+              // Create event if qualified
+              if (scoreResult.disposition === 'qualified') {
+                await prisma.event.create({
+                  data: {
+                    leadId,
+                    type: 'alert_sales',
+                    payload: {
+                      message: `New qualified lead: ${lead.name}`,
+                      score: scoreResult.score,
+                      offer: scoreResult.preliminaryOffer,
+                    },
+                  },
+                });
+              }
+
+              // Send email notification for qualified AND follow_up leads
+              if (scoreResult.disposition === 'qualified' || scoreResult.disposition === 'follow_up') {
+                try {
+                  await sendCapLeadNotification(lead, scoreResult);
+                  console.log(`[Email] Sent notification for ${lead.name} (${scoreResult.disposition})`);
+                } catch (emailError) {
+                  console.error('[Email] Failed to send notification:', emailError);
+                  // Don't fail the request if email fails
+                }
+              }
+
+              result = scoreResult;
               break;
             }
             
@@ -215,6 +356,7 @@ export async function POST(req: Request) {
       }
       
       // Make another API call with tool results
+      // Include tools so GPT can call scoreLead after saveLead
       const followUpResponse = await openai.chat.completions.create({
         model: 'gpt-4o',
         messages: [
@@ -225,10 +367,114 @@ export async function POST(req: Request) {
         ],
         temperature: 0.7,
         max_tokens: 1000,
+        tools: tools as any, // Include tools for multi-step tool calling
+        tool_choice: 'auto',
       });
       
+      // If follow-up also has tool calls, handle them recursively
+      const followUpChoice = followUpResponse.choices[0];
+      if (followUpChoice.finish_reason === 'tool_calls' && followUpChoice.message.tool_calls) {
+        // Process second round of tool calls (e.g., scoreLead after saveLead)
+        const secondToolMessages = [];
+        
+        for (const toolCall of followUpChoice.message.tool_calls) {
+          console.log('[Agent] Tool call (round 2):', toolCall.function.name);
+          
+          let result: any;
+          
+          try {
+            // Same switch logic as before
+            if (toolCall.function.name === 'scoreLead') {
+              const { leadId } = JSON.parse(toolCall.function.arguments);
+              const lead = await prisma.lead.findUnique({ where: { id: leadId } });
+              if (!lead) throw new Error('Lead not found');
+              
+              const scoreResult = await scoreLeadFn(lead);
+              
+              await prisma.lead.update({
+                where: { id: leadId },
+                data: {
+                  score: scoreResult.score,
+                  status: scoreResult.disposition === 'qualified' ? 'qualified' :
+                         scoreResult.disposition === 'follow_up' ? 'follow_up' :
+                         'disqualified',
+                  offer: scoreResult.preliminaryOffer as any,
+                },
+              });
+              
+              await prisma.interaction.create({
+                data: {
+                  leadId,
+                  role: 'tool',
+                  content: { tool: 'scoreLead', result: scoreResult },
+                  toolName: 'scoreLead',
+                  toolInput: { leadId },
+                  toolOutput: scoreResult,
+                },
+              });
+              
+              if (scoreResult.disposition === 'qualified') {
+                await prisma.event.create({
+                  data: {
+                    leadId,
+                    type: 'alert_sales',
+                    payload: {
+                      message: `New qualified lead: ${lead.name}`,
+                      score: scoreResult.score,
+                      offer: scoreResult.preliminaryOffer,
+                    },
+                  },
+                });
+              }
+              
+              if (scoreResult.disposition === 'qualified' || scoreResult.disposition === 'follow_up') {
+                try {
+                  await sendCapLeadNotification(lead, scoreResult);
+                  console.log(`[Email] Sent notification for ${lead.name} (${scoreResult.disposition})`);
+                } catch (emailError) {
+                  console.error('[Email] Failed to send notification:', emailError);
+                }
+              }
+              
+              result = scoreResult;
+            } else {
+              result = { error: `Unknown tool: ${toolCall.function.name}` };
+            }
+          } catch (error) {
+            console.error('[Agent] Tool error (round 2):', error);
+            result = { error: error instanceof Error ? error.message : 'Tool execution failed' };
+          }
+          
+          secondToolMessages.push({
+            role: 'tool' as const,
+            content: typeof result === 'string' ? result : JSON.stringify(result),
+            tool_call_id: toolCall.id,
+          });
+        }
+        
+        // Final response with both tool results
+        const finalResponse = await openai.chat.completions.create({
+          model: 'gpt-4o',
+          messages: [
+            { role: 'system', content: SYSTEM_PROMPT },
+            ...messages,
+            choice.message,
+            ...toolMessages,
+            followUpChoice.message,
+            ...secondToolMessages,
+          ],
+          temperature: 0.7,
+          max_tokens: 1000,
+        });
+        
+        return new Response(
+          JSON.stringify({ message: finalResponse.choices[0].message.content }),
+          { headers: { 'Content-Type': 'application/json' } }
+        );
+      }
+      
       return new Response(
-        JSON.stringify({ message: followUpResponse.choices[0].message.content }),
+        JSON.stringify({ message: followUpChoice.message.content }),
         { headers: { 'Content-Type': 'application/json' } }
       );
     }
@@ -368,6 +614,17 @@ export async function POST(req: Request) {
                     },
                   },
                 });
+              }
+
+              // Send email notification for qualified AND follow_up leads
+              if (scoreResult.disposition === 'qualified' || scoreResult.disposition === 'follow_up') {
+                try {
+                  await sendCapLeadNotification(lead, scoreResult);
+                  console.log(`[Email] Sent notification for ${lead.name} (${scoreResult.disposition})`);
+                } catch (emailError) {
+                  console.error('[Email] Failed to send notification:', emailError);
+                  // Don't fail the request if email fails
+                }
               }
 
               result = scoreResult;

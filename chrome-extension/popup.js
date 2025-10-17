@@ -1,5 +1,16 @@
 // Tab switching functionality
 document.addEventListener('DOMContentLoaded', function() {
+  // Chat with Cap button
+  const capChatBtn = document.getElementById('cap-chat-btn');
+  if (capChatBtn) {
+    capChatBtn.addEventListener('click', () => {
+      // Open website with chat widget
+      chrome.tabs.create({ 
+        url: 'https://www.capitalbridgesolutions.com/?chat=open' 
+      });
+    });
+  }
+
   const tabButtons = document.querySelectorAll('.tab-button');
   const tabContents = document.querySelectorAll('.tab-content');
 

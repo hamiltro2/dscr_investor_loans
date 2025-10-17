@@ -6,8 +6,10 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Loader2, Phone, ExternalLink, Mic, MicOff, Volume2, Play, StopCircle, Zap, Clock } from 'lucide-react';
+import { MessageCircle, Send, Loader2, X, Mic, MicOff, Volume2, VolumeX, Play, StopCircle, ExternalLink, Sparkles, Zap, Clock, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface Message {
   role: 'user' | 'assistant' | 'system';
@@ -59,6 +61,23 @@ export function ChatWidget() {
 
     window.addEventListener('openChatWidget', handleOpenChat);
     return () => window.removeEventListener('openChatWidget', handleOpenChat);
+  }, []);
+
+  // Auto-open chat if URL parameter is present
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('chat') === 'open') {
+        // Open chat after a brief delay for smooth transition
+        setTimeout(() => {
+          setIsOpen(true);
+        }, 500);
+        
+        // Remove the parameter from URL without page reload
+        const newUrl = window.location.pathname + window.location.hash;
+        window.history.replaceState({}, '', newUrl);
+      }
+    }
   }, []);
 
   // Keyboard shortcuts
@@ -133,36 +152,18 @@ export function ChatWidget() {
         throw new Error('Failed to get response');
       }
 
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder();
-      let assistantMessage = '';
+      // Parse JSON response
+      const data = await response.json();
+      const assistantMessage = data.message || '';
 
-      if (reader) {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          const chunk = decoder.decode(value);
-          assistantMessage += chunk;
-
-          // Update last message
-          setMessages((prev) => {
-            const newMessages = [...prev];
-            const lastMessage = newMessages[newMessages.length - 1];
-
-            if (lastMessage?.role === 'assistant') {
-              lastMessage.content = assistantMessage;
-            } else {
-              newMessages.push({
-                role: 'assistant',
-                content: assistantMessage,
-              });
-            }
-
-            return newMessages;
-          });
-        }
-      }
+      // Add assistant message
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: 'assistant',
+          content: assistantMessage,
+        },
+      ]);
     } catch (error: any) {
       console.error('Chat error:', error);
       let errorMessage = "I'm sorry, I'm having trouble right now. ";
@@ -547,7 +548,31 @@ export function ChatWidget() {
                     }`}
                   >
                     <div className="flex items-start gap-2">
-                      <p className="text-sm whitespace-pre-wrap flex-1">{message.content}</p>
+                      {message.role === 'assistant' ? (
+                        <div className="text-sm flex-1">
+                          <ReactMarkdown
+                            remarkPlugins={[remarkGfm]}
+                            components={{
+                              h1: ({...props}) => <h1 className="text-xl font-bold text-white mb-3 mt-4" {...props} />,
+                              h2: ({...props}) => <h2 className="text-lg font-bold text-white mb-2 mt-3" {...props} />,
+                              h3: ({...props}) => <h3 className="text-base font-semibold text-white mb-2 mt-2" {...props} />,
+                              p: ({...props}) => <p className="text-sm text-white/90 mb-2 leading-relaxed" {...props} />,
+                              ul: ({...props}) => <ul className="list-disc ml-5 space-y-1 mb-3 text-white/90" {...props} />,
+                              ol: ({...props}) => <ol className="list-decimal ml-5 space-y-1 mb-3 text-white/90" {...props} />,
+                              li: ({...props}) => <li className="text-sm leading-relaxed text-white/90" {...props} />,
+                              strong: ({...props}) => <strong className="font-bold text-white" {...props} />,
+                              em: ({...props}) => <em className="italic text-white/90" {...props} />,
+                              code: ({...props}) => <code className="bg-gray-700 px-1.5 py-0.5 rounded text-xs text-primary-300 font-mono" {...props} />,
+                              blockquote: ({...props}) => <blockquote className="border-l-4 border-primary-500 pl-4 italic text-white/80 my-2" {...props} />,
+                              a: ({...props}) => <a className="text-primary-400 hover:text-primary-300 underline" target="_blank" rel="noopener noreferrer" {...props} />,
+                            }}
+                          >
+                            {message.content}
+                          </ReactMarkdown>
+                        </div>
+                      ) : (
+                        <p className="text-sm whitespace-pre-wrap flex-1">{message.content}</p>
+                      )}
                       {message.canPlay && message.audioUrl && (
                         <button
                           onClick={() => playMessageAudio(message, index)}
