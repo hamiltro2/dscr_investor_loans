@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import PartnerForm from '@/components/PartnerForm';
+import { Target, DollarSign, Star, Mail, Lock, Briefcase, Home, Hammer, Building2, Users } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Join Our Partner Network | Capital Bridge Solutions',
@@ -52,7 +53,9 @@ export default function PartnerNetworkPage() {
           
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white rounded-lg shadow-lg p-8">
-              <div className="text-4xl mb-4">🎯</div>
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4">
+                <Target className="w-8 h-8 text-white" />
+              </div>
               <h3 className="text-xl font-bold mb-4 text-gray-900">Targeted Exposure</h3>
               <p className="text-gray-600">
                 Get in front of active real estate investors while they're browsing properties on Zillow, Redfin, BiggerPockets, and 20+ other sites.
@@ -60,7 +63,9 @@ export default function PartnerNetworkPage() {
             </div>
 
             <div className="bg-white rounded-lg shadow-lg p-8">
-              <div className="text-4xl mb-4">💰</div>
+              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-4">
+                <DollarSign className="w-8 h-8 text-white" />
+              </div>
               <h3 className="text-xl font-bold mb-4 text-gray-900">Qualified Leads</h3>
               <p className="text-gray-600">
                 Receive pre-qualified leads from investors actively analyzing properties. They're ready to buy, renovate, or manage.
@@ -68,7 +73,9 @@ export default function PartnerNetworkPage() {
             </div>
 
             <div className="bg-white rounded-lg shadow-lg p-8">
-              <div className="text-4xl mb-4">⭐</div>
+              <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center mb-4">
+                <Star className="w-8 h-8 text-white" />
+              </div>
               <h3 className="text-xl font-bold mb-4 text-gray-900">Build Your Brand</h3>
               <p className="text-gray-600">
                 Showcase your expertise with verified badges, reviews, and specialties. Stand out as an investor-focused professional.
@@ -76,7 +83,9 @@ export default function PartnerNetworkPage() {
             </div>
 
             <div className="bg-white rounded-lg shadow-lg p-8">
-              <div className="text-4xl mb-4">📧</div>
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
+                <Mail className="w-8 h-8 text-white" />
+              </div>
               <h3 className="text-xl font-bold mb-4 text-gray-900">Direct Lead Notifications</h3>
               <p className="text-gray-600">
                 Receive instant email notifications when investors request your services. Fast response times mean more closed deals.
@@ -84,7 +93,9 @@ export default function PartnerNetworkPage() {
             </div>
 
             <div className="bg-white rounded-lg shadow-lg p-8">
-              <div className="text-4xl mb-4">🔒</div>
+              <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mb-4">
+                <Lock className="w-8 h-8 text-white" />
+              </div>
               <h3 className="text-xl font-bold mb-4 text-gray-900">Exclusive Territory</h3>
               <p className="text-gray-600">
                 Founding partners get priority placement and can lock in their service area. Limited spots available per market.
@@ -92,7 +103,9 @@ export default function PartnerNetworkPage() {
             </div>
 
             <div className="bg-white rounded-lg shadow-lg p-8">
-              <div className="text-4xl mb-4">💼</div>
+              <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center mb-4">
+                <Briefcase className="w-8 h-8 text-white" />
+              </div>
               <h3 className="text-xl font-bold mb-4 text-gray-900">Locked-In Pricing</h3>
               <p className="text-gray-600">
                 Founding partners get special pricing that never increases. Lock in your rate before we scale and prices go up.
@@ -111,7 +124,9 @@ export default function PartnerNetworkPage() {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-white rounded-lg p-6 text-center">
-              <div className="text-5xl mb-4">🏠</div>
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-4 mx-auto">
+                <Home className="w-10 h-10 text-white" />
+              </div>
               <h3 className="text-xl font-bold mb-3 text-gray-900">Deal Finders</h3>
               <ul className="text-left text-gray-600 space-y-2">
                 <li>• Investor-focused agents</li>
@@ -122,7 +137,9 @@ export default function PartnerNetworkPage() {
             </div>
 
             <div className="bg-white rounded-lg p-6 text-center">
-              <div className="text-5xl mb-4">🔨</div>
+              <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-4 mx-auto">
+                <Hammer className="w-10 h-10 text-white" />
+              </div>
               <h3 className="text-xl font-bold mb-3 text-gray-900">Contractors</h3>
               <ul className="text-left text-gray-600 space-y-2">
                 <li>• Fix & flip specialists</li>
@@ -133,7 +150,9 @@ export default function PartnerNetworkPage() {
             </div>
 
             <div className="bg-white rounded-lg p-6 text-center">
-              <div className="text-5xl mb-4">🏢</div>
+              <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mb-4 mx-auto">
+                <Building2 className="w-10 h-10 text-white" />
+              </div>
               <h3 className="text-xl font-bold mb-3 text-gray-900">Property Managers</h3>
               <ul className="text-left text-gray-600 space-y-2">
                 <li>• Investor-focused</li>
@@ -144,7 +163,9 @@ export default function PartnerNetworkPage() {
             </div>
 
             <div className="bg-white rounded-lg p-6 text-center">
-              <div className="text-5xl mb-4">💼</div>
+              <div className="w-20 h-20 bg-gradient-to-br from-violet-500 to-violet-600 rounded-2xl flex items-center justify-center mb-4 mx-auto">
+                <Users className="w-10 h-10 text-white" />
+              </div>
               <h3 className="text-xl font-bold mb-3 text-gray-900">Other Professionals</h3>
               <ul className="text-left text-gray-600 space-y-2">
                 <li>• CPAs (RE tax experts)</li>
