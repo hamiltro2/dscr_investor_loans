@@ -228,9 +228,9 @@ export function Footer() {
               © {currentYear} Capital Bridge Solutions. All rights reserved.
             </p>
             <div className="flex items-center gap-8 text-base text-gray-400">
-              <Link href="/privacy" className="hover:text-primary-400 transition-colors">Privacy Policy</Link>
+              <Link href="/privacy-policy" className="hover:text-primary-400 transition-colors">Privacy Policy</Link>
               <span className="text-gray-600">•</span>
-              <Link href="/terms" className="hover:text-primary-400 transition-colors">Terms of Service</Link>
+              <Link href="/terms-of-service" className="hover:text-primary-400 transition-colors">Terms of Service</Link>
             </div>
           </div>
         </div>

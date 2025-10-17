@@ -10,6 +10,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { searchKnowledgeBase } from '@/lib/knowledge-base';
 import { perplexitySearch } from '@/lib/perplexity';
 import { scoreLead as scoreLeadFn } from '@/lib/scoring';
+import { analyzeDeal, PropertyInputs } from '@/lib/dealAnalyzer';
 import { prisma } from '@/lib/db';
 import { sendCapLeadNotification } from '@/lib/email';
 import {
@@ -165,6 +166,67 @@ export async function POST(req: Request) {
                 payload: { type: 'object' },
               },
               required: ['leadId', 'payload'],
+            },
+          },
+        },
+        {
+          type: 'function',
+          function: {
+            name: 'analyzeDeal',
+            description: 'Analyze investment property deal with comprehensive financial calculations. Returns DSCR, cash flow, ROI, cap rate, and qualification status. Use when investor asks about specific property numbers or wants to analyze a deal.',
+            parameters: {
+              type: 'object',
+              properties: {
+                purchasePrice: {
+                  type: 'number',
+                  description: 'Property purchase price',
+                },
+                downPaymentPercent: {
+                  type: 'number',
+                  description: 'Down payment percentage (e.g., 25 for 25%)',
+                },
+                interestRate: {
+                  type: 'number',
+                  description: 'Annual interest rate (e.g., 6.99 for 6.99%)',
+                },
+                loanTermYears: {
+                  type: 'number',
+                  description: 'Loan term in years (default: 30)',
+                },
+                monthlyRent: {
+                  type: 'number',
+                  description: 'Expected monthly rental income',
+                },
+                propertyTaxRate: {
+                  type: 'number',
+                  description: 'Annual property tax rate as percentage (optional, default: 1.2)',
+                },
+                insurance: {
+                  type: 'number',
+                  description: 'Monthly insurance cost (optional, default: 150)',
+                },
+                propertyManagement: {
+                  type: 'number',
+                  description: 'Monthly property management fee (optional, default: 8% of rent)',
+                },
+                maintenance: {
+                  type: 'number',
+                  description: 'Monthly maintenance budget (optional, default: 10% of rent)',
+                },
+                vacancyRate: {
+                  type: 'number',
+                  description: 'Vacancy rate percentage (optional, default: 5)',
+                },
+                closingCostsPercent: {
+                  type: 'number',
+                  description: 'Closing costs as percentage (optional, default: 3)',
+                },
+                rehabCosts: {
+                  type: 'number',
+                  description: 'Renovation/rehab costs (optional, default: 0)',
+                },
+              },
+              required: ['purchasePrice', 'downPaymentPercent', 'interestRate', 'loanTermYears', 'monthlyRent'],
             },
           },
         },
@@ -337,6 +399,51 @@ export async function POST(req: Request) {
               }
 
               result = scoreResult;
+              break;
+            }
+
+            case 'analyzeDeal': {
+              const args = JSON.parse(toolCall.function.arguments);
+              
+              // Build property inputs with defaults
+              const inputs: PropertyInputs = {
+                purchasePrice: args.purchasePrice,
+                downPaymentPercent: args.downPaymentPercent,
+                closingCostsPercent: args.closingCostsPercent ?? 3,
+                rehabCosts: args.rehabCosts ?? 0,
+                interestRate: args.interestRate,
+                loanTermYears: args.loanTermYears,
+                monthlyRent: args.monthlyRent,
+                otherMonthlyIncome: args.otherMonthlyIncome ?? 0,
+                vacancyRate: args.vacancyRate ?? 5,
+                propertyTaxRate: args.propertyTaxRate ?? 1.2,
+                insurance: args.insurance ?? 150,
+                hoaFees: args.hoaFees ?? 0,
+                propertyManagement: args.propertyManagement ?? (args.monthlyRent * 0.08),
+                maintenance: args.maintenance ?? (args.monthlyRent * 0.10),
+                utilities: args.utilities ?? 0,
+                otherExpenses: args.otherExpenses ?? 0,
+              };
+              
+              // Perform analysis
+              const analysis = analyzeDeal(inputs);
+              
+              // Return formatted results
+              result = {
+                success: true,
+                summary: {
+                  totalCashNeeded: analysis.acquisition.totalCashNeeded,
+                  monthlyCashFlow: analysis.monthly.cashFlow,
+                  annualCashFlow: analysis.annual.cashFlow,
+                  dscr: analysis.metrics.dscr,
+                  cashOnCashReturn: analysis.metrics.cashOnCashReturn,
+                  capRate: analysis.metrics.capRate,
+                  qualifies: analysis.qualification.dcsrQualifies,
+                  recommendation: analysis.qualification.recommendation,
+                },
+                fullAnalysis: analysis,
+              };
+              
               break;
             }
             
