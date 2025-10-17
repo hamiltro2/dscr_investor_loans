@@ -179,8 +179,8 @@ export default function Article() {
             <li>❌ Shared utilities (you pay tenant usage)</li>
             <li>❌ Major structural issues (foundation, roof)</li>
             <li>❌ Units too similar in size (keep best for yourself)</li>
-            <li>❌ Bad neighborhood (safety > cash flow)</li>
-            <li>❌ Illegal units (can't rent, insurance issues)</li>
+            <li>❌ Bad neighborhood (safety &gt; cash flow)</li>
+            <li>❌ Illegal units (can&apos;t rent, insurance issues)</li>
           </ul>
 
           <h2>Maximizing House Hack Cash Flow</h2>
@@ -330,7 +330,7 @@ export default function Article() {
 
           <h3>How do I calculate if a house hack is worth it?</h3>
           <p>
-            Formula: (Total Rent - Mortgage) < Your Current Rent = Good Deal
+            Formula: (Total Rent - Mortgage) &lt; Your Current Rent = Good Deal
           </p>
 
           <h2>Your House Hack Action Plan</h2>
