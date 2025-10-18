@@ -297,7 +297,7 @@ export function CapTextChat() {
           </div>
         )}
 
-        <form onSubmit={sendMessage} className="flex gap-2">
+        <form onSubmit={sendMessage} className="flex gap-1.5">
           {/* Hidden file inputs */}
           <input
             ref={fileInputRef}
@@ -319,7 +319,7 @@ export function CapTextChat() {
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={isLoading}
-            className="bg-dark-700 hover:bg-dark-600 text-gray-300 px-3 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-dark-700 hover:bg-dark-600 text-gray-300 px-2.5 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
             title="Upload property photo"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -332,7 +332,7 @@ export function CapTextChat() {
             type="button"
             onClick={() => docInputRef.current?.click()}
             disabled={isLoading}
-            className="bg-dark-700 hover:bg-dark-600 text-gray-300 px-3 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-dark-700 hover:bg-dark-600 text-gray-300 px-2.5 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
             title="Upload document (PDF, Word, etc.)"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -340,22 +340,73 @@ export function CapTextChat() {
             </svg>
           </button>
 
-          <input
-            type="text"
+          <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              // Submit on Enter (without Shift), Shift+Enter for new line
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                const form = e.currentTarget.form;
+                if (form) {
+                  form.requestSubmit();
+                }
+              }
+            }}
+            onPaste={(e) => {
+              // Handle pasted images from clipboard (screenshots, etc.)
+              const items = e.clipboardData?.items;
+              if (!items) return;
+
+              for (let i = 0; i < items.length; i++) {
+                const item = items[i];
+                
+                // Check if pasted item is an image
+                if (item.type.startsWith('image/')) {
+                  e.preventDefault(); // Prevent default paste behavior for images
+                  
+                  const file = item.getAsFile();
+                  if (file) {
+                    // Validate file size (max 10MB)
+                    if (file.size > 10 * 1024 * 1024) {
+                      alert('Image too large (max 10MB)');
+                      return;
+                    }
+
+                    // Convert to base64 and set as uploaded image
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                      const base64 = reader.result as string;
+                      setUploadedImage(base64);
+                      setImagePreview(base64);
+                    };
+                    reader.readAsDataURL(file);
+                  }
+                  break; // Only handle first image
+                }
+              }
+            }}
             placeholder={
               imagePreview ? "Add a message about this property..." :
               uploadedDocument ? "Add a message about this document..." :
-              "Type your message or upload files..."
+              "Type, paste text, or paste screenshots..."
             }
-            className="flex-1 px-4 py-3 bg-[#1a1f2e] border border-gray-700 text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            rows={1}
+            className="flex-1 px-4 py-3 bg-[#1a1f2e] border border-gray-700 text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none overflow-hidden"
+            style={{ minHeight: '48px', maxHeight: '120px' }}
+            onInput={(e) => {
+              // Auto-resize textarea based on content
+              const target = e.target as HTMLTextAreaElement;
+              target.style.height = '48px';
+              target.style.height = Math.min(target.scrollHeight, 120) + 'px';
+            }}
             disabled={isLoading}
+            suppressHydrationWarning
           />
           <button
             type="submit"
             disabled={(!input.trim() && !uploadedImage && !uploadedDocument) || isLoading}
-            className="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 disabled:bg-dark-700 disabled:cursor-not-allowed transition-colors"
+            className="bg-primary-600 text-white px-4 py-3 rounded-lg font-medium hover:bg-primary-700 disabled:bg-dark-700 disabled:cursor-not-allowed transition-colors flex-shrink-0"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
               <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
