@@ -190,6 +190,7 @@ export default function CreditSolutionsForm() {
             value={formData.message}
             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
             placeholder="Tell us about your credit situation and goals..."
+            suppressHydrationWarning
           />
         </div>
 

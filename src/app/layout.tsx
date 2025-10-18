@@ -7,7 +7,7 @@ import { Footer } from '@/components/Footer'
 import { ExitIntentPopup } from '@/components/ExitIntentPopup'
 import { TrustBar } from '@/components/TrustBar'
 import { IntentTracking } from '@/components/IntentTracking'
-import { ChatWidget } from '@/components/AIChat/ChatWidget'
+import { CapChatWidget } from '@/components/CapChatWidget'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat' })
@@ -345,7 +345,7 @@ export default function RootLayout({
         <ExitIntentPopup />
         <TrustBar />
         <IntentTracking />
-        <ChatWidget />
+        <CapChatWidget />
       </body>
     </html>
   )
