@@ -10,6 +10,8 @@ type ChatMode = 'text' | 'voice';
 export function CapChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState<ChatMode>('text');
+  const [size, setSize] = useState({ width: 420, height: 650 });
+  const [isResizing, setIsResizing] = useState(false);
 
   // Listen for event from "Chat with Cap" button in header
   useEffect(() => {
@@ -23,6 +25,37 @@ export function CapChatWidget() {
       window.removeEventListener('openChatWidget', handleOpenChat);
     };
   }, []);
+
+  // Handle resize
+  const handleMouseDown = (e: React.MouseEvent, direction: 'width' | 'height' | 'both') => {
+    e.preventDefault();
+    setIsResizing(true);
+    
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const startWidth = size.width;
+    const startHeight = size.height;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (direction === 'width' || direction === 'both') {
+        const newWidth = Math.max(380, Math.min(800, startWidth - (e.clientX - startX)));
+        setSize(prev => ({ ...prev, width: newWidth }));
+      }
+      if (direction === 'height' || direction === 'both') {
+        const newHeight = Math.max(500, Math.min(900, startHeight + (e.clientY - startY)));
+        setSize(prev => ({ ...prev, height: newHeight }));
+      }
+    };
+
+    const handleMouseUp = () => {
+      setIsResizing(false);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
 
   return (
     <>
@@ -45,7 +78,30 @@ export function CapChatWidget() {
 
       {/* Chat Widget */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 w-[420px] h-[650px] bg-[#0a0e1a] rounded-2xl shadow-2xl flex flex-col overflow-hidden border-2 border-primary-500/20">
+        <div 
+          className="fixed bottom-6 right-6 z-50 bg-[#0a0e1a] rounded-2xl shadow-2xl flex flex-col overflow-hidden border-2 border-primary-500/20 transition-shadow"
+          style={{ 
+            width: `${size.width}px`, 
+            height: `${size.height}px`,
+            boxShadow: isResizing ? '0 25px 50px -12px rgba(0, 0, 0, 0.5)' : undefined
+          }}
+        >
+          {/* Resize handles */}
+          {/* Left edge resize */}
+          <div
+            className="absolute left-0 top-0 bottom-0 w-2 cursor-ew-resize hover:bg-primary-500/20 transition-colors z-10"
+            onMouseDown={(e) => handleMouseDown(e, 'width')}
+          />
+          {/* Bottom edge resize */}
+          <div
+            className="absolute left-0 right-0 bottom-0 h-2 cursor-ns-resize hover:bg-primary-500/20 transition-colors z-10"
+            onMouseDown={(e) => handleMouseDown(e, 'height')}
+          />
+          {/* Bottom-left corner resize */}
+          <div
+            className="absolute left-0 bottom-0 w-4 h-4 cursor-nesw-resize hover:bg-primary-500/40 transition-colors z-10"
+            onMouseDown={(e) => handleMouseDown(e, 'both')}
+          />
           {/* Header */}
           <div className="bg-gradient-to-r from-primary-600 to-primary-700 text-white p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">

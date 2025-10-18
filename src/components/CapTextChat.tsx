@@ -2,6 +2,8 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -12,7 +14,7 @@ export function CapTextChat() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hey! I'm Cap, your AI loan companion. 👋\n\nI help real estate investors find the perfect financing for their investment properties. I can:\n\n• Analyze property deals (DSCR, cash flow, ROI)\n• Check rates and qualification\n• Answer questions about DSCR loans\n• Upload property photos for analysis 📸\n• Analyze documents (PDFs, bank statements, tax returns, etc.) 📄\n• Save your info for pre-approval\n\nWhat property or loan question can I help with today?"
+      content: "Hey! I'm Cap, your AI loan companion. 👋\n\nI help real estate investors find the perfect financing for their investment properties. I can:\n\n• Analyze property deals (DSCR, cash flow, ROI)\n• Check rates and qualification\n• Answer questions about ALL investor loans (DSCR, Hard Money, Fix & Flip, Refinance, etc.)\n• Analyze ANY property URL (Zillow, Redfin, BiggerPockets, LoopNet, etc.!) 🔗\n• Upload property photos for analysis 📸\n• Analyze documents (PDFs, bank statements, tax returns, etc.) 📄\n• Save your info for pre-approval\n\nWhat property or loan question can I help with today?"
     }
   ]);
   const [input, setInput] = useState('');
@@ -130,11 +132,36 @@ export function CapTextChat() {
     } else if (docData) {
       displayMessage = `📄 ${userMessage}\n[${docData.name} uploaded]`;
     }
+    
+    // Check if message contains a URL
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const urls = userMessage.match(urlRegex);
+    
+    // Detect if URL is likely a property listing (broad detection)
+    const propertyKeywords = [
+      'redfin', 'zillow', 'realtor', 'trulia', 'homes.com',
+      'apartments.com', 'rent.com', 'loopnet', 'crexi',
+      'realtor.ca', 'rightmove', 'zoopla', 'domain.com.au',
+      'biggerpockets', 'bigger-pockets',
+      'property', 'home', 'house', 'listing', 'real-estate',
+      'realestate', 'forsale', 'for-sale', 'mls'
+    ];
+    
+    const isPropertyUrl = urls?.some(url => {
+      const lowerUrl = url.toLowerCase();
+      return propertyKeywords.some(keyword => lowerUrl.includes(keyword));
+    });
+    
+    if (isPropertyUrl && urls) {
+      displayMessage = `🔗 ${userMessage}\n[Fetching property listing...]`;
+    }
+    
     setMessages(prev => [...prev, { role: 'user', content: displayMessage }]);
 
     try {
-      // Build message content (text + image/document if present)
+      // Build message content (text + image/document/URL if present)
       let messageContent;
+      
       if (imageData) {
         messageContent = [
           { type: 'text', text: userMessage },
@@ -147,6 +174,55 @@ export function CapTextChat() {
           { type: 'text', text: docInstruction },
           { type: 'image_url', image_url: { url: docData.data } }
         ];
+      } else if (isPropertyUrl && urls) {
+        // Fetch URL content from any real estate website
+        try {
+          const urlResponse = await fetch('/api/fetch-url', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: urls[0] })
+          });
+          
+          if (urlResponse.ok) {
+            const urlData = await urlResponse.json();
+            
+            // Build comprehensive analysis prompt with all available data
+            let urlInstruction = `Analyze this property listing from any real estate website and extract ALL available information:\n\nURL: ${urls[0]}\n\n`;
+            
+            if (urlData.metadata?.title) {
+              urlInstruction += `Title: ${urlData.metadata.title}\n\n`;
+            }
+            
+            if (urlData.metadata?.description) {
+              urlInstruction += `Description: ${urlData.metadata.description}\n\n`;
+            }
+            
+            if (urlData.metadata?.structuredData) {
+              urlInstruction += `Structured Data: ${JSON.stringify(urlData.metadata.structuredData, null, 2)}\n\n`;
+            }
+            
+            if (urlData.metadata?.priceText) {
+              urlInstruction += `Price Found: ${urlData.metadata.priceText}\n\n`;
+            }
+            
+            urlInstruction += `Please extract and analyze:\n`;
+            urlInstruction += `• Property address and location\n`;
+            urlInstruction += `• List price\n`;
+            urlInstruction += `• Bedrooms, bathrooms, square footage\n`;
+            urlInstruction += `• Property type (SFH, condo, multi-family, etc.)\n`;
+            urlInstruction += `• Year built, lot size, features\n`;
+            urlInstruction += `• Estimated rental income (if not provided, estimate based on market)\n`;
+            urlInstruction += `• Calculate DSCR (debt service coverage ratio)\n`;
+            urlInstruction += `• Provide investment analysis and qualification assessment\n`;
+            urlInstruction += `\nIf any information is missing, make reasonable estimates based on the location and property type.`;
+            
+            messageContent = urlInstruction;
+          } else {
+            messageContent = `I found a property URL but couldn't fetch it (the website may block automated requests). Please try:\n\n1. Taking a screenshot of the listing (Win+Shift+S or Cmd+Shift+4), then paste it here (Ctrl+V)\n2. Or copy/paste the property details as text\n\nURL: ${urls[0]}`;
+          }
+        } catch (err) {
+          messageContent = `I found a property URL but couldn't fetch it. Please try:\n\n1. Taking a screenshot of the listing\n2. Or copy/paste the property details\n\nURL: ${urls[0]}`;
+        }
       } else {
         messageContent = userMessage;
       }
@@ -209,38 +285,70 @@ export function CapTextChat() {
             className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`max-w-[85%] rounded-2xl px-4 py-3 ${
+              className={`max-w-[95%] rounded-2xl px-5 py-4 ${
                 message.role === 'user'
                   ? 'bg-primary-600 text-white rounded-br-sm'
                   : 'bg-dark-800 text-gray-100 border border-dark-700 rounded-bl-sm'
               }`}
             >
               {message.role === 'assistant' && (
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex items-center gap-2 mb-3">
                   <div className="w-6 h-6 bg-primary-600/20 rounded-full flex items-center justify-center text-xs">
                     🧢
                   </div>
                   <span className="font-semibold text-sm text-primary-400">Cap</span>
                 </div>
               )}
-              <div className="whitespace-pre-wrap text-sm leading-relaxed">
-                {message.content}
-              </div>
+              {message.role === 'assistant' ? (
+                <div className="prose prose-invert prose-sm max-w-none
+                  prose-headings:font-bold prose-headings:text-white prose-headings:mb-2 prose-headings:mt-4
+                  prose-h2:text-lg prose-h3:text-base
+                  prose-p:text-gray-200 prose-p:leading-relaxed prose-p:mb-3
+                  prose-strong:text-white prose-strong:font-semibold
+                  prose-ul:list-disc prose-ul:ml-4 prose-ul:mb-3
+                  prose-li:text-gray-200 prose-li:mb-1
+                  prose-a:text-primary-400 prose-a:underline
+                  prose-code:text-primary-300 prose-code:bg-dark-700 prose-code:px-1 prose-code:rounded">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {message.content}
+                  </ReactMarkdown>
+                </div>
+              ) : (
+                <div className="whitespace-pre-wrap text-sm leading-relaxed">
+                  {message.content}
+                </div>
+              )}
             </div>
           </div>
         ))}
 
         {isLoading && (
           <div className="flex justify-start">
-            <div className="bg-dark-800 border border-dark-700 rounded-2xl rounded-bl-sm px-4 py-3">
-              <div className="flex items-center gap-2">
+            <div className="bg-dark-800 border border-dark-700 rounded-2xl rounded-bl-sm px-5 py-4 max-w-[95%]">
+              <div className="flex items-center gap-3 mb-3">
                 <div className="w-6 h-6 bg-primary-600/20 rounded-full flex items-center justify-center text-xs">
                   🧢
                 </div>
-                <div className="flex gap-1">
-                  <div className="w-2 h-2 bg-primary-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                  <div className="w-2 h-2 bg-primary-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                  <div className="w-2 h-2 bg-primary-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                <span className="font-semibold text-sm text-primary-400">Cap</span>
+              </div>
+              <div className="flex items-center gap-3">
+                {/* Animated spinner */}
+                <div className="relative w-8 h-8">
+                  <div className="absolute inset-0 border-3 border-primary-500/20 rounded-full"></div>
+                  <div className="absolute inset-0 border-3 border-transparent border-t-primary-500 rounded-full animate-spin"></div>
+                  <div className="absolute inset-1 border-2 border-transparent border-r-primary-400 rounded-full animate-spin" style={{ animationDuration: '0.8s', animationDirection: 'reverse' }}></div>
+                </div>
+                {/* Animated text */}
+                <div className="flex flex-col gap-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-gray-300 font-medium">Analyzing property</span>
+                    <div className="flex gap-1">
+                      <div className="w-1 h-1 bg-primary-400 rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></div>
+                      <div className="w-1 h-1 bg-primary-400 rounded-full animate-pulse" style={{ animationDelay: '200ms' }}></div>
+                      <div className="w-1 h-1 bg-primary-400 rounded-full animate-pulse" style={{ animationDelay: '400ms' }}></div>
+                    </div>
+                  </div>
+                  <span className="text-xs text-gray-500">Calculating DSCR, ROI, cash flow...</span>
                 </div>
               </div>
             </div>
@@ -389,16 +497,16 @@ export function CapTextChat() {
             placeholder={
               imagePreview ? "Add a message about this property..." :
               uploadedDocument ? "Add a message about this document..." :
-              "Type, paste text, or paste screenshots..."
+              "Type, paste URLs/screenshots/text..."
             }
-            rows={1}
-            className="flex-1 px-4 py-3 bg-[#1a1f2e] border border-gray-700 text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none overflow-hidden"
-            style={{ minHeight: '48px', maxHeight: '120px' }}
+            rows={2}
+            className="flex-1 px-4 py-3 bg-[#1a1f2e] border border-gray-700 text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none overflow-y-auto"
+            style={{ minHeight: '56px', maxHeight: '200px' }}
             onInput={(e) => {
               // Auto-resize textarea based on content
               const target = e.target as HTMLTextAreaElement;
-              target.style.height = '48px';
-              target.style.height = Math.min(target.scrollHeight, 120) + 'px';
+              target.style.height = '56px';
+              target.style.height = Math.min(target.scrollHeight, 200) + 'px';
             }}
             disabled={isLoading}
             suppressHydrationWarning
@@ -416,6 +524,12 @@ export function CapTextChat() {
 
         {/* Quick Actions */}
         <div className="mt-3 flex flex-wrap gap-2">
+          <button
+            onClick={() => setInput("Paste any property listing URL here")}
+            className="text-xs px-3 py-1.5 bg-dark-700 hover:bg-dark-600 border border-dark-600 rounded-full text-gray-300 transition-colors"
+          >
+            🔗 Paste any property URL
+          </button>
           <button
             onClick={() => fileInputRef.current?.click()}
             className="text-xs px-3 py-1.5 bg-dark-700 hover:bg-dark-600 border border-dark-600 rounded-full text-gray-300 transition-colors"
