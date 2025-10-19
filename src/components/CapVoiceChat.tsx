@@ -133,10 +133,14 @@ export function CapVoiceChat() {
 
             case 'input_audio_buffer.committed':
               // Manually create response (let it use session defaults)
-              if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+              // Only create if no active response
+              if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN && !activeResponseRef.current) {
+                console.log('📤 Creating response...');
                 wsRef.current.send(JSON.stringify({
                   type: 'response.create'
                 }));
+              } else if (activeResponseRef.current) {
+                console.log('⚠️ Skipping response.create - response already active');
               }
               break;
 
@@ -148,6 +152,7 @@ export function CapVoiceChat() {
             case 'response.created':
               // Mark response as active
               activeResponseRef.current = true;
+              console.log('✅ Response created - Cap is thinking...');
               
               // Stop all existing audio sources and reset scheduling for new response
               stopAllAudio();
@@ -160,6 +165,7 @@ export function CapVoiceChat() {
             case 'response.done':
               // Mark response as inactive
               activeResponseRef.current = false;
+              console.log('✅ Response done - Cap finished speaking');
               
               // Check if response failed
               if (message.response?.status === 'failed') {
