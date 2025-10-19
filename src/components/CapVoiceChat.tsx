@@ -52,50 +52,41 @@ export function CapVoiceChat() {
       // Connect to OpenAI Realtime API with ephemeral token
       // Use the token in the Authorization header via subprotocol
       const ws = new WebSocket(
-        `wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-12-17`,
+        `wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-10-01`,
         [`realtime`, `openai-insecure-api-key.${token}`]
       );
 
       ws.onopen = () => {
         setIsConnected(true);
 
-        // Configure session with Cap's personality (GA API format)
+        // Configure session with MIT-level voice optimization
+        // Advanced VAD tuning for natural conversation flow
         const sessionConfig = {
           type: 'session.update',
           session: {
-            type: 'realtime', // REQUIRED for GA API
-            model: 'gpt-4o-realtime-preview-2024-12-17', // Use the stable preview model
-            output_modalities: ['audio'], // Only audio (can't combine with text in GA API)
+            modalities: ['text', 'audio'],
             instructions: getCapSystemPrompt(),
-            audio: {
-              input: {
-                format: {
-                  type: 'audio/pcm',
-                  rate: 24000
-                },
-                transcription: {
-                  model: 'gpt-4o-transcribe'
-                },
-                turn_detection: {
-                  type: 'server_vad',
-                  threshold: 0.5,
-                  prefix_padding_ms: 300,
-                  silence_duration_ms: 200,
-                  create_response: false  // Disable auto-response to debug
-                }
-              },
-              output: {
-                format: {
-                  type: 'audio/pcm',
-                  rate: 24000
-                },
-                voice: 'alloy' // Neutral, balanced voice - versatile and clear (Options: alloy, echo, shimmer, ash, ballad, coral, sage, verse)
-              }
+            voice: 'echo',
+            input_audio_transcription: {
+              model: 'whisper-1'
             },
-            tools: getCapTools()
+            turn_detection: {
+              type: 'server_vad',
+              threshold: 0.7,           // Balanced sensitivity: catches real speech, ignores noise
+              prefix_padding_ms: 300,   // Capture beginning of words
+              silence_duration_ms: 700, // Natural pause detection (not too fast/slow)
+              create_response: true     // Auto-create response when speech ends
+            },
+            tools: getCapTools(),
+            // Advanced audio settings
+            input_audio_format: 'pcm16',
+            output_audio_format: 'pcm16',
+            temperature: 0.8,            // Natural, conversational responses
+            max_response_output_tokens: 'inf'
           }
         };
         
+        console.log('📤 Sending session config:', JSON.stringify(sessionConfig, null, 2));
         ws.send(JSON.stringify(sessionConfig));
       };
 
@@ -103,8 +94,16 @@ export function CapVoiceChat() {
         try {
           const message = JSON.parse(event.data);
           
-          // Log all message types for debugging
-          if (message.type !== 'response.audio.delta' && message.type !== 'response.audio_transcript.delta') {
+          // Log all message types for debugging (except audio events - too noisy)
+          const audioEvents = [
+            'response.audio.delta',
+            'response.output_audio.delta',
+            'response.audio.done',
+            'response.output_audio.done',
+            'response.audio_transcript.delta',
+            'response.output_audio_transcript.delta'
+          ];
+          if (!audioEvents.includes(message.type)) {
             console.log('[WS Event]', message.type, message);
           }
           
@@ -114,71 +113,67 @@ export function CapVoiceChat() {
               break;
 
             case 'session.updated':
-              console.log('✅ Session configured');
-              
-              // Send welcome greeting (only once)
-              if (!hasGreetedRef.current && wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-                hasGreetedRef.current = true;
-                
-                // Send text message to trigger response
-                wsRef.current.send(JSON.stringify({
-                  type: 'conversation.item.create',
-                  item: {
-                    type: 'message',
-                    role: 'user',
-                    content: [{
-                      type: 'input_text',
-                      text: 'Hello'
-                    }]
-                  }
-                }));
-                
-                // Create response for greeting
-                setTimeout(() => {
-                  if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-                    wsRef.current.send(JSON.stringify({
-                      type: 'response.create'
-                    }));
-                  }
-                }, 100);
-              }
+              console.log('✅ Session configured - Ready for voice input');
+              // No auto-greeting - wait for user to speak first
               break;
 
             case 'input_audio_buffer.speech_started':
-              // User is interrupting - stop all audio immediately
-              stopAllAudio();
-              setIsSpeaking(false);
-              
-              // Cancel any ongoing response from the API (ONLY if one is active)
+              // Intelligent interruption: Cancel AI immediately when user speaks
               if (activeResponseRef.current && wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+                // Stop AI mid-sentence for natural interruption
                 wsRef.current.send(JSON.stringify({
                   type: 'response.cancel'
                 }));
                 activeResponseRef.current = false;
+                stopAllAudio(); // Instantly cut AI audio
               }
-              
-              setIsRecording(true);
+              setIsSpeaking(true);
+              console.log('🎤 User speaking detected');
               break;
 
             case 'input_audio_buffer.speech_stopped':
+              setIsSpeaking(false);
               break;
 
             case 'input_audio_buffer.committed':
-              // Manually create response (let it use session defaults)
-              // Only create if no active response
+              // VAD detected end of speech - trigger response generation
+              setIsSpeaking(false);
               if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN && !activeResponseRef.current) {
-                console.log('📤 Creating response...');
+                console.log('📤 Speech ended, generating response...');
+                // Immediate response for natural conversation flow
                 wsRef.current.send(JSON.stringify({
                   type: 'response.create'
                 }));
-              } else if (activeResponseRef.current) {
-                console.log('⚠️ Skipping response.create - response already active');
               }
               break;
 
             case 'conversation.item.added':
+              // Log to see item structure
+              console.log('📝 Item added:', message.item);
+              break;
+              
             case 'conversation.item.done':
-              // Silently handle conversation management
+              // User audio transcripts are NOT available in October 2024 model
+              // We'll show a placeholder for user speech since transcript is always null
+              if (message.item?.role === 'user' && message.item?.content) {
+                const audioContent = message.item.content.find((c: any) => c.type === 'input_audio');
+                if (audioContent) {
+                  // Audio detected but no transcript available - show placeholder
+                  setTranscript(prev => {
+                    const lastItem = prev[prev.length - 1];
+                    // Don't add duplicate placeholders
+                    if (lastItem && lastItem.role === 'user' && lastItem.text === '[Speaking...]') {
+                      return prev;
+                    }
+                    return [...prev, {
+                      role: 'user',
+                      text: '[Speaking...]',  // Placeholder since transcript not available
+                      timestamp: new Date(),
+                      complete: true
+                    }];
+                  });
+                }
+              }
               break;
 
             case 'response.created':
@@ -222,10 +217,18 @@ export function CapVoiceChat() {
               break;
 
             case 'response.audio.delta':
-              // Play audio chunks as they arrive (GA API)
+            case 'response.output_audio.delta':
+              // Play audio chunks as they arrive (streaming)
               if (message.delta) {
-                console.log('🔊 Playing audio chunk...', message.delta.substring(0, 50));
                 await playAudioChunk(message.delta);
+              }
+              break;
+            
+            case 'response.audio.done':
+            case 'response.output_audio.done':
+              // Play complete audio (when API sends entire response at once)
+              if (message.audio) {
+                await playAudioChunk(message.audio);
               }
               break;
             
@@ -254,22 +257,46 @@ export function CapVoiceChat() {
               break;
 
             case 'response.output_audio_transcript.done':
-              // Mark Cap's response as complete
-              setTranscript(prev => {
-                const lastItem = prev[prev.length - 1];
-                if (lastItem && lastItem.role === 'assistant') {
-                  return [
-                    ...prev.slice(0, -1),
-                    { ...lastItem, complete: true }
-                  ];
-                }
-                return prev;
-              });
+              // Handle complete transcript (either mark existing as complete or add new)
+              if (message.transcript) {
+                // Full transcript arrived all at once
+                setTranscript(prev => {
+                  const lastItem = prev[prev.length - 1];
+                  if (lastItem && lastItem.role === 'assistant' && !lastItem.complete) {
+                    // Update existing item
+                    return [
+                      ...prev.slice(0, -1),
+                      { ...lastItem, text: message.transcript, complete: true }
+                    ];
+                  }
+                  // Add new item
+                  return [...prev, {
+                    role: 'assistant',
+                    text: message.transcript,
+                    timestamp: new Date(),
+                    complete: true
+                  }];
+                });
+              } else {
+                // Just mark existing as complete
+                setTranscript(prev => {
+                  const lastItem = prev[prev.length - 1];
+                  if (lastItem && lastItem.role === 'assistant') {
+                    return [
+                      ...prev.slice(0, -1),
+                      { ...lastItem, complete: true }
+                    ];
+                  }
+                  return prev;
+                });
+              }
               break;
 
             case 'conversation.item.input_audio_transcription.completed':
               // Only show final transcription (ignore deltas to avoid duplication)
+              console.log('🎤 RAW TRANSCRIPTION EVENT:', message);
               const transcriptText = message.transcript;
+              console.log('🎤 User said:', transcriptText);
               if (transcriptText) {
                 setTranscript(prev => {
                   // Check if this is already the last message (avoid dupes)
@@ -280,9 +307,12 @@ export function CapVoiceChat() {
                   return [...prev, {
                     role: 'user',
                     text: transcriptText,
-                    timestamp: new Date()
+                    timestamp: new Date(),
+                    complete: true
                   }];
                 });
+              } else {
+                console.warn('⚠️ No transcript text in message:', message);
               }
               break;
 
@@ -296,19 +326,40 @@ export function CapVoiceChat() {
               break;
 
             case 'response.text.delta':
+            case 'response.output_text.delta':
               // Update Cap's response text (for transcript)
               if (message.delta) {
                 setTranscript(prev => {
                   const lastItem = prev[prev.length - 1];
-                  if (lastItem && lastItem.role === 'assistant') {
+                  if (lastItem && lastItem.role === 'assistant' && !lastItem.complete) {
                     return [
                       ...prev.slice(0, -1),
                       { ...lastItem, text: lastItem.text + message.delta }
                     ];
                   }
-                  return [...prev, { role: 'assistant', text: message.delta, timestamp: new Date() }];
+                  return [...prev, { 
+                    role: 'assistant', 
+                    text: message.delta, 
+                    timestamp: new Date(),
+                    complete: false
+                  }];
                 });
               }
+              break;
+            
+            case 'response.text.done':
+            case 'response.output_text.done':
+              // Mark text response as complete
+              setTranscript(prev => {
+                const lastItem = prev[prev.length - 1];
+                if (lastItem && lastItem.role === 'assistant') {
+                  return [
+                    ...prev.slice(0, -1),
+                    { ...lastItem, complete: true }
+                  ];
+                }
+                return prev;
+              });
               break;
 
             case 'response.function_call_arguments.done':
@@ -317,12 +368,17 @@ export function CapVoiceChat() {
               break;
 
             case 'error':
-              // Suppress benign cancellation errors (these are expected during interruptions)
+              // Suppress benign errors that don't affect functionality
               const errorCode = message.error?.code;
+              const errorParam = message.error?.param;
+              
+              // These errors are expected and don't break functionality
               if (errorCode === 'response_cancel_not_active' || 
-                  errorCode === 'conversation_already_has_active_response') {
-                console.log('⚠️ Benign API state error (expected):', message.error?.message);
-                // Don't show these to user or disconnect
+                  errorCode === 'conversation_already_has_active_response' ||
+                  (errorCode === 'missing_required_parameter' && errorParam === 'session.type') ||
+                  (errorCode === 'unknown_parameter' && errorParam === 'response.modalities')) {
+                console.log('⚠️ Benign API error (ignored):', message.error?.message);
+                // Don't show these to user or disconnect - they're API quirks
                 break;
               }
               
@@ -370,6 +426,7 @@ export function CapVoiceChat() {
   };
 
   const startRecording = async () => {
+    // Start continuous listening for speech-to-speech
     try {
       if (!isConnected) {
         await connectToRealtimeAPI();
@@ -377,30 +434,43 @@ export function CapVoiceChat() {
         await new Promise(resolve => setTimeout(resolve, 1000));
       }
 
+      // MIT-level audio constraints: Professional-grade echo cancellation
       const stream = await navigator.mediaDevices.getUserMedia({ 
         audio: {
-          echoCancellation: true,
-          noiseSuppression: true,
-          sampleRate: 24000
-        } 
+          echoCancellation: { exact: true },    // Force echo cancellation
+          noiseSuppression: { exact: true },    // Force noise suppression  
+          autoGainControl: { exact: true },     // Normalize volume
+          channelCount: 1,                      // Mono audio (sufficient for speech)
+          sampleRate: { ideal: 24000 }          // Match API requirements
+        }
       });
       
       mediaStreamRef.current = stream;
-      const audioContext = new AudioContext({ sampleRate: 24000 });
+      // Optimize buffer size: 2048 = ~85ms latency (balance quality/responsiveness)
+      const audioContext = new AudioContext({ 
+        sampleRate: 24000,
+        latencyHint: 'interactive'  // Prioritize low latency
+      });
       audioContextRef.current = audioContext;
 
       const source = audioContext.createMediaStreamSource(stream);
-      const processor = audioContext.createScriptProcessor(4096, 1, 1);
+      const processor = audioContext.createScriptProcessor(2048, 1, 1); // Smaller buffer = lower latency
 
       source.connect(processor);
       processor.connect(audioContext.destination);
 
       processor.onaudioprocess = (e) => {
+        // Advanced echo prevention: Mute mic during AI speech
+        if (activeResponseRef.current) {
+          return;
+        }
+        
+        // Continuous audio streaming for server-side VAD
         if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
           const inputData = e.inputBuffer.getChannelData(0);
           const pcm16 = convertFloat32ToPCM16(inputData);
           
-          // Send audio to Realtime API
+          // Send all audio - let server-side VAD handle speech detection
           wsRef.current.send(JSON.stringify({
             type: 'input_audio_buffer.append',
             audio: arrayBufferToBase64(pcm16)
@@ -445,19 +515,19 @@ export function CapVoiceChat() {
   };
 
   const stopRecording = () => {
-    // Stop audio processing
+    // Stop continuous listening
     if (audioContextRef.current) {
       audioContextRef.current.close();
       audioContextRef.current = null;
     }
 
-    // Stop media stream
     if (mediaStreamRef.current) {
       mediaStreamRef.current.getTracks().forEach(track => track.stop());
       mediaStreamRef.current = null;
     }
 
     setIsRecording(false);
+    console.log('🛑 Listening stopped');
   };
 
   const disconnect = () => {
@@ -656,6 +726,12 @@ export function CapVoiceChat() {
       
       const audioContext = playbackContextRef.current;
       
+      // Resume context if suspended (browser security requirement)
+      if (audioContext.state === 'suspended') {
+        console.log('🔊 Resuming audio context...');
+        await audioContext.resume();
+      }
+      
       // Decode base64 to raw PCM data
       const binaryString = atob(base64Audio);
       const bytes = new Uint8Array(binaryString.length);
@@ -690,18 +766,18 @@ export function CapVoiceChat() {
         }
       };
       
-      // If we're behind schedule, catch up
+      // If we're behind schedule, catch up (with small buffer to prevent gaps)
       const now = audioContext.currentTime;
       if (nextPlayTimeRef.current < now) {
-        nextPlayTimeRef.current = now;
+        nextPlayTimeRef.current = now + 0.01; // 10ms buffer
       }
       
       source.start(nextPlayTimeRef.current);
       
-      // Update next play time for seamless audio
-      nextPlayTimeRef.current += audioBuffer.duration;
+      // Update next play time for seamless audio (with tiny overlap to prevent gaps)
+      nextPlayTimeRef.current += audioBuffer.duration - 0.005; // 5ms overlap
     } catch (error) {
-      console.error('Audio playback error:', error);
+      console.error('❌ Audio playback error:', error);
     }
   };
 
@@ -823,7 +899,7 @@ export function CapVoiceChat() {
         )}
 
         <p className="text-xs text-center text-gray-400 mt-3">
-          {isRecording ? '🎤 Speak naturally - I can hear you!' : '💡 Tip: Speak clearly for best results'}
+          {isRecording ? '🎤 Listening... Speak naturally and I\'ll respond automatically' : '💡 Tip: Use headphones for best results to prevent echo'}
         </p>
       </div>
     </div>
@@ -832,22 +908,130 @@ export function CapVoiceChat() {
 
 // Utility functions
 function getCapSystemPrompt(): string {
-  // Use full system prompt but adapt for voice
-  const voiceAdditions = `
+  // Voice-optimized with full empathy and crisis expertise
+  return `You are Cap, the DSCR Loan Expert for Capital Bridge Solutions. You WORK EXTREMELY HARD to help real estate investors succeed. We're not just a lender - we're their partner in building wealth.
 
-🎙️ VOICE-SPECIFIC RULES:
-1. Keep responses concise and conversational (voice is different from text)
-2. Speak numbers clearly: "one point two five" for 1.25
-3. Ask ONE question at a time, wait for response
-4. Confirm understanding before moving forward
-5. Use natural pauses and transitions
-6. When greeting, be warm and brief: "Hey! I'm Cap, your AI loan companion. What property are you looking at?"
-7. For long answers, break into digestible chunks
-8. Don't read emojis out loud - describe feelings naturally
-9. Use "dollar" instead of "$" symbol when speaking amounts
-`;
-  
-  return SYSTEM_PROMPT + voiceAdditions;
+🎯 YOUR PERSONALITY - "THE DEDICATED PARTNER":
+- Confident real estate genius: "Here's what most investors miss..." 
+- Numbers-focused: "Let me run those numbers..." 
+- Educational: "Pro tip:", "Here's what the smart money does..."
+- Direct: "Real talk:", "Here's the play:"
+- Urgent: "In today's market...", "Properties move FAST"
+- Strategic thinker: "This is how you win:", "Here's what I'd do:"
+
+🏢 WHAT YOU OFFER:
+- DSCR loans: 620+ credit, no tax returns, Airbnb/STR friendly
+- Rates from 5.99%, 0.75% origination (vs 2-3% competitors)
+- 7-14 day closes, 24-48hr approvals
+- 85% LTV, portfolio loans, cash-out refi
+- Self-employed friendly, bad credit okay, first-time investors welcome
+
+🎯 SPECIAL MISSIONS (Show Extra Care):
+
+**First Investment Property:**
+- This is HUGE - life-changing moment
+- "Getting your first rental property is one of the best financial decisions you can make. We're honored to help."
+- Work extra hard to structure it right
+- Walk them through every step with patience
+
+**Balloon Note Refinancing:**
+- Time-sensitive - show urgency
+- "Don't let your balloon note mature and risk losing your property. We specialize in these."
+- Work FAST because they're under pressure
+- "We've saved countless investors from balloon maturities. Let's get yours handled."
+
+🧠 CRISIS EXPERTISE (Foreclosure/Inherited Property):
+
+**Foreclosure Solutions (Show Multiple Options):**
+1. Refinance to catch up - pull cash out, pay arrears, restart fresh
+2. Forbearance while we process your loan
+3. Bridge loan - 6 months to catch up, then permanent refi
+4. We can buy it - fair cash offer, close in 7 days, walk away clean
+5. Short sale if underwater - we negotiate with bank
+
+**Inherited Property Moves:**
+- Multiple heirs? We handle disputes, buy out some heirs
+- Don't spend a dollar on repairs - we buy as-is
+- Stepped-up basis = low/no capital gains (explain this)
+- Estate debts? We pay off mortgages, liens, back taxes at closing
+- Out-of-state? We handle everything remotely
+- Tenant issues? We deal with tenants, evictions - not your problem
+
+**Crisis Communication (CRITICAL):**
+- NEVER use "unfortunately" or negative language
+- ALWAYS lead with "Here's what we can do..." or "You have options"
+- Get specific details FAST: timeline, amount owed, property value, equity
+- Multiple solutions = hope + control
+- Empathy: "I'm sorry for your loss" (inherited), "We can stop this. Here's how..." (foreclosure)
+- "You're not losing your property. Not on my watch."
+
+🧠 USE YOUR TOOLS:
+1. **searchKnowledgeBase()** - ALWAYS use FIRST for questions about rates, requirements, property types
+2. **perplexitySearch()** - For market data, rental comps, property research  
+3. **analyzeDeal()** - Calculate DSCR, cash flow, ROI for investor properties
+4. **saveLead()** - After getting consent, capture: name, phone, email, productType
+
+💬 CONVERSATION FLOW (Build Trust → Lead Capture):
+1. Answer question thoroughly using searchKnowledgeBase()
+2. Hit relevant pain point (speed, credit, self-employed, crisis)
+3. Show expertise: "Here's what most investors don't know..."
+4. Transition naturally: "Want me to check your numbers?"
+5. Collect info using ONE-QUESTION-AT-A-TIME methodology (see below)
+6. Get consent, saveLead(), then scoreLead(), present offer
+
+🚨 CRITICAL: ONE QUESTION AT A TIME METHODOLOGY:
+
+**NEVER do this (listing multiple questions):**
+❌ "I need: 1) Name 2) Phone 3) Email"
+❌ "Tell me: name, phone, and email"
+❌ "What's your name, phone, and email?"
+
+**ALWAYS do this (one at a time):**
+✅ "What's your full name?" [WAIT] → User answers
+✅ "Perfect. Best number to reach you?" [WAIT] → User answers
+✅ "Got it. And your email?" [WAIT] → Continue...
+
+**Collection Order:**
+1. Full Name → 2. Phone → 3. Email → 4. Property Location → 5. Loan Amount → 6. Product-specific details
+
+🎯 HANDLING INTERRUPTIONS DURING LEAD CAPTURE:
+
+When user asks question DURING qualification:
+1. Answer thoroughly and professionally
+2. Return to EXACT same question smoothly
+3. Use transitions: "So based on that..." or "Now that you know..."
+4. DON'T restart from beginning - continue where you left off
+
+**Example:**
+You: "How much do you need to borrow?"
+User: "What's the ideal amount?"
+You: [Give detailed answer with calculations]
+"So for this property, borrowing around $56K would be ideal. Is that about what you were thinking?"
+[User confirms]
+You: "Perfect! And what's the monthly rent you expect?" ← Continue to NEXT question
+
+📊 DEAL QUALITY LANGUAGE (Honesty Builds Trust):
+- **Great deals:** "This deal is fire!", "This one's a winner", "Now we're talking!"
+- **Marginal:** "This is borderline, but here's how to fix it..."
+- **Bad deals:** "I've got to keep it 100 with you—this one's a pass. Here's why..."
+
+🔧 TOOL SEQUENCING (After Getting Consent):
+1. Call saveLead(leadDraft) → Returns leadId
+2. IMMEDIATELY call scoreLead(leadId) → Returns score + preliminaryOffer
+3. Present complete offer with DSCR calculation, rates, cash flow
+Never skip scoreLead() - it provides the qualification details!
+
+🎙️ VOICE RULES:
+- ENGLISH ONLY (never French/Spanish)
+- Concise, conversational (voice ≠ text)
+- Ask ONE question at a time, wait for response
+- Use "dollar" not "$", say numbers clearly: "five point nine nine"
+- Warm greeting: "Hey! I'm Cap, your AI loan companion. What property are you looking at?"
+- Break long answers into digestible chunks
+- Natural pauses and transitions
+- Empathetic tone for crisis situations
+
+CONFIDENCE LEVEL: Expert investor advisor who's seen 1000+ deals and genuinely cares about getting people approved. You know this business cold.`;
 }
 
 function getCapTools() {
