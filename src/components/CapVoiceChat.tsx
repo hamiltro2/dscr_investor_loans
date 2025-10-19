@@ -132,11 +132,13 @@ export function CapVoiceChat() {
               break;
 
             case 'input_audio_buffer.speech_stopped':
+              console.log('🎤 SPEECH STOPPED EVENT:', JSON.stringify(message, null, 2));
               setIsSpeaking(false);
               break;
 
             case 'input_audio_buffer.committed':
               // VAD detected end of speech - trigger response generation
+              console.log('🎤 COMMITTED EVENT:', JSON.stringify(message, null, 2));
               setIsSpeaking(false);
               if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN && !activeResponseRef.current) {
                 console.log('📤 Speech ended, generating response...');
@@ -153,21 +155,20 @@ export function CapVoiceChat() {
               break;
               
             case 'conversation.item.done':
-              // User audio transcripts are NOT available in October 2024 model
-              // We'll show a placeholder for user speech since transcript is always null
-              if (message.item?.role === 'user' && message.item?.content) {
-                const audioContent = message.item.content.find((c: any) => c.type === 'input_audio');
+              // User audio transcripts - API limitation: transcript field is null
+              if (message.item?.role === 'user') {
+                const audioContent = message.item.content?.find((c: any) => c.type === 'input_audio');
                 if (audioContent) {
-                  // Audio detected but no transcript available - show placeholder
+                  // Show placeholder since API doesn't provide transcripts (known limitation)
                   setTranscript(prev => {
                     const lastItem = prev[prev.length - 1];
-                    // Don't add duplicate placeholders
-                    if (lastItem && lastItem.role === 'user' && lastItem.text === '[Speaking...]') {
+                    // Don't duplicate placeholders
+                    if (lastItem && lastItem.role === 'user' && lastItem.text.startsWith('🎤')) {
                       return prev;
                     }
                     return [...prev, {
                       role: 'user',
-                      text: '[Speaking...]',  // Placeholder since transcript not available
+                      text: '🎤 [You spoke]',
                       timestamp: new Date(),
                       complete: true
                     }];
@@ -293,11 +294,12 @@ export function CapVoiceChat() {
               break;
 
             case 'conversation.item.input_audio_transcription.completed':
-              // Only show final transcription (ignore deltas to avoid duplication)
-              console.log('🎤 RAW TRANSCRIPTION EVENT:', message);
+              // User speech transcript is now available
+              console.log('🎤 TRANSCRIPTION EVENT:', JSON.stringify(message, null, 2));
               const transcriptText = message.transcript;
               console.log('🎤 User said:', transcriptText);
-              if (transcriptText) {
+              
+              if (transcriptText && transcriptText.trim()) {
                 setTranscript(prev => {
                   // Check if this is already the last message (avoid dupes)
                   const lastItem = prev[prev.length - 1];
@@ -312,7 +314,7 @@ export function CapVoiceChat() {
                   }];
                 });
               } else {
-                console.warn('⚠️ No transcript text in message:', message);
+                console.warn('⚠️ No transcript in event. Full message:', JSON.stringify(message, null, 2));
               }
               break;
 
@@ -489,7 +491,7 @@ export function CapVoiceChat() {
             !isSpeaking) {
           hasGreetedRef.current = true;
           
-          // Trigger Cap's introduction
+          // Trigger Cap's proper introduction
           wsRef.current.send(JSON.stringify({
             type: 'conversation.item.create',
             item: {
@@ -497,7 +499,7 @@ export function CapVoiceChat() {
               role: 'user',
               content: [{
                 type: 'input_text',
-                text: 'Hello'
+                text: 'Introduce yourself as Cap and ask what property I\'m looking at'
               }]
             }
           }));
