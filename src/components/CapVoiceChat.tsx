@@ -103,6 +103,11 @@ export function CapVoiceChat() {
         try {
           const message = JSON.parse(event.data);
           
+          // Log all message types for debugging
+          if (message.type !== 'response.audio.delta' && message.type !== 'response.audio_transcript.delta') {
+            console.log('[WS Event]', message.type, message);
+          }
+          
           switch (message.type) {
             case 'session.created':
               console.log('✅ Voice session created');
@@ -110,6 +115,33 @@ export function CapVoiceChat() {
 
             case 'session.updated':
               console.log('✅ Session configured');
+              
+              // Send welcome greeting (only once)
+              if (!hasGreetedRef.current && wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+                hasGreetedRef.current = true;
+                
+                // Send text message to trigger response
+                wsRef.current.send(JSON.stringify({
+                  type: 'conversation.item.create',
+                  item: {
+                    type: 'message',
+                    role: 'user',
+                    content: [{
+                      type: 'input_text',
+                      text: 'Hello'
+                    }]
+                  }
+                }));
+                
+                // Create response for greeting
+                setTimeout(() => {
+                  if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+                    wsRef.current.send(JSON.stringify({
+                      type: 'response.create'
+                    }));
+                  }
+                }, 100);
+              }
               break;
 
             case 'input_audio_buffer.speech_started':
@@ -189,16 +221,15 @@ export function CapVoiceChat() {
               // Silently handle output items
               break;
 
-            case 'response.output_audio.delta':
-            case 'response.audio_transcript.delta':
             case 'response.audio.delta':
-              // Play audio chunks as they arrive
-              if (message.delta || message.audio) {
-                const audioData = message.delta || message.audio;
-                await playAudioChunk(audioData);
+              // Play audio chunks as they arrive (GA API)
+              if (message.delta) {
+                console.log('🔊 Playing audio chunk...', message.delta.substring(0, 50));
+                await playAudioChunk(message.delta);
               }
               break;
-
+            
+            case 'response.audio_transcript.delta':
             case 'response.output_audio_transcript.delta':
               // Build Cap's response incrementally (for smooth display)
               if (message.delta) {
@@ -259,14 +290,9 @@ export function CapVoiceChat() {
               // Ignore deltas - we'll use the completed event to avoid duplicates
               break;
 
-            case 'response.audio.delta':
-              // Cap is speaking
-              setIsSpeaking(true);
-              await playAudioChunk(message.delta);
-              break;
-
             case 'response.audio.done':
               setIsSpeaking(false);
+              console.log('🔇 Audio playback complete');
               break;
 
             case 'response.text.delta':
