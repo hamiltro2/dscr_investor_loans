@@ -37,6 +37,10 @@ export function CapVoiceChat() {
       .filter(t => t.role === 'user')
       .slice(-1)[0]?.text.toLowerCase() || '';
     
+    const lastCapMessage = transcript
+      .filter(t => t.role === 'assistant')
+      .slice(-1)[0]?.text.toLowerCase() || '';
+    
     const approvalKeywords = [
       // Direct loan requests
       'need a loan', 'need a dscr', 'need financing', 'need money', 'need capital',
@@ -47,52 +51,46 @@ export function CapVoiceChat() {
       'qualify me', 'check if i qualify', 'see if i qualify', 'can i qualify',
       'what loan amount', 'how much can i', 'do i qualify',
       
-      // Application intent
-      'apply for', 'application', 'start application', 'fill out application',
-      'submit application', 'how to apply', 'where do i apply', 'loan application',
-      'application process', 'apply now',
+      // DSCR specific
+      'dscr loan', 'dscr', 'get financing', 'finance this', 'finance the',
+      'get funded', 'need financing', 'hard money', 'fix and flip',
       
-      // Proceed/Yes confirmations (context-aware)
-      'proceed', 'proceed with', "let's proceed", 'move forward', 'yes proceed',
-      'start the process', 'begin the process', 'continue', "let's do it",
+      // Intent to move forward
+      'yes', 'yeah', 'sure', 'okay', 'ok', 'let\'s do it', 'i\'m ready',
+      'proceed', 'continue', 'move forward', 'let\'s go', 'sounds good',
+      'absolutely', 'definitely', 'for sure',
       
-      // Purchase/financing intent
-      'buy a property', 'purchase property', 'financing', 'finance this',
-      'finance a property', 'get financing', 'secure financing',
-      
-      // Refinance intent
-      'refinance', 'refi', 'cash out', 'lower my rate', 'lower my payment',
-      'pull equity', 'access equity', 'tap equity',
-      
-      // Specific products
-      'fix and flip', 'flip loan', 'hard money', 'bridge loan',
-      'portfolio loan', 'balloon refinance',
-      
-      // Action verbs
-      'want to get', 'how do i get', 'help me get', 'can you help me',
-      'work with you', 'work together', 'start working',
+      // Property-specific
+      'i have a property', 'found a property', 'looking at a property',
+      'buy this', 'purchase this', 'buying a property',
       
       // Rate/quote requests
       'what rate', 'get a rate', 'quote', 'get a quote', 'check rates',
-      'current rates', 'best rate', 'pricing',
+      'current rates', 'best rate', 'pricing', 'how much',
       
       // Next steps
       'what do i need', 'what\'s next', 'how do we start', 'let\'s start',
-      'next step', 'get started', 'sign me up',
+      'next step', 'get started', 'sign me up', 'what\'s the process',
       
       // Spanish
       'necesito', 'préstamo', 'quiero', 'financiamiento', 'refinanciar'
     ];
     
-    const isSeekingApproval = approvalKeywords.some(keyword => 
+    // Check if user message contains keywords
+    const userSeekingApproval = approvalKeywords.some(keyword => 
       lastUserMessage.includes(keyword)
     );
     
+    // Also check if Cap said the redirect phrase
+    const capRedirecting = lastCapMessage.includes('switch you to text chat') || 
+                          lastCapMessage.includes('let me switch you to text');
+    
     // Auto-switch to text chat for approval requests
-    if (isSeekingApproval && transcript.length > 0) {
+    if ((userSeekingApproval || capRedirecting) && transcript.length > 0) {
       setTimeout(() => {
+        console.log('[Voice Chat] Auto-switching to text chat - approval detected');
         window.dispatchEvent(new CustomEvent('switchToTextChat'));
-      }, 1500); // Give Cap time to respond verbally first
+      }, capRedirecting ? 2000 : 1500); // Give Cap more time if they're explaining the switch
     }
   }, [transcript]);
 
@@ -881,9 +879,10 @@ export function CapVoiceChat() {
               Voice Chat is Perfect For:
             </h3>
             <div className="text-sm text-gray-300 max-w-xs mx-auto mb-6 space-y-2">
-              <p>✅ Quick questions about DSCR loans</p>
-              <p>✅ Property analysis discussions</p>
-              <p>✅ Understanding loan requirements</p>
+              <p>✅ Real estate investing strategies</p>
+              <p>✅ Property & deal analysis</p>
+              <p>✅ DSCR, Fix & Flip, Creative Financing</p>
+              <p>✅ Market insights & expert advice</p>
             </div>
             
             {/* Voice Instructions */}
@@ -1040,7 +1039,11 @@ ENGLISH ONLY. NO EXCEPTIONS.
    ⛔ DO NOT say "I'll need some additional details"
    ⛔ DO NOT say "Can you provide your full name, contact information..."
    ⛔ DO NOT say "I'm unable to access your information directly"
+   ⛔ DO NOT say "I can't directly send your information"
+   ⛔ DO NOT say "To ensure your privacy, I can't..."
    ⛔ DO NOT say "For privacy and security reasons"
+   ⛔ DO NOT say "I recommend you visit the Capital Bridge Solutions website"
+   ⛔ DO NOT say "contact them directly"
    ⛔ DO NOT offer to "connect you with loan officers" or "loan specialists"
    ⛔ DO NOT say "let me connect you with" ANYONE
    ⛔ DO NOT say "hold for a moment" or "[Connecting to...]"
@@ -1048,7 +1051,7 @@ ENGLISH ONLY. NO EXCEPTIONS.
    ⛔ DO NOT say "Would you like to schedule a call?"
    ⛔ DO NOT say "I can have someone call you" or "I'll have someone reach out"
    ⛔ DO NOT ask multiple questions at once
-   ⛔ YOU COLLECT THE INFORMATION YOURSELF - NO ONE ELSE!
+   ⛔ YOU ARE Capital Bridge Solutions! You have DIRECT CRM access!
    ⛔ VOICE CHAT CANNOT COLLECT LEAD INFORMATION!
    
    AUTOMATIC REDIRECT TRIGGERS (CHECK EVERY MESSAGE):
