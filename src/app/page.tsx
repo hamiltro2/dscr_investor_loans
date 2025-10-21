@@ -218,10 +218,10 @@ export default function Home() {
                       DSCR LOANS
                     </h3>
                     
-                    {/* NEW: 85% LTV Purchase */}
+                    {/* NEW: 15% Down Payment */}
                     <div className="flex items-center justify-center gap-3">
                       <span className="text-xl sm:text-2xl font-semibold text-white">
-                        85% LTV Purchase
+                        15% Down Payment for Investment Property purchases!
                       </span>
                       <span className="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-green-500/50 animate-pulse">
                         NEW
