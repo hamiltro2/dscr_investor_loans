@@ -1,7 +1,18 @@
-'use client';
-
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { MapPin, Phone, Calculator, TrendingUp, Building2, CheckCircle, ArrowRight, DollarSign, Home, Palmtree } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Orange County DSCR Loans | Investment Property Financing - Capital Bridge Solutions',
+  description: 'Orange County DSCR loans for Irvine, Newport Beach, Anaheim investment properties. No tax returns required. Rates from 5.99%. OC headquarters. Get pre-approved in 24-48 hours.',
+  keywords: 'Orange County DSCR loans, OC investment property loans, Irvine DSCR loans, Newport Beach rental financing, Anaheim investment loans',
+  openGraph: {
+    title: 'Orange County DSCR Loans | No Tax Returns Required',
+    description: 'Specialized DSCR loans for Orange County investment properties. Local expertise, fast approvals, competitive rates.',
+    type: 'website',
+    url: 'https://www.capitalbridgesolutions.com/locations/california/orange-county',
+  }
+};
 
 export default function OrangeCountyDSCRPage() {
   return (
@@ -43,7 +54,7 @@ export default function OrangeCountyDSCRPage() {
                   Get Free Rate Quote
                   <ArrowRight className="w-5 h-5" />
                 </Link>
-                <a href="tel:+19493393555" className="px-8 py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-xl border border-white/20 hover:border-white/30 transition-all duration-300 inline-flex items-center gap-2" onClick={() => window.gtag && window.gtag('event', 'conversion', {'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'})}>
+                <a href="tel:+19493393555" className="px-8 py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-xl border border-white/20 hover:border-white/30 transition-all duration-300 inline-flex items-center gap-2">
                   <Phone className="w-5 h-5" />
                   (949) 339-3555
                 </a>

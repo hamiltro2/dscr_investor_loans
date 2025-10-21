@@ -10,13 +10,13 @@ export default function DSCRRequirementsPage() {
   return (
     <>
       <ArticleSchema 
-        headline="DSCR Loan Requirements California 2024: What You Need to Know"
-        description="Complete breakdown of 2024 DSCR loan requirements in California. Credit scores from 620, down payments from 20%, and no tax returns needed."
+        headline="DSCR Loan Requirements California 2025: What You Need to Know"
+        description="Complete breakdown of 2025 DSCR loan requirements in California. Credit scores from 620, down payments from 20%, and no tax returns needed."
         datePublished="2024-09-23T00:00:00.000Z"
-        dateModified="2024-09-23T00:00:00.000Z"
+        dateModified="2025-01-20T00:00:00.000Z"
         author="Capital Bridge Solutions"
         image="/DSCR_loan_Requirements.png"
-        url="https://www.capitalbridgesolutions.com/blog/dscr-loan-requirements-california-2024"
+        url="https://www.capitalbridgesolutions.com/blog/dscr-loan-requirements-california-2025"
       />
       <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
       {/* Hero Section */}
@@ -28,15 +28,15 @@ export default function DSCRRequirementsPage() {
               <span>/</span>
               <Link href="/blog" className="hover:text-primary-400">Blog</Link>
               <span>/</span>
-              <span className="text-white">DSCR Loan Requirements 2024</span>
+              <span className="text-white">DSCR Loan Requirements 2025</span>
             </nav>
             
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              DSCR Loan Requirements California 2024: What You Need to Know
+              DSCR Loan Requirements California 2025: What You Need to Know
             </h1>
             
             <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
-              <span>Updated: September 23, 2024</span>
+              <span>Updated: January 20, 2025</span>
               <span>•</span>
               <span>10 min read</span>
               <span>•</span>
@@ -87,7 +87,7 @@ export default function DSCRRequirementsPage() {
             
             <div className="prose prose-invert max-w-none">
               <p className="text-xl text-gray-300 mb-8">
-                DSCR loan requirements in California have evolved significantly in 2024, offering more 
+                DSCR loan requirements in California have evolved significantly in 2025, offering more 
                 flexibility for real estate investors while maintaining prudent lending standards. 
                 Whether you're a seasoned investor or making your first investment property purchase, 
                 understanding these requirements is crucial for securing the best financing terms.
@@ -96,7 +96,7 @@ export default function DSCRRequirementsPage() {
               <div className="bg-primary-500/10 border border-primary-500/30 rounded-xl p-6 mb-8">
                 <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
                   <AlertCircle className="w-6 h-6 text-primary-400" />
-                  2024 Key Changes
+                  2025 Key Changes
                 </h2>
                 <ul className="space-y-2 text-gray-300">
                   <li>• Minimum DSCR ratios now start at 0.75 (down from 1.0)</li>
@@ -115,7 +115,7 @@ export default function DSCRRequirementsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold text-white mb-8 text-center">
-              Core DSCR Loan Requirements for 2024
+              Core DSCR Loan Requirements for 2025
             </h2>
 
             <div className="grid md:grid-cols-3 gap-8">

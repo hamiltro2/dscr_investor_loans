@@ -79,7 +79,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: (route === '' ? 'weekly' : 'monthly') as 'weekly' | 'monthly',
     priority: route === '' ? 1 : 
              route === '/cap' ? 0.95 : // High priority for unique AI chatbot
-             route.includes('services') || route.includes('get-started') ? 0.9 : 
+             route.includes('services') || route.includes('get-started') ? 0.9 :
+             route.includes('/locations/california/') ? 0.85 : // California subpages important
+             route.includes('/locations/') ? 0.8 : // Other location pages
              0.7,
   }))
   
