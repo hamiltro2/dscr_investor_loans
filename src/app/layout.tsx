@@ -322,12 +322,24 @@ export default function RootLayout({
           height="0" width="0" style={{display:'none',visibility:'hidden'}}></iframe>
         </noscript>
         
-        {/* Google Ads Conversion Tracking */}
-        <Script id="google-ads-gtag" strategy="afterInteractive">
+        {/* Google Analytics 4 */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-7NK1LHZNVS"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
+            
+            // Google Analytics 4
+            gtag('config', 'G-7NK1LHZNVS', {
+              page_path: window.location.pathname,
+              send_page_view: true
+            });
+            
+            // Google Ads Conversion Tracking
             gtag('config', 'AW-1002915679');
           `}
         </Script>

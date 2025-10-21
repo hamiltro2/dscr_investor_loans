@@ -110,22 +110,31 @@ export default function Navigation() {
 
           {mobileMenuOpen && (
             <div 
-              className="absolute right-0 mt-2 w-64 rounded-lg bg-white py-3 shadow-xl ring-2 ring-primary-500 z-50 border-2 border-primary-400 overflow-hidden"
+              className="absolute right-0 mt-2 w-64 rounded-lg bg-white py-3 shadow-xl ring-2 ring-primary-500 z-50 border-2 border-primary-400 overflow-visible"
             >
-              <div className="absolute inset-0 bg-gradient-to-b from-blue-50 to-white opacity-50 pointer-events-none"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-blue-50 to-white opacity-50 pointer-events-none z-0"></div>
               
-              {/* Chat with Cap - Featured in Mobile */}
+              {/* Chat with Cap - Featured at Top of Mobile Menu */}
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  // Dispatch custom event to open ChatWidget
                   window.dispatchEvent(new Event('openChatWidget'));
                 }}
-                className="relative flex items-center gap-3 mx-3 mb-3 px-4 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-lg font-bold hover:from-primary-600 hover:to-primary-700 transition-all shadow-md w-full cursor-pointer"
+                className="relative z-20 flex items-center justify-center gap-2 mx-3 mb-4 px-4 py-4 rounded-lg font-bold text-base transition-all shadow-lg hover:shadow-xl w-[calc(100%-1.5rem)] cursor-pointer"
+                style={{
+                  background: 'linear-gradient(to right, #3B82F6, #2563EB)',
+                  color: '#FFFFFF',
+                  border: '2px solid #60A5FA'
+                }}
               >
-                <MessageCircle className="w-5 h-5" />
-                <span>Chat with Cap</span>
-                <Sparkles className="w-4 h-4 ml-auto" />
+                <MessageCircle className="w-5 h-5 animate-pulse" style={{ color: '#FFFFFF' }} />
+                <span className="relative z-10" style={{ color: '#FFFFFF', fontWeight: 'bold' }}>Chat with Cap</span>
+                <span className="absolute -top-2 -right-2 flex h-6 w-6 z-10">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-6 w-6 bg-yellow-400 items-center justify-center border-2 border-white">
+                    <Sparkles className="w-3 h-3 text-white" />
+                  </span>
+                </span>
               </button>
               
               {navigation.map((item) => (

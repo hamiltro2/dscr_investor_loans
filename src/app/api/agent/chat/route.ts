@@ -84,7 +84,7 @@ export async function POST(req: Request) {
           type: 'function',
           function: {
             name: 'saveLead',
-            description: 'Save or update lead information after receiving user consent. Returns leadId for subsequent operations.',
+            description: 'DIRECTLY save lead information into Capital Bridge Solutions CRM database. This is NOT forwarding to anyone - it saves directly into OUR system. Call this immediately after collecting all required fields. Returns leadId for subsequent operations.',
             parameters: {
               type: 'object',
               properties: {
@@ -126,7 +126,7 @@ export async function POST(req: Request) {
           type: 'function',
           function: {
             name: 'scoreLead',
-            description: 'Score a lead and generate preliminary offer. Call after saveLead.',
+            description: 'DIRECTLY analyze the lead in OUR system and generate a real preliminary loan offer from Capital Bridge Solutions. This is YOUR analysis system - not sending to anyone else. Call immediately after saveLead() to provide the investor with their personalized offer.',
             parameters: {
               type: 'object',
               properties: {

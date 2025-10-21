@@ -19,10 +19,20 @@ export function CapChatWidget() {
       setIsOpen(true);
     };
 
+    const handleSwitchToText = () => {
+      setMode('text');
+      // Trigger lead capture after switching
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('startLeadCapture'));
+      }, 500);
+    };
+
     window.addEventListener('openChatWidget', handleOpenChat);
+    window.addEventListener('switchToTextChat', handleSwitchToText);
     
     return () => {
       window.removeEventListener('openChatWidget', handleOpenChat);
+      window.removeEventListener('switchToTextChat', handleSwitchToText);
     };
   }, []);
 

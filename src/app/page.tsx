@@ -154,7 +154,7 @@ export default function Home() {
       description: "Streamlined documentation process focused on the property's income potential."
     },
     {
-      title: "Rates Starting at 6.99%",
+      title: "Rates Starting at 5.99%",
       description: "Competitive rates for your investment property financing needs."
     }
   ];

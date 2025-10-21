@@ -25,6 +25,7 @@ export function CapTextChat() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const docInputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -33,6 +34,27 @@ export function CapTextChat() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Listen for lead capture trigger from voice chat switch
+  useEffect(() => {
+    const handleStartLeadCapture = () => {
+      // Auto-send "I need a DSCR loan" to trigger lead capture
+      setInput('I need a DSCR loan');
+      // Auto-submit after a brief delay
+      setTimeout(() => {
+        const form = document.querySelector('form');
+        if (form) {
+          form.requestSubmit();
+        }
+      }, 300);
+    };
+
+    window.addEventListener('startLeadCapture', handleStartLeadCapture);
+    
+    return () => {
+      window.removeEventListener('startLeadCapture', handleStartLeadCapture);
+    };
+  }, []);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -266,12 +288,14 @@ export function CapTextChat() {
       setMessages(prev => [...prev, { role: 'assistant', content: assistantMessage }]);
     } catch (error) {
       console.error('Error sending message:', error);
-      setMessages(prev => [...prev, { 
-        role: 'assistant', 
-        content: 'Sorry, I had trouble connecting. Please try again!' 
-      }]);
+      setMessages(prev => [
+        ...prev,
+        { role: 'assistant', content: 'Sorry, I encountered an error. Please try again.' }
+      ]);
     } finally {
       setIsLoading(false);
+      // Refocus input after response
+      setTimeout(() => inputRef.current?.focus(), 100);
     }
   };
 
@@ -449,6 +473,7 @@ export function CapTextChat() {
           </button>
 
           <textarea
+            ref={inputRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {
