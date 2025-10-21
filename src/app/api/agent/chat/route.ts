@@ -330,11 +330,15 @@ export async function POST(req: Request) {
                 leadId: lead.id,
                 status: isNewLead ? 'created' : 'updated',
               });
+              
+              console.log('[saveLead] Saved lead with ID:', lead.id, 'Name:', lead.name);
               break;
             }
 
             case 'scoreLead': {
               const { leadId } = JSON.parse(toolCall.function.arguments);
+              
+              console.log('[scoreLead] Looking for leadId:', leadId);
 
               // Get lead
               const lead = await prisma.lead.findUnique({
@@ -342,8 +346,11 @@ export async function POST(req: Request) {
               });
 
               if (!lead) {
-                throw new Error('Lead not found');
+                console.error('[scoreLead] Lead not found for ID:', leadId);
+                throw new Error(`Lead not found with ID: ${leadId}`);
               }
+              
+              console.log('[scoreLead] Found lead:', lead.name, lead.email);
 
               // Score it
               const scoreResult = await scoreLeadFn(lead);
@@ -493,8 +500,14 @@ export async function POST(req: Request) {
             // Same switch logic as before
             if (toolCall.function.name === 'scoreLead') {
               const { leadId } = JSON.parse(toolCall.function.arguments);
+              console.log('[scoreLead Round 2] Looking for leadId:', leadId);
+              
               const lead = await prisma.lead.findUnique({ where: { id: leadId } });
-              if (!lead) throw new Error('Lead not found');
+              if (!lead) {
+                console.error('[scoreLead Round 2] Lead not found for ID:', leadId);
+                throw new Error(`Lead not found with ID: ${leadId}`);
+              }
+              console.log('[scoreLead Round 2] Found lead:', lead.name, lead.email);
               
               const scoreResult = await scoreLeadFn(lead);
               
