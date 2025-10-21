@@ -332,6 +332,16 @@ export async function POST(req: Request) {
               });
               
               console.log('[saveLead] Saved lead with ID:', lead.id, 'Name:', lead.name);
+              
+              // Send email notification to team
+              try {
+                await sendCapLeadNotification(lead);
+                console.log('[saveLead] Email notification sent');
+              } catch (emailError) {
+                console.error('[saveLead] Failed to send email notification:', emailError);
+                // Don't fail the whole operation if email fails
+              }
+              
               break;
             }
 
