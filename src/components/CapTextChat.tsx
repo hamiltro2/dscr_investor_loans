@@ -1,32 +1,54 @@
 // Text Chat Mode (Your existing chat implementation)
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
+/**
+ * Message interface for type-safe chat messages
+ */
 interface Message {
   role: 'user' | 'assistant';
   content: string;
 }
 
 export function CapTextChat() {
+  // ==================== STATE MANAGEMENT ====================
+  // Chat state
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hey! I'm Cap, your AI loan companion. 👋\n\nI help real estate investors find the perfect financing for their investment properties. I can:\n\n• Analyze property deals (DSCR, cash flow, ROI)\n• Check rates and qualification\n• Answer questions about ALL investor loans (DSCR, Hard Money, Fix & Flip, Refinance, etc.)\n• Analyze ANY property URL (Zillow, Redfin, BiggerPockets, LoopNet, etc.!) 🔗\n• Upload property photos for analysis 📸\n• Analyze documents (PDFs, bank statements, tax returns, etc.) 📄\n• Save your info for pre-approval\n\nWhat property or loan question can I help with today?"
+      content: "Hey! I'm Cap, your AI loan companion. 👋\n\nI help real estate investors find the perfect financing for their investment properties. I can:\n\n• Analyze property deals (DSCR, cash flow, ROI)\n• Check rates and qualification\n• Answer questions about ALL investor loans (DSCR, Hard Money, Fix & Flip, Refinance, etc.)\n• Analyze ANY property URL (Zillow, Redfin, BiggerPockets, LoopNet, etc.!) 🔗\n• Upload property photos for analysis 📸\n• Analyze documents (PDFs, bank statements, tax returns, etc.) 📄\n• 🎙️ Use voice input for hands-free interaction\n• Save your info for pre-approval\n\nWhat property or loan question can I help with today?"
     }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  
+  // File upload state
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [uploadedDocument, setUploadedDocument] = useState<{ data: string; name: string; type: string } | null>(null);
+  
+  // Voice recording state
+  const [isRecording, setIsRecording] = useState(false);
+  const [recordingTime, setRecordingTime] = useState(0);
+  const [audioLevel, setAudioLevel] = useState(0);
+  
+  // ==================== REFS ====================
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const docInputRef = useRef<HTMLInputElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  
+  // Voice recording refs
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const recordingTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
 
+  // ==================== UTILITY FUNCTIONS ====================
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -34,6 +56,48 @@ export function CapTextChat() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  /**
+   * Cleanup function for voice recording resources
+   * Prevents memory leaks by properly disposing of Web Audio API resources
+   */
+  const cleanupVoiceResources = useCallback(() => {
+    // Stop media recorder
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+      mediaRecorderRef.current.stop();
+    }
+    
+    // Clear recording timer
+    if (recordingTimerRef.current) {
+      clearInterval(recordingTimerRef.current);
+      recordingTimerRef.current = null;
+    }
+    
+    // Stop animation frame
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+    
+    // Close audio context (critical for preventing memory leaks)
+    if (audioContextRef.current) {
+      audioContextRef.current.close();
+      audioContextRef.current = null;
+    }
+    
+    // Reset state
+    setAudioLevel(0);
+    setRecordingTime(0);
+  }, []);
+
+  /**
+   * Cleanup on component unmount
+   */
+  useEffect(() => {
+    return () => {
+      cleanupVoiceResources();
+    };
+  }, [cleanupVoiceResources]);
 
   // Listen for lead capture trigger from voice chat switch
   useEffect(() => {
@@ -132,6 +196,153 @@ export function CapTextChat() {
       docInputRef.current.value = '';
     }
   };
+
+  // ==================== VOICE RECORDING FUNCTIONS ====================
+  /**
+   * Start real-time audio level monitoring
+   * Uses Web Audio API for precise frequency analysis
+   */
+  const startVolumeMonitoring = useCallback((stream: MediaStream) => {
+    try {
+      const audioContext = new AudioContext();
+      const analyser = audioContext.createAnalyser();
+      const microphone = audioContext.createMediaStreamSource(stream);
+      
+      // Configure analyser for optimal frequency resolution
+      analyser.fftSize = 256;
+      analyser.smoothingTimeConstant = 0.8;
+      microphone.connect(analyser);
+      
+      audioContextRef.current = audioContext;
+      analyserRef.current = analyser;
+      
+      const dataArray = new Uint8Array(analyser.frequencyBinCount);
+      
+      const updateLevel = () => {
+        if (analyserRef.current && isRecording) {
+          analyserRef.current.getByteFrequencyData(dataArray);
+          // Calculate RMS (Root Mean Square) for accurate volume
+          const average = dataArray.reduce((a, b) => a + b) / dataArray.length;
+          setAudioLevel(Math.min(100, (average / 128) * 100));
+          animationFrameRef.current = requestAnimationFrame(updateLevel);
+        }
+      };
+      
+      updateLevel();
+    } catch (error) {
+      console.error('[Voice Recording] Volume monitoring error:', error);
+    }
+  }, [isRecording]);
+
+  /**
+   * Start voice recording
+   * Captures audio, transcribes via Whisper API, and populates input field
+   */
+  const startRecording = async () => {
+    try {
+      // Request microphone access
+      const stream = await navigator.mediaDevices.getUserMedia({ 
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+          autoGainControl: true
+        }
+      });
+      
+      // Create MediaRecorder with optimal settings
+      const mediaRecorder = new MediaRecorder(stream, {
+        mimeType: 'audio/webm;codecs=opus',
+      });
+      const chunks: Blob[] = [];
+
+      // Start recording timer
+      setRecordingTime(0);
+      recordingTimerRef.current = setInterval(() => {
+        setRecordingTime((prev) => prev + 1);
+      }, 1000);
+
+      // Start volume monitoring
+      startVolumeMonitoring(stream);
+
+      // Collect audio chunks
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size > 0) {
+          chunks.push(e.data);
+        }
+      };
+
+      // Handle recording stop
+      mediaRecorder.onstop = async () => {
+        const blob = new Blob(chunks, { type: 'audio/webm' });
+        const formData = new FormData();
+        formData.append('audio', blob, 'recording.webm');
+
+        try {
+          // Send to Whisper transcription API
+          const res = await fetch('/api/voice/transcribe', {
+            method: 'POST',
+            body: formData,
+          });
+
+          if (res.ok) {
+            const { text } = await res.json();
+            setInput(text);
+            
+            // Focus input to allow user to edit before sending
+            setTimeout(() => inputRef.current?.focus(), 100);
+          } else {
+            const errorText = await res.text();
+            console.error('[Voice Recording] Transcription failed:', errorText);
+            alert('Sorry, I couldn\'t understand that. Please try speaking again.');
+          }
+        } catch (error) {
+          console.error('[Voice Recording] Transcription error:', error);
+          alert('Transcription error. Please check your internet connection.');
+        }
+
+        // Stop all tracks and cleanup
+        stream.getTracks().forEach((track) => track.stop());
+        cleanupVoiceResources();
+      };
+
+      mediaRecorder.start();
+      mediaRecorderRef.current = mediaRecorder;
+      setIsRecording(true);
+    } catch (error) {
+      console.error('[Voice Recording] Microphone access error:', error);
+      alert('Please allow microphone access to use voice input.');
+      cleanupVoiceResources();
+    }
+  };
+
+  /**
+   * Stop voice recording
+   * Triggers transcription and cleanup
+   */
+  const stopRecording = useCallback(() => {
+    if (mediaRecorderRef.current && isRecording) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+    }
+  }, [isRecording]);
+
+  // ==================== KEYBOARD SHORTCUTS ====================
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ctrl/Cmd + / to toggle recording
+      if ((e.ctrlKey || e.metaKey) && e.key === '/' && !isLoading) {
+        e.preventDefault();
+        if (isRecording) {
+          stopRecording();
+        } else {
+          startRecording();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isRecording, isLoading, stopRecording]);
 
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -450,7 +661,7 @@ export function CapTextChat() {
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            disabled={isLoading}
+            disabled={isLoading || isRecording}
             className="bg-dark-700 hover:bg-dark-600 text-gray-300 px-2.5 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
             title="Upload property photo"
           >
@@ -463,13 +674,41 @@ export function CapTextChat() {
           <button
             type="button"
             onClick={() => docInputRef.current?.click()}
-            disabled={isLoading}
+            disabled={isLoading || isRecording}
             className="bg-dark-700 hover:bg-dark-600 text-gray-300 px-2.5 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
             title="Upload document (PDF, Word, etc.)"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
             </svg>
+          </button>
+
+          {/* Voice recording button */}
+          <button
+            type="button"
+            onClick={isRecording ? stopRecording : startRecording}
+            disabled={isLoading}
+            className={`relative px-2.5 py-3 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0 ${
+              isRecording
+                ? 'bg-red-600 hover:bg-red-700 text-white animate-pulse'
+                : 'bg-dark-700 hover:bg-dark-600 text-gray-300'
+            }`}
+            title={isRecording ? 'Stop recording (Ctrl+/)' : 'Start voice input (Ctrl+/)'}
+            aria-label={isRecording ? 'Stop recording' : 'Start recording'}
+          >
+            {isRecording ? (
+              <>
+                {/* Recording indicator */}
+                <div className="w-4 h-4 bg-white rounded-full animate-ping absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-75"></div>
+                <svg className="w-5 h-5 relative z-10" fill="currentColor" viewBox="0 0 20 20">
+                  <rect x="6" y="6" width="8" height="8" rx="1" />
+                </svg>
+              </>
+            ) : (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+              </svg>
+            )}
           </button>
 
           <textarea
@@ -533,9 +772,33 @@ export function CapTextChat() {
               target.style.height = '56px';
               target.style.height = Math.min(target.scrollHeight, 200) + 'px';
             }}
-            disabled={isLoading}
+            disabled={isLoading || isRecording}
             suppressHydrationWarning
           />
+          
+          {/* Recording status overlay */}
+          {isRecording && (
+            <div className="absolute inset-0 bg-red-600/10 border-2 border-red-500 rounded-lg pointer-events-none flex items-center justify-center">
+              <div className="bg-red-600 text-white px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-2 shadow-lg">
+                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                <span>Recording {Math.floor(recordingTime / 60)}:{(recordingTime % 60).toString().padStart(2, '0')}</span>
+                {audioLevel > 0 && (
+                  <div className="flex items-center gap-0.5 ml-2">
+                    {[...Array(5)].map((_, i) => (
+                      <div
+                        key={i}
+                        className="w-1 bg-white rounded-full transition-all duration-100"
+                        style={{
+                          height: `${Math.max(4, Math.min(16, (audioLevel / 100) * 16 * (i + 1) / 5))}px`,
+                          opacity: audioLevel > (i * 20) ? 1 : 0.3
+                        }}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
           <button
             type="submit"
             disabled={(!input.trim() && !uploadedImage && !uploadedDocument) || isLoading}
@@ -552,8 +815,19 @@ export function CapTextChat() {
           <button
             onClick={() => setInput("Paste any property listing URL here")}
             className="text-xs px-3 py-1.5 bg-dark-700 hover:bg-dark-600 border border-dark-600 rounded-full text-gray-300 transition-colors"
+            disabled={isRecording}
           >
             🔗 Paste any property URL
+          </button>
+          <button
+            onClick={isRecording ? stopRecording : startRecording}
+            className={`text-xs px-3 py-1.5 border rounded-full transition-colors ${
+              isRecording
+                ? 'bg-red-600 hover:bg-red-700 border-red-500 text-white'
+                : 'bg-dark-700 hover:bg-dark-600 border-dark-600 text-gray-300'
+            }`}
+          >
+            {isRecording ? '⏹️ Stop recording' : '🎙️ Voice input'}
           </button>
           <button
             onClick={() => fileInputRef.current?.click()}

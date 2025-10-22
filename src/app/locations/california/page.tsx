@@ -150,15 +150,16 @@ export default function CaliforniaPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
                 href="/get-started"
-                className="btn-primary text-lg px-8 py-4"
+                className="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-semibold rounded-lg hover:bg-gray-800 transition-colors text-lg"
               >
-                Get Started Now
+                Get Pre-Approved Now
               </Link>
               <a 
                 href="tel:+19493393555"
-                className="btn-secondary text-lg px-8 py-4"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent border-2 border-gray-600 text-gray-300 font-semibold rounded-lg hover:border-primary-400 transition-colors text-lg"
               >
-                Call (949) 339-3555
+                <Phone className="w-5 h-5" />
+                (949) 339-3555
               </a>
             </div>
           </div>
