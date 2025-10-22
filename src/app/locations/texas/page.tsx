@@ -122,7 +122,7 @@ export default function TexasPage() {
             <h2 className="text-3xl font-bold text-white mb-6">
               Ready to Finance Your Texas Investment Property?
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-white font-bold mb-8 max-w-2xl mx-auto">
               Get pre-approved in 24-48 hours with no income verification required.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
