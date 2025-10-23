@@ -475,33 +475,54 @@ export function CapTextChat() {
 
       const data = await response.json();
       
-      // Handle different response formats
+      // Check for error responses (even with 200 status)
+      if (data.error && !data.message) {
+        console.error('API returned error:', data.error);
+        throw new Error(typeof data.error === 'string' ? data.error : 'API error occurred');
+      }
+      
+      // Handle different response formats with robust null checking
       let assistantMessage: string;
       
       if (data.choices && data.choices[0]?.message?.content) {
-        // OpenAI chat completion format
+        // OpenAI chat completion format (prioritized for new format)
         assistantMessage = data.choices[0].message.content;
-      } else if (data.message) {
-        // Simple message format
+      } else if (data.message && typeof data.message === 'string' && data.message.trim()) {
+        // Simple message format (fallback)
         assistantMessage = data.message;
-      } else if (data.response) {
+      } else if (data.response && typeof data.response === 'string' && data.response.trim()) {
         // Alternative format
         assistantMessage = data.response;
-      } else if (typeof data === 'string') {
+      } else if (typeof data === 'string' && data.trim()) {
         // Direct string response
         assistantMessage = data;
       } else {
         console.error('Unexpected response format:', data);
-        throw new Error('Unexpected API response format');
+        console.error('Response keys:', Object.keys(data));
+        throw new Error('AI returned empty or invalid response. Please try rephrasing your question.');
       }
 
       // Add assistant message
       setMessages(prev => [...prev, { role: 'assistant', content: assistantMessage }]);
     } catch (error) {
       console.error('Error sending message:', error);
+      
+      // Provide context-specific error messages
+      let errorMessage = 'Sorry, I encountered an error. Please try again.';
+      
+      if (error instanceof Error) {
+        if (error.message.includes('fetch') || error.message.includes('URL')) {
+          errorMessage = '❌ I had trouble analyzing that property URL. The website may be blocking automated access. Please try:\n\n1. Taking a screenshot of the listing (Win+Shift+S or Cmd+Shift+4) and pasting it here\n2. Or copying the property details as text\n\nI\'ll analyze it right away!';
+        } else if (error.message.includes('empty') || error.message.includes('invalid')) {
+          errorMessage = '⚠️ I received an empty response. This usually means:\n\n• The property URL may have issues\n• Network connectivity problems\n\nPlease try again or paste the property details directly.';
+        } else if (error.message.includes('API error')) {
+          errorMessage = `⚠️ API Error: ${error.message}\n\nPlease try again in a moment. If the issue persists, contact support.`;
+        }
+      }
+      
       setMessages(prev => [
         ...prev,
-        { role: 'assistant', content: 'Sorry, I encountered an error. Please try again.' }
+        { role: 'assistant', content: errorMessage }
       ]);
     } finally {
       setIsLoading(false);

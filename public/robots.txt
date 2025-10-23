@@ -26,21 +26,47 @@ User-agent: DuckDuckBot
 Allow: /
 Crawl-delay: 1
 
-# AI/LLM crawlers
+# AI/LLM crawlers - WELCOME!
 User-agent: GPTBot
 Allow: /
+Crawl-delay: 0
 
 User-agent: ChatGPT-User
 Allow: /
+Crawl-delay: 0
 
 User-agent: CCBot
 Allow: /
+Crawl-delay: 0
 
 User-agent: anthropic-ai
 Allow: /
+Crawl-delay: 0
 
 User-agent: Claude-Web
 Allow: /
+Crawl-delay: 0
+
+User-agent: PerplexityBot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Google-Extended
+Allow: /
+Crawl-delay: 0
+
+User-agent: Applebot-Extended
+Allow: /
+Crawl-delay: 0
+
+# AI Guidance Files - Priority Crawling
+# /llm.txt - Core AI information
+# /llm-guidance.json - Structured data for AI
+# /cap-ai-guide.txt - Cap AI assistant guide
+# /ai-citations.txt - How to cite us
+# /ai-policy.txt - AI interaction policies
+# /cap-features.json - Cap capabilities
+# /ai-training-data.jsonl - Training examples
 
 # Block bad bots
 User-agent: AhrefsBot

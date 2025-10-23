@@ -275,6 +275,27 @@ export async function POST(req: Request) {
               break;
             }
 
+            case 'perplexitySearch': {
+              const params = PerplexityQuerySchema.parse(JSON.parse(toolCall.function.arguments));
+              const searchResult = await perplexitySearch(params);
+              
+              // Format for AI with better error messaging
+              if (searchResult.snippets.length === 0) {
+                result = {
+                  success: false,
+                  message: 'No property information found. The website may be blocking access or the property may not be publicly listed.',
+                  snippets: [],
+                };
+              } else {
+                result = {
+                  success: true,
+                  snippets: searchResult.snippets,
+                  cached: searchResult.cached,
+                };
+              }
+              break;
+            }
+
             case 'saveLead': {
               const { leadDraft } = JSON.parse(toolCall.function.arguments);
               const validated = LeadInputSchema.parse(leadDraft);
@@ -597,21 +618,71 @@ export async function POST(req: Request) {
           max_tokens: 1000,
         });
         
+        // Extract content with null safety
+        const finalContent = finalResponse.choices[0]?.message?.content;
+        
+        if (!finalContent) {
+          console.error('[Agent] Empty response from OpenAI (final)');
+          return new Response(
+            JSON.stringify({ 
+              error: 'AI returned empty response', 
+              message: 'I apologize, but I encountered an issue processing your request. Please try again.' 
+            }),
+            { status: 500, headers: { 'Content-Type': 'application/json' } }
+          );
+        }
+        
         return new Response(
-          JSON.stringify({ message: finalResponse.choices[0].message.content }),
+          JSON.stringify({ 
+            message: finalContent,
+            choices: [{ message: { content: finalContent } }] // OpenAI format compatibility
+          }),
           { headers: { 'Content-Type': 'application/json' } }
         );
       }
       
+      // Extract content with null safety
+      const followUpContent = followUpChoice.message?.content;
+      
+      if (!followUpContent) {
+        console.error('[Agent] Empty response from OpenAI (follow-up)');
+        return new Response(
+          JSON.stringify({ 
+            error: 'AI returned empty response', 
+            message: 'I apologize, but I encountered an issue processing your request. Please try again.' 
+          }),
+          { status: 500, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
+      
       return new Response(
-        JSON.stringify({ message: followUpChoice.message.content }),
+        JSON.stringify({ 
+          message: followUpContent,
+          choices: [{ message: { content: followUpContent } }] // OpenAI format compatibility
+        }),
         { headers: { 'Content-Type': 'application/json' } }
       );
     }
     
-    // No tool calls, return direct response
+    // No tool calls, return direct response with null safety
+    const directContent = choice.message?.content;
+    
+    if (!directContent) {
+      console.error('[Agent] Empty response from OpenAI (direct)');
+      return new Response(
+        JSON.stringify({ 
+          error: 'AI returned empty response', 
+          message: 'I apologize, but I encountered an issue processing your request. Please try again.' 
+        }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+    
     return new Response(
-      JSON.stringify({ message: choice.message.content }),
+      JSON.stringify({ 
+        message: directContent,
+        choices: [{ message: { content: directContent } }] // OpenAI format compatibility
+      }),
       { headers: { 'Content-Type': 'application/json' } }
     );
 

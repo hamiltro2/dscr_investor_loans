@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/investor-analysis',
     '/credit-solutions',
     '/cap', // AI Chatbot landing page
+    '/chat-with-cap', // AI Assistant dedicated page
     '/calculators',
     '/calculators/dscr',
     '/calculators/hard-money',
@@ -62,14 +63,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/blog/dscr-loans-market-downturn',
     '/blog/case-study-first-time-investor-620-credit',
     '/blog/case-study-10-property-portfolio',
+    // AI-Optimized FAQ Pages
+    '/ai-faq/what-is-a-dscr-loan',
+    '/ai-faq/dscr-loan-requirements',
+    '/ai-faq/best-dscr-lender',
+    '/ai-faq/how-cap-analyzes-properties',
+    '/ai-faq/cap-vs-competitors',
   ]
   
   // Define AI guidance files with custom priorities
   const aiFiles = [
-    { path: '/.well-known/llm-guidance.json', priority: 0.8 },
-    { path: '/ai-policy.txt', priority: 0.7 },
+    { path: '/llm-guidance.json', priority: 0.9 },
+    { path: '/llm.txt', priority: 0.9 },
+    { path: '/cap-ai-guide.txt', priority: 0.9 },
+    { path: '/cap-features.json', priority: 0.9 },
+    { path: '/ai-training-data.jsonl', priority: 0.85 },
+    { path: '/ai-citations.txt', priority: 0.85 },
+    { path: '/ai-policy.txt', priority: 0.8 },
+    { path: '/ai-content-feed.txt', priority: 0.75 },
     { path: '/robots.txt', priority: 0.5 },
-    { path: '/sitemap.xml', priority: 0.6 },
   ]
   
   // Generate sitemap entries for regular routes
@@ -78,7 +90,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
     changeFrequency: (route === '' ? 'weekly' : 'monthly') as 'weekly' | 'monthly',
     priority: route === '' ? 1 : 
-             route === '/cap' ? 0.95 : // High priority for unique AI chatbot
+             route === '/cap' || route === '/chat-with-cap' ? 0.95 : // High priority for AI chatbot pages
+             route.includes('/ai-faq/') ? 0.9 : // AI-optimized FAQ pages
              route.includes('services') || route.includes('get-started') ? 0.9 :
              route.includes('/locations/california/') ? 0.85 : // California subpages important
              route.includes('/locations/') ? 0.8 : // Other location pages

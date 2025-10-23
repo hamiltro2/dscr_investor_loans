@@ -22,21 +22,67 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Fetch the page content
-    const response = await fetch(validUrl.toString(), {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    // Fetch the page content with timeout (15 seconds)
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
+    
+    let response;
+    try {
+      response = await fetch(validUrl.toString(), {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+          'Accept-Language': 'en-US,en;q=0.5',
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        },
+        signal: controller.signal
+      });
+    } catch (fetchError) {
+      clearTimeout(timeout);
+      
+      if (fetchError instanceof Error) {
+        if (fetchError.name === 'AbortError') {
+          return NextResponse.json(
+            { 
+              error: 'Request timeout', 
+              details: 'The website took too long to respond (>15 seconds)',
+              suggestion: 'Try using a screenshot instead'
+            },
+            { status: 408 }
+          );
+        }
+        throw fetchError; // Re-throw for main catch block
       }
-    });
+      throw new Error('Unknown fetch error');
+    } finally {
+      clearTimeout(timeout);
+    }
 
     if (!response.ok) {
       return NextResponse.json(
-        { error: `Failed to fetch URL: ${response.statusText}` },
+        { 
+          error: `Failed to fetch URL: ${response.statusText}`,
+          details: `HTTP ${response.status}`,
+          suggestion: 'The website may be down or blocking requests. Try a screenshot instead.'
+        },
         { status: response.status }
       );
     }
 
     const html = await response.text();
+    
+    // Validate we got actual HTML content
+    if (!html || html.trim().length === 0) {
+      return NextResponse.json(
+        { 
+          error: 'Empty response from website',
+          details: 'The website returned no content',
+          suggestion: 'Try using a screenshot of the listing instead'
+        },
+        { status: 500 }
+      );
+    }
 
     // Extract basic info from HTML (for Redfin/Zillow)
     const metadata = extractMetadata(html, validUrl.toString());
@@ -50,10 +96,16 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Error fetching URL:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch URL' },
-      { status: 500 }
-    );
+    
+    // Provide detailed error information for debugging
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    const errorDetails = {
+      error: 'Failed to fetch URL',
+      details: errorMessage,
+      suggestion: 'The website may be blocking automated requests. Try using a screenshot or manual input instead.'
+    };
+    
+    return NextResponse.json(errorDetails, { status: 500 });
   }
 }
 
