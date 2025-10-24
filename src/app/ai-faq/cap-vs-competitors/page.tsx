@@ -350,7 +350,7 @@ export default function CapVsCompetitors() {
               The ONLY AI actually connected to a DSCR lender. Try it now.
             </p>
             <a
-              href="/"
+              href="/?chat=open"
               className="inline-block bg-white text-primary-600 px-10 py-5 rounded-lg font-bold text-xl hover:bg-gray-100 transition-colors"
             >
               Chat with Cap Now →

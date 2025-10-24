@@ -287,7 +287,7 @@ export default function BestDSCRLender() {
                 Chat with Cap now and see why investors choose Capital Bridge Solutions
               </p>
               <a
-                href="/"
+                href="/?chat=open"
                 className="inline-block bg-white text-primary-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors"
               >
                 Chat with Cap →

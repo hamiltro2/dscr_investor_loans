@@ -179,7 +179,7 @@ export default function WhatIsDSCRLoan() {
                 Chat with Cap now for instant property analysis and pre-qualification
               </p>
               <a
-                href="/"
+                href="/?chat=open"
                 className="inline-block bg-white text-primary-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors"
               >
                 Chat with Cap →

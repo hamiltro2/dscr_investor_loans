@@ -95,7 +95,7 @@ export default function ChatWithCap() {
               </div>
               <div className="text-center mt-6">
                 <a
-                  href="/"
+                  href="/?chat=open"
                   className="inline-block bg-primary-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-primary-700 transition-colors"
                 >
                   Start Chatting with Cap →
@@ -263,7 +263,7 @@ export default function ChatWithCap() {
             </p>
             <div className="space-y-4">
               <a
-                href="/"
+                href="/?chat=open"
                 className="inline-block bg-white text-primary-600 px-10 py-5 rounded-lg font-bold text-xl hover:bg-gray-100 transition-colors"
               >
                 Start Chatting with Cap →

@@ -304,7 +304,7 @@ export default function HowCapAnalyzesProperties() {
               </div>
               <div className="text-center mt-6">
                 <a
-                  href="/"
+                  href="/?chat=open"
                   className="inline-block bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
                 >
                   Try Cap Now →
@@ -336,7 +336,7 @@ export default function HowCapAnalyzesProperties() {
                 Paste any property URL and get instant DSCR analysis
               </p>
               <a
-                href="/"
+                href="/?chat=open"
                 className="inline-block bg-white text-primary-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors"
               >
                 Chat with Cap →
