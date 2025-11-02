@@ -43,3 +43,15 @@ next-env.d.ts
 knowledge-base.json
 
 .vercel
+
+# ============================================
+# SECURITY: Strategy Documents (Keep Private!)
+# ============================================
+COMPETITIVE-AI-STRATEGY.md
+SECURITY-PROTECTION-GUIDE.md
+*-PRIVATE.md
+*-INTERNAL.md
+/notes/
+/docs/strategy/
+/docs/competitive/
+competitor-analysis.json

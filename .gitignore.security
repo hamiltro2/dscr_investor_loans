@@ -1,0 +1,59 @@
+# ============================================
+# SECURITY: Add these to your .gitignore
+# ============================================
+
+# Strategy Documents (Keep Private!)
+COMPETITIVE-AI-STRATEGY.md
+CHATGPT-INTEGRATION.md
+/docs/strategy/
+/docs/competitive/
+
+# Private Notes
+*-PRIVATE.md
+*-INTERNAL.md
+*-STRATEGY.md
+/notes/
+
+# Environment & Secrets
+.env
+.env.local
+.env.production
+.env.development
+*.key
+*.pem
+secrets/
+
+# Database
+*.db
+*.sqlite
+/prisma/*.db
+
+# Logs (may contain sensitive data)
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Analytics & Tracking Data
+/analytics-private/
+competitor-analysis.json
+
+# Backups
+*.backup
+*.bak
+backup/
+
+# Private Documentation
+/docs/internal/
+/docs/private/
+
+# ============================================
+# PUBLIC FILES (DO NOT ADD TO .gitignore)
+# These MUST be accessible to AI systems:
+# ============================================
+# - public/llm.txt
+# - public/ai-keywords.txt
+# - public/ai-prompts.txt
+# - .well-known/ai-plugin.json
+# - public/openapi.yaml
+# - src/app/api/ai-context/route.ts (but source is private)

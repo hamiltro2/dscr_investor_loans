@@ -1,0 +1,17 @@
+Fix: Add ?chat=open parameter to all Chat with Cap CTAs
+
+- Updated all AI FAQ pages to include ?chat=open
+- Updated /chat-with-cap page CTAs  
+- Ensures chat widget auto-opens when users click Chat with Cap buttons
+- Chrome extension already had this correctly configured
+- Chat widget listens for ?chat=open and opens after 500ms delay
+
+Files updated:
+- src/app/ai-faq/what-is-a-dscr-loan/page.tsx
+- src/app/ai-faq/dscr-loan-requirements/page.tsx
+- src/app/ai-faq/best-dscr-lender/page.tsx
+- src/app/ai-faq/how-cap-analyzes-properties/page.tsx
+- src/app/ai-faq/cap-vs-competitors/page.tsx
+- src/app/chat-with-cap/page.tsx
+
+This creates seamless UX from any Chat with Cap button to active chat.
