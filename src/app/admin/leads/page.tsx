@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { CheckCircle, Clock, XCircle, Phone, Mail, MapPin } from 'lucide-react';
+import { CheckCircle, Clock, XCircle, Phone, Mail, MapPin, Download } from 'lucide-react';
 
 interface Lead {
   id: string;
@@ -69,6 +69,44 @@ export default function LeadsAdminPage() {
     return colors[status as keyof typeof colors] || colors.new;
   };
 
+  const exportToCSV = () => {
+    const csvData = filteredLeads.map(lead => ({
+      'Name': lead.name,
+      'Email': lead.email,
+      'Phone': lead.phone,
+      'Product Type': lead.productType || '',
+      'Loan Amount': lead.loanAmountRequested || '',
+      'Address': lead.address || '',
+      'City': lead.city || '',
+      'State': lead.state || '',
+      'ZIP': lead.zip || '',
+      'Property Type': lead.propertyType || '',
+      'Status': lead.status,
+      'Score': lead.score || '',
+      'Created Date': new Date(lead.createdAt).toLocaleDateString(),
+      'Lead ID': lead.id,
+    }));
+
+    const headers = Object.keys(csvData[0]);
+    const csv = [
+      headers.join(','),
+      ...csvData.map(row => 
+        headers.map(header => {
+          const value = row[header as keyof typeof row];
+          return `"${String(value).replace(/"/g, '""')}"`;
+        }).join(',')
+      )
+    ].join('\n');
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `leads-export-${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -84,9 +122,19 @@ export default function LeadsAdminPage() {
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Cap AI - Lead Dashboard</h1>
-          <p className="text-gray-600 mt-2">Leads collected by your AI assistant</p>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Cap AI - Lead Dashboard</h1>
+            <p className="text-gray-600 mt-2">Leads collected by your AI assistant</p>
+          </div>
+          <button
+            onClick={exportToCSV}
+            disabled={filteredLeads.length === 0}
+            className="flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors font-medium shadow-lg hover:shadow-xl"
+          >
+            <Download className="w-5 h-5" />
+            Export to CSV
+          </button>
         </div>
 
         {/* Stats */}
