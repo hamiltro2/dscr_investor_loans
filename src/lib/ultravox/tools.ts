@@ -183,7 +183,7 @@ export function getCapTools(baseUrl: string): UltravoxTool[] {
             location: 'PARAMETER_LOCATION_BODY',
             schema: {
               type: 'number',
-              description: 'Loan amount requested in dollars (handle variations like "300k" = 300000, "1.5M" = 1500000)'
+              description: 'Loan amount requested in dollars. IMPORTANT: Convert string amounts to numbers - remove commas, dollar signs, and convert k/M notation (e.g., "400,000" = 400000, "$300k" = 300000, "1.5M" = 1500000). Always pass as a plain number without formatting.'
             },
             required: true
           },

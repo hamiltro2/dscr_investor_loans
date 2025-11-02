@@ -17,7 +17,7 @@ const UltravoxLeadSchema = z.object({
   phone: z.string().min(1),
   email: z.string().email(),
   loanAmount: z.number().positive(),
-  creditScore: z.number().min(300).max(850),
+  creditScore: z.number().min(300).max(850).optional(), // Made optional since Cap doesn't always collect it
   propertyAddress: z.string().optional(),
   propertyValue: z.number().optional(),
   propertyType: z.string().optional(),
@@ -46,9 +46,9 @@ export async function POST(req: NextRequest) {
       notes: validated.notes || 'Voice chat inquiry via Ultravox',
       consentGiven: true, // Implicit consent through conversation
       // Store credit score in notes since schema doesn't have dedicated field
-      dscrInputs: {
+      dscrInputs: validated.creditScore ? {
         creditScore: validated.creditScore,
-      },
+      } : undefined,
     };
 
     // Check if lead exists by email or phone
