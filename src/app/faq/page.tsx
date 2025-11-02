@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { Search, Calculator, Home, DollarSign, FileText, Users, TrendingUp, Shield } from 'lucide-react';
+import PhoneButton from '@/components/PhoneButton';
 
 export const metadata: Metadata = {
   title: 'DSCR Loan FAQ - Common Questions Answered | Capital Bridge Solutions',
@@ -186,13 +187,9 @@ export default function FAQIndexPage() {
               >
                 Get Pre-Approved Now
               </Link>
-              <a
-                href="tel:+19493393555"
-                className="btn-secondary"
-                onClick={() => window.gtag && window.gtag('event', 'conversion', {'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'})}
-              >
+              <PhoneButton phone="+19493393555" className="btn-secondary">
                 Call (949) 339-3555
-              </a>
+              </PhoneButton>
             </div>
           </div>
 

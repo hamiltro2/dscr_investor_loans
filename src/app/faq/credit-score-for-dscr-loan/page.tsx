@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, TrendingUp } from 'lucide-react';
+import PhoneButton from '@/components/PhoneButton';
 
 export const metadata: Metadata = {
   title: 'What Credit Score for DSCR Loan? 620 Minimum | Capital Bridge',
@@ -266,13 +267,9 @@ export default function CreditScoreForDSCRLoanPage() {
                 <Link href="/get-started" className="btn-primary">
                   Get My Rate - 620+ Welcome
                 </Link>
-                <a
-                  href="tel:+19493393555"
-                  className="btn-secondary"
-                  onClick={() => window.gtag && window.gtag('event', 'conversion', {'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'})}
-                >
+                <PhoneButton phone="+19493393555" className="btn-secondary">
                   Call (949) 339-3555
-                </a>
+                </PhoneButton>
               </div>
             </div>
           </section>

@@ -268,7 +268,6 @@ export default function DoDSCRLoansRequireTaxReturnsPage() {
                 <a
                   href="tel:+19493393555"
                   className="btn-secondary"
-                  onClick={() => window.gtag && window.gtag('event', 'conversion', {'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'})}
                 >
                   Call (949) 339-3555
                 </a>
