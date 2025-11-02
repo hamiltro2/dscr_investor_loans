@@ -44,7 +44,7 @@ export default function LosAngelesDSCRPage() {
                   Get Free Rate Quote
                   <ArrowRight className="w-5 h-5" />
                 </Link>
-                <a href="tel:+19493393555" className="px-8 py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-xl border border-white/20 hover:border-white/30 transition-all duration-300 inline-flex items-center gap-2")}>
+                <a href="tel:+19493393555" className="px-8 py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-xl border border-white/20 hover:border-white/30 transition-all duration-300 inline-flex items-center gap-2">
                   <Phone className="w-5 h-5" />
                   (949) 339-3555
                 </a>
