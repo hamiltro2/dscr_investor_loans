@@ -207,7 +207,7 @@ export default function AnaheimDSCRLoansPage() {
               <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Local Orange County lender. Get pre-approved in 24-48 hours. Perfect for Disney vacation rentals.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/get-started" className="btn-primary text-lg px-8 py-4">Apply for Anaheim DSCR Loan</Link>
-                <a href="tel:+19493393555" className="btn-secondary text-lg px-8 py-4")}>Call (949) 339-3555</a>
+                <a href="tel:+19493393555" className="btn-secondary text-lg px-8 py-4">Call (949) 339-3555</a>
               </div>
             </div>
           </section>

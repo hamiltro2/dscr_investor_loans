@@ -356,7 +356,6 @@ export default function LosAngelesDSCRLoansPage() {
                 <a
                   href="tel:+19493393555"
                   className="btn-secondary text-lg px-8 py-4"
-                 )}
                 >
                   Call (949) 339-3555
                 </a>

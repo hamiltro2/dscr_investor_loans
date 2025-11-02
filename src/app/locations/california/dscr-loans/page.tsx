@@ -64,7 +64,6 @@ export default function CaliforniaDSCRLoansPage() {
                 <a 
                   href="tel:+19493393555"
                   className="px-8 py-4 bg-white/5 hover:bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:border-white/30 transition-all duration-300 inline-flex items-center gap-2"
-                 )}
                 >
                   <Phone className="w-5 h-5" />
                   (949) 339-3555
@@ -304,7 +303,7 @@ export default function CaliforniaDSCRLoansPage() {
                 Get Started Now
                 <ArrowRight className="w-5 h-5" />
               </Link>
-              <a href="tel:+19493393555" className="px-8 py-4 bg-white/5 hover:bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:border-white/30 transition-all duration-300 inline-flex items-center gap-2 justify-center")}>
+              <a href="tel:+19493393555" className="px-8 py-4 bg-white/5 hover:bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:border-white/30 transition-all duration-300 inline-flex items-center gap-2 justify-center">
                 <Phone className="w-5 h-5" />
                 (949) 339-3555
               </a>
