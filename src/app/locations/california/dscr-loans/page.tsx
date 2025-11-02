@@ -64,7 +64,7 @@ export default function CaliforniaDSCRLoansPage() {
                 <a 
                   href="tel:+19493393555"
                   className="px-8 py-4 bg-white/5 hover:bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:border-white/30 transition-all duration-300 inline-flex items-center gap-2"
-                  onClick={() => window.gtag && window.gtag('event', 'conversion', {'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'})}
+                 )}
                 >
                   <Phone className="w-5 h-5" />
                   (949) 339-3555
@@ -165,7 +165,7 @@ export default function CaliforniaDSCRLoansPage() {
               ].map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
+                 
                   className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 inline-flex items-center gap-2 ${
                     activeTab === tab.id
                       ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg'
@@ -304,7 +304,7 @@ export default function CaliforniaDSCRLoansPage() {
                 Get Started Now
                 <ArrowRight className="w-5 h-5" />
               </Link>
-              <a href="tel:+19493393555" className="px-8 py-4 bg-white/5 hover:bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:border-white/30 transition-all duration-300 inline-flex items-center gap-2 justify-center" onClick={() => window.gtag && window.gtag('event', 'conversion', {'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'})}>
+              <a href="tel:+19493393555" className="px-8 py-4 bg-white/5 hover:bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:border-white/30 transition-all duration-300 inline-flex items-center gap-2 justify-center")}>
                 <Phone className="w-5 h-5" />
                 (949) 339-3555
               </a>

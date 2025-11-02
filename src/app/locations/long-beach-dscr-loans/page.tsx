@@ -207,7 +207,7 @@ export default function LongBeachDSCRLoansPage() {
               <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Get pre-approved in 24-48 hours. Coastal living at better value. No tax returns required.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/get-started" className="btn-primary text-lg px-8 py-4">Apply for Long Beach DSCR Loan</Link>
-                <a href="tel:+19493393555" className="btn-secondary text-lg px-8 py-4" onClick={() => window.gtag && window.gtag('event', 'conversion', {'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'})}>Call (949) 339-3555</a>
+                <a href="tel:+19493393555" className="btn-secondary text-lg px-8 py-4")}>Call (949) 339-3555</a>
               </div>
             </div>
           </section>
