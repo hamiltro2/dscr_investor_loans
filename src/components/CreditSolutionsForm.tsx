@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { SubmitLoader } from './SubmitLoader';
 import { SuccessMessage } from './SuccessMessage';
 import { motion } from 'framer-motion';
+import { trackFormSubmission } from '@/utils/applovin';
 
 // Declare gtag for TypeScript
 declare global {
@@ -61,6 +62,9 @@ export default function CreditSolutionsForm() {
             'send_to': 'AW-1002915679/aOGJCNjKxa0aEN-Ond4D'
           });
         }
+        
+        // Fire AppLovin conversion tracking
+        trackFormSubmission(75, 'credit_solutions'); // $75 value for credit solutions inquiry
         
         resetForm();
         setShowSuccess(true);

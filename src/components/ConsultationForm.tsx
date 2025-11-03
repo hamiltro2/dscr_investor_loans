@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { SubmitLoader } from './SubmitLoader';
 import { SuccessMessage } from './SuccessMessage';
+import { trackFormSubmission } from '@/utils/applovin';
 
 // Declare gtag for TypeScript
 declare global {
@@ -82,6 +83,9 @@ export default function ConsultationForm({ isOpen, onClose, serviceType }: Consu
             'send_to': 'AW-1002915679/aOGJCNjKxa0aEN-Ond4D'
           });
         }
+        
+        // Fire AppLovin conversion tracking
+        trackFormSubmission(50, 'consultation'); // $50 value for consultation request
         
         resetForm();
         setShowSuccess(true);

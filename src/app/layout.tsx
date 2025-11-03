@@ -121,6 +121,15 @@ export default function RootLayout({
           })(window,document,'script','dataLayer','GTM-M79RZRQ9');`}
         </Script>
         
+        {/* AppLovin Axon Pixel */}
+        <Script id="applovin-pixel" strategy="afterInteractive">
+          {`
+            var AXON_EVENT_KEY="a74d8b0d-de35-4d89-808f-03c9e051ec68";
+            !function(e,r){var t=["https://s.axon.ai/pixel.js","https://res4.applovin.com/p/l/loader.iife.js"];if(!e.axon){var a=e.axon=function(){a.performOperation?a.performOperation.apply(a,arguments):a.operationQueue.push(arguments)};a.operationQueue=[],a.ts=Date.now(),a.eventKey=AXON_EVENT_KEY;for(var n=r.getElementsByTagName("script")[0],o=0;o<t.length;o++){var i=r.createElement("script");i.async=!0,i.src=t[o],n.parentNode.insertBefore(i,n)}}}(window,document);
+            axon("init");
+          `}
+        </Script>
+        
         <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" />
         <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE" />
         

@@ -5,6 +5,7 @@ import { Check, ArrowRight } from 'lucide-react';
 import { SubmitLoader } from './SubmitLoader';
 import { SuccessMessage } from './SuccessMessage';
 import { motion, AnimatePresence } from 'framer-motion';
+import { trackFormSubmission } from '@/utils/applovin';
 
 // Declare gtag for TypeScript
 declare global {
@@ -106,6 +107,10 @@ export function MultiStepForm() {
             'send_to': 'AW-1002915679/aOGJCNjKxa0aEN-Ond4D'
           });
         }
+        
+        // Fire AppLovin conversion tracking
+        const loanAmountValue = parseInt(formData.loanAmount.replace(/\D/g, '')) || 0;
+        trackFormSubmission(loanAmountValue * 0.01, 'loan_application'); // 1% of loan amount as conversion value
         
         // Push event to dataLayer for GTM
         if (window.dataLayer) {

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { X, Clock, TrendingUp, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { trackFormSubmission, trackPhoneClick } from '@/utils/applovin';
 
 // Declare gtag for TypeScript
 declare global {
@@ -82,6 +83,9 @@ export function ExitIntentPopup() {
         'send_to': 'AW-1002915679/aOGJCNjKxa0aEN-Ond4D'
       });
     }
+    
+    // Track AppLovin conversion
+    trackFormSubmission(25, 'exit_intent');
 
     try {
       const response = await fetch('/api/send-email', {
@@ -204,7 +208,10 @@ export function ExitIntentPopup() {
                     <a 
                       href="tel:+19493393555" 
                       className="text-primary-400 font-semibold hover:text-primary-300"
-                      onClick={() => window.gtag && window.gtag('event', 'conversion', {'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'})}
+                      onClick={() => {
+                        window.gtag && window.gtag('event', 'conversion', {'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'});
+                        trackPhoneClick();
+                      }}
                     >
                       (949) 339-3555
                     </a>
