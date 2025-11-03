@@ -6,6 +6,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { LeadCaptureModal } from './LeadCaptureModal';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -22,6 +23,8 @@ export function CapVoiceUltravox() {
   const [currentCallId, setCurrentCallId] = useState<string | null>(null);
   const [currentLeadId, setCurrentLeadId] = useState<string | null>(null);
   const [isStreamingResponse, setIsStreamingResponse] = useState(false);
+  const [showLeadModal, setShowLeadModal] = useState(false);
+  const [modalContext, setModalContext] = useState<string>('');
   
   const wsRef = useRef<WebSocket | null>(null);
   const mediaStreamRef = useRef<MediaStream | null>(null);
@@ -228,6 +231,153 @@ export function CapVoiceUltravox() {
     }
   };
 
+  // Lead intent detection patterns - Comprehensive scenarios
+  const LEAD_INTENT_PATTERNS = {
+    // Direct loan requests
+    directRequests: [
+      /need a loan/i, /want a loan/i, /looking for a loan/i, /need financing/i,
+      /need money/i, /need capital/i, /need a dscr/i, /want a dscr/i,
+      /need to borrow/i, /want to borrow/i, /looking to borrow/i,
+      /wanna.*get a loan/i, /want to.*get a loan/i, /try.*get a loan/i,
+      /start.*get.*loan/i, /get.*loan/i
+    ],
+    
+    // Approval/qualification intent
+    approvalIntent: [
+      /get approved/i, /pre-approval/i, /pre-approve/i, /preapproval/i,
+      /get qualified/i, /qualify me/i, /check if i qualify/i, /see if i qualify/i,
+      /can i qualify/i, /do i qualify/i, /will i qualify/i, /am i qualified/i
+    ],
+    
+    // Application intent
+    applicationIntent: [
+      /apply/i, /application/i, /start application/i, /fill out application/i,
+      /submit application/i, /how to apply/i, /where do i apply/i,
+      /want to apply/i, /ready to apply/i, /let me apply/i
+    ],
+    
+    // Purchase/financing scenarios
+    purchaseIntent: [
+      /buy a property/i, /purchase property/i, /buying a property/i,
+      /finance this/i, /finance a property/i, /get financing/i,
+      /secure financing/i, /need financing for/i, /looking at a property/i,
+      /found a property/i, /making an offer/i, /under contract/i
+    ],
+    
+    // Refinance scenarios
+    refinanceIntent: [
+      /refinance/i, /refi/i, /cash out/i, /lower my rate/i,
+      /lower my payment/i, /pull equity/i, /access equity/i,
+      /tap equity/i, /take cash out/i, /pull money out/i,
+      /refinancing my/i, /want to refinance/i
+    ],
+    
+    // Action phrases
+    actionPhrases: [
+      /let's do it/i, /let's start/i, /get started/i, /ready to start/i,
+      /sign me up/i, /count me in/i, /i'm ready/i, /ready to go/i,
+      /let's go/i, /let's move forward/i, /want to proceed/i,
+      /yes please/i, /sounds good/i, /that works/i, /perfect/i
+    ],
+    
+    // Rate/quote requests
+    rateRequests: [
+      /what rate/i, /get a rate/i, /check rates/i, /current rates/i,
+      /best rate/i, /my rate/i, /quote/i, /get a quote/i,
+      /pricing/i, /what's the rate/i, /interest rate/i
+    ],
+    
+    // Next steps
+    nextSteps: [
+      /what's next/i, /next step/i, /how do we start/i, /what do i need/i,
+      /get me started/i, /move forward/i, /proceed/i, /continue/i,
+      /what now/i, /ready to move/i, /let's proceed/i
+    ],
+    
+    // Urgency indicators
+    urgencyPhrases: [
+      /need this fast/i, /closing soon/i, /time sensitive/i,
+      /urgent/i, /asap/i, /quickly/i, /right away/i,
+      /by next week/i, /by friday/i, /tomorrow/i
+    ],
+    
+    // Conversational triggers
+    conversationalTriggers: [
+      /help me get/i, /can you help/i, /i need help/i,
+      /work with you/i, /work together/i, /partner with/i,
+      /interested in/i, /tell me more about getting/i,
+      /how does.*loan.*work/i, /explain.*process/i
+    ],
+    
+    // Property-specific mentions
+    propertyMentions: [
+      /rental property/i, /investment property/i, /airbnb/i,
+      /short term rental/i, /str property/i, /flip.*property/i,
+      /fix and flip/i, /brrrr/i, /portfolio/i, /multi-family/i,
+      /apartment building/i, /duplex/i, /triplex/i, /fourplex/i
+    ],
+    
+    // Deal analysis leading to application
+    dealAnalysis: [
+      /analyze.*deal/i, /run.*numbers/i, /calculate.*dscr/i,
+      /good deal/i, /this property.*work/i, /cash flow/i,
+      /roi/i, /return on investment/i, /cap rate/i
+    ]
+  };
+
+  const detectLeadIntent = (text: string): { detected: boolean; context: string } => {
+    // Check pattern categories and determine context
+    for (const [categoryName, patterns] of Object.entries(LEAD_INTENT_PATTERNS)) {
+      if (patterns.some(pattern => pattern.test(text))) {
+        // Determine context based on category
+        let context = '';
+        if (categoryName === 'refinanceIntent') context = 'refinance';
+        else if (categoryName === 'purchaseIntent') context = 'purchase';
+        else if (categoryName === 'urgencyPhrases') context = 'urgent';
+        else if (categoryName === 'rateRequests') context = 'rate';
+        else if (categoryName === 'propertyMentions') context = 'property';
+        else context = 'general';
+        
+        return { detected: true, context };
+      }
+    }
+    
+    // Additional contextual checks
+    const lowerText = text.toLowerCase();
+    
+    // Check for specific conversational contexts
+    if (lowerText.includes('yes') || lowerText.includes('yeah') || lowerText.includes('sure')) {
+      // Check if the previous assistant message was asking about getting started
+      const lastAssistantMsg = transcript.filter(m => m.role === 'assistant').pop();
+      if (lastAssistantMsg && /get.*started|ready.*apply|want.*proceed/i.test(lastAssistantMsg.text)) {
+        return { detected: true, context: 'general' };
+      }
+    }
+    
+    // Check for property addresses (indicates serious intent)
+    if (/\d+\s+\w+\s+(street|st|avenue|ave|road|rd|drive|dr|lane|ln|way|boulevard|blvd)/i.test(text)) {
+      return { detected: true, context: 'property' };
+    }
+    
+    // Check for loan amounts mentioned
+    if (/\$?\d{3,}k|\$?\d{6,}|hundred.*thousand|million/i.test(text)) {
+      const hasLoanContext = /loan|borrow|finance|need|want/i.test(text);
+      if (hasLoanContext) return { detected: true, context: 'general' };
+    }
+    
+    return { detected: false, context: '' };
+  };
+
+  const handleLeadModalSuccess = (leadId: string) => {
+    setCurrentLeadId(leadId);
+    // Add a message to transcript
+    setTranscript(prev => [...prev, {
+      role: 'assistant',
+      text: "Perfect! I've saved your information. Our team will reach out within 24 hours to get you pre-approved!",
+      timestamp: new Date()
+    }]);
+  };
+
   const handleUltravoxMessage = (data: any) => {
     // Debug logging to understand message flow
     if (data.type === 'transcript' || data.type === 'transcript_delta') {
@@ -254,6 +404,14 @@ export function CapVoiceUltravox() {
             text: data.text,
             timestamp: new Date(),
           }]);
+          
+          // Check for lead intent
+          const intentResult = detectLeadIntent(data.text);
+          if (intentResult.detected && !showLeadModal && !currentLeadId) {
+            console.log('[Ultravox] Lead intent detected, showing modal with context:', intentResult.context);
+            setModalContext(intentResult.context);
+            setTimeout(() => setShowLeadModal(true), 1000); // Small delay for natural flow
+          }
           // DON'T reset streaming - agent might still be streaming when user interrupts
         }
         // Agent/Assistant DELTA (streaming word-by-word)
@@ -544,13 +702,15 @@ export function CapVoiceUltravox() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#0a0e1a]">
+    <>
+      <div className="flex flex-col h-full bg-[#0a0e1a]">
       {/* Header */}
       <div className="p-4 bg-gradient-to-r from-primary-600 to-primary-700 border-b border-primary-500">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-2xl">
-              🧢
+            <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center relative">
+              <span className="text-2xl">🧢</span>
+              <span className="absolute text-green-400 font-bold" style={{ fontSize: '8px', top: '13px', left: '17px' }}>$</span>
             </div>
             <div>
               <h2 className="text-lg font-bold text-white">Voice Chat with Cap</h2>
@@ -575,8 +735,9 @@ export function CapVoiceUltravox() {
         {/* Welcome Message */}
         {transcript.length === 0 && !isConnected && (
           <div className="text-center py-12 space-y-6">
-            <div className="w-20 h-20 bg-primary-600/20 rounded-full flex items-center justify-center text-5xl mx-auto">
-              🧢
+            <div className="w-20 h-20 bg-primary-600/20 rounded-full flex items-center justify-center relative mx-auto">
+              <span className="text-5xl">🧢</span>
+              <span className="absolute text-green-400 font-bold" style={{ fontSize: '14px', top: '26px', left: '34px' }}>$</span>
             </div>
             <div>
               <h3 className="text-2xl font-bold text-white mb-2">Talk to Cap</h3>
@@ -608,8 +769,9 @@ export function CapVoiceUltravox() {
             >
               {msg.role === 'assistant' && (
                 <div className="flex items-center gap-2 mb-1">
-                  <div className="w-5 h-5 bg-primary-600/20 rounded-full flex items-center justify-center text-xs">
-                    🧢
+                  <div className="w-5 h-5 bg-primary-600/20 rounded-full flex items-center justify-center relative">
+                    <span className="text-xs">🧢</span>
+                    <span className="absolute text-green-400 font-bold" style={{ fontSize: '5px', top: '5px', left: '9px' }}>$</span>
                   </div>
                   <span className="font-semibold text-xs text-primary-400">Cap</span>
                 </div>
@@ -629,8 +791,9 @@ export function CapVoiceUltravox() {
           <div className="flex justify-start">
             <div className="bg-dark-800 border border-dark-700 rounded-2xl rounded-bl-sm px-4 py-3">
               <div className="flex items-center gap-2">
-                <div className="w-5 h-5 bg-primary-600/20 rounded-full flex items-center justify-center text-xs">
-                  🧢
+                <div className="w-5 h-5 bg-primary-600/20 rounded-full flex items-center justify-center relative">
+                  <span className="text-xs">🧢</span>
+                  <span className="absolute text-green-400 font-bold" style={{ fontSize: '5px', top: '5px', left: '9px' }}>$</span>
                 </div>
                 <div className="flex gap-1">
                   <div className="w-2 h-2 bg-primary-400 rounded-full animate-pulse"></div>
@@ -690,6 +853,15 @@ export function CapVoiceUltravox() {
         )}
       </div>
     </div>
+
+      {/* Lead Capture Modal */}
+      <LeadCaptureModal
+        isOpen={showLeadModal}
+        onClose={() => setShowLeadModal(false)}
+        onSuccess={handleLeadModalSuccess}
+        context={modalContext}
+      />
+    </>
   );
 }
 
