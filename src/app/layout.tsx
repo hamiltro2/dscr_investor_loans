@@ -8,6 +8,7 @@ import { ExitIntentPopup } from '@/components/ExitIntentPopup'
 import { TrustBar } from '@/components/TrustBar'
 import { IntentTracking } from '@/components/IntentTracking'
 import { CapChatWidget } from '@/components/CapChatWidget'
+import { ApplovinPageView } from '@/components/ApplovinPageView'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat' })
@@ -360,6 +361,7 @@ export default function RootLayout({
             });
           `}
         </Script>
+        <ApplovinPageView />
         <Navigation />
         {children}
         <Footer />

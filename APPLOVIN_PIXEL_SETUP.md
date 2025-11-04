@@ -57,7 +57,31 @@ ApplovinEvents = {
 }
 ```
 
+## Lead Generation vs Ecommerce Events
+
+**Your Business Model:** Lead Generation (Not Ecommerce)
+
+### ✅ Events You SHOULD Track:
+- **`page_view`** - Page visits (tracks user journey)
+- **`submit_lead_form`** - Form submissions (your primary conversion)
+- **`contact`** - Phone clicks (high-intent action)
+- **Custom events** - Calculator usage, application starts, etc.
+
+### ❌ Events You Can IGNORE:
+- **`purchase`** - Ecommerce checkout completion
+- **`add_to_cart`** - Adding products to cart
+- **`view_item`** - Product page views
+- **`begin_checkout`** - Starting ecommerce checkout
+
+> **Note:** AppLovin may show these ecommerce events as "missing" in their dashboard. This is expected and fine - you're tracking lead generation events that matter for your loan business, not ecommerce transactions.
+
 ## Implemented Tracking
+
+### Automatic Page View Tracking
+**Component:** `ApplovinPageView` (in layout.tsx)
+- Automatically tracks every page visit
+- Updates on route changes
+- No manual implementation needed
 
 ### Form Conversions
 All forms now track submissions with AppLovin:
