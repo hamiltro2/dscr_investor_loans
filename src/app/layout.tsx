@@ -131,6 +131,14 @@ export default function RootLayout({
           `}
         </Script>
         
+        {/* LLM Discovery - AI Bot Tracking */}
+        <Script 
+          async 
+          src="https://llmdiscovery-8x9f4pstb-ricardohamiltonmd-gmailcoms-projects.vercel.app/track.js" 
+          data-site-id="0y3138edxw1w"
+          strategy="afterInteractive"
+        />
+        
         <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" />
         <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE" />
         
