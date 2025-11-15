@@ -37,11 +37,17 @@ export async function POST(req: NextRequest) {
     }
     const combinedNotes = combinedNotesParts.join(' | ');
 
+    // Ensure productType is a valid enum value
+    const validProductTypes = ['hard_money', 'dscr', 'fix_flip', 'balloon_refi', 'note_finance'];
+    const finalProductType = productType && validProductTypes.includes(productType) 
+      ? productType 
+      : 'dscr';
+
     const leadDraft = {
       name: full_name as string,
       phone: phone as string,
       email: email as string,
-      productType: (productType as any) ?? 'dscr',
+      productType: finalProductType,
       loanAmountRequested: loan_amount as number,
       notes: combinedNotes || undefined,
       consentGiven: true,
