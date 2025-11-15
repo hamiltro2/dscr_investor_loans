@@ -16,6 +16,7 @@
 # misc
 .DS_Store
 *.pem
+*.psd
 
 # debug
 npm-debug.log*
@@ -28,6 +29,11 @@ yarn-error.log*
 
 # test files
 test-*.js
+test-*.mjs
+test-*.ps1
+check-leads.mjs
+get-db-url.mjs
+test-supabase-connection.mjs
 
 # Chrome extension local config (contains API keys)
 chrome-extension/config.local.js
