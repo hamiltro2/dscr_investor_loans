@@ -139,9 +139,18 @@ export async function sendEmail(formType: string, data: any): Promise<{ success:
  */
 export async function sendCapLeadNotification(lead: any, offer?: any): Promise<{ success: boolean }> {
   try {
-    const subject = `🤖 Cap Pre-Qualified Lead: ${lead.name} - ${lead.productType?.toUpperCase() || 'N/A'}`;
+    // Detect if lead is from ChatGPT
+    const isFromChatGPT = lead.channel === 'chatgpt_app';
+    const channelEmoji = isFromChatGPT ? '💬' : '🤖';
+    const channelPrefix = isFromChatGPT ? 'ChatGPT App' : 'Cap';
     
-    let content = `Cap's AI Loan Companion just pre-qualified a new lead!
+    const subject = `${channelEmoji} ${channelPrefix} Lead: ${lead.name} - ${lead.productType?.toUpperCase() || 'N/A'}`;
+    
+    const introMessage = isFromChatGPT 
+      ? `🚀 NEW LEAD FROM CHATGPT APP!\n\n${lead.name} submitted their information through your ChatGPT integration.`
+      : `Cap's AI Loan Companion just pre-qualified a new lead!`;
+    
+    let content = `${introMessage}
 
 ═══════════════════════════════════════
 📋 LEAD INFORMATION
@@ -230,7 +239,7 @@ Cap told them:
 
 Lead ID: ${lead.id || 'N/A'}
 Captured: ${new Date().toLocaleString()}
-Channel: AI Chat (Cap - Loan Companion)
+Channel: ${isFromChatGPT ? 'ChatGPT App Integration' : 'AI Chat (Cap - Loan Companion)'}
 Consent Given: ${lead.consentGiven ? 'Yes ✅' : 'No ❌'}
 
 ═══════════════════════════════════════
@@ -243,9 +252,9 @@ Consent Given: ${lead.consentGiven ? 'Yes ✅' : 'No ❌'}
       text: content,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto;">
-          <div style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); color: white; padding: 20px; border-radius: 10px 10px 0 0;">
-            <h1 style="margin: 0;">🤖 New Lead from Cap!</h1>
-            <p style="margin: 5px 0 0 0; opacity: 0.9;">AI Loan Companion Pre-Qualification</p>
+          <div style="background: linear-gradient(135deg, ${isFromChatGPT ? '#10a37f 0%, #0d8a6c 100%' : '#0ea5e9 0%, #0284c7 100%'}); color: white; padding: 20px; border-radius: 10px 10px 0 0;">
+            <h1 style="margin: 0;">${channelEmoji} New Lead from ${channelPrefix}!</h1>
+            <p style="margin: 5px 0 0 0; opacity: 0.9;">${isFromChatGPT ? 'ChatGPT App Integration' : 'AI Loan Companion Pre-Qualification'}</p>
           </div>
           
           <div style="background: #f8f9fa; padding: 20px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 10px 10px;">
@@ -299,7 +308,7 @@ Consent Given: ${lead.consentGiven ? 'Yes ✅' : 'No ❌'}
             <p style="margin-top: 20px; color: #6b7280; font-size: 14px;">
               <strong>Lead ID:</strong> ${lead.id || 'N/A'}<br>
               <strong>Captured:</strong> ${new Date().toLocaleString()}<br>
-              <strong>Channel:</strong> AI Chat (Cap - Loan Companion)
+              <strong>Channel:</strong> ${isFromChatGPT ? 'ChatGPT App Integration' : 'AI Chat (Cap - Loan Companion)'}
             </p>
           </div>
         </div>
