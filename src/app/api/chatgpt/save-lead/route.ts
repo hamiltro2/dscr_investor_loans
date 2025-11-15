@@ -7,7 +7,9 @@ export const runtime = 'nodejs'; // Need Prisma
 
 export async function POST(req: NextRequest) {
   try {
+    console.log('[ChatGPT save-lead] Request received');
     const body = await req.json();
+    console.log('[ChatGPT save-lead] Body parsed:', JSON.stringify(body, null, 2));
 
     const {
       full_name,
@@ -18,6 +20,8 @@ export async function POST(req: NextRequest) {
       notes,
       productType,
     } = body ?? {};
+
+    console.log('[ChatGPT save-lead] Extracted fields:', { full_name, phone, email, loan_amount, credit_score_range, productType });
 
     if (!full_name || !phone || !email || typeof loan_amount !== 'number' || !credit_score_range) {
       return NextResponse.json(
@@ -110,10 +114,13 @@ export async function POST(req: NextRequest) {
     });
   } catch (error) {
     console.error('[ChatGPT save-lead] Error:', error);
+    console.error('[ChatGPT save-lead] Error stack:', error instanceof Error ? error.stack : 'N/A');
+    console.error('[ChatGPT save-lead] Error name:', error instanceof Error ? error.name : 'N/A');
     return NextResponse.json(
       {
         success: false,
         error: error instanceof Error ? error.message : 'Unexpected error',
+        errorType: error instanceof Error ? error.name : typeof error,
       },
       { status: 500 },
     );
