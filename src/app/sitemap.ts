@@ -70,6 +70,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/blog/dscr-loans-market-downturn',
     '/blog/case-study-first-time-investor-620-credit',
     '/blog/case-study-10-property-portfolio',
+    '/blog/capital-bridge-vs-kiavi-vs-angeloak',
+    '/blog/best-dscr-lenders-2025',
     // AI-Optimized FAQ Pages
     '/ai-faq/what-is-a-dscr-loan',
     '/ai-faq/dscr-loan-requirements',
