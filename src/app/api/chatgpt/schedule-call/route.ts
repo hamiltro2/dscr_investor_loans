@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { sendCapLeadNotification } from '@/lib/email';
+import { createCalendarEvent, parsePreferredDateTime } from '@/lib/google-calendar';
 
 export const runtime = 'nodejs'; // Need Prisma
 
@@ -135,32 +136,93 @@ export async function POST(req: NextRequest) {
       // Don't fail the request if email fails
     }
 
-    // Generate Calendly link (you can replace with your actual Calendly link)
-    const calendlyLink = 'https://calendly.com/capitalbridgesolutions/dscr-consultation';
-    
-    // Or if you have their Calendly username in env
+    // Create Google Calendar event if preferred date/time provided
+    let calendarResult: any = null;
+    let meetLink: string | undefined;
+
+    if (preferred_date || preferred_time) {
+      const parsedDateTime = parsePreferredDateTime(preferred_date, preferred_time, timezone);
+      
+      if (parsedDateTime) {
+        const { startTime, endTime } = parsedDateTime;
+        
+        const eventSummary = `DSCR Consultation: ${full_name}`;
+        const eventDescription = `
+DSCR Loan Consultation Call
+
+Client: ${full_name}
+Email: ${email}
+Phone: ${phone}
+${property_address ? `\nProperty: ${property_address}` : ''}
+${loan_amount ? `\nLoan Amount: $${loan_amount.toLocaleString()}` : ''}
+${topic ? `\nTopic: ${topic}` : ''}
+${notes ? `\nNotes: ${notes}` : ''}
+
+Source: Cap ChatGPT
+Lead ID: ${lead.id}
+        `.trim();
+
+        calendarResult = await createCalendarEvent({
+          summary: eventSummary,
+          description: eventDescription,
+          startTime,
+          endTime,
+          attendeeEmail: email,
+          attendeeName: full_name,
+          calendarId: process.env.GOOGLE_CALENDAR_ID, // Your team calendar
+        });
+
+        if (calendarResult.success) {
+          meetLink = calendarResult.meetLink;
+          console.log('[ChatGPT schedule-call] Calendar event created:', calendarResult.eventId);
+        }
+      }
+    }
+
+    // Generate Calendly link as fallback
     const calendlyUsername = process.env.CALENDLY_USERNAME || 'capitalbridgesolutions';
     const calendlyEventType = process.env.CALENDLY_EVENT_TYPE || 'dscr-consultation';
     const fullCalendlyLink = `https://calendly.com/${calendlyUsername}/${calendlyEventType}`;
 
-    return NextResponse.json({
+    // Build response based on whether calendar event was created
+    const response: any = {
       success: true,
       lead_id: lead.id,
       status: isNewLead ? 'created' : 'updated',
-      message: 'Call request received! Our team will contact you shortly.',
-      calendly_link: fullCalendlyLink,
-      next_steps: [
-        'Our team has been notified and will call you within 1 business day',
-        'You can also book a specific time using the Calendly link',
-        'We typically respond to ChatGPT inquiries within 2-4 hours',
-        'Check your email for a confirmation and calendar invite',
-      ],
       contact_info: {
         phone: '(949) 339-3555',
         email: 'info@capitalbridgesolutions.com',
         hours: 'Monday-Friday: 8am-6pm PT, Saturday: 9am-2pm PT',
       },
-    });
+    };
+
+    if (calendarResult?.success) {
+      // Calendar event created successfully
+      response.message = `Perfect! Your call is scheduled${preferred_date ? ` for ${preferred_date}` : ''}${preferred_time ? ` at ${preferred_time}` : ''}. You'll receive a Google Calendar invite at ${email}.`;
+      response.calendar_event = {
+        scheduled: true,
+        event_link: calendarResult.eventLink,
+        meet_link: meetLink,
+      };
+      response.next_steps = [
+        'Check your email for the Google Calendar invite',
+        meetLink ? 'Join the call using the Google Meet link in the invite' : 'We\'ll call you at the scheduled time',
+        'Add any questions or documents to the calendar event',
+        'Our team will be prepared with your information',
+      ];
+    } else {
+      // No specific time, or calendar creation failed
+      response.message = 'Call request received! Our team will contact you shortly.';
+      response.calendly_link = fullCalendlyLink;
+      response.next_steps = [
+        'Our team has been notified and will call you within 1 business day',
+        'You can book a specific time using the Calendly link above',
+        'We typically respond to ChatGPT inquiries within 2-4 hours',
+        'Check your email for confirmation',
+      ];
+    }
+
+    return NextResponse.json(response);
 
   } catch (error) {
     console.error('[ChatGPT schedule-call] Error:', error);

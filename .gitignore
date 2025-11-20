@@ -61,3 +61,10 @@ SECURITY-PROTECTION-GUIDE.md
 /docs/strategy/
 /docs/competitive/
 competitor-analysis.json
+
+# ============================================
+# SECURITY: Google Service Account Credentials
+# ============================================
+google-service-account.json
+*-service-account.json
+gcp-credentials.json

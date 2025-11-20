@@ -221,7 +221,6 @@ Ask Cap anything:
 [Link]
 
 Best,
-Ricardo Hamilton
 Capital Bridge Solutions
 ```
 
