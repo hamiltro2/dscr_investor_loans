@@ -179,10 +179,11 @@ Lead ID: ${lead.id}
       }
     }
 
-    // Generate Calendly link as fallback
-    const calendlyUsername = process.env.CALENDLY_USERNAME || 'capitalbridgesolutions';
-    const calendlyEventType = process.env.CALENDLY_EVENT_TYPE || 'dscr-consultation';
-    const fullCalendlyLink = `https://calendly.com/${calendlyUsername}/${calendlyEventType}`;
+    // Get booking link as fallback (Google Calendar Booking Page or Calendly)
+    const bookingUrl = process.env.BOOKING_URL || 
+                      process.env.CALENDLY_USERNAME 
+                        ? `https://calendly.com/${process.env.CALENDLY_USERNAME}/${process.env.CALENDLY_EVENT_TYPE || 'dscr-consultation'}`
+                        : 'https://calendar.app.google/NVzWjvMWQ5uamkw8A';
 
     // Build response based on whether calendar event was created
     const response: any = {
@@ -213,10 +214,10 @@ Lead ID: ${lead.id}
     } else {
       // No specific time, or calendar creation failed
       response.message = 'Call request received! Our team will contact you shortly.';
-      response.calendly_link = fullCalendlyLink;
+      response.booking_link = bookingUrl;
       response.next_steps = [
         'Our team has been notified and will call you within 1 business day',
-        'You can book a specific time using the Calendly link above',
+        'You can also book a specific time using the booking link above',
         'We typically respond to ChatGPT inquiries within 2-4 hours',
         'Check your email for confirmation',
       ];
