@@ -1,0 +1,443 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Capital Bridge Solutions - Cap AI Actions",
+    "description": "API endpoints for Cap, the AI-powered DSCR loan advisor in ChatGPT. Provides property analysis, market data, DSCR calculations, and call scheduling for real estate investors.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://www.capitalbridgesolutions.com",
+      "description": "Production API"
+    }
+  ],
+  "paths": {
+    "/api/chatgpt/save-lead": {
+      "post": {
+        "operationId": "saveLead",
+        "summary": "Save lead information to CRM",
+        "description": "Captures investor contact information and loan requirements. Use this when the user wants to get a quote, schedule a call, or receive more information.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["full_name", "phone", "email", "loan_amount", "credit_score_range"],
+                "properties": {
+                  "full_name": {
+                    "type": "string",
+                    "description": "Investor's full name"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "description": "Phone number with area code"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Email address"
+                  },
+                  "loan_amount": {
+                    "type": "number",
+                    "description": "Desired loan amount in dollars"
+                  },
+                  "credit_score_range": {
+                    "type": "string",
+                    "description": "Credit score range (e.g., '640-659', '680-719', '720+')"
+                  },
+                  "notes": {
+                    "type": "string",
+                    "description": "Additional notes about property, timeline, or investor needs"
+                  },
+                  "productType": {
+                    "type": "string",
+                    "enum": ["dscr", "hard_money", "fix_flip", "balloon_refi", "note_finance"],
+                    "default": "dscr",
+                    "description": "Type of loan product"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lead successfully saved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "lead_id": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": ["created", "updated"]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chatgpt/analyze-property": {
+      "post": {
+        "operationId": "analyzeProperty",
+        "summary": "Analyze investment property metrics",
+        "description": "Provides comprehensive analysis of a property including DSCR calculation, cash flow projections, and approval likelihood. Use this when investor wants to evaluate a specific property.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["purchase_price", "monthly_rent"],
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "description": "Property address"
+                  },
+                  "city": {
+                    "type": "string",
+                    "description": "City name"
+                  },
+                  "state": {
+                    "type": "string",
+                    "default": "CA",
+                    "description": "State abbreviation"
+                  },
+                  "purchase_price": {
+                    "type": "number",
+                    "description": "Purchase price or current value in dollars"
+                  },
+                  "monthly_rent": {
+                    "type": "number",
+                    "description": "Monthly rental income in dollars"
+                  },
+                  "down_payment_percent": {
+                    "type": "number",
+                    "default": 25,
+                    "description": "Down payment as percentage (e.g., 25 for 25%)"
+                  },
+                  "property_type": {
+                    "type": "string",
+                    "default": "Single Family",
+                    "description": "Property type (e.g., Single Family, Multi-Family, Condo)"
+                  },
+                  "credit_score": {
+                    "type": "number",
+                    "description": "Credit score for rate estimation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Property analysis results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "property": {
+                      "type": "object"
+                    },
+                    "loan_details": {
+                      "type": "object"
+                    },
+                    "monthly_breakdown": {
+                      "type": "object"
+                    },
+                    "metrics": {
+                      "type": "object",
+                      "properties": {
+                        "dscr": {
+                          "type": "number"
+                        },
+                        "monthly_cash_flow": {
+                          "type": "number"
+                        },
+                        "cash_on_cash_return": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "approval": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chatgpt/market-data": {
+      "get": {
+        "operationId": "getMarketData",
+        "summary": "Get California market statistics",
+        "description": "Returns current market data for major California investment markets including median prices, rents, DSCR ratios, and investment strategies. Use this when investor asks about specific markets or where to invest.",
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "City name (e.g., 'los-angeles', 'san-diego', 'sacramento'). Leave empty to get list of all available markets."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Market data results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "market": {
+                      "type": "object",
+                      "properties": {
+                        "city": {
+                          "type": "string"
+                        },
+                        "median_price": {
+                          "type": "number"
+                        },
+                        "median_rent": {
+                          "type": "number"
+                        },
+                        "avg_dscr": {
+                          "type": "number"
+                        },
+                        "rental_yield": {
+                          "type": "number"
+                        },
+                        "appreciation_rate": {
+                          "type": "number"
+                        },
+                        "investment_strategy": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chatgpt/calculate-dscr": {
+      "post": {
+        "operationId": "calculateDSCR",
+        "summary": "Calculate DSCR ratio and cash flow",
+        "description": "Interactive DSCR calculator that computes debt service coverage ratio, monthly cash flow, and provides approval likelihood. Use this when investor wants to run different scenarios or understand DSCR calculations.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["monthly_rent"],
+                "properties": {
+                  "monthly_rent": {
+                    "type": "number",
+                    "description": "Monthly rental income in dollars"
+                  },
+                  "purchase_price": {
+                    "type": "number",
+                    "description": "Purchase price (used to calculate loan amount and expenses if not provided)"
+                  },
+                  "loan_amount": {
+                    "type": "number",
+                    "description": "Loan amount in dollars"
+                  },
+                  "interest_rate": {
+                    "type": "number",
+                    "default": 6.25,
+                    "description": "Interest rate percentage (e.g., 6.25 for 6.25%)"
+                  },
+                  "property_tax_annual": {
+                    "type": "number",
+                    "description": "Annual property tax in dollars"
+                  },
+                  "insurance_annual": {
+                    "type": "number",
+                    "description": "Annual insurance premium in dollars"
+                  },
+                  "hoa_monthly": {
+                    "type": "number",
+                    "default": 0,
+                    "description": "Monthly HOA fees in dollars"
+                  },
+                  "other_expenses_monthly": {
+                    "type": "number",
+                    "default": 0,
+                    "description": "Other monthly expenses (maintenance, management, etc.)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "DSCR calculation results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "dscr": {
+                          "type": "number"
+                        },
+                        "dscr_rating": {
+                          "type": "string"
+                        },
+                        "monthly_cash_flow": {
+                          "type": "number"
+                        },
+                        "approval_likelihood": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "breakdown": {
+                      "type": "object"
+                    },
+                    "recommendations": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chatgpt/schedule-call": {
+      "post": {
+        "operationId": "scheduleCall",
+        "summary": "Schedule consultation call",
+        "description": "Books a consultation call with Capital Bridge Solutions team. Use this when investor wants to speak with a loan officer or schedule a call to discuss their specific situation.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["full_name", "email", "phone"],
+                "properties": {
+                  "full_name": {
+                    "type": "string",
+                    "description": "Investor's full name"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Email address"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "description": "Phone number"
+                  },
+                  "preferred_date": {
+                    "type": "string",
+                    "description": "Preferred date for call (e.g., '2024-11-25')"
+                  },
+                  "preferred_time": {
+                    "type": "string",
+                    "description": "Preferred time for call (e.g., '2pm', '10:00am-12:00pm')"
+                  },
+                  "timezone": {
+                    "type": "string",
+                    "default": "PT",
+                    "description": "Timezone (e.g., 'PT', 'ET', 'CT')"
+                  },
+                  "topic": {
+                    "type": "string",
+                    "description": "Call topic or what they want to discuss"
+                  },
+                  "notes": {
+                    "type": "string",
+                    "description": "Additional notes or questions"
+                  },
+                  "property_address": {
+                    "type": "string",
+                    "description": "Property address if discussing specific property"
+                  },
+                  "loan_amount": {
+                    "type": "number",
+                    "description": "Loan amount they're considering"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Call successfully scheduled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "lead_id": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "calendly_link": {
+                      "type": "string",
+                      "description": "Direct link to book specific time"
+                    },
+                    "next_steps": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
