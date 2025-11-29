@@ -134,8 +134,8 @@ export default function RootLayout({
         {/* LLM Discovery - AI Bot Tracking */}
         <Script 
           async 
-          src="https://llmdiscovery-8x9f4pstb-ricardohamiltonmd-gmailcoms-projects.vercel.app/track.js" 
-          data-site-id="0y3138edxw1w"
+          src="https://www.llmdiscovery.ai/track.js" 
+          data-site-id="6ttmqgon3p1i"
           strategy="afterInteractive"
         />
         
