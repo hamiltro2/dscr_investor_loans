@@ -4,7 +4,7 @@ import { MapPin, Phone, Calculator, TrendingUp, Building2, CheckCircle, ArrowRig
 
 export const metadata: Metadata = {
   title: 'Orange County DSCR Loans | Investment Property Financing - Capital Bridge Solutions',
-  description: 'Orange County DSCR loans for Irvine, Newport Beach, Anaheim investment properties. No tax returns required. Rates from 5.99%. OC headquarters. Get pre-approved in 24-48 hours.',
+  description: 'Orange County DSCR loans for Irvine, Newport Beach, Anaheim investment properties. No tax returns required. Rates from 5.5%. OC headquarters. Get pre-approved in 24-48 hours.',
   keywords: 'Orange County DSCR loans, OC investment property loans, Irvine DSCR loans, Newport Beach rental financing, Anaheim investment loans',
   openGraph: {
     title: 'Orange County DSCR Loans | No Tax Returns Required',
@@ -36,17 +36,17 @@ export default function OrangeCountyDSCRPage() {
                 <MapPin className="w-4 h-4 text-primary-400" />
                 <span className="text-primary-300 font-medium text-sm uppercase tracking-wider">Orange County</span>
               </div>
-              
+
               <h1 className="text-5xl md:text-7xl font-display font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-white/80">
                 Orange County DSCR Loans
               </h1>
-              
+
               <p className="text-2xl text-gray-300 mb-4 max-w-4xl mx-auto">
                 Premium Coastal Investment Property Financing in Southern California
               </p>
-              
+
               <p className="text-xl text-gray-400 mb-8 max-w-3xl mx-auto">
-                Irvine, Newport Beach, Anaheim - diverse opportunities. <span className="text-primary-400 font-semibold">Rates from 5.99%</span> • Close in 10-15 days
+                Irvine, Newport Beach, Anaheim - diverse opportunities. <span className="text-primary-400 font-semibold">Rates from 5.5%</span> • Close in 10-15 days
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

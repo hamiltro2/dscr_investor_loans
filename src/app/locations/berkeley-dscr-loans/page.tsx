@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { MapPin, TrendingUp, Home, Calculator } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Berkeley DSCR Loans - UC Berkeley Investment Properties | 5.99%',
+  title: 'Berkeley DSCR Loans - UC Berkeley Investment Properties | 5.5%',
   description: 'Berkeley DSCR loans for rental properties. No tax returns required. Median home: $1.2M, Avg rent: $4,200. Finance Berkeley investments fast. Call (949) 339-3555.',
   openGraph: {
     title: 'Berkeley DSCR Loans - East Bay University Investment Financing',
-    description: 'Finance Berkeley rental properties with no income verification. Rates from 5.99%, approval in 24-48 hours.',
+    description: 'Finance Berkeley rental properties with no income verification. Rates from 5.5%, approval in 24-48 hours.',
   },
 };
 
@@ -32,7 +32,7 @@ export default function BerkeleyDSCRLoansPage() {
             Berkeley DSCR Loans
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Finance Berkeley investment properties with no tax returns. From UC Campus to the Berkeley Hills, 
+            Finance Berkeley investment properties with no tax returns. From UC Campus to the Berkeley Hills,
             we fund rental properties in the East Bay's premier university city.
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function BerkeleyDSCRLoansPage() {
             <div className="text-sm text-gray-400">Typical DSCR</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
-            <div className="text-3xl font-bold text-primary-400 mb-1">5.99%</div>
+            <div className="text-3xl font-bold text-primary-400 mb-1">5.5%</div>
             <div className="text-sm text-gray-400">Starting Rate</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
@@ -214,7 +214,7 @@ export default function BerkeleyDSCRLoansPage() {
         </div>
       </article>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'LocalBusiness', name: 'Capital Bridge Solutions - Berkeley DSCR Loans', description: 'DSCR loans for Berkeley investment properties. No tax returns required, rates from 5.99%.', areaServed: { '@type': 'City', name: 'Berkeley', '@id': 'https://en.wikipedia.org/wiki/Berkeley,_California' }, address: { '@type': 'PostalAddress', addressLocality: 'Orange County', addressRegion: 'CA', addressCountry: 'US' }, telephone: '+1-949-339-3555', geo: { '@type': 'GeoCoordinates', latitude: 37.8715, longitude: -122.2730 } }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'LocalBusiness', name: 'Capital Bridge Solutions - Berkeley DSCR Loans', description: 'DSCR loans for Berkeley investment properties. No tax returns required, rates from 5.5%.', areaServed: { '@type': 'City', name: 'Berkeley', '@id': 'https://en.wikipedia.org/wiki/Berkeley,_California' }, address: { '@type': 'PostalAddress', addressLocality: 'Orange County', addressRegion: 'CA', addressCountry: 'US' }, telephone: '+1-949-339-3555', geo: { '@type': 'GeoCoordinates', latitude: 37.8715, longitude: -122.2730 } }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [{ '@type': 'Question', name: 'Can I finance student housing near UC Berkeley?', acceptedAnswer: { '@type': 'Answer', text: 'Yes! Student rental properties are excellent investments. High demand, consistent turnover, premium rents near campus.' } }] }) }} />
     </div>
   );

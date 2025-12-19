@@ -5,7 +5,7 @@ import PhoneButton from '@/components/PhoneButton';
 
 export const metadata: Metadata = {
   title: 'What Credit Score for DSCR Loan? 620 Minimum | Capital Bridge',
-  description: '620 minimum credit score for DSCR loans. 640+ for better rates, 700+ for best rates (5.99%). Learn how credit score affects rates, approval odds, and down payment.',
+  description: '620 minimum credit score for DSCR loans. 640+ for better rates, 700+ for best rates (5.5%). Learn how credit score affects rates, approval odds, and down payment.',
 };
 
 export default function CreditScoreForDSCRLoanPage() {
@@ -24,9 +24,9 @@ export default function CreditScoreForDSCRLoanPage() {
         <div className="bg-primary-600/10 border-l-4 border-primary-500 rounded-r-xl p-6 mb-8">
           <h2 className="text-lg font-semibold text-primary-300 mb-3">Quick Answer</h2>
           <p className="text-white text-lg leading-relaxed">
-            <strong>Minimum 620 credit score</strong> for DSCR loans. 640-679 gets good rates (7.0-8.0%). 
-            680-699 gets great rates (6.5-7.5%). <strong>700+ gets best rates starting at 5.99%.</strong> 
-            Lower scores require larger down payments (25-30%) but approval is still possible. 
+            <strong>Minimum 620 credit score</strong> for DSCR loans. 640-679 gets good rates (7.0-8.0%).
+            680-699 gets great rates (6.5-7.5%). <strong>700+ gets best rates starting at 5.5%.</strong>
+            Lower scores require larger down payments (25-30%) but approval is still possible.
             Some lenders accept 600-619 with compensating factors.
           </p>
         </div>
@@ -43,7 +43,7 @@ export default function CreditScoreForDSCRLoanPage() {
                 {
                   range: '740+',
                   label: 'Excellent',
-                  rate: '5.99% - 6.49%',
+                  rate: '5.5% - 6.49%',
                   down: '20%',
                   approval: '95%+',
                   color: 'green',
@@ -104,20 +104,18 @@ export default function CreditScoreForDSCRLoanPage() {
                   notes: 'Case-by-case basis. Requires exceptional compensating factors.'
                 },
               ].map((tier, idx) => (
-                <div key={idx} className={`bg-dark-900/50 rounded-xl border ${
-                  tier.color === 'green' ? 'border-green-600/30' :
-                  tier.color === 'yellow' ? 'border-yellow-600/30' :
-                  tier.color === 'red' ? 'border-red-600/30' :
-                  'border-primary-600/30'
-                } p-6`}>
+                <div key={idx} className={`bg-dark-900/50 rounded-xl border ${tier.color === 'green' ? 'border-green-600/30' :
+                    tier.color === 'yellow' ? 'border-yellow-600/30' :
+                      tier.color === 'red' ? 'border-red-600/30' :
+                        'border-primary-600/30'
+                  } p-6`}>
                   <div className="flex items-start justify-between mb-3">
                     <div>
-                      <div className={`text-2xl font-bold ${
-                        tier.color === 'green' ? 'text-green-400' :
-                        tier.color === 'yellow' ? 'text-yellow-400' :
-                        tier.color === 'red' ? 'text-red-400' :
-                        'text-primary-400'
-                      }`}>{tier.range}</div>
+                      <div className={`text-2xl font-bold ${tier.color === 'green' ? 'text-green-400' :
+                          tier.color === 'yellow' ? 'text-yellow-400' :
+                            tier.color === 'red' ? 'text-red-400' :
+                              'text-primary-400'
+                        }`}>{tier.range}</div>
                       <div className="text-gray-400 text-sm">{tier.label}</div>
                     </div>
                     <div className="text-right">
@@ -189,9 +187,8 @@ export default function CreditScoreForDSCRLoanPage() {
                   { score: '640', rate: '8.00%', payment: '$2,935', total: '$1,056,600', savings: '-$193,320' },
                   { score: '620', rate: '8.50%', payment: '$3,076', total: '$1,107,360', savings: '-$244,080' },
                 ].map((item, idx) => (
-                  <div key={idx} className={`flex items-center justify-between p-4 rounded-lg ${
-                    idx === 0 ? 'bg-green-600/10 border border-green-600/30' : 'bg-dark-800'
-                  }`}>
+                  <div key={idx} className={`flex items-center justify-between p-4 rounded-lg ${idx === 0 ? 'bg-green-600/10 border border-green-600/30' : 'bg-dark-800'
+                    }`}>
                     <div className="flex items-center gap-4">
                       <div className="text-center">
                         <div className={`text-2xl font-bold ${idx === 0 ? 'text-green-400' : 'text-white'}`}>{item.score}</div>
@@ -307,7 +304,7 @@ export default function CreditScoreForDSCRLoanPage() {
               name: 'What credit score do I need for a DSCR loan?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Minimum 620 credit score for DSCR loans. 640-679 gets good rates (7.0-8.0%). 680-699 gets great rates (6.5-7.5%). 700+ gets best rates starting at 5.99%. 740+ gets absolute best terms with 20% down. Lower scores require larger down payments (25-30%) but approval is still possible. Some lenders accept 600-619 with strong compensating factors like 35% down and 1.25+ DSCR.'
+                text: 'Minimum 620 credit score for DSCR loans. 640-679 gets good rates (7.0-8.0%). 680-699 gets great rates (6.5-7.5%). 700+ gets best rates starting at 5.5%. 740+ gets absolute best terms with 20% down. Lower scores require larger down payments (25-30%) but approval is still possible. Some lenders accept 600-619 with strong compensating factors like 35% down and 1.25+ DSCR.'
               }
             }
           })

@@ -4,7 +4,7 @@ import { MapPin, TrendingUp, Home, DollarSign } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'California DSCR Loans by City - Bay Area & SoCal | Capital Bridge',
-  description: 'DSCR loans in Los Angeles, San Diego, San Francisco, San Jose, Santa Clara, Oakland & all California cities. No tax returns. Rates from 5.99%. Call (949) 339-3555.',
+  description: 'DSCR loans in Los Angeles, San Diego, San Francisco, San Jose, Santa Clara, Oakland & all California cities. No tax returns. Rates from 5.5%. Call (949) 339-3555.',
   openGraph: {
     title: 'California DSCR Loans - All Major Cities',
     description: 'Finance investment properties across California. Bay Area, Southern California, and beyond.',
@@ -148,7 +148,7 @@ export default function LocationsPage() {
             California DSCR Loans by City
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Finance investment properties across California with no tax returns required. 
+            Finance investment properties across California with no tax returns required.
             From Bay Area tech hubs to Southern California beaches, we fund rental properties statewide.
           </p>
         </div>
@@ -164,7 +164,7 @@ export default function LocationsPage() {
             <div className="text-sm text-gray-400">Monthly Searches</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
-            <div className="text-3xl font-bold text-primary-400 mb-1">5.99%</div>
+            <div className="text-3xl font-bold text-primary-400 mb-1">5.5%</div>
             <div className="text-sm text-gray-400">Starting Rate</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
@@ -178,7 +178,7 @@ export default function LocationsPage() {
           <h2 className="text-3xl font-bold text-white mb-8">Select Your California City</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {cities.map((city) => (
-              <Link 
+              <Link
                 key={city.slug}
                 href={`/locations/${city.slug}`}
                 className="group"
@@ -211,7 +211,7 @@ export default function LocationsPage() {
                     </div>
                     <div>
                       <div className="text-xs text-gray-400">Rate From</div>
-                      <div className="text-primary-400 font-semibold">5.99%</div>
+                      <div className="text-primary-400 font-semibold">5.5%</div>
                     </div>
                   </div>
                 </div>
@@ -224,7 +224,7 @@ export default function LocationsPage() {
         <div className="bg-dark-900/30 rounded-2xl p-8 mb-12 border border-dark-800">
           <h2 className="text-2xl font-semibold text-white mb-6">More California Cities Coming Soon</h2>
           <p className="text-gray-300 mb-6">
-            We're expanding coverage to Palo Alto, Sacramento, Santa Ana, Riverside, 
+            We're expanding coverage to Palo Alto, Sacramento, Santa Ana, Riverside,
             Huntington Beach, Newport Beach, and 10+ more California cities.
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm text-gray-400 mb-6">

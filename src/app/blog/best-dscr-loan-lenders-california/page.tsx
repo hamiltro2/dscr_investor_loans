@@ -86,7 +86,7 @@ export default function BestDSCRLendersCaliforniaPage() {
 
   return (
     <>
-      <ArticleSchema 
+      <ArticleSchema
         headline="Best DSCR Loan Lenders California 2025: Top 10 Comparison"
         description="Expert comparison and reviews of the best DSCR loan lenders in California. Compare rates, requirements, and find the right lender for your investment property."
         datePublished="2024-10-06T02:00:00Z"
@@ -105,20 +105,20 @@ export default function BestDSCRLendersCaliforniaPage() {
         {/* Hero Section */}
         <section className="relative overflow-hidden bg-gradient-to-br from-primary-900/20 to-dark-950 border-b border-primary-500/20 py-16">
           <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
-          
+
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
               <div className="inline-flex items-center gap-2 bg-primary-500/10 border border-primary-500/20 rounded-full px-4 py-2 mb-6">
                 <Award className="w-4 h-4 text-primary-400" />
                 <span className="text-sm text-primary-400 font-medium">Expert Comparison & Reviews</span>
               </div>
-              
+
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
                 Best DSCR Loan Lenders California 2025
               </h1>
-              
+
               <p className="text-xl text-gray-300 mb-8">
-                Compare the top DSCR loan lenders in California. Expert reviews, rates, requirements, 
+                Compare the top DSCR loan lenders in California. Expert reviews, rates, requirements,
                 and detailed comparisons to help you find the perfect lender for your investment property.
               </p>
 
@@ -145,9 +145,9 @@ export default function BestDSCRLendersCaliforniaPage() {
 
         {/* Main Content */}
         <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          
+
           {/* Featured Image */}
-          <BlogImage 
+          <BlogImage
             src="/Best_DSCR_Loan_Lenders_California.png"
             alt="Best DSCR Loan Lenders California 2025 - Expert comparison and reviews"
             width={1200}
@@ -171,7 +171,7 @@ export default function BestDSCRLendersCaliforniaPage() {
                 <p className="text-gray-300 mb-4">
                   Explore our comprehensive guide covering all California markets, requirements, FAQs, and neighborhood analyses for LA, San Diego, San Francisco, Orange County, and Sacramento.
                 </p>
-                <a 
+                <a
                   href="/locations/california/dscr-loans"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                 >
@@ -187,13 +187,13 @@ export default function BestDSCRLendersCaliforniaPage() {
           {/* Introduction */}
           <div className="prose prose-invert prose-lg max-w-none mb-12">
             <p className="text-xl text-gray-300 leading-relaxed">
-              Choosing the right DSCR loan lender can save you thousands of dollars and weeks of time. With dozens 
+              Choosing the right DSCR loan lender can save you thousands of dollars and weeks of time. With dozens
               of lenders offering DSCR loans in California, how do you know which one is best for your investment property?
             </p>
             <p className="text-xl text-gray-300 leading-relaxed">
-              We've analyzed the top DSCR lenders in California based on interest rates, requirements, customer reviews, 
-              approval speed, and overall value. This comprehensive guide will help you find the perfect lender for your 
-              specific situation—whether you have excellent credit or are working with a 620 score, buying your first 
+              We've analyzed the top DSCR lenders in California based on interest rates, requirements, customer reviews,
+              approval speed, and overall value. This comprehensive guide will help you find the perfect lender for your
+              specific situation—whether you have excellent credit or are working with a 620 score, buying your first
               rental or your 20th property.
             </p>
             <p className="text-xl text-gray-300 leading-relaxed">
@@ -282,7 +282,7 @@ export default function BestDSCRLendersCaliforniaPage() {
                 <DollarSign className="w-8 h-8 text-primary-400 mb-4" />
                 <h3 className="text-xl font-bold text-white mb-3">Competitive Rates</h3>
                 <p className="text-gray-400 mb-3">
-                  DSCR rates typically range from 7.25-9.75%. Compare rates across your credit tier. A 0.5% rate 
+                  DSCR rates typically range from 7.25-9.75%. Compare rates across your credit tier. A 0.5% rate
                   difference on a $500K loan costs $2,500/year.
                 </p>
                 <div className="text-sm text-primary-400">Look for: Transparent rate sheets by credit score</div>
@@ -292,7 +292,7 @@ export default function BestDSCRLendersCaliforniaPage() {
                 <CheckCircle className="w-8 h-8 text-primary-400 mb-4" />
                 <h3 className="text-xl font-bold text-white mb-3">Low Minimum Requirements</h3>
                 <p className="text-gray-400 mb-3">
-                  Best lenders accept 620 credit scores and 20% down. Some require 640+ credit or 25% down, 
+                  Best lenders accept 620 credit scores and 20% down. Some require 640+ credit or 25% down,
                   limiting your options.
                 </p>
                 <div className="text-sm text-primary-400">Look for: 620 credit, 20% down, 1.0 DSCR</div>
@@ -302,7 +302,7 @@ export default function BestDSCRLendersCaliforniaPage() {
                 <TrendingUp className="w-8 h-8 text-primary-400 mb-4" />
                 <h3 className="text-xl font-bold text-white mb-3">Fast Approval & Closing</h3>
                 <p className="text-gray-400 mb-3">
-                  Top lenders approve in 24-48 hours and close in 2-3 weeks. Slow lenders take 7+ days for 
+                  Top lenders approve in 24-48 hours and close in 2-3 weeks. Slow lenders take 7+ days for
                   approval and 4-6 weeks to close.
                 </p>
                 <div className="text-sm text-primary-400">Look for: 24-48hr approval, 2-3 week closing</div>
@@ -312,7 +312,7 @@ export default function BestDSCRLendersCaliforniaPage() {
                 <Users className="w-8 h-8 text-primary-400 mb-4" />
                 <h3 className="text-xl font-bold text-white mb-3">California Experience</h3>
                 <p className="text-gray-400 mb-3">
-                  Lenders familiar with California markets understand local regulations, property values, and 
+                  Lenders familiar with California markets understand local regulations, property values, and
                   rental markets. This speeds up approval.
                 </p>
                 <div className="text-sm text-primary-400">Look for: CA-based or CA-focused lenders</div>
@@ -322,7 +322,7 @@ export default function BestDSCRLendersCaliforniaPage() {
                 <Shield className="w-8 h-8 text-primary-400 mb-4" />
                 <h3 className="text-xl font-bold text-white mb-3">Transparent Fees</h3>
                 <p className="text-gray-400 mb-3">
-                  Watch for hidden fees. Best lenders disclose all costs upfront: origination, processing, 
+                  Watch for hidden fees. Best lenders disclose all costs upfront: origination, processing,
                   underwriting, and third-party fees.
                 </p>
                 <div className="text-sm text-primary-400">Look for: Clear fee disclosure, no surprises</div>
@@ -332,7 +332,7 @@ export default function BestDSCRLendersCaliforniaPage() {
                 <Star className="w-8 h-8 text-primary-400 mb-4" />
                 <h3 className="text-xl font-bold text-white mb-3">Special Features</h3>
                 <p className="text-gray-400 mb-3">
-                  Interest-only payments, cash-out refinancing, unlimited properties, and portfolio loans 
+                  Interest-only payments, cash-out refinancing, unlimited properties, and portfolio loans
                   add flexibility for investors.
                 </p>
                 <div className="text-sm text-primary-400">Look for: Features matching your strategy</div>
@@ -344,7 +344,7 @@ export default function BestDSCRLendersCaliforniaPage() {
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-white mb-6">DSCR Lenders Serving All California Markets</h2>
             <p className="text-gray-300 mb-8">
-              Our recommended lenders serve real estate investors across California, from major metro areas to emerging markets. 
+              Our recommended lenders serve real estate investors across California, from major metro areas to emerging markets.
               Whether you're investing in high-priced coastal properties or cash-flowing inland markets, these lenders have you covered.
             </p>
 
@@ -527,8 +527,8 @@ export default function BestDSCRLendersCaliforniaPage() {
 
             <div className="mt-8 bg-primary-900/20 border border-primary-500/20 rounded-xl p-6">
               <p className="text-gray-300">
-                <strong className="text-white">Bottom Line:</strong> While Griffin Funding is a solid choice for California investors, 
-                our top-rated lenders offer better rates, faster approval, and more flexibility. Compare quotes from 3-5 lenders 
+                <strong className="text-white">Bottom Line:</strong> While Griffin Funding is a solid choice for California investors,
+                our top-rated lenders offer better rates, faster approval, and more flexibility. Compare quotes from 3-5 lenders
                 (including Griffin) to ensure you're getting the best deal.
               </p>
             </div>
@@ -549,7 +549,7 @@ export default function BestDSCRLendersCaliforniaPage() {
                   <h3 className="text-3xl font-bold text-white mb-2">1. Capital Bridge Solutions</h3>
                   <div className="flex items-center gap-2 mb-4">
                     <div className="flex gap-1">
-                      {[1,2,3,4,5].map(i => <Star key={i} className="w-5 h-5 fill-primary-400 text-primary-400" />)}
+                      {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-5 h-5 fill-primary-400 text-primary-400" />)}
                     </div>
                     <span className="text-primary-400 font-bold">5.0/5.0</span>
                   </div>
@@ -620,7 +620,7 @@ export default function BestDSCRLendersCaliforniaPage() {
               <div className="bg-dark-900 rounded-lg p-4 mb-6">
                 <h4 className="font-bold text-white mb-2">Best For:</h4>
                 <p className="text-gray-400">
-                  California investors seeking the best combination of rates, speed, and service. Perfect for 
+                  California investors seeking the best combination of rates, speed, and service. Perfect for
                   first-time DSCR borrowers and experienced investors building large portfolios.
                 </p>
               </div>
@@ -640,7 +640,7 @@ export default function BestDSCRLendersCaliforniaPage() {
               <h3 className="text-2xl font-bold text-white mb-4">2. Visio Lending</h3>
               <div className="flex items-center gap-2 mb-6">
                 <div className="flex gap-1">
-                  {[1,2,3,4].map(i => <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />)}
+                  {[1, 2, 3, 4].map(i => <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />)}
                   <Star className="w-5 h-5 text-gray-600" />
                 </div>
                 <span className="text-gray-400">4.5/5.0</span>
@@ -694,7 +694,7 @@ export default function BestDSCRLendersCaliforniaPage() {
               <h3 className="text-2xl font-bold text-white mb-4">3. LendSure</h3>
               <div className="flex items-center gap-2 mb-6">
                 <div className="flex gap-1">
-                  {[1,2,3,4].map(i => <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />)}
+                  {[1, 2, 3, 4].map(i => <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />)}
                   <Star className="w-5 h-5 text-gray-600" />
                 </div>
                 <span className="text-gray-400">4.3/5.0</span>
@@ -748,7 +748,7 @@ export default function BestDSCRLendersCaliforniaPage() {
               <h3 className="text-2xl font-bold text-white mb-4">4. Anchor Loans</h3>
               <div className="flex items-center gap-2 mb-6">
                 <div className="flex gap-1">
-                  {[1,2,3,4].map(i => <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />)}
+                  {[1, 2, 3, 4].map(i => <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />)}
                   <Star className="w-5 h-5 text-gray-600" />
                 </div>
                 <span className="text-gray-400">4.2/5.0</span>
@@ -802,7 +802,7 @@ export default function BestDSCRLendersCaliforniaPage() {
               <h3 className="text-2xl font-bold text-white mb-4">5. Lima One Capital</h3>
               <div className="flex items-center gap-2 mb-6">
                 <div className="flex gap-1">
-                  {[1,2,3,4].map(i => <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />)}
+                  {[1, 2, 3, 4].map(i => <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />)}
                   <Star className="w-5 h-5 text-gray-600" />
                 </div>
                 <span className="text-gray-400">4.0/5.0</span>
@@ -855,7 +855,7 @@ export default function BestDSCRLendersCaliforniaPage() {
           {/* How to Choose */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-white mb-6">How to Choose the Right DSCR Lender</h2>
-            
+
             <div className="space-y-6">
               <div className="bg-dark-800 border-l-4 border-primary-500 p-6 rounded-r-xl">
                 <h3 className="text-xl font-bold text-white mb-3">Step 1: Know Your Numbers</h3>
@@ -883,7 +883,7 @@ export default function BestDSCRLendersCaliforniaPage() {
               <div className="bg-dark-800 border-l-4 border-primary-500 p-6 rounded-r-xl">
                 <h3 className="text-xl font-bold text-white mb-3">Step 3: Read Reviews & Check References</h3>
                 <p className="text-gray-400">
-                  Look for reviews on Google, BiggerPockets, and real estate forums. Ask for references from 
+                  Look for reviews on Google, BiggerPockets, and real estate forums. Ask for references from
                   other investors who've closed loans with the lender.
                 </p>
               </div>
@@ -891,7 +891,7 @@ export default function BestDSCRLendersCaliforniaPage() {
               <div className="bg-dark-800 border-l-4 border-primary-500 p-6 rounded-r-xl">
                 <h3 className="text-xl font-bold text-white mb-3">Step 4: Test Responsiveness</h3>
                 <p className="text-gray-400">
-                  How quickly do they respond to your initial inquiry? This indicates how they'll communicate 
+                  How quickly do they respond to your initial inquiry? This indicates how they'll communicate
                   throughout the loan process. Slow responses = delays later.
                 </p>
               </div>
@@ -901,17 +901,17 @@ export default function BestDSCRLendersCaliforniaPage() {
           {/* People Also Ask Section */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-white mb-8">People Also Ask</h2>
-            
+
             <div className="space-y-6">
               <div className="bg-dark-800 border border-primary-500/20 rounded-xl p-6">
                 <h3 className="text-xl font-bold text-white mb-4">Is Griffin Funding a good DSCR lender?</h3>
                 <p className="text-gray-400 mb-4">
-                  Griffin Funding is a reputable California-based lender with solid DSCR loan programs. They offer loans up to $20M 
-                  and accept 620 credit scores. However, their rates typically start at 7.5-8%, which is higher than our top-rated 
+                  Griffin Funding is a reputable California-based lender with solid DSCR loan programs. They offer loans up to $20M
+                  and accept 620 credit scores. However, their rates typically start at 7.5-8%, which is higher than our top-rated
                   lenders (starting at 7.25%). They also take 30 days to close vs 2-3 weeks for faster lenders.
                 </p>
                 <p className="text-gray-400">
-                  <strong className="text-white">Best for:</strong> Investors needing very large loans ($10M+) or those who prefer 
+                  <strong className="text-white">Best for:</strong> Investors needing very large loans ($10M+) or those who prefer
                   working with a California-only lender. For most investors, our top picks offer better rates and faster closing.
                 </p>
               </div>
@@ -943,8 +943,8 @@ export default function BestDSCRLendersCaliforniaPage() {
               <div className="bg-dark-800 border border-primary-500/20 rounded-xl p-6">
                 <h3 className="text-xl font-bold text-white mb-4">Who has the lowest DSCR loan rates in California?</h3>
                 <p className="text-gray-400 mb-4">
-                  As of January 2025, the lowest DSCR loan rates in California start at <strong className="text-green-400">5.99%</strong> for 
-                  well-qualified borrowers (720+ credit, 25%+ down, 1.25+ DSCR). Capital Bridge Solutions and Visio Lending consistently 
+                  As of January 2025, the lowest DSCR loan rates in California start at <strong className="text-green-400">5.5%</strong> for
+                  well-qualified borrowers (720+ credit, 25%+ down, 1.25+ DSCR). Capital Bridge Solutions and Visio Lending consistently
                   offer the most competitive rates.
                 </p>
                 <p className="text-gray-400 mb-4">
@@ -986,8 +986,8 @@ export default function BestDSCRLendersCaliforniaPage() {
                   </div>
                 </div>
                 <p className="text-gray-400">
-                  <strong className="text-white">Bottom line:</strong> If you're self-employed, have multiple properties, or want fast 
-                  approval without income docs, DSCR lenders are better. If you have W2 income and only 1-2 properties, banks may offer 
+                  <strong className="text-white">Bottom line:</strong> If you're self-employed, have multiple properties, or want fast
+                  approval without income docs, DSCR lenders are better. If you have W2 income and only 1-2 properties, banks may offer
                   lower rates.
                 </p>
               </div>
@@ -997,7 +997,7 @@ export default function BestDSCRLendersCaliforniaPage() {
           {/* FAQ Section */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-white mb-8">Frequently Asked Questions</h2>
-            
+
             <div className="space-y-6">
               <details className="bg-dark-800 border border-primary-500/20 rounded-xl p-6 group">
                 <summary className="flex items-center justify-between cursor-pointer list-none">
@@ -1005,9 +1005,9 @@ export default function BestDSCRLendersCaliforniaPage() {
                   <span className="text-primary-400 group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <p className="text-gray-400 mt-4">
-                  The best DSCR loan lenders in California include Capital Bridge Solutions, Visio Lending, LendSure, 
-                  Anchor Loans, and Lima One Capital. Each offers competitive rates, fast approval, and no income 
-                  verification. The best lender for you depends on your credit score, down payment, property type, and 
+                  The best DSCR loan lenders in California include Capital Bridge Solutions, Visio Lending, LendSure,
+                  Anchor Loans, and Lima One Capital. Each offers competitive rates, fast approval, and no income
+                  verification. The best lender for you depends on your credit score, down payment, property type, and
                   whether you need features like interest-only payments or unlimited properties.
                 </p>
               </details>
@@ -1018,10 +1018,10 @@ export default function BestDSCRLendersCaliforniaPage() {
                   <span className="text-primary-400 group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <p className="text-gray-400 mt-4">
-                  When choosing a DSCR lender, look for: (1) Competitive interest rates (7.25-9.75%), (2) Low minimum 
-                  credit scores (620-640), (3) Fast approval times (24-48 hours), (4) Flexible down payment options 
-                  (20-25%), (5) No property limits, (6) Experience with California properties, (7) Transparent fees, and 
-                  (8) Responsive customer service. Also check if they offer features you need like interest-only payments 
+                  When choosing a DSCR lender, look for: (1) Competitive interest rates (7.25-9.75%), (2) Low minimum
+                  credit scores (620-640), (3) Fast approval times (24-48 hours), (4) Flexible down payment options
+                  (20-25%), (5) No property limits, (6) Experience with California properties, (7) Transparent fees, and
+                  (8) Responsive customer service. Also check if they offer features you need like interest-only payments
                   or cash-out refinancing.
                 </p>
               </details>
@@ -1032,9 +1032,9 @@ export default function BestDSCRLendersCaliforniaPage() {
                   <span className="text-primary-400 group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <p className="text-gray-400 mt-4">
-                  DSCR loan rates in California typically range from 7.25% to 9.75% depending on credit score, down 
-                  payment, DSCR ratio, and property type. Borrowers with 720+ credit scores and 25%+ down payments can 
-                  get rates starting at 7.25%. Lower credit scores (620-680) typically see rates of 8.5-9.75%. Rates are 
+                  DSCR loan rates in California typically range from 7.25% to 9.75% depending on credit score, down
+                  payment, DSCR ratio, and property type. Borrowers with 720+ credit scores and 25%+ down payments can
+                  get rates starting at 7.25%. Lower credit scores (620-680) typically see rates of 8.5-9.75%. Rates are
                   generally 0.5-1.5% higher than conventional loans due to the no-income-verification feature.
                 </p>
               </details>
@@ -1045,9 +1045,9 @@ export default function BestDSCRLendersCaliforniaPage() {
                   <span className="text-primary-400 group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <p className="text-gray-400 mt-4">
-                  Yes, many California DSCR lenders accept credit scores as low as 620. However, you'll pay higher 
-                  interest rates (typically 8.5-9.75%) and may need a larger down payment (25-30%). Some lenders like 
-                  Capital Bridge Solutions and Visio Lending specialize in 620 credit score DSCR loans. Improving your 
+                  Yes, many California DSCR lenders accept credit scores as low as 620. However, you'll pay higher
+                  interest rates (typically 8.5-9.75%) and may need a larger down payment (25-30%). Some lenders like
+                  Capital Bridge Solutions and Visio Lending specialize in 620 credit score DSCR loans. Improving your
                   credit to 660+ can save you 0.5-1% on your interest rate.
                 </p>
               </details>
@@ -1058,10 +1058,10 @@ export default function BestDSCRLendersCaliforniaPage() {
                   <span className="text-primary-400 group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <p className="text-gray-400 mt-4">
-                  To compare DSCR lenders, evaluate: (1) Interest rates by credit tier, (2) Minimum credit score 
-                  requirements, (3) Down payment options, (4) Approval and closing speed, (5) Fees (origination, 
-                  processing, underwriting), (6) Loan limits (minimum and maximum), (7) Property types accepted, 
-                  (8) Geographic coverage, (9) Customer reviews, and (10) Special features like interest-only options 
+                  To compare DSCR lenders, evaluate: (1) Interest rates by credit tier, (2) Minimum credit score
+                  requirements, (3) Down payment options, (4) Approval and closing speed, (5) Fees (origination,
+                  processing, underwriting), (6) Loan limits (minimum and maximum), (7) Property types accepted,
+                  (8) Geographic coverage, (9) Customer reviews, and (10) Special features like interest-only options
                   or portfolio loans. Get quotes from 3-5 lenders to compare total costs.
                 </p>
               </details>
@@ -1072,10 +1072,10 @@ export default function BestDSCRLendersCaliforniaPage() {
                   <span className="text-primary-400 group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <p className="text-gray-400 mt-4">
-                  Most DSCR lenders in California finance single-family homes, 2-4 unit properties, condos, and townhouses. 
-                  Some lenders also finance vacation rentals, Airbnbs, and commercial properties. Properties must be 
-                  investment properties (not primary residences). Popular California markets include Los Angeles, Orange 
-                  County, San Diego, San Francisco Bay Area, Sacramento, and Inland Empire. Rural properties may have 
+                  Most DSCR lenders in California finance single-family homes, 2-4 unit properties, condos, and townhouses.
+                  Some lenders also finance vacation rentals, Airbnbs, and commercial properties. Properties must be
+                  investment properties (not primary residences). Popular California markets include Los Angeles, Orange
+                  County, San Diego, San Francisco Bay Area, Sacramento, and Inland Empire. Rural properties may have
                   limited lender options.
                 </p>
               </details>
@@ -1086,9 +1086,9 @@ export default function BestDSCRLendersCaliforniaPage() {
                   <span className="text-primary-400 group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <p className="text-gray-400 mt-4">
-                  DSCR loan approval in California typically takes 24-48 hours since there's no income verification. The 
-                  full process from application to closing takes 2-3 weeks on average. This is much faster than conventional 
-                  loans (30-45 days) because lenders don't need to verify employment, analyze tax returns, or calculate 
+                  DSCR loan approval in California typically takes 24-48 hours since there's no income verification. The
+                  full process from application to closing takes 2-3 weeks on average. This is much faster than conventional
+                  loans (30-45 days) because lenders don't need to verify employment, analyze tax returns, or calculate
                   debt-to-income ratios. Fast lenders like Capital Bridge Solutions can close in as little as 10-14 days.
                 </p>
               </details>
@@ -1099,9 +1099,9 @@ export default function BestDSCRLendersCaliforniaPage() {
                   <span className="text-primary-400 group-open:rotate-180 transition-transform">▼</span>
                 </summary>
                 <p className="text-gray-400 mt-4">
-                  California DSCR lenders typically charge: (1) Origination fee: 0.5-2% of loan amount, (2) Processing 
-                  fee: $400-800, (3) Underwriting fee: $500-1,000, (4) Appraisal fee: $500-800, (5) Title and escrow 
-                  fees: varies by county. Total closing costs typically range from 2-4% of the loan amount. Some lenders 
+                  California DSCR lenders typically charge: (1) Origination fee: 0.5-2% of loan amount, (2) Processing
+                  fee: $400-800, (3) Underwriting fee: $500-1,000, (4) Appraisal fee: $500-800, (5) Title and escrow
+                  fees: varies by county. Total closing costs typically range from 2-4% of the loan amount. Some lenders
                   offer no-fee options with slightly higher interest rates. Always get a Loan Estimate to compare total costs.
                 </p>
               </details>

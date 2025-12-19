@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'California DSCR Loans | Fast Approval for Investment Properties - Capital Bridge Solutions',
-  description: 'Get DSCR loans in California with AI-powered analysis. 640 credit score, 20% down, close in 10 days. Airbnb, fix-flip, multi-family. Rates from 5.99%. Free rate quote + Chrome extension.',
+  description: 'Get DSCR loans in California with AI-powered analysis. 640 credit score, 20% down, close in 10 days. Airbnb, fix-flip, multi-family. Rates from 5.5%. Free rate quote + Chrome extension.',
   keywords: [
     'California DSCR loans',
     'DSCR loans California',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'California DSCR Loans | Fast Approval for Investment Properties',
-    description: 'Get DSCR loans in California. 640 credit score, 20% down, close in 10-15 days. No tax returns required. Rates from 5.99%.',
+    description: 'Get DSCR loans in California. 640 credit score, 20% down, close in 10-15 days. No tax returns required. Rates from 5.5%.',
     url: 'https://www.capitalbridgesolutions.com/locations/california/dscr-loans',
     siteName: 'Capital Bridge Solutions',
     images: [
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'California DSCR Loans | Fast Approval for Investment Properties',
-    description: 'Get DSCR loans in California. 640 credit score, 20% down, close in 10-15 days. Rates from 5.99%.',
+    description: 'Get DSCR loans in California. 640 credit score, 20% down, close in 10-15 days. Rates from 5.5%.',
     images: ['/logo.png'],
   },
   alternates: {

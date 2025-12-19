@@ -25,17 +25,17 @@ export default function SanFranciscoDSCRPage() {
                 <MapPin className="w-4 h-4 text-primary-400" />
                 <span className="text-primary-300 font-medium text-sm uppercase tracking-wider">San Francisco Bay Area</span>
               </div>
-              
+
               <h1 className="text-5xl md:text-7xl font-display font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-white/80">
                 San Francisco DSCR Loans
               </h1>
-              
+
               <p className="text-2xl text-gray-300 mb-4 max-w-4xl mx-auto">
                 Tech Hub Investment Property Financing with Premium Appreciation
               </p>
-              
+
               <p className="text-xl text-gray-400 mb-8 max-w-3xl mx-auto">
-                Highest rents in California, tech-driven demand. <span className="text-primary-400 font-semibold">Rates from 5.99%</span> • Close in 10-15 days
+                Highest rents in California, tech-driven demand. <span className="text-primary-400 font-semibold">Rates from 5.5%</span> • Close in 10-15 days
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

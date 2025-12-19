@@ -21,7 +21,7 @@ const requirements = [
     details: [
       '640-679: Higher rates, limited programs',
       '680-719: Good rates, most programs available',
-      '720+: Best rates (5.99-6.75%)',
+      '720+: Best rates (5.5-6.75%)',
       'Recent late payments OK if explained'
     ]
   },
@@ -113,10 +113,10 @@ export default function CaliforniaRequirements() {
             <div className="w-14 h-14 bg-gradient-to-br from-primary-500/20 to-primary-600/20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
               <req.icon className="w-7 h-7 text-primary-400" />
             </div>
-            
+
             <h3 className="text-xl font-bold text-white mb-2">{req.title}</h3>
             <div className="text-2xl font-bold text-primary-400 mb-4">{req.requirement}</div>
-            
+
             <ul className="space-y-2">
               {req.details.map((detail, idx) => (
                 <li key={idx} className="flex items-start gap-2 text-sm text-gray-300">

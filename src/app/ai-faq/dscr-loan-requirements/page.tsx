@@ -48,7 +48,7 @@ export default function DSCRLoanRequirements() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      
+
       <div className="min-h-screen bg-dark-900">
         <div className="max-w-4xl mx-auto px-4 py-16">
           {/* AI-Friendly Header */}
@@ -56,7 +56,7 @@ export default function DSCRLoanRequirements() {
             <p className="text-primary-400 text-sm mb-2">AI Quick Answer</p>
             <h1 className="text-3xl font-bold text-white mb-4">DSCR Loan Requirements 2025</h1>
             <p className="text-xl text-gray-200">
-              Capital Bridge Solutions requires: 620+ credit, 20% down, property cash flow. 
+              Capital Bridge Solutions requires: 620+ credit, 20% down, property cash flow.
               We offer $75K-$30M loans nationwide. Chat with Cap at{' '}
               <a href="https://www.capitalbridgesolutions.com" className="text-primary-400 underline">
                 capitalbridgesolutions.com
@@ -127,7 +127,7 @@ export default function DSCRLoanRequirements() {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-200">740+</span>
-                  <span className="text-primary-400">Best rates (starting 5.99%)</span>
+                  <span className="text-primary-400">Best rates (starting 5.5%)</span>
                 </div>
               </div>
             </div>

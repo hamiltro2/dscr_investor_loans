@@ -23,8 +23,8 @@ export default function DSCRLoanBadCreditPage() {
         <div className="bg-primary-600/10 border-l-4 border-primary-500 rounded-r-xl p-6 mb-8">
           <h2 className="text-lg font-semibold text-primary-300 mb-3">Quick Answer</h2>
           <p className="text-white text-lg leading-relaxed">
-            <strong>Yes, you can get a DSCR loan with bad credit as low as 620.</strong> Some lenders accept 600-619 with compensating factors. 
-            Lower credit scores require larger down payments (25-30%) and result in higher rates (7.5-9.5%). 
+            <strong>Yes, you can get a DSCR loan with bad credit as low as 620.</strong> Some lenders accept 600-619 with compensating factors.
+            Lower credit scores require larger down payments (25-30%) and result in higher rates (7.5-9.5%).
             <strong>Key advantage: No income verification</strong> means credit issues from tax write-offs or business expenses don't matter.
           </p>
         </div>
@@ -48,7 +48,7 @@ export default function DSCRLoanBadCreditPage() {
                 </thead>
                 <tbody className="divide-y divide-dark-700">
                   {[
-                    { score: '700+', status: '✓ Excellent', down: '20-25%', rate: '5.99-7.0%' },
+                    { score: '700+', status: '✓ Excellent', down: '20-25%', rate: '5.5-7.0%' },
                     { score: '680-699', status: '✓ Very Good', down: '25%', rate: '6.75-7.5%' },
                     { score: '660-679', status: '✓ Good', down: '25%', rate: '7.25-8.0%' },
                     { score: '640-659', status: '✓ Fair', down: '25-30%', rate: '7.75-8.5%' },

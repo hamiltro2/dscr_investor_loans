@@ -57,7 +57,7 @@ export default function Article() {
           </ul>
 
           <h2>Why DSCR Loans Are Perfect for 1031 Exchanges</h2>
-          
+
           <h3>Speed</h3>
           <p>
             Traditional bank financing takes 30-45 days. DSCR loans close in 7-14 days, giving you breathing room within the 180-day window.
@@ -232,7 +232,7 @@ export default function Article() {
             <li><strong>Multiple Property Closes:</strong> Buy 2-3 properties in one exchange</li>
             <li><strong>Nationwide Lending:</strong> Exchange from any state to any state</li>
             <li><strong>Up to 85% LTV:</strong> Maximize leverage on replacement properties</li>
-            <li><strong>Rates from 5.99%:</strong> Competitive pricing for qualified investors</li>
+            <li><strong>Rates from 5.5%:</strong> Competitive pricing for qualified investors</li>
             <li><strong>Only 0.75% Origination Fee:</strong> Save $6K+ vs competitors</li>
           </ul>
 

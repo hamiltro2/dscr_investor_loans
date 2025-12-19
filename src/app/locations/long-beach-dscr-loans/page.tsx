@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { MapPin, TrendingUp, Home, Calculator } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Long Beach DSCR Loans - Southern California Beach Properties | 5.99%',
+  title: 'Long Beach DSCR Loans - Southern California Beach Properties | 5.5%',
   description: 'Long Beach DSCR loans for rental properties. No tax returns required. Median home: $775K, Avg rent: $3,000. Finance coastal investments fast. Call (949) 339-3555.',
   openGraph: {
     title: 'Long Beach DSCR Loans - Coastal Investment Financing',
-    description: 'Finance Long Beach rental properties with no income verification. Rates from 5.99%, approval in 24-48 hours.',
+    description: 'Finance Long Beach rental properties with no income verification. Rates from 5.5%, approval in 24-48 hours.',
   },
 };
 
@@ -32,7 +32,7 @@ export default function LongBeachDSCRLoansPage() {
             Long Beach DSCR Loans
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Finance Long Beach investment properties with no tax returns. From Belmont Shore to Downtown, 
+            Finance Long Beach investment properties with no tax returns. From Belmont Shore to Downtown,
             we fund rental properties in Southern California's thriving coastal city.
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function LongBeachDSCRLoansPage() {
             <div className="text-sm text-gray-400">Typical DSCR</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
-            <div className="text-3xl font-bold text-primary-400 mb-1">5.99%</div>
+            <div className="text-3xl font-bold text-primary-400 mb-1">5.5%</div>
             <div className="text-sm text-gray-400">Starting Rate</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
@@ -214,7 +214,7 @@ export default function LongBeachDSCRLoansPage() {
         </div>
       </article>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'LocalBusiness', name: 'Capital Bridge Solutions - Long Beach DSCR Loans', description: 'DSCR loans for Long Beach investment properties. No tax returns required, rates from 5.99%.', areaServed: { '@type': 'City', name: 'Long Beach', '@id': 'https://en.wikipedia.org/wiki/Long_Beach,_California' }, address: { '@type': 'PostalAddress', addressLocality: 'Orange County', addressRegion: 'CA', addressCountry: 'US' }, telephone: '+1-949-339-3555', geo: { '@type': 'GeoCoordinates', latitude: 33.7701, longitude: -118.1937 } }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'LocalBusiness', name: 'Capital Bridge Solutions - Long Beach DSCR Loans', description: 'DSCR loans for Long Beach investment properties. No tax returns required, rates from 5.5%.', areaServed: { '@type': 'City', name: 'Long Beach', '@id': 'https://en.wikipedia.org/wiki/Long_Beach,_California' }, address: { '@type': 'PostalAddress', addressLocality: 'Orange County', addressRegion: 'CA', addressCountry: 'US' }, telephone: '+1-949-339-3555', geo: { '@type': 'GeoCoordinates', latitude: 33.7701, longitude: -118.1937 } }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [{ '@type': 'Question', name: 'Can I use a DSCR loan for a Long Beach vacation rental?', acceptedAnswer: { '@type': 'Answer', text: 'Yes! Beach proximity makes Long Beach excellent for Airbnb. We use projected vacation rental income for qualification.' } }] }) }} />
     </div>
   );

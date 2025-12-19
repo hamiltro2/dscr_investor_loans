@@ -18,7 +18,7 @@ export function CapVoiceChat() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [transcript, setTranscript] = useState<TranscriptItem[]>([]);
   const [error, setError] = useState<string | null>(null);
-  
+
   const wsRef = useRef<WebSocket | null>(null);
   const mediaStreamRef = useRef<MediaStream | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -44,57 +44,57 @@ export function CapVoiceChat() {
 
   useEffect(() => {
     scrollToBottom();
-    
+
     // Monitor for lead capture activation (dual-trigger system)
     const lastUserMessage = transcript
       .filter(t => t.role === 'user')
       .slice(-1)[0]?.text.toLowerCase() || '';
-    
+
     const lastCapMessage = transcript
       .filter(t => t.role === 'assistant')
       .slice(-1)[0]?.text.toLowerCase() || '';
-    
+
     // Detect if lead capture mode has been activated - COMPREHENSIVE COVERAGE
     const userTriggerPhrases = [
       // Direct loan requests
       'i need a loan', 'i want a loan', 'i need a dscr', 'i want a dscr',
       'need financing', 'want financing', 'need money', 'need capital',
       'looking for a loan', 'looking for financing', 'get a loan',
-      
+
       // Application intent
       'i want to apply', 'i\'d like to apply', 'want to apply', 'like to apply',
       'apply for', 'apply now', 'start application', 'begin application',
       'ready to apply', 'how to apply', 'can i apply',
-      
+
       // Qualification questions
       'how do i apply', 'how can i apply', 'how do i qualify', 'how can i qualify',
       'do i qualify', 'can i qualify', 'would i qualify', 'will i qualify',
       'get me qualified', 'get qualified', 'am i qualified',
-      
+
       // Approval/pre-approval
       'get me approved', 'get approved', 'pre-approve me', 'pre-approval',
       'can you approve', 'want approval', 'need approval',
-      
+
       // Property-based triggers
       'i have a property', 'i found a property', 'found a property',
       'looking at a property', 'buying a property', 'purchase a property',
       'finance this property', 'finance my property', 'finance the property',
       'property i want to finance', 'property address',
-      
+
       // Rate/quote requests with intent
       'get me a quote', 'give me a quote', 'what rate can i get',
       'what\'s my rate', 'my rate would be', 'quote me',
-      
+
       // Forward movement phrases
       'let\'s get started', 'let\'s start', 'i\'m ready', 'ready to go',
       'get me started', 'sign me up', 'let\'s do this', 'let\'s go',
       'move forward', 'proceed', 'continue with', 'next steps',
-      
+
       // Spanish triggers
       'necesito un préstamo', 'quiero un préstamo', 'quiero aplicar',
       'cómo aplico', 'necesito financiamiento'
     ];
-    
+
     const capLeadCapturePhases = [
       // Initial lead capture phrases
       'let me grab a few quick details',
@@ -105,7 +105,7 @@ export function CapVoiceChat() {
       'i\'ll need a few details',
       'i need some information',
       'i need a few details',
-      
+
       // Name collection
       'what\'s your full name',
       'what is your full name',
@@ -114,7 +114,7 @@ export function CapVoiceChat() {
       'may i have your name',
       'what\'s your name',
       'tell me your name',
-      
+
       // Phone collection
       'best phone number',
       'phone number',
@@ -123,14 +123,14 @@ export function CapVoiceChat() {
       'number to reach you',
       'how can i reach you',
       'what\'s your phone',
-      
+
       // Email collection
       'your email',
       'email address',
       'what\'s your email',
       'your email address',
       'best email',
-      
+
       // Loan amount
       'how much are you looking to borrow',
       'how much do you need',
@@ -138,7 +138,7 @@ export function CapVoiceChat() {
       'how much financing',
       'amount you\'re looking',
       'borrow amount',
-      
+
       // Credit score
       'approximate credit score',
       'credit score',
@@ -146,7 +146,7 @@ export function CapVoiceChat() {
       'your credit score',
       'score range',
       'credit range',
-      
+
       // Property details
       'property address',
       'address of the property',
@@ -154,7 +154,7 @@ export function CapVoiceChat() {
       'property location',
       'tell me about the property',
       'property details',
-      
+
       // Generic data collection
       'can you provide',
       'could you provide',
@@ -163,15 +163,15 @@ export function CapVoiceChat() {
       'need your',
       'share your'
     ];
-    
-    const userTriggeredCapture = userTriggerPhrases.some(phrase => 
+
+    const userTriggeredCapture = userTriggerPhrases.some(phrase =>
       lastUserMessage.includes(phrase)
     );
-    
+
     const capStartedCollecting = capLeadCapturePhases.some(phrase =>
       lastCapMessage.includes(phrase)
     );
-    
+
     // Log when lead capture mode is detected (for monitoring)
     if ((userTriggeredCapture || capStartedCollecting) && transcript.length > 1) {
       console.log('[Lead Capture] 🎯 ACTIVATED');
@@ -190,7 +190,7 @@ export function CapVoiceChat() {
     try {
       setError(null);
       setIsConnecting(true);
-      
+
       // Get ephemeral token from backend
       const tokenResponse = await fetch('/api/realtime-token');
       if (!tokenResponse.ok) {
@@ -238,7 +238,7 @@ export function CapVoiceChat() {
             max_response_output_tokens: 200  // STRICT LIMIT: Force short, concise responses
           }
         };
-        
+
         console.log('📤 Sending session config:', JSON.stringify(sessionConfig, null, 2));
         ws.send(JSON.stringify(sessionConfig));
       };
@@ -246,7 +246,7 @@ export function CapVoiceChat() {
       ws.onmessage = async (event) => {
         try {
           const message = JSON.parse(event.data);
-          
+
           // Log all message types for debugging (except audio events - too noisy)
           const audioEvents = [
             'response.audio.delta',
@@ -259,7 +259,7 @@ export function CapVoiceChat() {
           if (!audioEvents.includes(message.type)) {
             console.log('[WS Event]', message.type, message);
           }
-          
+
           switch (message.type) {
             case 'session.created':
               console.log('✅ Voice session created');
@@ -306,7 +306,7 @@ export function CapVoiceChat() {
               // Log to see item structure
               console.log('📝 Item added:', message.item);
               break;
-              
+
             case 'conversation.item.done':
               // User audio transcripts - API limitation: transcript field is null
               if (message.item?.role === 'user') {
@@ -334,7 +334,7 @@ export function CapVoiceChat() {
               // Mark response as active
               activeResponseRef.current = true;
               console.log('✅ Response created - Cap is thinking...');
-              
+
               // Stop all existing audio sources and reset scheduling for new response
               stopAllAudio();
               if (playbackContextRef.current) {
@@ -347,14 +347,14 @@ export function CapVoiceChat() {
               // Mark response as inactive
               activeResponseRef.current = false;
               console.log('✅ Response done - Cap finished speaking');
-              
+
               // Check if response failed
               if (message.response?.status === 'failed') {
                 const error = message.response.status_details?.error;
                 console.error('❌ Voice response failed:', error?.message || 'Unknown error');
                 setError(error?.message || 'Response generation failed');
               }
-              
+
               setIsSpeaking(false);
               break;
 
@@ -377,7 +377,7 @@ export function CapVoiceChat() {
                 await playAudioChunk(message.delta);
               }
               break;
-            
+
             case 'response.audio.done':
             case 'response.output_audio.done':
               // Play complete audio (when API sends entire response at once)
@@ -385,7 +385,7 @@ export function CapVoiceChat() {
                 await playAudioChunk(message.audio);
               }
               break;
-            
+
             case 'response.audio_transcript.delta':
             case 'response.output_audio_transcript.delta':
               // Build Cap's response incrementally (for smooth display)
@@ -400,9 +400,9 @@ export function CapVoiceChat() {
                     ];
                   }
                   // Start new assistant message
-                  return [...prev, { 
-                    role: 'assistant', 
-                    text: message.delta, 
+                  return [...prev, {
+                    role: 'assistant',
+                    text: message.delta,
                     timestamp: new Date(),
                     complete: false
                   }];
@@ -451,7 +451,7 @@ export function CapVoiceChat() {
               console.log('🎤 TRANSCRIPTION EVENT:', JSON.stringify(message, null, 2));
               const transcriptText = message.transcript;
               console.log('🎤 User said:', transcriptText);
-              
+
               if (transcriptText && transcriptText.trim()) {
                 setTranscript(prev => {
                   // Check if this is already the last message (avoid dupes)
@@ -492,16 +492,16 @@ export function CapVoiceChat() {
                       { ...lastItem, text: lastItem.text + message.delta }
                     ];
                   }
-                  return [...prev, { 
-                    role: 'assistant', 
-                    text: message.delta, 
+                  return [...prev, {
+                    role: 'assistant',
+                    text: message.delta,
                     timestamp: new Date(),
                     complete: false
                   }];
                 });
               }
               break;
-            
+
             case 'response.text.done':
             case 'response.output_text.done':
               // Mark text response as complete
@@ -526,17 +526,17 @@ export function CapVoiceChat() {
               // Suppress benign errors that don't affect functionality
               const errorCode = message.error?.code;
               const errorParam = message.error?.param;
-              
+
               // These errors are expected and don't break functionality
-              if (errorCode === 'response_cancel_not_active' || 
-                  errorCode === 'conversation_already_has_active_response' ||
-                  (errorCode === 'missing_required_parameter' && errorParam === 'session.type') ||
-                  (errorCode === 'unknown_parameter' && errorParam === 'response.modalities')) {
+              if (errorCode === 'response_cancel_not_active' ||
+                errorCode === 'conversation_already_has_active_response' ||
+                (errorCode === 'missing_required_parameter' && errorParam === 'session.type') ||
+                (errorCode === 'unknown_parameter' && errorParam === 'response.modalities')) {
                 console.log('⚠️ Benign API error (ignored):', message.error?.message);
                 // Don't show these to user or disconnect - they're API quirks
                 break;
               }
-              
+
               // Real errors: log and show to user
               console.error('Realtime API error full message:', JSON.stringify(message, null, 2));
               console.error('Error object:', message.error);
@@ -551,8 +551,8 @@ export function CapVoiceChat() {
 
             default:
               // Only log truly unhandled message types (not common events)
-              if (!message.type.startsWith('response.') && 
-                  !message.type.startsWith('conversation.')) {
+              if (!message.type.startsWith('response.') &&
+                !message.type.startsWith('conversation.')) {
                 console.log('Unhandled event:', message.type);
               }
           }
@@ -591,7 +591,7 @@ export function CapVoiceChat() {
       }
 
       // MIT-level audio constraints: Professional-grade echo cancellation
-      const stream = await navigator.mediaDevices.getUserMedia({ 
+      const stream = await navigator.mediaDevices.getUserMedia({
         audio: {
           echoCancellation: { exact: true },    // Force echo cancellation
           noiseSuppression: { exact: true },    // Force noise suppression  
@@ -600,10 +600,10 @@ export function CapVoiceChat() {
           sampleRate: { ideal: 24000 }          // Match API requirements
         }
       });
-      
+
       mediaStreamRef.current = stream;
       // Optimize buffer size: 2048 = ~85ms latency (balance quality/responsiveness)
-      const audioContext = new AudioContext({ 
+      const audioContext = new AudioContext({
         sampleRate: 24000,
         latencyHint: 'interactive'  // Prioritize low latency
       });
@@ -620,12 +620,12 @@ export function CapVoiceChat() {
         if (activeResponseRef.current) {
           return;
         }
-        
+
         // Continuous audio streaming for server-side VAD
         if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
           const inputData = e.inputBuffer.getChannelData(0);
           const pcm16 = convertFloat32ToPCM16(inputData);
-          
+
           // Send all audio - let server-side VAD handle speech detection
           wsRef.current.send(JSON.stringify({
             type: 'input_audio_buffer.append',
@@ -636,14 +636,14 @@ export function CapVoiceChat() {
 
       setIsRecording(true);
       setError(null);
-      
+
       // Send welcome greeting after a short delay (only once)
       setTimeout(() => {
-        if (wsRef.current && 
-            wsRef.current.readyState === WebSocket.OPEN && 
-            !hasGreetedRef.current) {
+        if (wsRef.current &&
+          wsRef.current.readyState === WebSocket.OPEN &&
+          !hasGreetedRef.current) {
           hasGreetedRef.current = true;
-          
+
           // Trigger welcome by sending a conversation item
           wsRef.current.send(JSON.stringify({
             type: 'conversation.item.create',
@@ -656,7 +656,7 @@ export function CapVoiceChat() {
               }]
             }
           }));
-          
+
           // Request response
           wsRef.current.send(JSON.stringify({
             type: 'response.create'
@@ -687,16 +687,16 @@ export function CapVoiceChat() {
 
   const disconnect = () => {
     console.log('[Voice Chat] 🔌 Disconnecting - cleaning up all resources...');
-    
+
     // Stop recording
     stopRecording();
-    
+
     // Stop all audio playback
     stopAllAudio();
-    
+
     // Reset response state
     activeResponseRef.current = false;
-    
+
     // Close WebSocket connection
     if (wsRef.current) {
       try {
@@ -706,7 +706,7 @@ export function CapVoiceChat() {
       }
       wsRef.current = null;
     }
-    
+
     // Close playback audio context
     if (playbackContextRef.current && playbackContextRef.current.state !== 'closed') {
       try {
@@ -716,20 +716,20 @@ export function CapVoiceChat() {
       }
       playbackContextRef.current = null;
     }
-    
+
     // Clear any pending handoff timer
     if (handoffTimerRef.current) {
       clearTimeout(handoffTimerRef.current);
       handoffTimerRef.current = null;
     }
-    
+
     // Reset state flags
     hasGreetedRef.current = false;
     waitingForSpeechEndRef.current = false;
     setIsConnected(false);
     setIsConnecting(false);
     setIsSpeaking(false);
-    
+
     console.log('[Voice Chat] ✅ Disconnect complete - API costs stopped');
   };
 
@@ -861,7 +861,7 @@ export function CapVoiceChat() {
       }
     } catch (error) {
       console.error('Function call error:', error);
-      
+
       // Send error result
       if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
         wsRef.current.send(JSON.stringify({
@@ -869,8 +869,8 @@ export function CapVoiceChat() {
           item: {
             type: 'function_call_output',
             call_id: callId,
-            output: JSON.stringify({ 
-              error: error instanceof Error ? error.message : 'Function execution failed' 
+            output: JSON.stringify({
+              error: error instanceof Error ? error.message : 'Function execution failed'
             })
           }
         }));
@@ -888,10 +888,10 @@ export function CapVoiceChat() {
         // Source may already be stopped, ignore error
       }
     });
-    
+
     // Clear the array
     audioSourcesRef.current = [];
-    
+
     // Reset scheduling if context exists
     if (playbackContextRef.current) {
       nextPlayTimeRef.current = playbackContextRef.current.currentTime;
@@ -901,47 +901,47 @@ export function CapVoiceChat() {
   const playAudioChunk = async (base64Audio: string) => {
     try {
       if (!base64Audio) return;
-      
+
       // Create or reuse audio context for smooth playback
       if (!playbackContextRef.current) {
         playbackContextRef.current = new AudioContext({ sampleRate: 24000 });
         nextPlayTimeRef.current = playbackContextRef.current.currentTime;
       }
-      
+
       const audioContext = playbackContextRef.current;
-      
+
       // Resume context if suspended (browser security requirement)
       if (audioContext.state === 'suspended') {
         console.log('🔊 Resuming audio context...');
         await audioContext.resume();
       }
-      
+
       // Decode base64 to raw PCM data
       const binaryString = atob(base64Audio);
       const bytes = new Uint8Array(binaryString.length);
       for (let i = 0; i < binaryString.length; i++) {
         bytes[i] = binaryString.charCodeAt(i);
       }
-      
+
       // Convert PCM16 to Float32 for Web Audio API
       const pcm16 = new Int16Array(bytes.buffer);
       const float32 = new Float32Array(pcm16.length);
       for (let i = 0; i < pcm16.length; i++) {
         float32[i] = pcm16[i] / 32768.0; // Convert to -1.0 to 1.0 range
       }
-      
+
       // Create audio buffer
       const audioBuffer = audioContext.createBuffer(1, float32.length, 24000);
       audioBuffer.getChannelData(0).set(float32);
-      
+
       // Schedule for seamless playback
       const source = audioContext.createBufferSource();
       source.buffer = audioBuffer;
       source.connect(audioContext.destination);
-      
+
       // Track this source so we can stop it later if interrupted
       audioSourcesRef.current.push(source);
-      
+
       // Remove source from tracking when it finishes naturally
       source.onended = () => {
         const index = audioSourcesRef.current.indexOf(source);
@@ -949,15 +949,15 @@ export function CapVoiceChat() {
           audioSourcesRef.current.splice(index, 1);
         }
       };
-      
+
       // If we're behind schedule, catch up (with small buffer to prevent gaps)
       const now = audioContext.currentTime;
       if (nextPlayTimeRef.current < now) {
         nextPlayTimeRef.current = now + 0.01; // 10ms buffer
       }
-      
+
       source.start(nextPlayTimeRef.current);
-      
+
       // Update next play time for seamless audio (with tiny overlap to prevent gaps)
       nextPlayTimeRef.current += audioBuffer.duration - 0.005; // 5ms overlap
     } catch (error) {
@@ -1001,7 +1001,7 @@ export function CapVoiceChat() {
               <p>✅ DSCR, Fix & Flip, Creative Financing</p>
               <p>✅ Market insights & expert advice</p>
             </div>
-            
+
             {/* Voice Instructions */}
             <div className="max-w-sm mx-auto mb-6">
               <div className="bg-gradient-to-r from-green-600/10 to-green-700/10 border-2 border-green-600 rounded-xl p-4 mb-4">
@@ -1011,7 +1011,7 @@ export function CapVoiceChat() {
                 <p className="text-xs text-gray-300 text-center mb-3">
                   Just tell Cap you want to apply! I'll collect your information through our conversation, save it to our system, and notify our team immediately.
                 </p>
-                
+
                 {/* Direct Application Button */}
                 <div className="pt-3 border-t border-green-600/30">
                   <a
@@ -1032,7 +1032,7 @@ export function CapVoiceChat() {
               </p>
             </div>
           </div>
-        )}  
+        )}
 
         {transcript.map((item, index) => (
           <div
@@ -1040,11 +1040,10 @@ export function CapVoiceChat() {
             className={`flex ${item.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`max-w-[85%] rounded-2xl px-4 py-3 ${
-                item.role === 'user'
+              className={`max-w-[85%] rounded-2xl px-4 py-3 ${item.role === 'user'
                   ? 'bg-primary-600 text-white rounded-br-sm'
                   : 'bg-dark-800 border border-dark-700 text-gray-100 rounded-bl-sm'
-              }`}
+                }`}
             >
               {item.role === 'assistant' && (
                 <div className="flex items-center gap-2 mb-1">
@@ -1122,7 +1121,7 @@ export function CapVoiceChat() {
               {/* Click hint line */}
               <div className="w-8 h-0.5 bg-green-400/50 group-hover:bg-green-400 transition-all duration-200"></div>
             </div>
-            
+
             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clipRule="evenodd" />
             </svg>
@@ -1140,10 +1139,10 @@ export function CapVoiceChat() {
         )}
 
         <p className="text-xs text-center text-gray-400 mt-3">
-          {isConnecting 
+          {isConnecting
             ? '⚡ Initializing voice session...'
-            : isRecording 
-              ? '🎤 Listening... Speak naturally and I\'ll respond automatically' 
+            : isRecording
+              ? '🎤 Listening... Speak naturally and I\'ll respond automatically'
               : '💡 Tip: Use headphones for best results to prevent echo'}
         </p>
       </div>
@@ -1527,7 +1526,7 @@ You WORK EXTREMELY HARD to help real estate investors succeed. We're not just a 
 - Perfect for: Rental properties, Airbnb/STR, passive income investors
 - Credit: 620+ minimum (can work with lower case-by-case)
 - No tax returns, no income verification - property cash flow qualifies you
-- Rates: Starting at 5.99% (best pricing in market)
+- Rates: Starting at 5.5% (best pricing in market)
 - LTV: Up to 85% for purchase, 80% for cash-out refi
 - Loan Amounts: $75,000 to $30,000,000 (we handle small investors to large portfolios)
 - Property types: 1-4 units, condos, townhomes, SFR, small commercial

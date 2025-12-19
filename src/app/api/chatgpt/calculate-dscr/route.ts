@@ -65,8 +65,8 @@ export async function POST(req: NextRequest) {
     // Calculate monthly principal & interest (30-year fixed)
     const monthlyRate = finalInterestRate / 100 / 12;
     const numPayments = 360;
-    const monthlyPI = finalLoanAmount * 
-      (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / 
+    const monthlyPI = finalLoanAmount *
+      (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) /
       (Math.pow(1 + monthlyRate, numPayments) - 1);
 
     // Calculate monthly property tax and insurance
@@ -114,18 +114,18 @@ export async function POST(req: NextRequest) {
 
     // Calculate recommended adjustments if DSCR is low
     const recommendations: string[] = [];
-    
+
     if (dscr < 1.0) {
       // Calculate required rent for 1.0 DSCR
       const rentForBreakeven = monthlyPITIA;
       const rentIncrease = rentForBreakeven - monthly_rent;
       recommendations.push(`Increase rent by $${Math.round(rentIncrease)} to reach break-even (1.0 DSCR)`);
-      
+
       // Calculate required rent for 1.25 DSCR
       const rentForExcellent = monthlyPITIA * 1.25;
       const rentIncreaseForExcellent = rentForExcellent - monthly_rent;
       recommendations.push(`Or increase rent by $${Math.round(rentIncreaseForExcellent)} to reach excellent DSCR (1.25)`);
-      
+
       // Calculate larger down payment needed
       if (purchase_price) {
         const targetMonthlyPI = (monthly_rent - monthlyPropertyTax - monthlyInsurance - monthlyHOA - monthlyOther) / 1.25;
@@ -134,7 +134,7 @@ export async function POST(req: NextRequest) {
       }
     } else if (dscr >= 1.25) {
       recommendations.push('Excellent property! Consider locking in your rate today.');
-      recommendations.push('This DSCR qualifies you for the best rates (5.99%+).');
+      recommendations.push('This DSCR qualifies you for the best rates (5.5%+).');
     } else if (dscr >= 1.0) {
       recommendations.push('Solid property. Ensure you have 6+ months reserves.');
       recommendations.push('Consider property improvements to increase rent.');
@@ -179,11 +179,11 @@ export async function POST(req: NextRequest) {
         min_dscr_accepted: 0.75,
         min_credit_score: 640,
         max_ltv: dscr >= 1.15 ? '80%' : dscr >= 1.0 ? '75%' : '70%',
-        estimated_rate_range: dscr >= 1.25 
-          ? '5.99% - 6.99%' 
-          : dscr >= 1.0 
-          ? '6.50% - 7.50%'
-          : '7.00% - 8.00%',
+        estimated_rate_range: dscr >= 1.25
+          ? '5.5% - 6.99%'
+          : dscr >= 1.0
+            ? '6.50% - 7.50%'
+            : '7.00% - 8.00%',
         estimated_points: finalLoanAmount >= 450000 ? '0.75%' : '1.0% - 1.5%',
       },
     };

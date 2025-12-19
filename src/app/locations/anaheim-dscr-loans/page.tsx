@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { MapPin, TrendingUp, Home, Calculator } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Anaheim DSCR Loans - Orange County Disney Area Properties | 5.99%',
+  title: 'Anaheim DSCR Loans - Orange County Disney Area Properties | 5.5%',
   description: 'Anaheim DSCR loans for rental properties. No tax returns required. Median home: $825K, Avg rent: $3,300. Finance Orange County investments fast. Call (949) 339-3555.',
   openGraph: {
     title: 'Anaheim DSCR Loans - Orange County Investment Financing',
-    description: 'Finance Anaheim rental properties with no income verification. Rates from 5.99%, approval in 24-48 hours.',
+    description: 'Finance Anaheim rental properties with no income verification. Rates from 5.5%, approval in 24-48 hours.',
   },
 };
 
@@ -32,7 +32,7 @@ export default function AnaheimDSCRLoansPage() {
             Anaheim DSCR Loans
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Finance Anaheim investment properties with no tax returns. From Disneyland Resort to Anaheim Hills, 
+            Finance Anaheim investment properties with no tax returns. From Disneyland Resort to Anaheim Hills,
             we fund rental properties in Orange County's tourism and residential hub.
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function AnaheimDSCRLoansPage() {
             <div className="text-sm text-gray-400">Typical DSCR</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
-            <div className="text-3xl font-bold text-primary-400 mb-1">5.99%</div>
+            <div className="text-3xl font-bold text-primary-400 mb-1">5.5%</div>
             <div className="text-sm text-gray-400">Starting Rate</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
@@ -214,7 +214,7 @@ export default function AnaheimDSCRLoansPage() {
         </div>
       </article>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'LocalBusiness', name: 'Capital Bridge Solutions - Anaheim DSCR Loans', description: 'Local OC DSCR lender. Finance Anaheim investment properties including Disney vacation rentals. Rates from 5.99%.', areaServed: { '@type': 'City', name: 'Anaheim', '@id': 'https://en.wikipedia.org/wiki/Anaheim,_California' }, address: { '@type': 'PostalAddress', addressLocality: 'Orange County', addressRegion: 'CA', addressCountry: 'US' }, telephone: '+1-949-339-3555', geo: { '@type': 'GeoCoordinates', latitude: 33.8366, longitude: -117.9143 } }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'LocalBusiness', name: 'Capital Bridge Solutions - Anaheim DSCR Loans', description: 'Local OC DSCR lender. Finance Anaheim investment properties including Disney vacation rentals. Rates from 5.5%.', areaServed: { '@type': 'City', name: 'Anaheim', '@id': 'https://en.wikipedia.org/wiki/Anaheim,_California' }, address: { '@type': 'PostalAddress', addressLocality: 'Orange County', addressRegion: 'CA', addressCountry: 'US' }, telephone: '+1-949-339-3555', geo: { '@type': 'GeoCoordinates', latitude: 33.8366, longitude: -117.9143 } }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [{ '@type': 'Question', name: 'Can I finance a vacation rental near Disneyland?', acceptedAnswer: { '@type': 'Answer', text: 'Yes! Anaheim Resort area is perfect for Airbnb. We use AirDNA data to calculate projected income for DSCR qualification.' } }] }) }} />
     </div>
   );

@@ -60,7 +60,7 @@ export function FAQSection() {
     },
     {
       q: "What are the best rates available for self-employed borrowers?",
-      a: "Rates currently range from 5.99% to 7.5%+ depending on credit score, down payment, and loan type. DSCR loans offer the best rates (5.99-6.75%), while bad credit programs are higher (7%+). Rates are typically 0.5-1.5% higher than conventional loans."
+      a: "Rates currently range from 5.5% to 7.5%+ depending on credit score, down payment, and loan type. DSCR loans offer the best rates (5.5-6.75%), while bad credit programs are higher (7%+). Rates are typically 0.5-1.5% higher than conventional loans."
     }
   ];
 

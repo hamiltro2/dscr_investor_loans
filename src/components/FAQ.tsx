@@ -31,7 +31,7 @@ export function FAQ() {
     },
     {
       question: "What's the lowest interest rate I can get?",
-      answer: "We work hard to get you the lowest rate possible based on your circumstances. Rates start as low as 5.99% for well-qualified borrowers. Your rate depends on factors like credit score, down payment, property type, and loan amount. We'll shop multiple lenders to find you the best rate available."
+      answer: "We work hard to get you the lowest rate possible based on your circumstances. Rates start as low as 5.5% for well-qualified borrowers. Your rate depends on factors like credit score, down payment, property type, and loan amount. We'll shop multiple lenders to find you the best rate available."
     },
     {
       question: "How fast can I get approved and close on a property?",
@@ -65,7 +65,7 @@ export function FAQ() {
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
-    
+
     // Track FAQ interaction for intent scoring
     if (openIndex !== index) {
       trackFAQClick(faqs[index].question);
@@ -106,11 +106,10 @@ export function FAQ() {
                   )}
                 </span>
               </button>
-              
+
               <div
-                className={`transition-all duration-300 ease-in-out ${
-                  openIndex === index ? 'max-h-96' : 'max-h-0'
-                } overflow-hidden`}
+                className={`transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-96' : 'max-h-0'
+                  } overflow-hidden`}
               >
                 <div className="px-6 pb-5">
                   <p className="text-gray-300 leading-relaxed">
@@ -130,7 +129,7 @@ export function FAQ() {
             <a
               href="tel:+19493393555"
               className="btn-primary"
-              onClick={() => window.gtag && window.gtag('event', 'conversion', {'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'})}
+              onClick={() => window.gtag && window.gtag('event', 'conversion', { 'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D' })}
             >
               Call (949) 339-3555
             </a>

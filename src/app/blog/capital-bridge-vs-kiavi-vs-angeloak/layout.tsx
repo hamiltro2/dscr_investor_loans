@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Capital Bridge Solutions vs Kiavi vs AngelOak: DSCR Loan Comparison 2024',
-  description: 'Compare Capital Bridge Solutions, Kiavi, and AngelOak DSCR loans. See rates from 5.99%, save $20K-$50K over 5 years. California DSCR lender comparison with real cost examples.',
+  description: 'Compare Capital Bridge Solutions, Kiavi, and AngelOak DSCR loans. See rates from 5.5%, save $20K-$50K over 5 years. California DSCR lender comparison with real cost examples.',
   keywords: [
     'Capital Bridge Solutions vs Kiavi',
     'Kiavi vs AngelOak',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Capital Bridge Solutions vs Kiavi vs AngelOak: DSCR Loan Comparison 2024',
-    description: 'Save $20K-$50K over 5 years. Compare rates (5.99% vs 7.75%), points, and closing times for California DSCR loans.',
+    description: 'Save $20K-$50K over 5 years. Compare rates (5.5% vs 7.75%), points, and closing times for California DSCR loans.',
     url: 'https://www.capitalbridgesolutions.com/blog/capital-bridge-vs-kiavi-vs-angeloak',
     type: 'article',
     images: [

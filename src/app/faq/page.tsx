@@ -96,20 +96,20 @@ export default function FAQIndexPage() {
             <Search className="w-4 h-4 text-primary-400" />
             <span className="text-sm text-primary-300">Comprehensive DSCR Loan Knowledge Base</span>
           </div>
-          
+
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
             DSCR Loan <span className="text-gradient">FAQ</span>
           </h1>
-          
+
           <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-            Everything you need to know about Debt Service Coverage Ratio (DSCR) loans. 
+            Everything you need to know about Debt Service Coverage Ratio (DSCR) loans.
             Get expert answers from America's #1 Real Estate Investor Loan Company.
           </p>
 
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-12">
             <div className="bg-dark-800/50 rounded-xl p-4 border border-dark-700">
-              <div className="text-3xl font-bold text-primary-400 mb-1">5.99%</div>
+              <div className="text-3xl font-bold text-primary-400 mb-1">5.5%</div>
               <div className="text-sm text-gray-400">Starting Rate</div>
             </div>
             <div className="bg-dark-800/50 rounded-xl p-4 border border-dark-700">
@@ -145,7 +145,7 @@ export default function FAQIndexPage() {
                     </div>
                     <h2 className="text-2xl font-bold text-white">{category.title}</h2>
                   </div>
-                  
+
                   <div className="space-y-3">
                     {category.questions.map((q, qIdx) => (
                       <Link
@@ -177,8 +177,8 @@ export default function FAQIndexPage() {
               Still Have Questions?
             </h3>
             <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-              Talk to our AI loan companion Cap or speak with a loan specialist. 
-              Get pre-approved in 24-48 hours with rates starting at 5.99%.
+              Talk to our AI loan companion Cap or speak with a loan specialist.
+              Get pre-approved in 24-48 hours with rates starting at 5.5%.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -241,7 +241,7 @@ export default function FAQIndexPage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'FAQPage',
-            mainEntity: faqCategories.flatMap(cat => 
+            mainEntity: faqCategories.flatMap(cat =>
               cat.questions.map(q => ({
                 '@type': 'Question',
                 name: q.question,

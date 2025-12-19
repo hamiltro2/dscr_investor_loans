@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { MapPin, TrendingUp, Home, DollarSign, Calculator } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Los Angeles DSCR Loans - Investment Property Financing | 5.99% Rates',
+  title: 'Los Angeles DSCR Loans - Investment Property Financing | 5.5% Rates',
   description: 'Los Angeles DSCR loans for rental properties. No tax returns required. Median home: $950K, Avg rent: $3,400. Finance LA investment properties in 7-14 days. Call (949) 339-3555.',
   openGraph: {
     title: 'Los Angeles DSCR Loans - Investment Property Financing',
-    description: 'Finance LA rental properties with no income verification. Rates from 5.99%, approval in 24-48 hours.',
+    description: 'Finance LA rental properties with no income verification. Rates from 5.5%, approval in 24-48 hours.',
   },
 };
 
@@ -34,7 +34,7 @@ export default function LosAngelesDSCRLoansPage() {
             Los Angeles DSCR Loans
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Finance LA investment properties with no tax returns. From Downtown to Venice Beach, 
+            Finance LA investment properties with no tax returns. From Downtown to Venice Beach,
             we fund rental properties across all Los Angeles neighborhoods.
           </p>
         </div>
@@ -54,7 +54,7 @@ export default function LosAngelesDSCRLoansPage() {
             <div className="text-sm text-gray-400">Typical DSCR</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
-            <div className="text-3xl font-bold text-primary-400 mb-1">5.99%</div>
+            <div className="text-3xl font-bold text-primary-400 mb-1">5.5%</div>
             <div className="text-sm text-gray-400">Starting Rate</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
@@ -347,7 +347,7 @@ export default function LosAngelesDSCRLoansPage() {
                 Ready to Finance Your Los Angeles Investment Property?
               </h2>
               <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                Get pre-approved in 24-48 hours. No tax returns required. Rates starting at 5.99%.
+                Get pre-approved in 24-48 hours. No tax returns required. Rates starting at 5.5%.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/get-started" className="btn-primary text-lg px-8 py-4">
@@ -383,7 +383,7 @@ export default function LosAngelesDSCRLoansPage() {
             '@context': 'https://schema.org',
             '@type': 'LocalBusiness',
             name: 'Capital Bridge Solutions - Los Angeles DSCR Loans',
-            description: 'DSCR loans for Los Angeles investment properties. No tax returns required, rates from 5.99%.',
+            description: 'DSCR loans for Los Angeles investment properties. No tax returns required, rates from 5.5%.',
             areaServed: {
               '@type': 'City',
               name: 'Los Angeles',
@@ -430,7 +430,7 @@ export default function LosAngelesDSCRLoansPage() {
               '@type': 'Offer',
               priceSpecification: {
                 '@type': 'PriceSpecification',
-                price: '5.99',
+                price: '5.5',
                 priceCurrency: 'USD',
                 unitText: 'PERCENT'
               }

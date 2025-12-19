@@ -23,7 +23,7 @@ export default function DSCRVsConventionalLoanPage() {
         <div className="bg-primary-600/10 border-l-4 border-primary-500 rounded-r-xl p-6 mb-8">
           <h2 className="text-lg font-semibold text-primary-300 mb-3">Quick Answer</h2>
           <p className="text-white text-lg leading-relaxed">
-            <strong>DSCR loans: No tax returns, unlimited properties, faster approval (24-48 hours), higher rates (5.99-9.5%).</strong>
+            <strong>DSCR loans: No tax returns, unlimited properties, faster approval (24-48 hours), higher rates (5.5-9.5%).</strong>
             <strong> Conventional: Requires tax returns, max 10 properties, slower approval (30-45 days), lower rates (5.5-7.5%).</strong>
             Choose DSCR for flexibility and speed. Choose conventional for lowest rate if you qualify.
           </p>
@@ -49,7 +49,7 @@ export default function DSCRVsConventionalLoanPage() {
                   {[
                     { feature: 'Tax Returns', dscr: '❌ NOT Required', conv: '✅ Required (2 years)', winner: 'dscr' },
                     { feature: 'Income Verification', dscr: '❌ None', conv: '✅ Full verification', winner: 'dscr' },
-                    { feature: 'Interest Rate', dscr: '5.99% - 9.5%', conv: '5.5% - 7.5%', winner: 'conv' },
+                    { feature: 'Interest Rate', dscr: '5.5% - 9.5%', conv: '5.5% - 7.5%', winner: 'conv' },
                     { feature: 'Credit Minimum', dscr: '620', conv: '640-680', winner: 'dscr' },
                     { feature: 'Down Payment', dscr: '20-25%', conv: '15-25%', winner: 'tie' },
                     { feature: 'Property Limit', dscr: '♾️ Unlimited', conv: '🔟 Max 10', winner: 'dscr' },
@@ -221,11 +221,10 @@ export default function DSCRVsConventionalLoanPage() {
                 <div key={idx} className="bg-dark-900/50 rounded-xl border border-dark-800 p-5">
                   <div className="flex items-start justify-between mb-2">
                     <h3 className="text-lg font-semibold text-white">{item.scenario}</h3>
-                    <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                      item.choice === 'DSCR' ? 'bg-primary-600/20 text-primary-400' :
-                      item.choice === 'Conventional' ? 'bg-blue-600/20 text-blue-400' :
-                      'bg-gray-600/20 text-gray-400'
-                    }`}>
+                    <span className={`px-3 py-1 rounded-full text-sm font-semibold ${item.choice === 'DSCR' ? 'bg-primary-600/20 text-primary-400' :
+                        item.choice === 'Conventional' ? 'bg-blue-600/20 text-blue-400' :
+                          'bg-gray-600/20 text-gray-400'
+                      }`}>
                       {item.choice}
                     </span>
                   </div>
@@ -288,7 +287,7 @@ export default function DSCRVsConventionalLoanPage() {
               name: 'DSCR loan vs conventional loan - which is better?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'DSCR loans: No tax returns, unlimited properties, 24-48 hour approval, higher rates (5.99-9.5%). Conventional: Requires tax returns, max 10 properties, 30-45 day approval, lower rates (5.5-7.5%). Choose DSCR if self-employed, have 10+ properties, or need fast closing. Choose conventional if W-2 employee seeking lowest rate. DSCR trades slightly higher rate for massive flexibility.'
+                text: 'DSCR loans: No tax returns, unlimited properties, 24-48 hour approval, higher rates (5.5-9.5%). Conventional: Requires tax returns, max 10 properties, 30-45 day approval, lower rates (5.5-7.5%). Choose DSCR if self-employed, have 10+ properties, or need fast closing. Choose conventional if W-2 employee seeking lowest rate. DSCR trades slightly higher rate for massive flexibility.'
               }
             }
           })

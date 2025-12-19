@@ -15,20 +15,20 @@ export default function ChromeExtensionPage() {
               <Chrome className="w-5 h-5" />
               <span className="text-sm font-medium">Available on Chrome Web Store</span>
             </div>
-            
+
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Analyze Properties<br/>
+              Analyze Properties<br />
               <span className="text-blue-200">10x Faster</span>
             </h1>
-            
+
             <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto">
-              AI-powered calculator that auto-fills property data from Zillow, Redfin, and 11+ websites. 
+              AI-powered calculator that auto-fills property data from Zillow, Redfin, and 11+ websites.
               Make faster investment decisions with instant DSCR, ROI, and deal quality scores.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <a 
-                href="https://chromewebstore.google.com/detail/pejohinmhmeoneffemjfigpkjiodbnec?utm_source=item-share-cp" 
+              <a
+                href="https://chromewebstore.google.com/detail/pejohinmhmeoneffemjfigpkjiodbnec?utm_source=item-share-cp"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 bg-white text-blue-700 px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all transform hover:scale-105"
@@ -36,14 +36,14 @@ export default function ChromeExtensionPage() {
                 <Download className="w-6 h-6" />
                 Add to Chrome - It's Free
               </a>
-              <button 
+              <button
                 onClick={() => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })}
                 className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-bold text-lg border-2 border-white/20 hover:bg-white/20 transition-all"
               >
                 See How It Works
               </button>
             </div>
-            
+
             <div className="flex flex-wrap items-center justify-center gap-8 text-sm">
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-5 h-5 text-green-300" />
@@ -77,7 +77,7 @@ export default function ChromeExtensionPage() {
           {/* Demo Screenshot with Annotations */}
           <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl shadow-2xl p-8 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
-            
+
             {/* Browser Chrome */}
             <div className="bg-gray-700 rounded-t-lg p-3 flex items-center gap-2 mb-4">
               <div className="flex gap-2">
@@ -139,7 +139,7 @@ export default function ChromeExtensionPage() {
                     <ul className="space-y-2 text-sm text-indigo-700">
                       <li className="flex items-start gap-2">
                         <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                        <span><strong>Strong DSCR (1.28):</strong> Qualifies for best rates at 5.99%</span>
+                        <span><strong>Strong DSCR (1.28):</strong> Qualifies for best rates at 5.5%</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
@@ -173,8 +173,8 @@ export default function ChromeExtensionPage() {
 
           <div className="text-center mt-12">
             <p className="text-gray-600 mb-6">Everything shown above is generated automatically in under 3 seconds!</p>
-            <a 
-              href="https://chromewebstore.google.com/detail/pejohinmhmeoneffemjfigpkjiodbnec?utm_source=item-share-cp" 
+            <a
+              href="https://chromewebstore.google.com/detail/pejohinmhmeoneffemjfigpkjiodbnec?utm_source=item-share-cp"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-blue-700 transition-all transform hover:scale-105"
@@ -295,8 +295,8 @@ export default function ChromeExtensionPage() {
           <p className="text-xl mb-8 text-blue-100">
             Join thousands of investors who use our extension to make faster, better investment decisions.
           </p>
-          <a 
-            href="https://chromewebstore.google.com/detail/pejohinmhmeoneffemjfigpkjiodbnec?utm_source=item-share-cp" 
+          <a
+            href="https://chromewebstore.google.com/detail/pejohinmhmeoneffemjfigpkjiodbnec?utm_source=item-share-cp"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 bg-white text-blue-700 px-10 py-5 rounded-xl font-bold text-xl shadow-2xl hover:shadow-3xl transition-all transform hover:scale-105"
@@ -319,7 +319,7 @@ export default function ChromeExtensionPage() {
           <p className="text-lg text-gray-600 mb-6">
             Chat with Cap, our AI assistant, to learn more about features, compatibility, and how to get started.
           </p>
-          <button 
+          <button
             onClick={() => window.dispatchEvent(new Event('openChatWidget'))}
             className="inline-flex items-center gap-3 bg-gray-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-gray-800 transition-all"
           >

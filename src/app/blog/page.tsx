@@ -8,7 +8,7 @@ const blogPosts = [
   {
     slug: 'dscr-loan-calculator-california',
     title: 'DSCR Loan Calculator California: Free Tool + 2025 Rates',
-    excerpt: 'Calculate your DSCR loan eligibility instantly. See real examples for Los Angeles, Orange County, and San Diego properties with current rates starting at 5.99%.',
+    excerpt: 'Calculate your DSCR loan eligibility instantly. See real examples for Los Angeles, Orange County, and San Diego properties with current rates starting at 5.5%.',
     date: '2025-01-05',
     readTime: '8 min read',
     category: 'Tools & Calculators'
@@ -17,7 +17,7 @@ const blogPosts = [
   {
     slug: 'dscr-loans-texas',
     title: 'DSCR Loans Texas: Investment Property Financing Guide 2025',
-    excerpt: 'Complete guide to DSCR loans in Texas. Dallas, Houston, Austin, San Antonio markets. No income verification, rates starting at 5.99%.',
+    excerpt: 'Complete guide to DSCR loans in Texas. Dallas, Houston, Austin, San Antonio markets. No income verification, rates starting at 5.5%.',
     date: '2025-01-05',
     readTime: '12 min read',
     category: 'State Guides'
@@ -25,7 +25,7 @@ const blogPosts = [
   {
     slug: 'dscr-loans-florida',
     title: 'DSCR Loans Florida: Vacation Rental & Investment Guide 2025',
-    excerpt: 'Get DSCR loans in Florida for vacation rentals and investment properties. Orlando, Miami, Tampa markets. Rates from 5.99%.',
+    excerpt: 'Get DSCR loans in Florida for vacation rentals and investment properties. Orlando, Miami, Tampa markets. Rates from 5.5%.',
     date: '2025-01-05',
     readTime: '13 min read',
     category: 'State Guides'
@@ -33,7 +33,7 @@ const blogPosts = [
   {
     slug: 'dscr-loans-arizona',
     title: 'DSCR Loans Arizona: Phoenix & Scottsdale Investment Guide 2025',
-    excerpt: 'Arizona DSCR loans for vacation rentals and investment properties. Phoenix, Scottsdale, Tucson markets. Rates from 5.99%.',
+    excerpt: 'Arizona DSCR loans for vacation rentals and investment properties. Phoenix, Scottsdale, Tucson markets. Rates from 5.5%.',
     date: '2025-01-05',
     readTime: '11 min read',
     category: 'State Guides'
@@ -41,7 +41,7 @@ const blogPosts = [
   {
     slug: 'dscr-loans-georgia',
     title: 'DSCR Loans Georgia: Atlanta Investment Property Guide 2025',
-    excerpt: 'Get DSCR loans in Georgia with no income verification. Atlanta, Savannah markets. Rates from 5.99%.',
+    excerpt: 'Get DSCR loans in Georgia with no income verification. Atlanta, Savannah markets. Rates from 5.5%.',
     date: '2025-01-05',
     readTime: '11 min read',
     category: 'State Guides'
@@ -49,7 +49,7 @@ const blogPosts = [
   {
     slug: 'dscr-loans-nevada',
     title: 'DSCR Loans Nevada: Las Vegas & Reno Investment Guide 2025',
-    excerpt: 'Nevada DSCR loans for vacation rentals and investment properties. No state income tax, rates from 5.99%.',
+    excerpt: 'Nevada DSCR loans for vacation rentals and investment properties. No state income tax, rates from 5.5%.',
     date: '2025-01-05',
     readTime: '12 min read',
     category: 'State Guides'
@@ -83,7 +83,7 @@ const blogPosts = [
   {
     slug: 'dscr-loan-rates-california-2025',
     title: 'DSCR Loan Rates California 2025: Current Rates & Factors',
-    excerpt: 'Current DSCR rates starting at 5.99%. Complete rate tables by credit score, factors affecting your rate, and strategies to get the best pricing.',
+    excerpt: 'Current DSCR rates starting at 5.5%. Complete rate tables by credit score, factors affecting your rate, and strategies to get the best pricing.',
     date: '2025-01-05',
     readTime: '10 min read',
     category: 'Rates & Terms'
@@ -92,7 +92,7 @@ const blogPosts = [
   {
     slug: 'best-dscr-loan-lenders-california',
     title: 'Best DSCR Loan Lenders California 2025 [Top 10 Comparison]',
-    excerpt: 'Compare the best DSCR loan lenders in California. Expert reviews, rates starting at 5.99%, requirements, and detailed comparisons to find the perfect lender.',
+    excerpt: 'Compare the best DSCR loan lenders in California. Expert reviews, rates starting at 5.5%, requirements, and detailed comparisons to find the perfect lender.',
     date: '2025-01-05',
     readTime: '14 min read',
     category: 'Lender Reviews'
@@ -281,16 +281,16 @@ export default function BlogPage() {
                       {post.readTime}
                     </div>
                   </div>
-                  
+
                   <h2 className="text-2xl font-bold text-white mb-4">
                     {post.title}
                   </h2>
-                  
+
                   <p className="text-gray-300 mb-6">
                     {post.excerpt}
                   </p>
-                  
-                  <Link 
+
+                  <Link
                     href={`/blog/${post.slug}`}
                     className="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 font-semibold transition-colors"
                   >

@@ -50,7 +50,7 @@ export default function CaliforniaSchema() {
         "name": "What credit score do I need for a California DSCR loan?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Minimum credit score is 640, but 680+ gets better rates. California investors with 720+ credit scores qualify for the best pricing (typically 5.99-6.75% as of 2025). We work with borrowers across the credit spectrum and can find solutions for most situations."
+          "text": "Minimum credit score is 640, but 680+ gets better rates. California investors with 720+ credit scores qualify for the best pricing (typically 5.5-6.75% as of 2025). We work with borrowers across the credit spectrum and can find solutions for most situations."
         }
       },
       {
@@ -82,7 +82,7 @@ export default function CaliforniaSchema() {
         "name": "What are current DSCR loan rates in California?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "As of January 2025, California DSCR loan rates range from 5.99% to 8.25% depending on credit score, DSCR ratio, LTV, and prepayment period. Rates for California properties are competitive with other states."
+          "text": "As of January 2025, California DSCR loan rates range from 5.5% to 8.25% depending on credit score, DSCR ratio, LTV, and prepayment period. Rates for California properties are competitive with other states."
         }
       }
     ]
@@ -106,19 +106,19 @@ export default function CaliforniaSchema() {
     },
     "offers": {
       "@type": "Offer",
-      "price": "5.99",
+      "price": "5.5",
       "priceCurrency": "USD",
       "priceSpecification": {
         "@type": "UnitPriceSpecification",
-        "price": "5.99",
+        "price": "5.5",
         "priceCurrency": "USD",
         "unitText": "percent per year"
       }
     },
-    "feesAndCommissionsSpecification": "Rates from 5.99% APR. Minimum credit score 640. Down payment 20-25%. Loan amounts $75,000 to $3,000,000.",
+    "feesAndCommissionsSpecification": "Rates from 5.5% APR. Minimum credit score 640. Down payment 20-25%. Loan amounts $75,000 to $3,000,000.",
     "interestRate": {
       "@type": "QuantitativeValue",
-      "minValue": "5.99",
+      "minValue": "5.5",
       "maxValue": "8.25",
       "unitText": "percent per year"
     },

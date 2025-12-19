@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { MapPin, TrendingUp, Home, Calculator } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'San Francisco DSCR Loans - Bay Area Investment Properties | 5.99%',
+  title: 'San Francisco DSCR Loans - Bay Area Investment Properties | 5.5%',
   description: 'San Francisco DSCR loans for rental properties. No tax returns required. Median home: $1.4M, Avg rent: $4,500. Finance SF investment properties fast. Call (949) 339-3555.',
   openGraph: {
     title: 'San Francisco DSCR Loans - Bay Area Investment Financing',
-    description: 'Finance San Francisco rental properties with no income verification. Rates from 5.99%, approval in 24-48 hours.',
+    description: 'Finance San Francisco rental properties with no income verification. Rates from 5.5%, approval in 24-48 hours.',
   },
 };
 
@@ -32,8 +32,8 @@ export default function SanFranciscoDSCRLoansPage() {
             San Francisco DSCR Loans
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Finance San Francisco investment properties with no tax returns. From SOMA to Sunset District, 
-            we fund high-value Bay Area rental properties with rates starting at 5.99%.
+            Finance San Francisco investment properties with no tax returns. From SOMA to Sunset District,
+            we fund high-value Bay Area rental properties with rates starting at 5.5%.
           </p>
         </div>
 
@@ -51,7 +51,7 @@ export default function SanFranciscoDSCRLoansPage() {
             <div className="text-sm text-gray-400">Typical DSCR</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
-            <div className="text-3xl font-bold text-primary-400 mb-1">5.99%</div>
+            <div className="text-3xl font-bold text-primary-400 mb-1">5.5%</div>
             <div className="text-sm text-gray-400">Starting Rate</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
@@ -298,7 +298,7 @@ export default function SanFranciscoDSCRLoansPage() {
             '@context': 'https://schema.org',
             '@type': 'LocalBusiness',
             name: 'Capital Bridge Solutions - San Francisco DSCR Loans',
-            description: 'DSCR loans for San Francisco investment properties. No tax returns required, rates from 5.99%. Loans up to $30M.',
+            description: 'DSCR loans for San Francisco investment properties. No tax returns required, rates from 5.5%. Loans up to $30M.',
             areaServed: {
               '@type': 'City',
               name: 'San Francisco',
@@ -338,7 +338,7 @@ export default function SanFranciscoDSCRLoansPage() {
               '@type': 'Offer',
               priceSpecification: {
                 '@type': 'PriceSpecification',
-                price: '5.99',
+                price: '5.5',
                 priceCurrency: 'USD'
               }
             }

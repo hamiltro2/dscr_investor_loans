@@ -26,7 +26,7 @@ const faqs = [
   },
   {
     question: 'What credit score do I need for a California DSCR loan?',
-    answer: 'Minimum credit score is 640, but 680+ gets better rates. California investors with 720+ credit scores qualify for the best pricing (typically 5.99-6.75% as of 2025). We work with borrowers across the credit spectrum and can find solutions for most situations.'
+    answer: 'Minimum credit score is 640, but 680+ gets better rates. California investors with 720+ credit scores qualify for the best pricing (typically 5.5-6.75% as of 2025). We work with borrowers across the credit spectrum and can find solutions for most situations.'
   },
   {
     question: 'Can I close a DSCR loan in an LLC in California?',
@@ -46,7 +46,7 @@ const faqs = [
   },
   {
     question: 'What are current DSCR loan rates in California?',
-    answer: 'As of January 2025, California DSCR loan rates range from 5.99% to 8.25% depending on credit score, DSCR ratio, LTV, and prepayment period. Rates for California properties are competitive with other states. Use our rate calculator for a personalized quote based on your scenario.'
+    answer: 'As of January 2025, California DSCR loan rates range from 5.5% to 8.25% depending on credit score, DSCR ratio, LTV, and prepayment period. Rates for California properties are competitive with other states. Use our rate calculator for a personalized quote based on your scenario.'
   },
   {
     question: 'How many properties can I finance with DSCR loans in California?',
@@ -96,16 +96,14 @@ export default function CaliforniaFAQ() {
               {faq.question}
             </span>
             <ChevronDown
-              className={`w-5 h-5 text-primary-400 flex-shrink-0 transition-transform duration-300 ${
-                expandedFaq === index ? 'rotate-180' : ''
-              }`}
+              className={`w-5 h-5 text-primary-400 flex-shrink-0 transition-transform duration-300 ${expandedFaq === index ? 'rotate-180' : ''
+                }`}
             />
           </button>
-          
+
           <div
-            className={`overflow-hidden transition-all duration-300 ${
-              expandedFaq === index ? 'max-h-96' : 'max-h-0'
-            }`}
+            className={`overflow-hidden transition-all duration-300 ${expandedFaq === index ? 'max-h-96' : 'max-h-0'
+              }`}
           >
             <div className="px-6 pb-5 text-gray-300 leading-relaxed">
               {faq.answer}

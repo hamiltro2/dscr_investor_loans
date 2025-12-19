@@ -21,7 +21,7 @@ export default function BestLendersSelfEmployedRedditPage() {
       reason: "DSCR loans without tax returns. Perfect for self-employed investors.",
       creditMin: 640,
       downPayment: "20%",
-      ratesFrom: "5.99%",
+      ratesFrom: "5.5%",
       pros: ["No tax returns needed", "Fast approval (24-48 hours)", "California focused", "Investment properties OK"],
       cons: ["Primarily investment properties", "Higher rates than conventional"],
       redditQuote: "Used them for my rental property. Approved in 2 days without showing tax returns. 10/10 would recommend."
@@ -79,7 +79,7 @@ export default function BestLendersSelfEmployedRedditPage() {
     },
     {
       q: "Will the rates be crazy high?",
-      a: "Rates are typically 0.5-2% higher than conventional loans. For example, if conventional rates are 6.5%, you might pay 7-8% for a bank statement loan. DSCR loans range from 5.99-8% depending on credit and down payment. Not cheap, but way better than hard money (10-14%)."
+      a: "Rates are typically 0.5-2% higher than conventional loans. For example, if conventional rates are 6.5%, you might pay 7-8% for a bank statement loan. DSCR loans range from 5.5-8% depending on credit and down payment. Not cheap, but way better than hard money (10-14%)."
     },
     {
       q: "What if I've been self-employed for less than 2 years?",
@@ -124,9 +124,9 @@ export default function BestLendersSelfEmployedRedditPage() {
 
   return (
     <>
-      <ArticleSchema 
+      <ArticleSchema
         headline="Best Lenders for Self-Employed (Reddit Recommendations & Real Reviews)"
-        description="Real Reddit recommendations for self-employed mortgage lenders. Bank statement loans, DSCR loans, and no-doc options that actually work. Rates from 5.99%."
+        description="Real Reddit recommendations for self-employed mortgage lenders. Bank statement loans, DSCR loans, and no-doc options that actually work. Rates from 5.5%."
         datePublished="2025-01-12T00:00:00Z"
         dateModified="2025-01-12T00:00:00Z"
         author="Capital Bridge Solutions"
@@ -138,18 +138,18 @@ export default function BestLendersSelfEmployedRedditPage() {
         {/* Hero Section */}
         <section className="relative overflow-hidden bg-gradient-to-br from-primary-900/20 to-dark-950 border-b border-primary-500/20 py-16">
           <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
-          
+
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
               <div className="inline-flex items-center gap-2 bg-primary-500/10 border border-primary-500/20 rounded-full px-4 py-2 mb-6">
                 <MessageCircle className="w-4 h-4 text-primary-400" />
                 <span className="text-sm text-primary-400 font-medium">Reddit Community Insights</span>
               </div>
-              
+
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
                 Best Lenders for Self-Employed (According to Reddit)
               </h1>
-              
+
               <p className="text-xl text-gray-300 mb-8">
                 Real recommendations from self-employed borrowers who've actually closed loans. No tax returns required. Bank statements, DSCR loans, and alternative income verification.
               </p>
@@ -177,9 +177,9 @@ export default function BestLendersSelfEmployedRedditPage() {
 
         {/* Main Content */}
         <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          
+
           {/* Featured Image */}
-          <BlogImage 
+          <BlogImage
             src="/Self-employed-DSCR_loans.png"
             alt="Best mortgage lenders for self-employed borrowers - Real Reddit recommendations"
             width={1200}
@@ -223,7 +223,7 @@ export default function BestLendersSelfEmployedRedditPage() {
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-emerald-400 mt-1 flex-shrink-0" />
-                <span><strong className="text-white">Rates:</strong> 5.99-8% depending on credit, down payment, and loan type</span>
+                <span><strong className="text-white">Rates:</strong> 5.5-8% depending on credit, down payment, and loan type</span>
               </li>
             </ul>
           </div>
@@ -231,9 +231,9 @@ export default function BestLendersSelfEmployedRedditPage() {
           {/* Reddit Recommendations */}
           <div id="reddit-picks" className="mb-16">
             <h2 className="text-4xl font-bold text-white mb-8">Top Reddit-Recommended Lenders</h2>
-            
+
             {redditRecommendations.map((rec, index) => (
-              <div 
+              <div
                 key={index}
                 className="bg-gradient-to-br from-white/8 to-white/[0.03] backdrop-blur-xl rounded-2xl p-8 border border-white/10 mb-8"
               >
@@ -246,7 +246,7 @@ export default function BestLendersSelfEmployedRedditPage() {
                     </div>
                   </div>
                 </div>
-                
+
                 <p className="text-lg text-gray-300 mb-6">{rec.reason}</p>
 
                 <div className="grid md:grid-cols-3 gap-4 mb-6">
@@ -290,7 +290,7 @@ export default function BestLendersSelfEmployedRedditPage() {
 
                 {index === 0 && (
                   <div className="mt-6">
-                    <a 
+                    <a
                       href="tel:+19493393555"
                       onClick={handlePhoneClick}
                       className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-flex items-center gap-2"
@@ -342,7 +342,7 @@ export default function BestLendersSelfEmployedRedditPage() {
             <p className="text-gray-300 mb-6">
               Check out our comprehensive guide comparing all 10 top lenders for self-employed borrowers in California, including detailed pros/cons, rates, and qualification requirements.
             </p>
-            <Link 
+            <Link
               href="/blog/best-lenders-self-employed-california"
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
             >

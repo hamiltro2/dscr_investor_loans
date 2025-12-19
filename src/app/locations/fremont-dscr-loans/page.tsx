@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { MapPin, TrendingUp, Home, Calculator } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Fremont DSCR Loans - East Bay Silicon Valley Properties | 5.99%',
+  title: 'Fremont DSCR Loans - East Bay Silicon Valley Properties | 5.5%',
   description: 'Fremont DSCR loans for rental properties. No tax returns required. Median home: $1.1M, Avg rent: $3,900. Finance East Bay tech corridor investments. Call (949) 339-3555.',
   openGraph: {
     title: 'Fremont DSCR Loans - East Bay Investment Financing',
-    description: 'Finance Fremont rental properties with no income verification. Rates from 5.99%, approval in 24-48 hours.',
+    description: 'Finance Fremont rental properties with no income verification. Rates from 5.5%, approval in 24-48 hours.',
   },
 };
 
@@ -32,7 +32,7 @@ export default function FremontDSCRLoansPage() {
             Fremont DSCR Loans
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Finance Fremont investment properties with no tax returns. From Mission San Jose to Warm Springs, 
+            Finance Fremont investment properties with no tax returns. From Mission San Jose to Warm Springs,
             we fund rental properties in the East Bay's tech and innovation hub.
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function FremontDSCRLoansPage() {
             <div className="text-sm text-gray-400">Typical DSCR</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
-            <div className="text-3xl font-bold text-primary-400 mb-1">5.99%</div>
+            <div className="text-3xl font-bold text-primary-400 mb-1">5.5%</div>
             <div className="text-sm text-gray-400">Starting Rate</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
@@ -214,7 +214,7 @@ export default function FremontDSCRLoansPage() {
         </div>
       </article>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'LocalBusiness', name: 'Capital Bridge Solutions - Fremont DSCR Loans', description: 'DSCR loans for Fremont investment properties. No tax returns required, rates from 5.99%.', areaServed: { '@type': 'City', name: 'Fremont', '@id': 'https://en.wikipedia.org/wiki/Fremont,_California' }, address: { '@type': 'PostalAddress', addressLocality: 'Orange County', addressRegion: 'CA', addressCountry: 'US' }, telephone: '+1-949-339-3555', geo: { '@type': 'GeoCoordinates', latitude: 37.5485, longitude: -121.9886 } }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'LocalBusiness', name: 'Capital Bridge Solutions - Fremont DSCR Loans', description: 'DSCR loans for Fremont investment properties. No tax returns required, rates from 5.5%.', areaServed: { '@type': 'City', name: 'Fremont', '@id': 'https://en.wikipedia.org/wiki/Fremont,_California' }, address: { '@type': 'PostalAddress', addressLocality: 'Orange County', addressRegion: 'CA', addressCountry: 'US' }, telephone: '+1-949-339-3555', geo: { '@type': 'GeoCoordinates', latitude: 37.5485, longitude: -121.9886 } }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [{ '@type': 'Question', name: 'Are Mission San Jose properties a good investment?', acceptedAnswer: { '@type': 'Answer', text: 'Excellent! Top schools drive strong family demand. Premium rents justify higher prices. Very stable, long-term tenants.' } }] }) }} />
     </div>
   );

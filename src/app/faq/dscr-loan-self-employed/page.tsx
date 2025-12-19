@@ -4,7 +4,7 @@ import { ArrowLeft, Briefcase } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'DSCR Loans for Self-Employed: No Tax Returns | Capital Bridge',
-  description: 'Self-employed? Get a DSCR loan with NO tax returns, W-2s, or income verification. Qualify based on property income, not business write-offs. 620 credit, 5.99% rates.',
+  description: 'Self-employed? Get a DSCR loan with NO tax returns, W-2s, or income verification. Qualify based on property income, not business write-offs. 620 credit, 5.5% rates.',
 };
 
 export default function DSCRLoanSelfEmployedPage() {
@@ -23,9 +23,9 @@ export default function DSCRLoanSelfEmployedPage() {
         <div className="bg-primary-600/10 border-l-4 border-primary-500 rounded-r-xl p-6 mb-8">
           <h2 className="text-lg font-semibold text-primary-300 mb-3">Quick Answer</h2>
           <p className="text-white text-lg leading-relaxed">
-            <strong>DSCR loans are perfect for self-employed borrowers</strong> because they require <strong>NO tax returns, W-2s, or income verification.</strong> 
-            You qualify based on the rental property's income, not your business income. 
-            This means tax write-offs and business expenses don't hurt you. 620 credit minimum, rates start at 5.99%, approval in 24-48 hours.
+            <strong>DSCR loans are perfect for self-employed borrowers</strong> because they require <strong>NO tax returns, W-2s, or income verification.</strong>
+            You qualify based on the rental property's income, not your business income.
+            This means tax write-offs and business expenses don't hurt you. 620 credit minimum, rates start at 5.5%, approval in 24-48 hours.
           </p>
         </div>
 
@@ -40,7 +40,7 @@ export default function DSCRLoanSelfEmployedPage() {
               <h3 className="text-xl font-semibold text-red-400 mb-4">The Self-Employed Problem:</h3>
               <div className="space-y-4 text-gray-300">
                 <p>
-                  <strong className="text-white">You make $200K/year,</strong> but after business write-offs, 
+                  <strong className="text-white">You make $200K/year,</strong> but after business write-offs,
                   your tax returns show only $50K net income. Traditional lenders see you as a $50K earner and deny your loan.
                 </p>
                 <div className="bg-dark-900/50 rounded-lg p-4 space-y-2">
@@ -78,7 +78,7 @@ export default function DSCRLoanSelfEmployedPage() {
               <h3 className="text-xl font-semibold text-green-400 mb-4">The DSCR Solution:</h3>
               <div className="space-y-4 text-gray-300">
                 <p>
-                  <strong className="text-white">DSCR lenders don't care about your tax returns.</strong> They only care if the 
+                  <strong className="text-white">DSCR lenders don't care about your tax returns.</strong> They only care if the
                   rental property makes enough money to cover its own mortgage.
                 </p>
                 <div className="bg-dark-900/50 rounded-lg p-4 space-y-2">
@@ -96,7 +96,7 @@ export default function DSCRLoanSelfEmployedPage() {
                   </div>
                 </div>
                 <p className="text-green-400 font-semibold">
-                  ✓ DSCR lender: "Property cash flows. Approved at 5.99%."
+                  ✓ DSCR lender: "Property cash flows. Approved at 5.5%."
                 </p>
                 <p className="text-sm">
                   <strong>Your business income, tax returns, and write-offs are irrelevant.</strong> Only the property's income matters.
@@ -232,7 +232,7 @@ export default function DSCRLoanSelfEmployedPage() {
                 <div className="space-y-3 text-gray-300 text-sm mb-4">
                   <div>Qualification: Property rental income only</div>
                   <div>Calculates: Rent ÷ mortgage payment</div>
-                  <div>Rate: 5.99-9.5%</div>
+                  <div>Rate: 5.5-9.5%</div>
                   <div>Down: 20-25%</div>
                 </div>
                 <div className="text-sm space-y-1">
@@ -297,7 +297,7 @@ export default function DSCRLoanSelfEmployedPage() {
               name: 'Can self-employed borrowers get DSCR loans?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Yes! DSCR loans are perfect for self-employed borrowers because they require NO tax returns, W-2s, or income verification. You qualify based on the rental property\'s income, not your business income. This means tax write-offs and business expenses don\'t hurt you. 620 credit minimum, rates start at 5.99%, approval in 24-48 hours. Ideal for business owners, contractors, freelancers, and anyone with complex income.'
+                text: 'Yes! DSCR loans are perfect for self-employed borrowers because they require NO tax returns, W-2s, or income verification. You qualify based on the rental property\'s income, not your business income. This means tax write-offs and business expenses don\'t hurt you. 620 credit minimum, rates start at 5.5%, approval in 24-48 hours. Ideal for business owners, contractors, freelancers, and anyone with complex income.'
               }
             }
           })

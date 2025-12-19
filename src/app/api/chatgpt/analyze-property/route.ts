@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     if (credit_score) {
       if (credit_score < 660) estimatedRate = 7.25;
       else if (credit_score < 700) estimatedRate = 6.75;
-      else if (credit_score >= 720) estimatedRate = 5.99;
+      else if (credit_score >= 720) estimatedRate = 5.5;
     }
 
     // Calculate monthly P&I

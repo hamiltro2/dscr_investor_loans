@@ -17,7 +17,7 @@ export function CapVoiceChatGemini() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [transcript, setTranscript] = useState<TranscriptItem[]>([]);
   const [error, setError] = useState<string | null>(null);
-  
+
   const wsRef = useRef<WebSocket | null>(null);
   const mediaStreamRef = useRef<MediaStream | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -37,7 +37,7 @@ export function CapVoiceChatGemini() {
     try {
       setError(null);
       setIsConnecting(true);
-      
+
       // Get Gemini session info
       const sessionResponse = await fetch('/api/gemini-session');
       if (!sessionResponse.ok) {
@@ -95,14 +95,14 @@ export function CapVoiceChatGemini() {
             console.error('Unknown message type:', typeof event.data);
             return;
           }
-          
+
           console.log('[Gemini Event]', message);
 
           // Handle server content (audio response)
           if (message.serverContent) {
             const parts = message.serverContent.modelTurn?.parts || [];
             console.log('📦 Parts received:', parts.length, parts);
-            
+
             for (const part of parts) {
               console.log('🔍 Part structure:', {
                 hasInlineData: !!part.inlineData,
@@ -122,7 +122,7 @@ export function CapVoiceChatGemini() {
                   playNextAudio();
                 }
               }
-              
+
               // Handle text (transcript) - should not receive this if AUDIO-only is working
               if (part.text) {
                 console.warn('⚠️ Received text instead of audio:', part.text);
@@ -270,7 +270,7 @@ export function CapVoiceChatGemini() {
     const source = audioContext.createBufferSource();
     source.buffer = audioBuffer;
     source.connect(audioContext.destination);
-    
+
     source.onended = () => {
       playNextAudio(); // Play next in queue
     };
@@ -286,7 +286,7 @@ export function CapVoiceChatGemini() {
       }
 
       // Get microphone access
-      const stream = await navigator.mediaDevices.getUserMedia({ 
+      const stream = await navigator.mediaDevices.getUserMedia({
         audio: {
           echoCancellation: true,
           noiseSuppression: true,
@@ -414,11 +414,10 @@ export function CapVoiceChatGemini() {
             className={`flex ${item.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`max-w-[85%] rounded-2xl px-4 py-3 ${
-                item.role === 'user'
+              className={`max-w-[85%] rounded-2xl px-4 py-3 ${item.role === 'user'
                   ? 'bg-primary-600 text-white rounded-br-sm'
                   : 'bg-dark-800 border border-dark-700 text-gray-100 rounded-bl-sm'
-              }`}
+                }`}
             >
               {item.role === 'assistant' && (
                 <div className="flex items-center gap-2 mb-1">
@@ -502,10 +501,10 @@ export function CapVoiceChatGemini() {
         )}
 
         <p className="text-xs text-center text-gray-400 mt-3">
-          {isConnecting 
+          {isConnecting
             ? '⚡ Initializing voice session...'
-            : isRecording 
-              ? '🎤 Listening... Speak naturally and I\'ll respond automatically' 
+            : isRecording
+              ? '🎤 Listening... Speak naturally and I\'ll respond automatically'
               : '💡 Powered by Google Gemini 2.5 Flash'}
         </p>
       </div>
@@ -534,7 +533,7 @@ You WORK EXTREMELY HARD to help real estate investors succeed. We're not just a 
 
 🏢 WHAT YOU OFFER:
 - DSCR loans: 620+ credit, no tax returns, Airbnb/STR friendly
-- Rates from 5.99%, 0.75% origination (vs 2-3% competitors)
+- Rates from 5.5%, 0.75% origination (vs 2-3% competitors)
 - 7-14 day closes, 24-48hr approvals
 - 85% LTV, portfolio loans, cash-out refi
 - Self-employed friendly, bad credit okay, first-time investors welcome

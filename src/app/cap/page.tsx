@@ -4,7 +4,7 @@ import { ArrowRight, MessageCircle, Sparkles, Brain, Zap, Shield, Clock, CheckCi
 
 export const metadata: Metadata = {
   title: 'Meet Cap - AI DSCR Loan Expert | Capital Bridge Solutions',
-  description: 'Chat with Cap, our AI-powered DSCR loan expert. Get instant answers about rates (from 5.99%), requirements (620+ credit), and qualification. Available 24/7 with 106+ expert articles of knowledge.',
+  description: 'Chat with Cap, our AI-powered DSCR loan expert. Get instant answers about rates (from 5.5%), requirements (620+ credit), and qualification. Available 24/7 with 106+ expert articles of knowledge.',
   keywords: 'DSCR loan AI, DSCR chatbot, AI loan assistant, DSCR loan questions, automated loan advice, 24/7 loan help, AI mortgage advisor',
   openGraph: {
     title: 'Meet Cap - AI DSCR Loan Expert',
@@ -62,22 +62,22 @@ export default function CapPage() {
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900 py-20">
         <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]" />
-        
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-lg rounded-2xl mb-6">
               <Sparkles className="w-10 h-10 text-white" />
             </div>
-            
+
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
               Meet Cap
               <span className="block text-primary-200 mt-2">Your AI DSCR Loan Expert</span>
             </h1>
-            
+
             <p className="text-xl md:text-2xl text-primary-100 mb-8 max-w-3xl mx-auto">
               Get instant, expert answers about DSCR loans 24/7. Cap knows everything from our 106+ expert articles.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/"
@@ -86,7 +86,7 @@ export default function CapPage() {
                 <MessageCircle className="w-5 h-5 mr-2 text-primary-700 dark:text-primary-600" />
                 Chat with Cap Now
               </Link>
-              
+
               <Link
                 href="/get-started"
                 className="inline-flex items-center justify-center px-8 py-4 bg-primary-500/20 text-white rounded-lg font-semibold hover:bg-primary-500/30 transition-all border border-white/20"
@@ -95,7 +95,7 @@ export default function CapPage() {
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </div>
-            
+
             <div className="mt-8 flex items-center justify-center gap-6 text-primary-100">
               <div className="flex items-center gap-2">
                 <Clock className="w-5 h-5" />
@@ -142,7 +142,7 @@ export default function CapPage() {
               },
               {
                 title: 'Rates & Terms',
-                items: ['Current rates (from 5.99%)', 'Only 0.75% origination', 'Up to 85% LTV', '7-14 day closes'],
+                items: ['Current rates (from 5.5%)', 'Only 0.75% origination', 'Up to 85% LTV', '7-14 day closes'],
               },
               {
                 title: 'State-Specific Info',
@@ -266,7 +266,7 @@ export default function CapPage() {
                   </li>
                 ))}
               </ul>
-              
+
               <Link
                 href="/"
                 className="mt-8 inline-flex items-center justify-center w-full px-6 py-4 bg-primary-600 text-white dark:bg-primary-500 rounded-lg font-semibold hover:bg-primary-700 transition-colors"

@@ -173,21 +173,21 @@ export function FAQ() {
                 Q: Can I get a DSCR loan with a 640 credit score?
               </h3>
               <p className="text-gray-300">
-                <strong>A:</strong> Yes! Both <strong className="text-emerald-400">Capital Bridge Solutions</strong> and AngelOak 
-                accept 640+ credit scores. Kiavi requires 660 minimum. Capital Bridge offers better rates at the 640-659 credit tier 
+                <strong>A:</strong> Yes! Both <strong className="text-emerald-400">Capital Bridge Solutions</strong> and AngelOak
+                accept 640+ credit scores. Kiavi requires 660 minimum. Capital Bridge offers better rates at the 640-659 credit tier
                 compared to AngelOak.
               </p>
             </div>
 
             <div className="bg-dark-800/50 border border-primary-500/20 rounded-xl p-6">
               <h3 className="text-xl font-bold text-white mb-3">
-                Q: What's the real difference between 5.99% and 7.75% rates?
+                Q: What's the real difference between 5.5% and 7.75% rates?
               </h3>
               <p className="text-gray-300 mb-2">
                 <strong>A:</strong> On a $500K loan:
               </p>
               <ul className="text-gray-300 ml-6 space-y-1">
-                <li>• <strong className="text-emerald-400">5.99%</strong> = $2,992/month</li>
+                <li>• <strong className="text-emerald-400">5.5%</strong> = $2,992/month</li>
                 <li>• <strong>7.75%</strong> = $3,587/month</li>
                 <li>• <strong className="text-emerald-400">Difference: $595/month or $7,140/year</strong></li>
               </ul>
@@ -257,8 +257,8 @@ export function FinalCTA({ handlePhoneClick }: { handlePhoneClick: () => void })
             The Clear Winner for California Investors
           </h2>
           <p className="text-xl text-gray-300 mb-8">
-            If you're investing in California and want the <strong className="text-emerald-400">lowest rates</strong>, 
-            <strong className="text-emerald-400"> lowest points</strong>, <strong className="text-emerald-400">fastest closing</strong>, 
+            If you're investing in California and want the <strong className="text-emerald-400">lowest rates</strong>,
+            <strong className="text-emerald-400"> lowest points</strong>, <strong className="text-emerald-400">fastest closing</strong>,
             and <strong className="text-emerald-400">California expertise</strong>—Capital Bridge Solutions is the clear choice.
           </p>
 
@@ -295,7 +295,7 @@ export function FinalCTA({ handlePhoneClick }: { handlePhoneClick: () => void })
               <h3 className="text-xl font-bold text-white">Try Our Free AI Advisor</h3>
             </div>
             <p className="text-gray-300 mb-4">
-              Not sure which lender is right for you? <strong className="text-white">Chat with Cap</strong>, our AI-powered 
+              Not sure which lender is right for you? <strong className="text-white">Chat with Cap</strong>, our AI-powered
               DSCR loan advisor in the ChatGPT Store for instant personalized guidance.
             </p>
             <a

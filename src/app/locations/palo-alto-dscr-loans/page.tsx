@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { MapPin, TrendingUp, Home, Calculator } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Palo Alto DSCR Loans - Stanford Area Investment Properties | 5.99%',
+  title: 'Palo Alto DSCR Loans - Stanford Area Investment Properties | 5.5%',
   description: 'Palo Alto DSCR loans for rental properties near Stanford University. No tax returns required. Median home: $2.8M, Avg rent: $6,500. Silicon Valley birthplace. Call (949) 339-3555.',
   openGraph: {
     title: 'Palo Alto DSCR Loans - Stanford & Silicon Valley Investment Financing',
@@ -32,7 +32,7 @@ export default function PaloAltoDSCRLoansPage() {
             Palo Alto DSCR Loans
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Finance Palo Alto investment properties with no tax returns required. From Stanford University to downtown 
+            Finance Palo Alto investment properties with no tax returns required. From Stanford University to downtown
             University Avenue, we fund rental properties in Silicon Valley's most prestigious city.
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function PaloAltoDSCRLoansPage() {
             <div className="text-sm text-gray-400">Typical DSCR</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
-            <div className="text-3xl font-bold text-primary-400 mb-1">5.99%</div>
+            <div className="text-3xl font-bold text-primary-400 mb-1">5.5%</div>
             <div className="text-sm text-gray-400">Starting Rate</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
@@ -187,29 +187,29 @@ export default function PaloAltoDSCRLoansPage() {
             <h2 className="text-3xl font-bold text-white mb-6">Palo Alto DSCR Loan FAQs</h2>
             <div className="space-y-4">
               {[
-                { 
-                  q: 'Can I finance a $3-5M Palo Alto property with a DSCR loan?', 
-                  a: 'Absolutely! We finance properties up to $30M. Palo Alto\'s premium market is perfect for DSCR loans, especially for high-net-worth investors who want to avoid documenting complex income sources.' 
+                {
+                  q: 'Can I finance a $3-5M Palo Alto property with a DSCR loan?',
+                  a: 'Absolutely! We finance properties up to $30M. Palo Alto\'s premium market is perfect for DSCR loans, especially for high-net-worth investors who want to avoid documenting complex income sources.'
                 },
-                { 
-                  q: 'Do Stanford faculty and researchers make good tenants?', 
-                  a: 'Excellent tenants! Stanford affiliates are stable, high-income, respect property, and often stay long-term. Academic calendar creates consistent year-round occupancy.' 
+                {
+                  q: 'Do Stanford faculty and researchers make good tenants?',
+                  a: 'Excellent tenants! Stanford affiliates are stable, high-income, respect property, and often stay long-term. Academic calendar creates consistent year-round occupancy.'
                 },
-                { 
-                  q: 'How do Palo Alto rents justify the high purchase prices?', 
-                  a: 'While cap rates are lower (3-3.5%), appreciation averages 7-8% annually. Wealth preservation, prestige, and long-term growth make Palo Alto a strategic hold market.' 
+                {
+                  q: 'How do Palo Alto rents justify the high purchase prices?',
+                  a: 'While cap rates are lower (3-3.5%), appreciation averages 7-8% annually. Wealth preservation, prestige, and long-term growth make Palo Alto a strategic hold market.'
                 },
-                { 
-                  q: 'Can I qualify if I have venture capital or private equity income?', 
-                  a: 'Yes! DSCR loans ignore complex K-1s, carried interest, and PE distributions. Only the property\'s rental income matters—perfect for VC partners and PE professionals.' 
+                {
+                  q: 'Can I qualify if I have venture capital or private equity income?',
+                  a: 'Yes! DSCR loans ignore complex K-1s, carried interest, and PE distributions. Only the property\'s rental income matters—perfect for VC partners and PE professionals.'
                 },
-                { 
-                  q: 'Are condos near University Avenue good investments?', 
-                  a: 'Great option! Downtown condos ($1.4-1.8M) offer better cash flow than single-family homes. Popular with young tech professionals and Stanford postdocs.' 
+                {
+                  q: 'Are condos near University Avenue good investments?',
+                  a: 'Great option! Downtown condos ($1.4-1.8M) offer better cash flow than single-family homes. Popular with young tech professionals and Stanford postdocs.'
                 },
-                { 
-                  q: 'Can foreign nationals invest in Palo Alto with DSCR loans?', 
-                  a: 'Yes! We work with international investors regularly. DSCR loans simplify foreign income documentation. Palo Alto attracts global capital for stability.' 
+                {
+                  q: 'Can foreign nationals invest in Palo Alto with DSCR loans?',
+                  a: 'Yes! We work with international investors regularly. DSCR loans simplify foreign income documentation. Palo Alto attracts global capital for stability.'
                 },
               ].map((faq, idx) => (
                 <div key={idx} className="bg-dark-900/50 rounded-xl border border-dark-800 p-6">
@@ -244,8 +244,8 @@ export default function PaloAltoDSCRLoansPage() {
             </div>
             <div className="bg-gradient-to-r from-primary-600/10 to-primary-700/10 border border-primary-600/30 rounded-xl p-6">
               <p className="text-gray-300">
-                <strong className="text-white">Investment Philosophy:</strong> Palo Alto represents the intersection of wealth preservation and capital appreciation. 
-                Lower cap rates (3-3.5%) are offset by 7-8% annual appreciation and institutional-quality tenants. 
+                <strong className="text-white">Investment Philosophy:</strong> Palo Alto represents the intersection of wealth preservation and capital appreciation.
+                Lower cap rates (3-3.5%) are offset by 7-8% annual appreciation and institutional-quality tenants.
                 Think blue-chip stocks—lower yield but exceptional growth and stability.
               </p>
             </div>

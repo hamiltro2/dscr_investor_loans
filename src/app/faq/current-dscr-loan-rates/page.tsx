@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { ArrowLeft, TrendingDown } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Current DSCR Loan Rates 2025: 5.99% Starting | Capital Bridge',
-  description: 'DSCR loan rates start at 5.99% for qualified borrowers. Get today\'s rates, factors affecting your rate, and how to get the lowest rate. 620 credit minimum.',
+  title: 'Current DSCR Loan Rates 2025: 5.5% Starting | Capital Bridge',
+  description: 'DSCR loan rates start at 5.5% for qualified borrowers. Get today\'s rates, factors affecting your rate, and how to get the lowest rate. 620 credit minimum.',
 };
 
 export default function CurrentDSCRLoanRatesPage() {
@@ -23,13 +23,13 @@ export default function CurrentDSCRLoanRatesPage() {
         <div className="bg-primary-600/10 border-l-4 border-primary-500 rounded-r-xl p-6 mb-8">
           <h2 className="text-lg font-semibold text-primary-300 mb-3">Quick Answer</h2>
           <p className="text-white text-lg leading-relaxed">
-            <strong>Current DSCR loan rates start at 5.99%</strong> for well-qualified borrowers (700+ credit, 25%+ down, 1.25+ DSCR). 
-            Rates range from 5.99% to 9.5% depending on credit score, down payment, DSCR ratio, and property type. 
+            <strong>Current DSCR loan rates start at 5.5%</strong> for well-qualified borrowers (700+ credit, 25%+ down, 1.25+ DSCR).
+            Rates range from 5.5% to 9.5% depending on credit score, down payment, DSCR ratio, and property type.
             <strong>No rate shopping</strong> - we find you the best rate from multiple lenders.
           </p>
           <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
             <div className="bg-dark-900/50 rounded-lg p-3 text-center">
-              <div className="text-2xl font-bold text-primary-400">5.99%</div>
+              <div className="text-2xl font-bold text-primary-400">5.5%</div>
               <div className="text-xs text-gray-400">Best Rate</div>
             </div>
             <div className="bg-dark-900/50 rounded-lg p-3 text-center">
@@ -67,7 +67,7 @@ export default function CurrentDSCRLoanRatesPage() {
                   </thead>
                   <tbody className="divide-y divide-dark-700">
                     {[
-                      { score: '740+', down25: '✓ Best', down20: '✓ Excellent', rate: '5.99% - 6.49%' },
+                      { score: '740+', down25: '✓ Best', down20: '✓ Excellent', rate: '5.5% - 6.49%' },
                       { score: '700-739', down25: '✓ Great', down20: '✓ Good', rate: '6.25% - 6.99%' },
                       { score: '680-699', down25: '✓ Good', down20: '✓ Fair', rate: '6.75% - 7.49%' },
                       { score: '660-679', down25: '✓ Fair', down20: '⚠ Higher', rate: '7.25% - 7.99%' },
@@ -128,11 +128,10 @@ export default function CurrentDSCRLoanRatesPage() {
                 <div key={idx} className="bg-dark-900/50 rounded-xl border border-dark-800 p-5">
                   <div className="flex items-start justify-between mb-2">
                     <h3 className="text-lg font-semibold text-white">{item.factor}</h3>
-                    <span className={`text-xs px-3 py-1 rounded-full ${
-                      item.impact === 'High Impact' ? 'bg-red-600/20 text-red-400' :
-                      item.impact === 'Medium Impact' ? 'bg-yellow-600/20 text-yellow-400' :
-                      'bg-green-600/20 text-green-400'
-                    }`}>
+                    <span className={`text-xs px-3 py-1 rounded-full ${item.impact === 'High Impact' ? 'bg-red-600/20 text-red-400' :
+                        item.impact === 'Medium Impact' ? 'bg-yellow-600/20 text-yellow-400' :
+                          'bg-green-600/20 text-green-400'
+                      }`}>
                       {item.impact}
                     </span>
                   </div>
@@ -190,7 +189,7 @@ export default function CurrentDSCRLoanRatesPage() {
               <div className="bg-dark-900/50 rounded-xl border border-primary-800 p-6">
                 <h3 className="text-xl font-semibold text-primary-400 mb-4">DSCR Loan</h3>
                 <div className="space-y-3 text-gray-300 mb-6">
-                  <div>Rate: <span className="text-white font-semibold">5.99% - 9.5%</span></div>
+                  <div>Rate: <span className="text-white font-semibold">5.5% - 9.5%</span></div>
                   <div>Points: <span className="text-white font-semibold">0.75-2%</span></div>
                   <div>Down Payment: <span className="text-white font-semibold">20-25%</span></div>
                 </div>
@@ -264,7 +263,7 @@ export default function CurrentDSCRLoanRatesPage() {
               name: 'What are current DSCR loan rates?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Current DSCR loan rates start at 5.99% for well-qualified borrowers (700+ credit, 25% down, 1.25+ DSCR). Rates range from 5.99% to 9.5% depending on credit score, down payment, DSCR ratio, and property type. Most borrowers get rates between 6.5-7.5%. Fixed 30-year terms available. Points start at 0.75% for loans over $450,000.'
+                text: 'Current DSCR loan rates start at 5.5% for well-qualified borrowers (700+ credit, 25% down, 1.25+ DSCR). Rates range from 5.5% to 9.5% depending on credit score, down payment, DSCR ratio, and property type. Most borrowers get rates between 6.5-7.5%. Fixed 30-year terms available. Points start at 0.75% for loans over $450,000.'
               }
             }
           })

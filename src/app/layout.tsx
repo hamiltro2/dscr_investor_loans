@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Capital Bridge Solutions - Real Estate Investment Financing',
-    description: 'Specialized DSCR loans and investment property financing. Get approved in 24-48 hours with no tax returns required. Rates from 5.99%.',
+    description: 'Specialized DSCR loans and investment property financing. Get approved in 24-48 hours with no tax returns required. Rates from 5.5%.',
     url: 'https://www.capitalbridgesolutions.com',
     siteName: 'Capital Bridge Solutions',
     images: [
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Capital Bridge Solutions - DSCR Loans & Investment Financing',
-    description: 'Get approved for investment property loans in 24-48 hours. No tax returns required. Competitive rates starting at 5.99%.',
+    description: 'Get approved for investment property loans in 24-48 hours. No tax returns required. Competitive rates starting at 5.5%.',
     images: ['/logo.png'],
     creator: '@capitalbridgesol',
   },
@@ -112,7 +112,7 @@ export default function RootLayout({
         <link rel="canonical" href="https://www.capitalbridgesolutions.com" />
         <meta name="theme-color" content="#3b82f6" />
         <link rel="apple-touch-icon" href="/Small_logo_CBS.png" />
-        
+
         {/* Google Tag Manager - as high as possible in head */}
         <Script id="gtm-head" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -121,7 +121,7 @@ export default function RootLayout({
           'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
           })(window,document,'script','dataLayer','GTM-M79RZRQ9');`}
         </Script>
-        
+
         {/* AppLovin Axon Pixel */}
         <Script id="applovin-pixel" strategy="afterInteractive">
           {`
@@ -130,18 +130,18 @@ export default function RootLayout({
             axon("init");
           `}
         </Script>
-        
+
         {/* LLM Discovery - AI Bot Tracking */}
-        <Script 
-          async 
-          src="https://www.llmdiscovery.ai/track.js" 
+        <Script
+          async
+          src="https://www.llmdiscovery.ai/track.js"
           data-site-id="6ttmqgon3p1i"
           strategy="afterInteractive"
         />
-        
+
         <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" />
         <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE" />
-        
+
         {/* Structured Data - Organization */}
         <script
           type="application/ld+json"
@@ -258,7 +258,7 @@ export default function RootLayout({
             })
           }}
         />
-        
+
         {/* Structured Data - WebSite */}
         <script
           type="application/ld+json"
@@ -280,7 +280,7 @@ export default function RootLayout({
             })
           }}
         />
-        
+
         {/* Structured Data - BreadcrumbList */}
         <script
           type="application/ld+json"
@@ -305,7 +305,7 @@ export default function RootLayout({
             })
           }}
         />
-        
+
         {/* Structured Data - Service */}
         <script
           type="application/ld+json"
@@ -323,7 +323,7 @@ export default function RootLayout({
                 "@type": "Offer",
                 "priceSpecification": {
                   "@type": "UnitPriceSpecification",
-                  "price": "5.99",
+                  "price": "5.5",
                   "priceCurrency": "USD",
                   "unitText": "percent APR starting rate"
                 }
@@ -333,13 +333,13 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${montserrat.variable} font-sans antialiased min-h-screen flex flex-col bg-dark-950 text-white`}>
-        
+
         {/* Google Tag Manager (noscript) - immediately after opening body tag */}
         <noscript>
           <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M79RZRQ9"
-          height="0" width="0" style={{display:'none',visibility:'hidden'}}></iframe>
+            height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}></iframe>
         </noscript>
-        
+
         {/* Google Analytics 4 */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-7NK1LHZNVS"

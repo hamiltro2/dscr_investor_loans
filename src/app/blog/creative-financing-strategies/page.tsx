@@ -265,7 +265,7 @@ export default function Article() {
           </p>
           <ul>
             <li>Long-term portfolio stability</li>
-            <li>Better rates (DSCR 5.99-7.5% vs seller finance 7-10%)</li>
+            <li>Better rates (DSCR 5.5-7.5% vs seller finance 7-10%)</li>
             <li>No balloon payments</li>
             <li>Traditional title (no due-on-sale risk)</li>
             <li>Ability to leverage equity</li>

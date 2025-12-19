@@ -8,8 +8,8 @@ export default function DSCRCaliforniaSchema() {
         '@type': 'WebPage',
         '@id': 'https://www.capitalbridgesolutions.com/dscr-loans-california',
         'url': 'https://www.capitalbridgesolutions.com/dscr-loans-california',
-        'name': 'DSCR Loans in California - Rates from 5.99% | Capital Bridge Solutions',
-        'description': 'Get DSCR loans for California investment properties. No tax returns required. Rates from 5.99%. Finance rentals in LA, SF, San Diego, Sacramento.',
+        'name': 'DSCR Loans in California - Rates from 5.5% | Capital Bridge Solutions',
+        'description': 'Get DSCR loans for California investment properties. No tax returns required. Rates from 5.5%. Finance rentals in LA, SF, San Diego, Sacramento.',
         'inLanguage': 'en-US'
       },
       {
@@ -31,10 +31,10 @@ export default function DSCRCaliforniaSchema() {
           '@type': 'State',
           'name': 'California'
         },
-        'feesAndCommissionsSpecification': 'Rates from 5.99% for qualified borrowers. Points and fees vary by loan amount and credit profile.',
+        'feesAndCommissionsSpecification': 'Rates from 5.5% for qualified borrowers. Points and fees vary by loan amount and credit profile.',
         'interestRate': {
           '@type': 'QuantitativeValue',
-          'minValue': 5.99,
+          'minValue': 5.5,
           'unitText': 'Percent'
         }
       },

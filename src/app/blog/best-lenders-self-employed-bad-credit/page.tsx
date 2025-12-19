@@ -112,7 +112,7 @@ export default function BestLendersSelfEmployedBadCreditPage() {
       badge: "Best for Investors",
       rating: 4.8,
       creditMin: 640,
-      ratesFrom: "5.99%",
+      ratesFrom: "5.5%",
       downPayment: "20-25%",
       description: "While Capital Bridge has a higher minimum credit score, their DSCR loans are perfect for self-employed investors with credit in the 640-680 range. No income verification makes approval much easier.",
       pros: [
@@ -157,7 +157,7 @@ export default function BestLendersSelfEmployedBadCreditPage() {
     {
       range: "680+",
       lenders: "All lenders, best rates",
-      rates: "5.99-7.00%",
+      rates: "5.5-7.00%",
       downPayment: "10-20%",
       tips: "You're in great shape. Should get competitive rates even without tax returns."
     }
@@ -225,7 +225,7 @@ export default function BestLendersSelfEmployedBadCreditPage() {
 
   return (
     <>
-      <ArticleSchema 
+      <ArticleSchema
         headline="Best Lenders for Self-Employed with Bad Credit (580-680 Scores)"
         description="Compare mortgage lenders for self-employed borrowers with bad credit. Bank statement loans and DSCR options for 580-680 credit scores. No tax returns required."
         datePublished="2025-01-12T00:00:00Z"
@@ -239,18 +239,18 @@ export default function BestLendersSelfEmployedBadCreditPage() {
         {/* Hero Section */}
         <section className="relative overflow-hidden bg-gradient-to-br from-primary-900/20 to-dark-950 border-b border-primary-500/20 py-16">
           <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
-          
+
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
               <div className="inline-flex items-center gap-2 bg-primary-500/10 border border-primary-500/20 rounded-full px-4 py-2 mb-6">
                 <Shield className="w-4 h-4 text-primary-400" />
                 <span className="text-sm text-primary-400 font-medium">Bad Credit Specialists</span>
               </div>
-              
+
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
                 Best Lenders for Self-Employed with Bad Credit
               </h1>
-              
+
               <p className="text-xl text-gray-300 mb-8">
                 Get approved with 580-680 credit scores. No tax returns required. Bank statement loans, DSCR loans, and alternative programs for self-employed borrowers with credit challenges.
               </p>
@@ -278,9 +278,9 @@ export default function BestLendersSelfEmployedBadCreditPage() {
 
         {/* Main Content */}
         <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          
+
           {/* Featured Image */}
-          <BlogImage 
+          <BlogImage
             src="/Self-employed-DSCR_loans.png"
             alt="Best mortgage lenders for self-employed borrowers with bad credit - 580-680 credit scores"
             width={1200}
@@ -335,15 +335,14 @@ export default function BestLendersSelfEmployedBadCreditPage() {
           {/* Top Lenders */}
           <div id="top-lenders" className="mb-16">
             <h2 className="text-4xl font-bold text-white mb-8">Top Lenders for Bad Credit + Self-Employed</h2>
-            
+
             {badCreditLenders.map((lender, index) => (
-              <div 
+              <div
                 key={index}
-                className={`rounded-2xl p-8 border mb-8 ${
-                  index === 0 
-                    ? 'bg-gradient-to-br from-primary-500/10 to-primary-600/10 border-primary-500/20' 
+                className={`rounded-2xl p-8 border mb-8 ${index === 0
+                    ? 'bg-gradient-to-br from-primary-500/10 to-primary-600/10 border-primary-500/20'
                     : 'bg-gradient-to-br from-white/8 to-white/[0.03] backdrop-blur-xl border-white/10'
-                }`}
+                  }`}
               >
                 <div className="flex items-start justify-between mb-4 flex-wrap gap-4">
                   <div>
@@ -351,13 +350,12 @@ export default function BestLendersSelfEmployedBadCreditPage() {
                     <div className="flex items-center gap-2 mb-3">
                       <div className="flex">
                         {[...Array(5)].map((_, i) => (
-                          <Star 
-                            key={i} 
-                            className={`w-5 h-5 ${
-                              i < Math.floor(lender.rating) 
-                                ? 'fill-primary-400 text-primary-400' 
+                          <Star
+                            key={i}
+                            className={`w-5 h-5 ${i < Math.floor(lender.rating)
+                                ? 'fill-primary-400 text-primary-400'
                                 : 'text-gray-600'
-                            }`} 
+                              }`}
                           />
                         ))}
                       </div>
@@ -370,7 +368,7 @@ export default function BestLendersSelfEmployedBadCreditPage() {
                     <span className="font-bold text-sm">{lender.badge}</span>
                   </div>
                 </div>
-                
+
                 <div className="grid md:grid-cols-3 gap-4 mb-6">
                   <div className="bg-dark-900/50 rounded-lg p-4">
                     <div className="text-sm text-gray-400 mb-1">Min Credit</div>
@@ -413,7 +411,7 @@ export default function BestLendersSelfEmployedBadCreditPage() {
 
                 {index === 0 && (
                   <div className="mt-6">
-                    <a 
+                    <a
                       href="tel:+19493393555"
                       onClick={handlePhoneClick}
                       className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-flex items-center gap-2"
@@ -477,7 +475,7 @@ export default function BestLendersSelfEmployedBadCreditPage() {
             <p className="text-gray-300 mb-6">
               See our complete comparison of the top 10 lenders for self-employed borrowers in California, including options for all credit tiers.
             </p>
-            <Link 
+            <Link
               href="/blog/best-lenders-self-employed-california"
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
             >

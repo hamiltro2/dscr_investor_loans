@@ -23,8 +23,8 @@ export default function WhatIsGoodDSCRRatioPage() {
         <div className="bg-primary-600/10 border-l-4 border-primary-500 rounded-r-xl p-6 mb-8">
           <h2 className="text-lg font-semibold text-primary-300 mb-3">Quick Answer</h2>
           <p className="text-white text-lg leading-relaxed">
-            <strong>1.25 or higher is an ideal DSCR ratio.</strong> 1.0-1.24 is good (qualifies most lenders). 
-            0.75-0.99 is borderline (possible with compensating factors). Below 0.75 is poor (hard to finance). 
+            <strong>1.25 or higher is an ideal DSCR ratio.</strong> 1.0-1.24 is good (qualifies most lenders).
+            0.75-0.99 is borderline (possible with compensating factors). Below 0.75 is poor (hard to finance).
             <strong>1.0 minimum</strong> means rent exactly covers debt. Higher ratios get better rates and terms.
           </p>
         </div>
@@ -54,7 +54,7 @@ export default function WhatIsGoodDSCRRatioPage() {
                   rating: 'Excellent',
                   details: 'Strong cash flow cushion. Qualifies easily with top-tier rates and minimal documentation.',
                   approval: '95%',
-                  rate: '5.99-6.49%',
+                  rate: '5.5-6.49%',
                   color: 'green',
                   example: '$4,200 rent ÷ $3,000 debt = 1.40'
                 },
@@ -119,33 +119,30 @@ export default function WhatIsGoodDSCRRatioPage() {
                   example: '$2,000 rent ÷ $3,000 debt = 0.67'
                 },
               ].map((tier, idx) => (
-                <div key={idx} className={`bg-dark-900/50 rounded-xl border-2 ${
-                  tier.color === 'green' ? 'border-green-600/30' :
-                  tier.color === 'yellow' ? 'border-yellow-600/30' :
-                  tier.color === 'red' ? 'border-red-600/30' :
-                  'border-primary-600/30'
-                } p-6`}>
+                <div key={idx} className={`bg-dark-900/50 rounded-xl border-2 ${tier.color === 'green' ? 'border-green-600/30' :
+                    tier.color === 'yellow' ? 'border-yellow-600/30' :
+                      tier.color === 'red' ? 'border-red-600/30' :
+                        'border-primary-600/30'
+                  } p-6`}>
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <div className="flex items-center gap-3 mb-2">
-                        <div className={`text-3xl font-bold ${
-                          tier.color === 'green' ? 'text-green-400' :
-                          tier.color === 'yellow' ? 'text-yellow-400' :
-                          tier.color === 'red' ? 'text-red-400' :
-                          'text-primary-400'
-                        }`}>{tier.ratio}</div>
+                        <div className={`text-3xl font-bold ${tier.color === 'green' ? 'text-green-400' :
+                            tier.color === 'yellow' ? 'text-yellow-400' :
+                              tier.color === 'red' ? 'text-red-400' :
+                                'text-primary-400'
+                          }`}>{tier.ratio}</div>
                         <div className="text-2xl font-bold text-gray-400">{tier.grade}</div>
                       </div>
                       <div className="text-white font-semibold text-lg">{tier.rating}</div>
                     </div>
                     <div className="text-right">
                       <div className="text-sm text-gray-400">Approval Rate</div>
-                      <div className={`text-2xl font-bold ${
-                        tier.color === 'green' ? 'text-green-400' :
-                        tier.color === 'yellow' ? 'text-yellow-400' :
-                        tier.color === 'red' ? 'text-red-400' :
-                        'text-primary-400'
-                      }`}>{tier.approval}</div>
+                      <div className={`text-2xl font-bold ${tier.color === 'green' ? 'text-green-400' :
+                          tier.color === 'yellow' ? 'text-yellow-400' :
+                            tier.color === 'red' ? 'text-red-400' :
+                              'text-primary-400'
+                        }`}>{tier.approval}</div>
                     </div>
                   </div>
                   <p className="text-gray-300 mb-3">{tier.details}</p>
@@ -198,7 +195,7 @@ export default function WhatIsGoodDSCRRatioPage() {
                     <ul className="space-y-2 text-sm">
                       <li className="flex items-start gap-2">
                         <span className="text-primary-400 mt-0.5">✓</span>
-                        <span>Best interest rates (5.99-6.99%)</span>
+                        <span>Best interest rates (5.5-6.99%)</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-primary-400 mt-0.5">✓</span>
@@ -218,9 +215,9 @@ export default function WhatIsGoodDSCRRatioPage() {
                 <div className="mt-4 p-4 bg-green-600/10 border border-green-600/30 rounded-lg">
                   <p className="text-green-400 font-semibold">Real Example: 1.25 DSCR</p>
                   <p className="text-sm mt-2">
-                    $3,750 monthly rent ÷ $3,000 debt = 1.25 DSCR<br/>
-                    = $750/month positive cash flow<br/>
-                    = $9,000/year profit before other expenses<br/>
+                    $3,750 monthly rent ÷ $3,000 debt = 1.25 DSCR<br />
+                    = $750/month positive cash flow<br />
+                    = $9,000/year profit before other expenses<br />
                     = Qualifies easily with 6.25% rate
                   </p>
                 </div>

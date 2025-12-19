@@ -15,7 +15,7 @@ export default function BestDSCRLenders2025Page() {
 
   return (
     <>
-      <ArticleSchema 
+      <ArticleSchema
         headline="Best DSCR Lenders 2025: Complete Ranking & Comparison for Real Estate Investors"
         description="Compare the top 7 DSCR lenders for 2025. See rates, fees, and closing times. Find the best DSCR loan for California and nationwide investment properties."
         datePublished="2024-11-16T00:00:00.000Z"
@@ -36,7 +36,7 @@ export default function BestDSCRLenders2025Page() {
                 <span>/</span>
                 <span className="text-white">Best DSCR Lenders 2025</span>
               </nav>
-              
+
               <div className="inline-block px-4 py-1 bg-emerald-500/20 border border-emerald-500/30 rounded-full text-emerald-400 text-sm font-semibold mb-6">
                 Updated for 2025-2026
               </div>
@@ -44,7 +44,7 @@ export default function BestDSCRLenders2025Page() {
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
                 Best DSCR Lenders 2025: Complete Ranking & Comparison for Real Estate Investors
               </h1>
-              
+
               <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400 mb-6">
                 <span>Updated: November 16, 2024</span>
                 <span>•</span>
@@ -55,9 +55,9 @@ export default function BestDSCRLenders2025Page() {
 
               <div className="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/30 rounded-xl p-6">
                 <p className="text-lg text-gray-300">
-                  We analyzed the <strong className="text-emerald-400">top 7 DSCR lenders</strong> for 2025 based on rates, 
-                  fees, closing times, and customer reviews. Our #1 pick for California investors: 
-                  <strong className="text-emerald-400"> Capital Bridge Solutions</strong> with rates from 5.99% and 5-7 day closings.
+                  We analyzed the <strong className="text-emerald-400">top 7 DSCR lenders</strong> for 2025 based on rates,
+                  fees, closing times, and customer reviews. Our #1 pick for California investors:
+                  <strong className="text-emerald-400"> Capital Bridge Solutions</strong> with rates from 5.5% and 5-7 day closings.
                 </p>
               </div>
             </div>
@@ -85,7 +85,7 @@ export default function BestDSCRLenders2025Page() {
                         </div>
                         <p className="text-gray-300 mb-3">California's premier DSCR lender with lowest rates and fastest closing</p>
                         <div className="flex flex-wrap gap-4 text-sm">
-                          <span className="text-emerald-400 font-semibold">⭐ 5.99% starting rate</span>
+                          <span className="text-emerald-400 font-semibold">⭐ 5.5% starting rate</span>
                           <span className="text-gray-400">• 0.75% points</span>
                           <span className="text-gray-400">• 5-7 day close</span>
                           <span className="text-gray-400">• 640+ credit</span>
@@ -241,7 +241,7 @@ export default function BestDSCRLenders2025Page() {
 
               <div className="mt-8 bg-primary-500/10 border border-primary-500/30 rounded-xl p-6 text-center">
                 <p className="text-gray-300 mb-4">
-                  <strong className="text-white">Our methodology:</strong> Rankings based on rates, fees, closing speed, 
+                  <strong className="text-white">Our methodology:</strong> Rankings based on rates, fees, closing speed,
                   credit requirements, customer reviews, and lender reliability. Updated monthly for 2025.
                 </p>
               </div>
@@ -273,7 +273,7 @@ export default function BestDSCRLenders2025Page() {
                   <tbody className="text-gray-300">
                     <tr className="border-t border-gray-700 bg-emerald-500/5">
                       <td className="py-4 px-4 font-bold text-emerald-400">Capital Bridge</td>
-                      <td className="py-4 px-4"><span className="text-emerald-400 font-bold">5.99%</span></td>
+                      <td className="py-4 px-4"><span className="text-emerald-400 font-bold">5.5%</span></td>
                       <td className="py-4 px-4"><span className="text-emerald-400 font-bold">0.75%</span></td>
                       <td className="py-4 px-4">640</td>
                       <td className="py-4 px-4"><span className="text-emerald-400 font-bold">0.75</span></td>
@@ -343,7 +343,7 @@ export default function BestDSCRLenders2025Page() {
                   <DollarSign className="w-8 h-8 text-emerald-400 mb-3" />
                   <h3 className="text-lg font-bold text-white mb-2">Lowest Cost</h3>
                   <p className="text-gray-300 text-sm">
-                    Capital Bridge Solutions offers the lowest combined cost with 5.99% rates and 0.75% points - 
+                    Capital Bridge Solutions offers the lowest combined cost with 5.5% rates and 0.75% points -
                     saving $20K-$50K over 5 years.
                   </p>
                 </div>
@@ -351,7 +351,7 @@ export default function BestDSCRLenders2025Page() {
                   <Clock className="w-8 h-8 text-primary-400 mb-3" />
                   <h3 className="text-lg font-bold text-white mb-2">Fastest Closing</h3>
                   <p className="text-gray-300 text-sm">
-                    Capital Bridge closes in 5-7 days vs industry standard 10-14 days - critical for competitive 
+                    Capital Bridge closes in 5-7 days vs industry standard 10-14 days - critical for competitive
                     California markets.
                   </p>
                 </div>

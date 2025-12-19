@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { MapPin, TrendingUp, Home, Calculator } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Oakland DSCR Loans - East Bay Investment Properties | 5.99% Rates',
+  title: 'Oakland DSCR Loans - East Bay Investment Properties | 5.5% Rates',
   description: 'Oakland DSCR loans for rental properties. No tax returns required. Median home: $750K, Avg rent: $3,100. Finance East Bay investments fast. Call (949) 339-3555.',
   openGraph: {
     title: 'Oakland DSCR Loans - East Bay Investment Financing',
-    description: 'Finance Oakland rental properties with no income verification. Rates from 5.99%, approval in 24-48 hours.',
+    description: 'Finance Oakland rental properties with no income verification. Rates from 5.5%, approval in 24-48 hours.',
   },
 };
 
@@ -32,7 +32,7 @@ export default function OaklandDSCRLoansPage() {
             Oakland DSCR Loans
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Finance Oakland investment properties with no tax returns. From Jack London Square to the Oakland Hills, 
+            Finance Oakland investment properties with no tax returns. From Jack London Square to the Oakland Hills,
             we fund rental properties across the East Bay's most dynamic city.
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function OaklandDSCRLoansPage() {
             <div className="text-sm text-gray-400">Typical DSCR</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
-            <div className="text-3xl font-bold text-primary-400 mb-1">5.99%</div>
+            <div className="text-3xl font-bold text-primary-400 mb-1">5.5%</div>
             <div className="text-sm text-gray-400">Starting Rate</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
@@ -204,7 +204,7 @@ export default function OaklandDSCRLoansPage() {
           <section className="mb-12">
             <div className="bg-gradient-to-r from-primary-600/20 to-primary-700/20 border-2 border-primary-600/40 rounded-2xl p-8 md:p-12 text-center">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Finance Your Oakland Investment Property?</h2>
-              <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Get pre-approved in 24-48 hours. No tax returns required. Rates starting at 5.99%.</p>
+              <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Get pre-approved in 24-48 hours. No tax returns required. Rates starting at 5.5%.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/get-started" className="btn-primary text-lg px-8 py-4">Apply for Oakland DSCR Loan</Link>
                 <a href="tel:+19493393555" className="btn-secondary text-lg px-8 py-4">Call (949) 339-3555</a>
@@ -214,7 +214,7 @@ export default function OaklandDSCRLoansPage() {
         </div>
       </article>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'LocalBusiness', name: 'Capital Bridge Solutions - Oakland DSCR Loans', description: 'DSCR loans for Oakland investment properties. No tax returns required, rates from 5.99%.', areaServed: { '@type': 'City', name: 'Oakland', '@id': 'https://en.wikipedia.org/wiki/Oakland,_California' }, address: { '@type': 'PostalAddress', addressLocality: 'Orange County', addressRegion: 'CA', addressCountry: 'US' }, telephone: '+1-949-339-3555', geo: { '@type': 'GeoCoordinates', latitude: 37.8044, longitude: -122.2712 } }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'LocalBusiness', name: 'Capital Bridge Solutions - Oakland DSCR Loans', description: 'DSCR loans for Oakland investment properties. No tax returns required, rates from 5.5%.', areaServed: { '@type': 'City', name: 'Oakland', '@id': 'https://en.wikipedia.org/wiki/Oakland,_California' }, address: { '@type': 'PostalAddress', addressLocality: 'Orange County', addressRegion: 'CA', addressCountry: 'US' }, telephone: '+1-949-339-3555', geo: { '@type': 'GeoCoordinates', latitude: 37.8044, longitude: -122.2712 } }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [{ '@type': 'Question', name: 'Is Oakland a good market for rental properties?', acceptedAnswer: { '@type': 'Answer', text: 'Yes! Strong rental demand, good appreciation, and better cash flow than SF. Oakland benefits from Bay Area job growth.' } }] }) }} />
     </div>
   );

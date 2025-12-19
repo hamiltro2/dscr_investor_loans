@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { MapPin, TrendingUp, Home, Calculator } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Santa Clara DSCR Loans - Silicon Valley Tech Hub Properties | 5.99%',
+  title: 'Santa Clara DSCR Loans - Silicon Valley Tech Hub Properties | 5.5%',
   description: 'Santa Clara DSCR loans for rental properties. No tax returns required. Median home: $1.3M, Avg rent: $4,100. Finance Silicon Valley tech corridor investments. Call (949) 339-3555.',
   openGraph: {
     title: 'Santa Clara DSCR Loans - Silicon Valley Investment Financing',
-    description: 'Finance Santa Clara rental properties with no income verification. Heart of Silicon Valley. Rates from 5.99%.',
+    description: 'Finance Santa Clara rental properties with no income verification. Heart of Silicon Valley. Rates from 5.5%.',
   },
 };
 
@@ -32,7 +32,7 @@ export default function SantaClaraDSCRLoansPage() {
             Santa Clara DSCR Loans
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Finance Santa Clara investment properties with no tax returns. From Intel and Nvidia campuses to Santa Clara University, 
+            Finance Santa Clara investment properties with no tax returns. From Intel and Nvidia campuses to Santa Clara University,
             we fund rental properties in Silicon Valley's tech epicenter.
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function SantaClaraDSCRLoansPage() {
             <div className="text-sm text-gray-400">Typical DSCR</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
-            <div className="text-3xl font-bold text-primary-400 mb-1">5.99%</div>
+            <div className="text-3xl font-bold text-primary-400 mb-1">5.5%</div>
             <div className="text-sm text-gray-400">Starting Rate</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
@@ -187,29 +187,29 @@ export default function SantaClaraDSCRLoansPage() {
             <h2 className="text-3xl font-bold text-white mb-6">Santa Clara DSCR Loan FAQs</h2>
             <div className="space-y-4">
               {[
-                { 
-                  q: 'Can I qualify with RSUs and stock options from Intel or Nvidia?', 
-                  a: 'Yes! DSCR loans completely ignore stock compensation. Whether you have RSUs, ISO, NSO, or ESPP, only the property\'s rental income matters for qualification.' 
+                {
+                  q: 'Can I qualify with RSUs and stock options from Intel or Nvidia?',
+                  a: 'Yes! DSCR loans completely ignore stock compensation. Whether you have RSUs, ISO, NSO, or ESPP, only the property\'s rental income matters for qualification.'
                 },
-                { 
-                  q: 'Are properties near Levi\'s Stadium good investments?', 
-                  a: 'Excellent! Stadium district offers dual opportunity: long-term tech worker rentals or short-term vacation rentals during 49ers games, concerts, and events.' 
+                {
+                  q: 'Are properties near Levi\'s Stadium good investments?',
+                  a: 'Excellent! Stadium district offers dual opportunity: long-term tech worker rentals or short-term vacation rentals during 49ers games, concerts, and events.'
                 },
-                { 
-                  q: 'Do you finance condos near tech campuses?', 
-                  a: 'Absolutely! Condos near Intel, Nvidia, Applied Materials HQs have incredible tenant demand. Tech workers value walkability to campus.' 
+                {
+                  q: 'Do you finance condos near tech campuses?',
+                  a: 'Absolutely! Condos near Intel, Nvidia, Applied Materials HQs have incredible tenant demand. Tech workers value walkability to campus.'
                 },
-                { 
-                  q: 'What about properties near Santa Clara University?', 
-                  a: 'Great investment! SCU faculty, staff, and grad students create stable rental demand. Old Quad area has historic charm and premium appeal.' 
+                {
+                  q: 'What about properties near Santa Clara University?',
+                  a: 'Great investment! SCU faculty, staff, and grad students create stable rental demand. Old Quad area has historic charm and premium appeal.'
                 },
-                { 
-                  q: 'Can you close quickly for competing offers?', 
-                  a: 'Yes! Santa Clara\'s competitive market requires speed. We can close in 5-7 days for strong deals with motivated borrowers.' 
+                {
+                  q: 'Can you close quickly for competing offers?',
+                  a: 'Yes! Santa Clara\'s competitive market requires speed. We can close in 5-7 days for strong deals with motivated borrowers.'
                 },
-                { 
-                  q: 'How do Santa Clara properties compare to San Jose?', 
-                  a: 'Similar pricing but smaller city feel. Better walkability, less traffic. Same tech employment benefits with more community character.' 
+                {
+                  q: 'How do Santa Clara properties compare to San Jose?',
+                  a: 'Similar pricing but smaller city feel. Better walkability, less traffic. Same tech employment benefits with more community character.'
                 },
               ].map((faq, idx) => (
                 <div key={idx} className="bg-dark-900/50 rounded-xl border border-dark-800 p-6">
@@ -279,114 +279,122 @@ export default function SantaClaraDSCRLoansPage() {
                 <a href="tel:+19493393555" className="btn-secondary text-lg px-8 py-4">Call (949) 339-3555</a>
               </div>
               <p className="text-sm text-gray-400 mt-6">
-                5-7 day closings available • $75K-$30M loan amounts • Rates from 5.99% • No income verification
+                5-7 day closings available • $75K-$30M loan amounts • Rates from 5.5% • No income verification
               </p>
             </div>
           </section>
         </div>
       </article>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ 
-        '@context': 'https://schema.org', 
-        '@type': 'LocalBusiness', 
-        name: 'Capital Bridge Solutions - Santa Clara DSCR Loans', 
-        description: 'DSCR loans for Santa Clara investment properties in Silicon Valley. Perfect for tech workers. Rates from 5.99%.', 
-        areaServed: { 
-          '@type': 'City', 
-          name: 'Santa Clara', 
-          '@id': 'https://en.wikipedia.org/wiki/Santa_Clara,_California' 
-        }, 
-        address: { 
-          '@type': 'PostalAddress', 
-          addressLocality: 'Orange County', 
-          addressRegion: 'CA', 
-          addressCountry: 'US' 
-        }, 
-        telephone: '+1-949-339-3555', 
-        geo: { 
-          '@type': 'GeoCoordinates', 
-          latitude: 37.3541, 
-          longitude: -121.9552 
-        },
-        priceRange: '$$$',
-        openingHours: 'Mo-Fr 09:00-17:00'
-      }) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ 
-        '@context': 'https://schema.org', 
-        '@type': 'Service',
-        serviceType: 'DSCR Loan',
-        provider: {
-          '@type': 'FinancialService',
-          name: 'Capital Bridge Solutions'
-        },
-        areaServed: {
-          '@type': 'City',
-          name: 'Santa Clara, California'
-        },
-        offers: {
-          '@type': 'Offer',
-          priceSpecification: {
-            '@type': 'UnitPriceSpecification',
-            price: '5.99',
-            priceCurrency: 'USD',
-            unitText: 'PERCENT'
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'LocalBusiness',
+          name: 'Capital Bridge Solutions - Santa Clara DSCR Loans',
+          description: 'DSCR loans for Santa Clara investment properties in Silicon Valley. Perfect for tech workers. Rates from 5.5%.',
+          areaServed: {
+            '@type': 'City',
+            name: 'Santa Clara',
+            '@id': 'https://en.wikipedia.org/wiki/Santa_Clara,_California'
+          },
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Orange County',
+            addressRegion: 'CA',
+            addressCountry: 'US'
+          },
+          telephone: '+1-949-339-3555',
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude: 37.3541,
+            longitude: -121.9552
+          },
+          priceRange: '$$$',
+          openingHours: 'Mo-Fr 09:00-17:00'
+        })
+      }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Service',
+          serviceType: 'DSCR Loan',
+          provider: {
+            '@type': 'FinancialService',
+            name: 'Capital Bridge Solutions'
+          },
+          areaServed: {
+            '@type': 'City',
+            name: 'Santa Clara, California'
+          },
+          offers: {
+            '@type': 'Offer',
+            priceSpecification: {
+              '@type': 'UnitPriceSpecification',
+              price: '5.5',
+              priceCurrency: 'USD',
+              unitText: 'PERCENT'
+            }
           }
-        }
-      }) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ 
-        '@context': 'https://schema.org', 
-        '@type': 'FAQPage', 
-        mainEntity: [
-          { 
-            '@type': 'Question', 
-            name: 'Can I qualify with RSUs and stock options from Intel or Nvidia?', 
-            acceptedAnswer: { 
-              '@type': 'Answer', 
-              text: 'Yes! DSCR loans completely ignore stock compensation. Whether you have RSUs, ISO, NSO, or ESPP, only the property\'s rental income matters for qualification.' 
-            } 
-          },
-          { 
-            '@type': 'Question', 
-            name: 'Are properties near Levi\'s Stadium good investments?', 
-            acceptedAnswer: { 
-              '@type': 'Answer', 
-              text: 'Excellent! Stadium district offers dual opportunity: long-term tech worker rentals or short-term vacation rentals during 49ers games, concerts, and events.' 
-            } 
-          },
-          { 
-            '@type': 'Question', 
-            name: 'Do you finance condos near tech campuses?', 
-            acceptedAnswer: { 
-              '@type': 'Answer', 
-              text: 'Absolutely! Condos near Intel, Nvidia, Applied Materials HQs have incredible tenant demand. Tech workers value walkability to campus.' 
-            } 
-          }
-        ] 
-      }) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: 'Home',
-            item: 'https://www.capitalbridgesolutions.com'
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'Locations',
-            item: 'https://www.capitalbridgesolutions.com/locations'
-          },
-          {
-            '@type': 'ListItem',
-            position: 3,
-            name: 'Santa Clara DSCR Loans',
-            item: 'https://www.capitalbridgesolutions.com/locations/santa-clara-dscr-loans'
-          }
-        ]
-      }) }} />
+        })
+      }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: [
+            {
+              '@type': 'Question',
+              name: 'Can I qualify with RSUs and stock options from Intel or Nvidia?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Yes! DSCR loans completely ignore stock compensation. Whether you have RSUs, ISO, NSO, or ESPP, only the property\'s rental income matters for qualification.'
+              }
+            },
+            {
+              '@type': 'Question',
+              name: 'Are properties near Levi\'s Stadium good investments?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Excellent! Stadium district offers dual opportunity: long-term tech worker rentals or short-term vacation rentals during 49ers games, concerts, and events.'
+              }
+            },
+            {
+              '@type': 'Question',
+              name: 'Do you finance condos near tech campuses?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Absolutely! Condos near Intel, Nvidia, Applied Materials HQs have incredible tenant demand. Tech workers value walkability to campus.'
+              }
+            }
+          ]
+        })
+      }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Home',
+              item: 'https://www.capitalbridgesolutions.com'
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: 'Locations',
+              item: 'https://www.capitalbridgesolutions.com/locations'
+            },
+            {
+              '@type': 'ListItem',
+              position: 3,
+              name: 'Santa Clara DSCR Loans',
+              item: 'https://www.capitalbridgesolutions.com/locations/santa-clara-dscr-loans'
+            }
+          ]
+        })
+      }} />
     </div>
   );
 }

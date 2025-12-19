@@ -147,17 +147,17 @@ export default function InlandEmpireDSCRPage() {
                   <MapPin className="w-4 h-4 text-emerald-400" />
                   <span className="text-emerald-300 font-medium text-sm uppercase tracking-wider">Riverside & San Bernardino Counties</span>
                 </div>
-                
+
                 <h1 className="text-5xl md:text-7xl font-display font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-white/80">
                   Inland Empire DSCR Loans
                 </h1>
-                
+
                 <p className="text-2xl text-gray-300 mb-4 max-w-4xl mx-auto">
                   California's #1 Cash Flow Market for Real Estate Investors
                 </p>
-                
+
                 <p className="text-xl text-gray-400 mb-8 max-w-3xl mx-auto">
-                  DSCR ratios of <span className="text-emerald-400 font-semibold">1.30-1.48</span> • Entry from <span className="text-emerald-400 font-semibold">$420K</span> • Rates from <span className="text-primary-400 font-semibold">5.99%</span>
+                  DSCR ratios of <span className="text-emerald-400 font-semibold">1.30-1.48</span> • Entry from <span className="text-emerald-400 font-semibold">$420K</span> • Rates from <span className="text-primary-400 font-semibold">5.5%</span>
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -165,7 +165,7 @@ export default function InlandEmpireDSCRPage() {
                     Get Inland Empire Rate Quote
                     <ArrowRight className="w-5 h-5" />
                   </Link>
-                  <a 
+                  <a
                     href="tel:+19493393555"
                     onClick={handlePhoneClick}
                     className="px-8 py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-xl border border-white/20 hover:border-white/30 transition-all duration-300 inline-flex items-center gap-2"

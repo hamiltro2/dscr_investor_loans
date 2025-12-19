@@ -25,7 +25,7 @@ export const lenders: Lender[] = [
     badge: "BEST OVERALL",
     badgeColor: "emerald",
     rating: 5.0,
-    ratesFrom: "5.99%",
+    ratesFrom: "5.5%",
     minCredit: 640,
     downPayment: "20%",
     bestFor: "Investment Properties & DSCR Loans",
@@ -35,7 +35,7 @@ export const lenders: Lender[] = [
     ],
     pros: [
       "No tax returns or income verification",
-      "Rates from 5.99% (best in class)",
+      "Rates from 5.5% (best in class)",
       "Close in LLC for liability protection",
       "Unlimited properties (no portfolio cap)",
       "Free Chrome extension tool",

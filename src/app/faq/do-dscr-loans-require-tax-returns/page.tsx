@@ -4,7 +4,7 @@ import { ArrowLeft, XCircle, CheckCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Do DSCR Loans Require Tax Returns? NO! | Capital Bridge Solutions',
-  description: 'No! DSCR loans do NOT require tax returns, W-2s, or income verification. Qualify based on property income only. Perfect for self-employed with 620 credit, 5.99% rates.',
+  description: 'No! DSCR loans do NOT require tax returns, W-2s, or income verification. Qualify based on property income only. Perfect for self-employed with 620 credit, 5.5% rates.',
 };
 
 export default function DoDSCRLoansRequireTaxReturnsPage() {
@@ -23,8 +23,8 @@ export default function DoDSCRLoansRequireTaxReturnsPage() {
         <div className="bg-primary-600/10 border-l-4 border-primary-500 rounded-r-xl p-6 mb-8">
           <h2 className="text-lg font-semibold text-primary-300 mb-3">Quick Answer</h2>
           <p className="text-white text-lg leading-relaxed">
-            <strong>NO! DSCR loans do NOT require tax returns.</strong> No 1040s, Schedule E, W-2s, pay stubs, or income verification needed. 
-            You qualify based solely on the property's rental income. This makes DSCR loans perfect for self-employed borrowers, 
+            <strong>NO! DSCR loans do NOT require tax returns.</strong> No 1040s, Schedule E, W-2s, pay stubs, or income verification needed.
+            You qualify based solely on the property's rental income. This makes DSCR loans perfect for self-employed borrowers,
             business owners, and anyone who doesn't want to share tax returns with lenders.
           </p>
         </div>
@@ -78,10 +78,10 @@ export default function DoDSCRLoansRequireTaxReturnsPage() {
             <h2 className="text-3xl font-bold text-white mb-4">Why DSCR Loans Don't Need Tax Returns</h2>
             <div className="bg-dark-900/50 rounded-xl border border-dark-800 p-6">
               <p className="text-gray-300 leading-relaxed mb-6">
-                Traditional mortgages qualify you based on <strong>your personal income</strong> (proven through tax returns). 
+                Traditional mortgages qualify you based on <strong>your personal income</strong> (proven through tax returns).
                 DSCR loans qualify you based on <strong>the property's income</strong> (proven through rent analysis).
               </p>
-              
+
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-red-900/10 border border-red-800/30 rounded-lg p-4">
                   <h3 className="text-lg font-semibold text-red-400 mb-3">Traditional Mortgage Logic:</h3>

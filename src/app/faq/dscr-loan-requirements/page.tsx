@@ -4,7 +4,7 @@ import { ArrowLeft, CheckCircle, XCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'DSCR Loan Requirements 2025: Complete Checklist | Capital Bridge',
-  description: '620 credit minimum, 20-25% down, no tax returns. Complete DSCR loan requirements checklist. Get pre-approved in 24-48 hours with rates starting at 5.99%.',
+  description: '620 credit minimum, 20-25% down, no tax returns. Complete DSCR loan requirements checklist. Get pre-approved in 24-48 hours with rates starting at 5.5%.',
 };
 
 export default function DSCRLoanRequirementsPage() {
@@ -23,8 +23,8 @@ export default function DSCRLoanRequirementsPage() {
         <div className="bg-primary-600/10 border-l-4 border-primary-500 rounded-r-xl p-6 mb-8">
           <h2 className="text-lg font-semibold text-primary-300 mb-3">Quick Answer</h2>
           <p className="text-white text-lg leading-relaxed">
-            DSCR loan requirements: 620+ credit score, 20-25% down payment, 1.0+ DSCR ratio, investment property only. 
-            <strong> NO tax returns, W-2s, or income verification required.</strong> Loan amounts from $75K to $30M. 
+            DSCR loan requirements: 620+ credit score, 20-25% down payment, 1.0+ DSCR ratio, investment property only.
+            <strong> NO tax returns, W-2s, or income verification required.</strong> Loan amounts from $75K to $30M.
             Approval in 24-48 hours, close in 7-14 days.
           </p>
         </div>
@@ -36,14 +36,14 @@ export default function DSCRLoanRequirementsPage() {
         <div className="prose prose-invert prose-lg max-w-none">
           <section className="mb-12">
             <h2 className="text-3xl font-bold text-white mb-6">Complete Requirements Checklist</h2>
-            
+
             <div className="space-y-4">
               {[
                 {
                   title: 'Credit Score',
                   required: '620 minimum',
                   ideal: '640+ for best rates',
-                  details: 'Lower scores available case-by-case. 700+ qualifies for lowest rates (5.99%)'
+                  details: 'Lower scores available case-by-case. 700+ qualifies for lowest rates (5.5%)'
                 },
                 {
                   title: 'Down Payment',
@@ -120,7 +120,7 @@ export default function DSCRLoanRequirementsPage() {
               <div className="mt-6 p-4 bg-green-600/10 border border-green-600/30 rounded-lg">
                 <p className="text-green-400 font-semibold mb-2">✓ This is the power of DSCR loans</p>
                 <p className="text-gray-300 text-sm">
-                  You qualify based on the property's rental income, not your personal income. 
+                  You qualify based on the property's rental income, not your personal income.
                   Perfect for self-employed, business owners, and investors with complex finances.
                 </p>
               </div>
@@ -130,7 +130,7 @@ export default function DSCRLoanRequirementsPage() {
           <section className="mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">Required Documentation</h2>
             <p className="text-gray-300 mb-6">While we don't need tax returns or W-2s, you'll need these basic documents:</p>
-            
+
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-dark-900/50 rounded-xl border border-dark-800 p-6">
                 <h3 className="text-lg font-semibold text-primary-400 mb-4">Personal Documents</h3>
@@ -295,7 +295,7 @@ export default function DSCRLoanRequirementsPage() {
               name: 'What are DSCR loan requirements?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'DSCR loan requirements: 620+ credit score, 20-25% down payment, 1.0+ DSCR ratio, investment property only. NO tax returns, W-2s, or income verification required. Loan amounts from $75,000 to $30,000,000. Approval in 24-48 hours, close in 7-14 days. Property must be 1-4 unit residential (single-family, multi-family, condo, townhome). Rates start at 5.99% for qualified borrowers.'
+                text: 'DSCR loan requirements: 620+ credit score, 20-25% down payment, 1.0+ DSCR ratio, investment property only. NO tax returns, W-2s, or income verification required. Loan amounts from $75,000 to $30,000,000. Approval in 24-48 hours, close in 7-14 days. Property must be 1-4 unit residential (single-family, multi-family, condo, townhome). Rates start at 5.5% for qualified borrowers.'
               }
             }
           })

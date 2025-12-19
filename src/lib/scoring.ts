@@ -73,10 +73,10 @@ function calculateDSCR(
 ): number {
   // NOI = Rental Income - Operating Expenses
   const noi = rentalIncome - taxes - insurance - hoa;
-  
+
   // Monthly debt service (interest-only approximation)
   const monthlyPayment = (loanAmount * rate) / 12;
-  
+
   if (monthlyPayment <= 0) return 0;
   return noi / monthlyPayment;
 }
@@ -110,7 +110,7 @@ function getDSCRAdjustment(dscr: number): number {
  */
 function evaluateRehabBudget(rehabBudget: number, arv: number): number {
   const ratio = rehabBudget / arv;
-  
+
   if (ratio >= 0.10 && ratio <= 0.35) {
     return +4; // Sweet spot
   }
@@ -144,7 +144,7 @@ function parseEnrichment(enrichmentJson: any): EnrichmentData {
 export async function scoreLead(lead: Lead): Promise<ScoreResult> {
   const riskFlags: string[] = [];
   let reasoning = '';
-  
+
   // Start with base score
   let score = BASE_SCORES[lead.productType] || 50;
   reasoning += `Base score for ${lead.productType}: ${score}\n`;
@@ -160,7 +160,7 @@ export async function scoreLead(lead: Lead): Promise<ScoreResult> {
     const ltvAdj = getLTVAdjustment(ltv);
     score += ltvAdj;
     reasoning += `LTV ${(ltv * 100).toFixed(1)}% → ${ltvAdj >= 0 ? '+' : ''}${ltvAdj}\n`;
-    
+
     if (ltv > 0.80) {
       riskFlags.push('High LTV (>80%)');
     }
@@ -174,17 +174,17 @@ export async function scoreLead(lead: Lead): Promise<ScoreResult> {
     const taxes = inputs.monthlyTaxes || 0;
     const insurance = inputs.monthlyInsurance || 0;
     const hoa = inputs.monthlyHOA || 0;
-    const rate = inputs.proposedRate || 0.0599; // Default to 5.99%
+    const rate = inputs.proposedRate || 0.055; // Default to 5.5%
 
     // Simple DSCR calculation: Rental Income / Monthly Payment
     // Monthly payment for 30-year loan at given rate
     const monthlyRate = rate / 12;
     const numPayments = 360; // 30 years
     const monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
-    
+
     // NOI (Net Operating Income) = Rental Income - Operating Expenses
     const noi = Number(lead.rentalIncome) - taxes - insurance - hoa;
-    
+
     // DSCR = NOI / Monthly Payment
     if (monthlyPayment > 0) {
       dscr = noi / monthlyPayment;
@@ -290,7 +290,7 @@ function generateOffer(
   }
 
   const loanAmount = lead.loanAmountRequested ? Number(lead.loanAmountRequested) : 0;
-  
+
   // Offer varies by product type
   switch (lead.productType) {
     case 'hard_money':
@@ -311,14 +311,14 @@ function generateOffer(
       const monthlyRate = rate / 12;
       const numPayments = 360;
       const monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
-      
+
       const monthlyRent = lead.rentalIncome ? Number(lead.rentalIncome) : undefined;
       const monthlyCashFlow = monthlyRent ? monthlyRent - monthlyPayment : undefined;
-      
+
       return {
         productType: 'dscr',
         amountRange: [loanAmount * 0.95, loanAmount * 1.0],
-        rateRange: dscr >= 1.25 ? [5.99, 7.25] : [7.0, 8.5],
+        rateRange: dscr >= 1.25 ? [5.5, 7.25] : [7.0, 8.5],
         termMonths: 360, // 30-year
         balloon: false,
         ltvApprox: ltv > 0 ? ltv * 100 : undefined,

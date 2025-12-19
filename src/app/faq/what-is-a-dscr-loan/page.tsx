@@ -5,10 +5,10 @@ import PhoneButton from '@/components/PhoneButton';
 
 export const metadata: Metadata = {
   title: 'What is a DSCR Loan? Complete Guide 2025 | Capital Bridge Solutions',
-  description: 'A DSCR loan is a no-doc investment property loan that qualifies based on rental income, not personal income. Learn how DSCR loans work, requirements, and rates starting at 5.99%.',
+  description: 'A DSCR loan is a no-doc investment property loan that qualifies based on rental income, not personal income. Learn how DSCR loans work, requirements, and rates starting at 5.5%.',
   openGraph: {
     title: 'What is a DSCR Loan? Complete Guide 2025',
-    description: 'No-doc investment property loans starting at 5.99%. Qualify based on rental income, not personal income. 620 credit minimum.',
+    description: 'No-doc investment property loans starting at 5.5%. Qualify based on rental income, not personal income. 620 credit minimum.',
   },
 };
 
@@ -34,7 +34,7 @@ export default function WhatIsDSCRLoanPage() {
           </p>
           <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
             <div className="bg-dark-900/50 rounded-lg p-3 text-center">
-              <div className="text-2xl font-bold text-primary-400">5.99%</div>
+              <div className="text-2xl font-bold text-primary-400">5.5%</div>
               <div className="text-xs text-gray-400">Starting Rate</div>
             </div>
             <div className="bg-dark-900/50 rounded-lg p-3 text-center">
@@ -152,7 +152,7 @@ export default function WhatIsDSCRLoanPage() {
                 },
                 {
                   title: 'Competitive Rates',
-                  description: 'Starting at 5.99% for qualified borrowers'
+                  description: 'Starting at 5.5% for qualified borrowers'
                 },
               ].map((benefit, idx) => (
                 <div key={idx} className="bg-dark-900/50 rounded-xl p-5 border border-dark-800">
@@ -222,7 +222,7 @@ export default function WhatIsDSCRLoanPage() {
                 Ready to Get Pre-Approved?
               </h2>
               <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-                Capital Bridge Solutions offers DSCR loans starting at 5.99% with 24-48 hour approvals. 
+                Capital Bridge Solutions offers DSCR loans starting at 5.5% with 24-48 hour approvals.
                 No tax returns required.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -271,7 +271,7 @@ export default function WhatIsDSCRLoanPage() {
               name: 'What is a DSCR loan?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'A DSCR (Debt Service Coverage Ratio) loan is a no-documentation investment property loan that qualifies based on the property\'s rental income rather than the borrower\'s personal income. DSCR loans require no tax returns, W-2s, or income verification, making them ideal for self-employed investors and those with complex income situations. Rates start at 5.99% with 620 minimum credit score.',
+                text: 'A DSCR (Debt Service Coverage Ratio) loan is a no-documentation investment property loan that qualifies based on the property\'s rental income rather than the borrower\'s personal income. DSCR loans require no tax returns, W-2s, or income verification, making them ideal for self-employed investors and those with complex income situations. Rates start at 5.5% with 620 minimum credit score.',
                 author: {
                   '@type': 'Organization',
                   name: 'Capital Bridge Solutions',
@@ -289,7 +289,7 @@ export default function WhatIsDSCRLoanPage() {
               },
               interestRate: {
                 '@type': 'QuantitativeValue',
-                minValue: 5.99,
+                minValue: 5.5,
                 unitText: 'PERCENT'
               }
             }

@@ -92,7 +92,7 @@ export default function Article() {
             <li><strong>Purpose:</strong> Pay off hard money, pull out capital</li>
             <li><strong>Typical Terms:</strong> 30-year fixed or 5/1 ARM</li>
             <li><strong>LTV:</strong> Up to 75-80% of ARV</li>
-            <li><strong>Rate:</strong> 5.99-7.99% (based on credit/DSCR)</li>
+            <li><strong>Rate:</strong> 5.5-7.99% (based on credit/DSCR)</li>
             <li><strong>No Income Verification:</strong> Qualifies on rental income only</li>
           </ul>
 
@@ -242,7 +242,7 @@ export default function Article() {
           <div className="bg-blue-50 border-l-4 border-blue-500 p-6 my-6">
             <p className="font-semibold mb-3">Case Study: Sacramento BRRRR Deal</p>
             <p><strong>Investor:</strong> Mark, 38, software engineer building passive income</p>
-            
+
             <p className="mt-4 font-semibold">Property Details:</p>
             <ul className="space-y-1">
               <li>Location: Sacramento, CA</li>
@@ -345,7 +345,7 @@ export default function Article() {
             <li>620+ credit score</li>
             <li>1.0+ DSCR required</li>
             <li>6 months seasoning</li>
-            <li>Rates from 5.99%</li>
+            <li>Rates from 5.5%</li>
             <li>30-year fixed available</li>
           </ul>
 

@@ -166,7 +166,7 @@ export default function Article() {
 
           <div className="bg-green-50 border-l-4 border-green-500 p-6 my-6">
             <p className="font-semibold mb-3">Real Deal Breakdown: Section 8 vs Traditional Rental</p>
-            
+
             <p className="mt-4 font-semibold">Property Details:</p>
             <ul className="space-y-1">
               <li>Location: Jacksonville, FL</li>
@@ -263,7 +263,7 @@ export default function Article() {
 
           <h3>Capital Bridge Solutions Section 8 DSCR Loans</h3>
           <ul>
-            <li>Rates from 5.99%</li>
+            <li>Rates from 5.5%</li>
             <li>75-80% LTV (20-25% down)</li>
             <li>1.0+ DSCR minimum</li>
             <li>620+ credit score</li>

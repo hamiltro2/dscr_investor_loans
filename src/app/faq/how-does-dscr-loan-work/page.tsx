@@ -4,7 +4,7 @@ import { ArrowLeft, Calculator } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'How Does a DSCR Loan Work? Step-by-Step Guide 2025',
-  description: 'Learn exactly how DSCR loans work: qualification process, calculation formula, and approval steps. Get pre-approved in 24-48 hours with rates starting at 5.99%.',
+  description: 'Learn exactly how DSCR loans work: qualification process, calculation formula, and approval steps. Get pre-approved in 24-48 hours with rates starting at 5.5%.',
 };
 
 export default function HowDoesDSCRLoanWorkPage() {
@@ -23,8 +23,8 @@ export default function HowDoesDSCRLoanWorkPage() {
         <div className="bg-primary-600/10 border-l-4 border-primary-500 rounded-r-xl p-6 mb-8">
           <h2 className="text-lg font-semibold text-primary-300 mb-3">Quick Answer</h2>
           <p className="text-white text-lg leading-relaxed">
-            A DSCR loan works by qualifying you based on the property's rental income instead of your personal income. 
-            The lender calculates if the monthly rent covers the mortgage payment (PITI) plus HOA fees. 
+            A DSCR loan works by qualifying you based on the property's rental income instead of your personal income.
+            The lender calculates if the monthly rent covers the mortgage payment (PITI) plus HOA fees.
             A DSCR ratio of 1.0 or higher (rent ≥ debt) typically qualifies. No tax returns, W-2s, or employment verification required.
           </p>
         </div>
@@ -36,7 +36,7 @@ export default function HowDoesDSCRLoanWorkPage() {
         <div className="prose prose-invert prose-lg max-w-none">
           <section className="mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">The DSCR Loan Process: Step-by-Step</h2>
-            
+
             <div className="space-y-6">
               {[
                 {
@@ -88,7 +88,7 @@ export default function HowDoesDSCRLoanWorkPage() {
                   DSCR = Monthly Rental Income ÷ Total Monthly Debt
                 </div>
               </div>
-              
+
               <div className="bg-dark-900/50 rounded-lg p-6">
                 <h3 className="text-xl font-semibold text-white mb-4">Real Example:</h3>
                 <div className="space-y-3 text-gray-300">

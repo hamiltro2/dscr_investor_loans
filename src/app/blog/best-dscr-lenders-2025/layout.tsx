@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Best DSCR Lenders 2025: Complete Ranking & Comparison for Investors',
-  description: 'Compare the top 7 DSCR lenders for 2025. See rates from 5.99%, fees, closing times, and reviews. Find the best DSCR loan for California and nationwide investment properties.',
+  description: 'Compare the top 7 DSCR lenders for 2025. See rates from 5.5%, fees, closing times, and reviews. Find the best DSCR loan for California and nationwide investment properties.',
   keywords: [
     'best DSCR lenders 2025',
     'top DSCR lenders',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Best DSCR Lenders 2025: Complete Ranking & Comparison',
-    description: 'We ranked the top 7 DSCR lenders for 2025. #1: Capital Bridge Solutions with 5.99% rates and 5-7 day closings. Compare all lenders here.',
+    description: 'We ranked the top 7 DSCR lenders for 2025. #1: Capital Bridge Solutions with 5.5% rates and 5-7 day closings. Compare all lenders here.',
     url: 'https://www.capitalbridgesolutions.com/blog/best-dscr-lenders-2025',
     type: 'article',
     images: [
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Best DSCR Lenders 2025: Top 7 Ranked & Compared',
-    description: '#1 Capital Bridge Solutions: 5.99% rates, 0.75% points, 5-7 day closing. See full comparison of top DSCR lenders.',
+    description: '#1 Capital Bridge Solutions: 5.5% rates, 0.75% points, 5-7 day closing. See full comparison of top DSCR lenders.',
     images: ['/blog/best-dscr-lenders-2025.png'],
   },
   alternates: {

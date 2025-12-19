@@ -69,17 +69,17 @@ function InputField({
   helpText,
 }: InputFieldProps) {
   const [displayValue, setDisplayValue] = useState(value.toString());
-  
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setDisplayValue(newValue);
-    
+
     const numValue = parseFloat(newValue);
     if (!isNaN(numValue)) {
       onChange(numValue);
     }
   };
-  
+
   const handleBlur = () => {
     const numValue = parseFloat(displayValue);
     if (isNaN(numValue)) {
@@ -88,7 +88,7 @@ function InputField({
       setDisplayValue(numValue.toString());
     }
   };
-  
+
   return (
     <div className="space-y-1">
       <label className="block text-sm font-medium text-gray-700">
@@ -108,11 +108,9 @@ function InputField({
           step={step}
           min={min}
           max={max}
-          className={`block w-full rounded-md border-gray-300 ${
-            prefix ? 'pl-7' : 'pl-3'
-          } ${
-            suffix ? 'pr-12' : 'pr-3'
-          } py-2 focus:border-primary-500 focus:ring-primary-500 sm:text-sm`}
+          className={`block w-full rounded-md border-gray-300 ${prefix ? 'pl-7' : 'pl-3'
+            } ${suffix ? 'pr-12' : 'pr-3'
+            } py-2 focus:border-primary-500 focus:ring-primary-500 sm:text-sm`}
         />
         {suffix && (
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
@@ -148,18 +146,17 @@ function MetricCard({
     warning: 'bg-yellow-50 border-yellow-200',
     bad: 'bg-red-50 border-red-200',
   };
-  
+
   const iconColors = {
     good: 'text-green-600',
     warning: 'text-yellow-600',
     bad: 'text-red-600',
   };
-  
+
   return (
     <div
-      className={`rounded-lg border-2 p-4 ${
-        status ? statusColors[status] : 'bg-white border-gray-200'
-      }`}
+      className={`rounded-lg border-2 p-4 ${status ? statusColors[status] : 'bg-white border-gray-200'
+        }`}
     >
       <div className="flex items-center justify-between">
         <div className="flex-1">
@@ -170,9 +167,8 @@ function MetricCard({
           )}
         </div>
         <Icon
-          className={`h-8 w-8 ${
-            status ? iconColors[status] : 'text-gray-400'
-          }`}
+          className={`h-8 w-8 ${status ? iconColors[status] : 'text-gray-400'
+            }`}
         />
       </div>
     </div>
@@ -185,26 +181,26 @@ function MetricCard({
 export default function DealAnalyzer() {
   const [inputs, setInputs] = useState<PropertyInputs>(DEFAULT_INPUTS);
   const [activeTab, setActiveTab] = useState<'inputs' | 'results'>('inputs');
-  
+
   // Update single input value
   const updateInput = (key: keyof PropertyInputs, value: number) => {
     setInputs((prev) => ({ ...prev, [key]: value }));
   };
-  
+
   // Memoize analysis to avoid unnecessary recalculations
   const analysis: DealAnalysis = useMemo(() => analyzeDeal(inputs), [inputs]);
-  
+
   // Auto-switch to results tab after first calculation
   useEffect(() => {
     if (inputs !== DEFAULT_INPUTS) {
       setActiveTab('results');
     }
   }, []);
-  
+
   // Determine DSCR status
   const dscrStatus = analysis.metrics.dscr >= 1.25 ? 'good' : analysis.metrics.dscr >= 1.0 ? 'warning' : 'bad';
   const cashFlowStatus = analysis.monthly.cashFlow > 0 ? 'good' : analysis.monthly.cashFlow < 0 ? 'bad' : 'warning';
-  
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header */}
@@ -219,33 +215,31 @@ export default function DealAnalyzer() {
           Professional-grade financial analysis for real estate investors. Calculate DSCR, cash flow, ROI, and all key metrics instantly.
         </p>
       </div>
-      
+
       {/* Tab Navigation */}
       <div className="border-b border-gray-200 mb-8">
         <nav className="-mb-px flex space-x-8">
           <button
             onClick={() => setActiveTab('inputs')}
-            className={`${
-              activeTab === 'inputs'
+            className={`${activeTab === 'inputs'
                 ? 'border-primary-500 text-primary-600'
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-            } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+              } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
           >
             Property Inputs
           </button>
           <button
             onClick={() => setActiveTab('results')}
-            className={`${
-              activeTab === 'results'
+            className={`${activeTab === 'results'
                 ? 'border-primary-500 text-primary-600'
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-            } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+              } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
           >
             Analysis Results
           </button>
         </nav>
       </div>
-      
+
       {/* Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Input Form */}
@@ -254,7 +248,7 @@ export default function DealAnalyzer() {
             <h2 className="text-lg font-semibold text-gray-900 mb-4">
               Property Details
             </h2>
-            
+
             <div className="space-y-6">
               {/* Acquisition */}
               <div>
@@ -300,7 +294,7 @@ export default function DealAnalyzer() {
                   />
                 </div>
               </div>
-              
+
               {/* Financing */}
               <div>
                 <h3 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">
@@ -327,7 +321,7 @@ export default function DealAnalyzer() {
                   />
                 </div>
               </div>
-              
+
               {/* Income */}
               <div>
                 <h3 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">
@@ -362,7 +356,7 @@ export default function DealAnalyzer() {
                   />
                 </div>
               </div>
-              
+
               {/* Expenses */}
               <div>
                 <h3 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">
@@ -440,7 +434,7 @@ export default function DealAnalyzer() {
             </div>
           </div>
         </div>
-        
+
         {/* Results */}
         <div className={`lg:col-span-2 ${activeTab === 'inputs' ? 'hidden lg:block' : ''}`}>
           <div className="space-y-6">
@@ -449,7 +443,7 @@ export default function DealAnalyzer() {
               <h2 className="text-lg font-semibold text-gray-900 mb-4">
                 Key Investment Metrics
               </h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <MetricCard
                   icon={TrendingUp}
@@ -458,7 +452,7 @@ export default function DealAnalyzer() {
                   subValue={analysis.qualification.dcsrQualifies ? '✓ Qualifies for DSCR Loan' : '✗ Does not qualify'}
                   status={dscrStatus}
                 />
-                
+
                 <MetricCard
                   icon={DollarSign}
                   label="Monthly Cash Flow"
@@ -466,14 +460,14 @@ export default function DealAnalyzer() {
                   subValue={`${formatCurrency(analysis.annual.cashFlow)}/year`}
                   status={cashFlowStatus}
                 />
-                
+
                 <MetricCard
                   icon={Calculator}
                   label="Cash-on-Cash Return"
                   value={formatPercent(analysis.metrics.cashOnCashReturn)}
                   subValue="Annual return on invested capital"
                 />
-                
+
                 <MetricCard
                   icon={Home}
                   label="Cap Rate"
@@ -482,13 +476,12 @@ export default function DealAnalyzer() {
                 />
               </div>
             </div>
-            
+
             {/* Qualification Status */}
-            <div className={`rounded-lg p-6 ${
-              analysis.qualification.dcsrQualifies
+            <div className={`rounded-lg p-6 ${analysis.qualification.dcsrQualifies
                 ? 'bg-green-50 border-2 border-green-200'
                 : 'bg-red-50 border-2 border-red-200'
-            }`}>
+              }`}>
               <div className="flex items-start">
                 {analysis.qualification.dcsrQualifies ? (
                   <CheckCircle className="h-6 w-6 text-green-600 mt-0.5 mr-3" />
@@ -496,28 +489,26 @@ export default function DealAnalyzer() {
                   <XCircle className="h-6 w-6 text-red-600 mt-0.5 mr-3" />
                 )}
                 <div>
-                  <h3 className={`text-lg font-semibold ${
-                    analysis.qualification.dcsrQualifies ? 'text-green-900' : 'text-red-900'
-                  }`}>
+                  <h3 className={`text-lg font-semibold ${analysis.qualification.dcsrQualifies ? 'text-green-900' : 'text-red-900'
+                    }`}>
                     {analysis.qualification.dcsrQualifies
                       ? 'Deal Qualifies for DSCR Financing'
                       : 'Deal Does Not Qualify'}
                   </h3>
-                  <p className={`mt-2 ${
-                    analysis.qualification.dcsrQualifies ? 'text-green-700' : 'text-red-700'
-                  }`}>
+                  <p className={`mt-2 ${analysis.qualification.dcsrQualifies ? 'text-green-700' : 'text-red-700'
+                    }`}>
                     {analysis.qualification.recommendation}
                   </p>
                 </div>
               </div>
             </div>
-            
+
             {/* Acquisition Summary */}
             <div className="bg-white rounded-lg shadow-lg p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">
                 Acquisition Summary
               </h2>
-              
+
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Purchase Price</span>
@@ -557,13 +548,13 @@ export default function DealAnalyzer() {
                 </div>
               </div>
             </div>
-            
+
             {/* Monthly Cash Flow */}
             <div className="bg-white rounded-lg shadow-lg p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">
                 Monthly Cash Flow Analysis
               </h2>
-              
+
               <div className="space-y-4">
                 {/* Income Section */}
                 <div>
@@ -595,7 +586,7 @@ export default function DealAnalyzer() {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Expense Section */}
                 <div>
                   <h3 className="text-sm font-semibold text-gray-700 mb-2">Expenses</h3>
@@ -646,18 +637,17 @@ export default function DealAnalyzer() {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Net Cash Flow */}
                 <div className="bg-gray-50 rounded-lg p-4 border-2 border-gray-200">
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-semibold text-gray-900">Monthly Cash Flow</span>
-                    <span className={`text-2xl font-bold ${
-                      analysis.monthly.cashFlow > 0
+                    <span className={`text-2xl font-bold ${analysis.monthly.cashFlow > 0
                         ? 'text-green-600'
                         : analysis.monthly.cashFlow < 0
-                        ? 'text-red-600'
-                        : 'text-gray-900'
-                    }`}>
+                          ? 'text-red-600'
+                          : 'text-gray-900'
+                      }`}>
                       {formatCurrency(analysis.monthly.cashFlow)}
                     </span>
                   </div>
@@ -670,13 +660,13 @@ export default function DealAnalyzer() {
                 </div>
               </div>
             </div>
-            
+
             {/* Additional Metrics */}
             <div className="bg-white rounded-lg shadow-lg p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">
                 Additional Metrics
               </h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <span className="text-sm text-gray-600">Gross Rent Multiplier</span>
@@ -704,12 +694,12 @@ export default function DealAnalyzer() {
                 </div>
               </div>
             </div>
-            
+
             {/* CTA */}
             <div className="bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg shadow-lg p-8 text-white">
               <h3 className="text-2xl font-bold mb-4">Ready to Finance This Deal?</h3>
               <p className="text-lg mb-6 text-white/90">
-                Get pre-approved for a DSCR loan in 24 hours. No tax returns, no W-2s required. Rates from 5.99%.
+                Get pre-approved for a DSCR loan in 24 hours. No tax returns, no W-2s required. Rates from 5.5%.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a

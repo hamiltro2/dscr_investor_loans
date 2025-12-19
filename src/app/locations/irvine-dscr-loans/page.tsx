@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { MapPin, TrendingUp, Home, Calculator } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Irvine DSCR Loans - Orange County Investment Properties | 5.99%',
+  title: 'Irvine DSCR Loans - Orange County Investment Properties | 5.5%',
   description: 'Irvine DSCR loans for rental properties. No tax returns required. Median home: $1.1M, Avg rent: $3,800. Finance Orange County investments fast. Call (949) 339-3555.',
   openGraph: {
     title: 'Irvine DSCR Loans - Orange County Investment Financing',
-    description: 'Finance Irvine rental properties with no income verification. Rates from 5.99%, approval in 24-48 hours.',
+    description: 'Finance Irvine rental properties with no income verification. Rates from 5.5%, approval in 24-48 hours.',
   },
 };
 
@@ -32,7 +32,7 @@ export default function IrvineDSCRLoansPage() {
             Irvine DSCR Loans
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Finance Irvine investment properties with no tax returns. From Irvine Spectrum to University Park, 
+            Finance Irvine investment properties with no tax returns. From Irvine Spectrum to University Park,
             we fund rental properties in Orange County's premier master-planned community.
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function IrvineDSCRLoansPage() {
             <div className="text-sm text-gray-400">Typical DSCR</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
-            <div className="text-3xl font-bold text-primary-400 mb-1">5.99%</div>
+            <div className="text-3xl font-bold text-primary-400 mb-1">5.5%</div>
             <div className="text-sm text-gray-400">Starting Rate</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
@@ -273,7 +273,7 @@ export default function IrvineDSCRLoansPage() {
                 Ready to Finance Your Irvine Investment Property?
               </h2>
               <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                Local Orange County lender. Get pre-approved in 24-48 hours. No tax returns required. Rates from 5.99%.
+                Local Orange County lender. Get pre-approved in 24-48 hours. No tax returns required. Rates from 5.5%.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/get-started" className="btn-primary text-lg px-8 py-4">
@@ -298,7 +298,7 @@ export default function IrvineDSCRLoansPage() {
             '@context': 'https://schema.org',
             '@type': 'LocalBusiness',
             name: 'Capital Bridge Solutions - Irvine DSCR Loans',
-            description: 'Local Orange County DSCR lender. Finance Irvine investment properties with no tax returns required, rates from 5.99%.',
+            description: 'Local Orange County DSCR lender. Finance Irvine investment properties with no tax returns required, rates from 5.5%.',
             areaServed: {
               '@type': 'City',
               name: 'Irvine',
@@ -338,7 +338,7 @@ export default function IrvineDSCRLoansPage() {
               '@type': 'Offer',
               priceSpecification: {
                 '@type': 'PriceSpecification',
-                price: '5.99',
+                price: '5.5',
                 priceCurrency: 'USD'
               }
             }

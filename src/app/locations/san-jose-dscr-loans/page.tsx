@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { MapPin, TrendingUp, Home, Calculator } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'San Jose DSCR Loans - Silicon Valley Investment Properties | 5.99%',
+  title: 'San Jose DSCR Loans - Silicon Valley Investment Properties | 5.5%',
   description: 'San Jose DSCR loans for rental properties. No tax returns required. Median home: $1.2M, Avg rent: $4,000. Finance Silicon Valley investments fast. Call (949) 339-3555.',
   openGraph: {
     title: 'San Jose DSCR Loans - Silicon Valley Investment Financing',
-    description: 'Finance San Jose rental properties with no income verification. Rates from 5.99%, approval in 24-48 hours.',
+    description: 'Finance San Jose rental properties with no income verification. Rates from 5.5%, approval in 24-48 hours.',
   },
 };
 
@@ -32,7 +32,7 @@ export default function SanJoseDSCRLoansPage() {
             San Jose DSCR Loans
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Finance Silicon Valley investment properties with no tax returns. From Willow Glen to Almaden Valley, 
+            Finance Silicon Valley investment properties with no tax returns. From Willow Glen to Almaden Valley,
             we fund rental properties in the heart of tech innovation.
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function SanJoseDSCRLoansPage() {
             <div className="text-sm text-gray-400">Typical DSCR</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
-            <div className="text-3xl font-bold text-primary-400 mb-1">5.99%</div>
+            <div className="text-3xl font-bold text-primary-400 mb-1">5.5%</div>
             <div className="text-sm text-gray-400">Starting Rate</div>
           </div>
           <div className="bg-dark-900/50 rounded-xl p-5 text-center border border-primary-600/20">
@@ -298,7 +298,7 @@ export default function SanJoseDSCRLoansPage() {
             '@context': 'https://schema.org',
             '@type': 'LocalBusiness',
             name: 'Capital Bridge Solutions - San Jose DSCR Loans',
-            description: 'DSCR loans for San Jose and Silicon Valley investment properties. No tax returns required, rates from 5.99%.',
+            description: 'DSCR loans for San Jose and Silicon Valley investment properties. No tax returns required, rates from 5.5%.',
             areaServed: {
               '@type': 'City',
               name: 'San Jose',
@@ -338,7 +338,7 @@ export default function SanJoseDSCRLoansPage() {
               '@type': 'Offer',
               priceSpecification: {
                 '@type': 'PriceSpecification',
-                price: '5.99',
+                price: '5.5',
                 priceCurrency: 'USD'
               }
             }

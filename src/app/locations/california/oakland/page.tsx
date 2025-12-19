@@ -27,14 +27,14 @@ export default function OaklandDSCRPage() {
               <MapPin className="w-4 h-4 text-primary-400" />
               <span className="text-primary-300 font-medium text-sm">East Bay</span>
             </div>
-            
+
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">
               Oakland DSCR Loans
             </h1>
-            
+
             <p className="text-2xl text-gray-300 mb-4">East Bay Value + Bay Area Upside</p>
             <p className="text-xl text-gray-400 mb-8">
-              Median <span className="text-primary-400 font-semibold">$750K</span> • DSCR <span className="text-primary-400 font-semibold">1.15</span> • Rates from <span className="text-primary-400 font-semibold">5.99%</span>
+              Median <span className="text-primary-400 font-semibold">$750K</span> • DSCR <span className="text-primary-400 font-semibold">1.15</span> • Rates from <span className="text-primary-400 font-semibold">5.5%</span>
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

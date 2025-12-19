@@ -16,9 +16,9 @@ export default function CapitalBridgeVsKiaviVsAngelOakPage() {
 
   return (
     <>
-      <ArticleSchema 
+      <ArticleSchema
         headline="Capital Bridge Solutions vs Kiavi vs AngelOak: DSCR Loan Comparison 2024"
-        description="Compare Capital Bridge Solutions, Kiavi, and AngelOak DSCR loans. See rates from 5.99%, save $20K-$50K over 5 years on your California investment property."
+        description="Compare Capital Bridge Solutions, Kiavi, and AngelOak DSCR loans. See rates from 5.5%, save $20K-$50K over 5 years on your California investment property."
         datePublished="2024-11-16T00:00:00.000Z"
         dateModified="2024-11-16T00:00:00.000Z"
         author="Capital Bridge Solutions"
@@ -37,11 +37,11 @@ export default function CapitalBridgeVsKiaviVsAngelOakPage() {
                 <span>/</span>
                 <span className="text-white">DSCR Lender Comparison</span>
               </nav>
-              
+
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
                 Capital Bridge Solutions vs Kiavi vs AngelOak: DSCR Loan Comparison 2024
               </h1>
-              
+
               <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400 mb-6">
                 <span>Updated: November 16, 2024</span>
                 <span>•</span>
@@ -52,7 +52,7 @@ export default function CapitalBridgeVsKiaviVsAngelOakPage() {
 
               <div className="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/30 rounded-xl p-6">
                 <p className="text-lg text-gray-300">
-                  <strong className="text-emerald-400">Save $20,000 - $50,000</strong> over 5 years by choosing the right DSCR lender. 
+                  <strong className="text-emerald-400">Save $20,000 - $50,000</strong> over 5 years by choosing the right DSCR lender.
                   This comprehensive comparison shows you exactly how Capital Bridge Solutions, Kiavi, and AngelOak stack up on rates, fees, and closing speed.
                 </p>
               </div>
@@ -66,10 +66,10 @@ export default function CapitalBridgeVsKiaviVsAngelOakPage() {
             <div className="max-w-4xl mx-auto">
               <div className="prose prose-invert max-w-none">
                 <p className="text-xl text-gray-300 mb-8">
-                  When shopping for a DSCR loan (Debt Service Coverage Ratio loan) in California or nationwide, 
-                  you'll quickly encounter three names: <strong className="text-white">Capital Bridge Solutions</strong>, 
-                  <strong className="text-white"> Kiavi</strong>, and <strong className="text-white">AngelOak</strong>. 
-                  Each lender has its strengths, but the differences in rates, fees, and closing times can mean tens of 
+                  When shopping for a DSCR loan (Debt Service Coverage Ratio loan) in California or nationwide,
+                  you'll quickly encounter three names: <strong className="text-white">Capital Bridge Solutions</strong>,
+                  <strong className="text-white"> Kiavi</strong>, and <strong className="text-white">AngelOak</strong>.
+                  Each lender has its strengths, but the differences in rates, fees, and closing times can mean tens of
                   thousands of dollars in savings—or extra costs—over the life of your loan.
                 </p>
 
@@ -79,9 +79,9 @@ export default function CapitalBridgeVsKiaviVsAngelOakPage() {
                     The Bottom Line Up Front
                   </h2>
                   <p className="text-gray-300 mb-4">
-                    For California investors seeking the <strong className="text-emerald-400">lowest rates</strong> (5.99%+), 
-                    <strong className="text-emerald-400"> lowest points</strong> (0.75%), and <strong className="text-emerald-400">fastest 
-                    closing</strong> (5-7 days), Capital Bridge Solutions offers the best value. Kiavi and AngelOak are solid national 
+                    For California investors seeking the <strong className="text-emerald-400">lowest rates</strong> (5.5%+),
+                    <strong className="text-emerald-400"> lowest points</strong> (0.75%), and <strong className="text-emerald-400">fastest
+                      closing</strong> (5-7 days), Capital Bridge Solutions offers the best value. Kiavi and AngelOak are solid national
                     lenders but charge 1.5%+ higher rates and 1-2% more in points.
                   </p>
                   <p className="text-gray-300 text-sm">
@@ -114,7 +114,7 @@ export default function CapitalBridgeVsKiaviVsAngelOakPage() {
                   <tbody className="text-gray-300">
                     <tr className="border-t border-gray-700">
                       <td className="py-4 px-6 font-semibold">Starting Rate</td>
-                      <td className="py-4 px-6"><span className="text-emerald-400 font-bold">5.99%</span></td>
+                      <td className="py-4 px-6"><span className="text-emerald-400 font-bold">5.5%</span></td>
                       <td className="py-4 px-6">7.75%</td>
                       <td className="py-4 px-6">7.50%</td>
                     </tr>
@@ -206,11 +206,11 @@ export default function CapitalBridgeVsKiaviVsAngelOakPage() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <p className="text-gray-300 mb-4">
-                    California-based private lender specializing in DSCR loans for real estate investors. With 15+ years of experience 
-                    and $2.5B+ funded, Capital Bridge Solutions focuses on California market expertise, faster closing times (5-7 days), 
-                    lower rates (starting at 5.99%), and transparent pricing.
+                    California-based private lender specializing in DSCR loans for real estate investors. With 15+ years of experience
+                    and $2.5B+ funded, Capital Bridge Solutions focuses on California market expertise, faster closing times (5-7 days),
+                    lower rates (starting at 5.5%), and transparent pricing.
                   </p>
 
                   <div className="grid md:grid-cols-2 gap-4">
@@ -219,7 +219,7 @@ export default function CapitalBridgeVsKiaviVsAngelOakPage() {
                       <ul className="space-y-1 text-gray-300 text-sm">
                         <li className="flex items-start gap-2">
                           <CheckCircle className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
-                          <span>Lowest rates (5.99%)</span>
+                          <span>Lowest rates (5.5%)</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <CheckCircle className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
@@ -269,9 +269,9 @@ export default function CapitalBridgeVsKiaviVsAngelOakPage() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <p className="text-gray-300 mb-4">
-                    One of the largest private real estate lenders in the U.S. Offers extensive product line including fix-and-flip, 
+                    One of the largest private real estate lenders in the U.S. Offers extensive product line including fix-and-flip,
                     construction, and rental loans with strong tech platform and national footprint.
                   </p>
 
@@ -326,9 +326,9 @@ export default function CapitalBridgeVsKiaviVsAngelOakPage() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <p className="text-gray-300 mb-4">
-                    Established non-QM lender with $15B+ in originations. Their Investor Cash Flow program is their DSCR loan product. 
+                    Established non-QM lender with $15B+ in originations. Their Investor Cash Flow program is their DSCR loan product.
                     Strong reputation in non-QM space, works extensively through mortgage brokers.
                   </p>
 

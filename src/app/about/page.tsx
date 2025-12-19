@@ -27,20 +27,20 @@ export default function AboutPage() {
             <div className="bg-dark-900/50 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-primary-500/20">
               <h2 className="text-3xl font-bold text-white mb-6">Who We Are</h2>
               <p className="text-gray-300 mb-6">
-                Capital Bridge Solutions specializes in providing innovative financing solutions 
-                for real estate investors. With years of experience in the industry, we understand 
+                Capital Bridge Solutions specializes in providing innovative financing solutions
+                for real estate investors. With years of experience in the industry, we understand
                 the unique challenges and opportunities that investors face.
               </p>
               <p className="text-gray-300 mb-6">
-                Our team of experts is dedicated to helping you secure the funding you need to 
-                grow your real estate portfolio. Whether you&apos;re looking for DSCR loans, 
-                hard money loans, or refinancing options, we have the expertise and resources 
+                Our team of experts is dedicated to helping you secure the funding you need to
+                grow your real estate portfolio. Whether you&apos;re looking for DSCR loans,
+                hard money loans, or refinancing options, we have the expertise and resources
                 to make it happen.
               </p>
 
               <h3 className="text-2xl font-bold text-white mt-8 mb-4">Our Mission</h3>
               <p className="text-gray-300 mb-6">
-                To empower real estate investors with flexible, fast, and reliable financing 
+                To empower real estate investors with flexible, fast, and reliable financing
                 solutions that help them achieve their investment goals.
               </p>
 
@@ -56,7 +56,7 @@ export default function AboutPage() {
                 </li>
                 <li className="flex items-start">
                   <span className="text-primary-400 mr-2">✓</span>
-                  Competitive rates - Starting from 5.99%
+                  Competitive rates - Starting from 5.5%
                 </li>
                 <li className="flex items-start">
                   <span className="text-primary-400 mr-2">✓</span>
@@ -120,7 +120,7 @@ export default function AboutPage() {
             </div>
 
             <div className="text-center mt-12">
-              <Link 
+              <Link
                 href="/"
                 className="btn-primary inline-flex items-center"
               >

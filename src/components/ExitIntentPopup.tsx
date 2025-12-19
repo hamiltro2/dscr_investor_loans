@@ -83,7 +83,7 @@ export function ExitIntentPopup() {
         'send_to': 'AW-1002915679/aOGJCNjKxa0aEN-Ond4D'
       });
     }
-    
+
     // Track AppLovin conversion
     trackFormSubmission(25, 'exit_intent');
 
@@ -162,7 +162,7 @@ export function ExitIntentPopup() {
                 {/* Benefits */}
                 <div className="grid grid-cols-3 gap-4 mb-8">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-primary-400">5.99%</div>
+                    <div className="text-2xl font-bold text-primary-400">5.5%</div>
                     <div className="text-sm text-gray-400">Rates From</div>
                   </div>
                   <div className="text-center border-x border-dark-700">
@@ -185,7 +185,7 @@ export function ExitIntentPopup() {
                     required
                     className="w-full px-5 py-4 bg-dark-800/50 border border-dark-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-primary-500 transition-colors"
                   />
-                  
+
                   <button
                     type="submit"
                     disabled={isSubmitting}
@@ -205,11 +205,11 @@ export function ExitIntentPopup() {
                 <div className="mt-6 pt-6 border-t border-dark-800">
                   <p className="text-center text-gray-300">
                     Prefer to talk? Call us now at{' '}
-                    <a 
-                      href="tel:+19493393555" 
+                    <a
+                      href="tel:+19493393555"
                       className="text-primary-400 font-semibold hover:text-primary-300"
                       onClick={() => {
-                        window.gtag && window.gtag('event', 'conversion', {'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'});
+                        window.gtag && window.gtag('event', 'conversion', { 'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D' });
                         trackPhoneClick();
                       }}
                     >
