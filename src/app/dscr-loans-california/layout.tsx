@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'DSCR Loans in California 2025 | Rates from 5.5% | Capital Bridge Solutions',
+  title: 'DSCR Loans in California 2026 | Rates from 5.5% | Capital Bridge Solutions',
   description: 'Compare California DSCR loans for investment properties. No tax returns required. Rates from 5.5%, 20% down, 640+ credit. Finance LA, SF, San Diego, Sacramento rentals.',
   keywords: 'DSCR loans California, California investment property loans, no doc loans California, rental property financing CA, DSCR lenders California, self-employed loans California',
   openGraph: {

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ArrowLeft, TrendingDown } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Current DSCR Loan Rates 2025: 5.5% Starting | Capital Bridge',
+  title: 'Current DSCR Loan Rates 2026: 5.5% Starting | Capital Bridge',
   description: 'DSCR loan rates start at 5.5% for qualified borrowers. Get today\'s rates, factors affecting your rate, and how to get the lowest rate. 620 credit minimum.',
 };
 
@@ -48,7 +48,7 @@ export default function CurrentDSCRLoanRatesPage() {
         </div>
 
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-          Current DSCR Loan Rates 2025
+          Current DSCR Loan Rates 2026
         </h1>
 
         <div className="prose prose-invert prose-lg max-w-none">
@@ -85,7 +85,7 @@ export default function CurrentDSCRLoanRatesPage() {
                 </table>
               </div>
               <div className="p-4 bg-dark-800/50 text-sm text-gray-400">
-                <p>* Rates as of January 2025. Subject to change. Actual rate depends on full application review.</p>
+                <p>* Rates as of January 2026. Subject to change. Actual rate depends on full application review.</p>
               </div>
             </div>
           </section>
@@ -129,8 +129,8 @@ export default function CurrentDSCRLoanRatesPage() {
                   <div className="flex items-start justify-between mb-2">
                     <h3 className="text-lg font-semibold text-white">{item.factor}</h3>
                     <span className={`text-xs px-3 py-1 rounded-full ${item.impact === 'High Impact' ? 'bg-red-600/20 text-red-400' :
-                        item.impact === 'Medium Impact' ? 'bg-yellow-600/20 text-yellow-400' :
-                          'bg-green-600/20 text-green-400'
+                      item.impact === 'Medium Impact' ? 'bg-yellow-600/20 text-yellow-400' :
+                        'bg-green-600/20 text-green-400'
                       }`}>
                       {item.impact}
                     </span>

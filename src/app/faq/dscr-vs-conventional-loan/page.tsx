@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'DSCR Loan vs Conventional Loan: Which is Better? 2025',
+  title: 'DSCR Loan vs Conventional Loan: Which is Better? 2026',
   description: 'DSCR: no tax returns, unlimited properties. Conventional: lower rates, stricter requirements. Compare rates, requirements, and choose the best option for your investment.',
 };
 
@@ -222,8 +222,8 @@ export default function DSCRVsConventionalLoanPage() {
                   <div className="flex items-start justify-between mb-2">
                     <h3 className="text-lg font-semibold text-white">{item.scenario}</h3>
                     <span className={`px-3 py-1 rounded-full text-sm font-semibold ${item.choice === 'DSCR' ? 'bg-primary-600/20 text-primary-400' :
-                        item.choice === 'Conventional' ? 'bg-blue-600/20 text-blue-400' :
-                          'bg-gray-600/20 text-gray-400'
+                      item.choice === 'Conventional' ? 'bg-blue-600/20 text-blue-400' :
+                        'bg-gray-600/20 text-gray-400'
                       }`}>
                       {item.choice}
                     </span>

@@ -8,7 +8,7 @@ export default function CaliforniaMarketImpact() {
       icon: Home,
       label: 'Median Home Price',
       value: '$800K+',
-      detail: 'Statewide average 2025',
+      detail: 'Statewide average 2026',
       trend: '+6.2% YoY'
     },
     {
@@ -241,7 +241,7 @@ export default function CaliforniaMarketImpact() {
         </div>
 
         <p className="text-xs text-gray-500 mt-4">
-          *Based on 3BR single-family homes with 20% down payment at 7.0% interest rate. Actual DSCR varies by specific property, rent, and loan terms. Data represents 2025 market averages.
+          *Based on 3BR single-family homes with 20% down payment at 7.0% interest rate. Actual DSCR varies by specific property, rent, and loan terms. Data represents 2026 market averages.
         </p>
       </div>
 

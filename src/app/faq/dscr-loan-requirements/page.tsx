@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ArrowLeft, CheckCircle, XCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'DSCR Loan Requirements 2025: Complete Checklist | Capital Bridge',
+  title: 'DSCR Loan Requirements 2026: Complete Checklist | Capital Bridge',
   description: '620 credit minimum, 20-25% down, no tax returns. Complete DSCR loan requirements checklist. Get pre-approved in 24-48 hours with rates starting at 5.5%.',
 };
 
@@ -30,7 +30,7 @@ export default function DSCRLoanRequirementsPage() {
         </div>
 
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-          DSCR Loan Requirements 2025
+          DSCR Loan Requirements 2026
         </h1>
 
         <div className="prose prose-invert prose-lg max-w-none">

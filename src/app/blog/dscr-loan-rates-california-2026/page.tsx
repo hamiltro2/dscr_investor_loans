@@ -10,13 +10,13 @@ export default function DSCRRatesPage() {
   return (
     <>
       <ArticleSchema
-        headline="DSCR Loan Rates California 2025: Current Rates & Factors"
+        headline="DSCR Loan Rates California 2026: Current Rates & Factors"
         description="Current DSCR loan rates in California start as low as 5.5%. See rate tables by credit score, learn what affects your rate, and get the best pricing."
         datePublished="2024-09-24T00:00:00.000Z"
-        dateModified="2025-01-05T00:00:00.000Z"
+        dateModified="2026-01-05T00:00:00.000Z"
         author="Capital Bridge Solutions"
         image="/DSCR-Loans-599.png"
-        url="https://www.capitalbridgesolutions.com/blog/dscr-loan-rates-california-2025"
+        url="https://www.capitalbridgesolutions.com/blog/dscr-loan-rates-california-2026"
       />
       <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
         {/* Hero Section */}
@@ -28,15 +28,15 @@ export default function DSCRRatesPage() {
                 <span>/</span>
                 <Link href="/blog" className="hover:text-primary-400">Blog</Link>
                 <span>/</span>
-                <span className="text-white">DSCR Loan Rates California 2025</span>
+                <span className="text-white">DSCR Loan Rates California 2026</span>
               </nav>
 
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                DSCR Loan Rates California 2025: Current Rates & Factors
+                DSCR Loan Rates California 2026: Current Rates & Factors
               </h1>
 
               <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
-                <span>Updated: January 5, 2025</span>
+                <span>Updated: January 5, 2026</span>
                 <span>•</span>
                 <span>10 min read</span>
                 <span>•</span>
@@ -52,7 +52,7 @@ export default function DSCRRatesPage() {
             <div className="max-w-4xl mx-auto">
               <BlogImage
                 src="/DSCR-Loans-599.png"
-                alt="DSCR Loan Rates California 2025 - Current interest rates starting at 5.5% for investment property loans"
+                alt="DSCR Loan Rates California 2026 - Current interest rates starting at 5.5% for investment property loans"
                 width={1200}
                 height={630}
                 priority={true}
@@ -192,7 +192,7 @@ export default function DSCRRatesPage() {
               </div>
 
               <p className="text-sm text-gray-400 mt-4">
-                *Rates as of January 2025. Subject to change based on market conditions. Additional adjustments may apply.
+                *Rates as of January 2026. Subject to change based on market conditions. Additional adjustments may apply.
               </p>
             </div>
           </div>

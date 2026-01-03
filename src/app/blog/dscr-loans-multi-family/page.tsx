@@ -9,10 +9,10 @@ export default function DSCRLoansMultiFamilyPage() {
   return (
     <>
       <ArticleSchema
-        headline="DSCR Loans for Multi-Family Properties | 2-4 Unit Financing Guide 2025"
+        headline="DSCR Loans for Multi-Family Properties | 2-4 Unit Financing Guide 2026"
         description="Get DSCR loans for multi-family properties. Finance duplexes, triplexes, and 4-plexes with higher income and better DSCR ratios. Rates from 5.5%."
         datePublished="2024-10-04T00:00:00.000Z"
-        dateModified="2025-01-05T00:00:00.000Z"
+        dateModified="2026-01-05T00:00:00.000Z"
         author="Capital Bridge Solutions"
         image="/DSCR_Loans_for_Multi-family_properties.png"
         url="https://www.capitalbridgesolutions.com/blog/dscr-loans-multi-family"
@@ -32,7 +32,7 @@ export default function DSCRLoansMultiFamilyPage() {
                 DSCR Loans for Multi-Family Properties: Complete 2-4 Unit Guide
               </h1>
               <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
-                <span>Updated: January 5, 2025</span>
+                <span>Updated: January 5, 2026</span>
                 <span>•</span>
                 <span>11 min read</span>
                 <span>•</span>
@@ -47,7 +47,7 @@ export default function DSCRLoansMultiFamilyPage() {
             <div className="max-w-4xl mx-auto">
               <BlogImage
                 src="/DSCR_Loans_for_Multi-family_properties.png"
-                alt="DSCR Loans for Multi-Family Properties 2025 - Finance duplexes, triplexes, and 4-plexes"
+                alt="DSCR Loans for Multi-Family Properties 2026 - Finance duplexes, triplexes, and 4-plexes"
                 width={1200}
                 height={630}
                 priority={true}

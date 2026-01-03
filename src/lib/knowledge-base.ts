@@ -39,17 +39,17 @@ export interface SearchResult {
  */
 function cosineSimilarity(a: number[], b: number[]): number {
   if (a.length !== b.length) return 0;
-  
+
   let dotProduct = 0;
   let normA = 0;
   let normB = 0;
-  
+
   for (let i = 0; i < a.length; i++) {
     dotProduct += a[i] * b[i];
     normA += a[i] * a[i];
     normB += b[i] * b[i];
   }
-  
+
   return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
 }
 
@@ -63,25 +63,25 @@ export async function searchKnowledgeBase(
   try {
     // Load knowledge base
     const knowledgeBasePath = join(process.cwd(), 'knowledge-base.json');
-    
+
     if (!existsSync(knowledgeBasePath)) {
       console.warn('Knowledge base not found. Run: npm run build:knowledge');
       return [];
     }
-    
+
     const knowledgeBase: KnowledgeChunk[] = JSON.parse(
       readFileSync(knowledgeBasePath, 'utf-8')
     );
-    
+
     // Generate embedding for query
     const client = getOpenAIClient();
     const embeddingResponse = await client.embeddings.create({
       model: 'text-embedding-3-small',
       input: query,
     });
-    
+
     const queryEmbedding = embeddingResponse.data[0].embedding;
-    
+
     // Calculate similarities
     const results: SearchResult[] = knowledgeBase
       .filter(chunk => chunk.embedding && chunk.embedding.length > 0)
@@ -91,7 +91,7 @@ export async function searchKnowledgeBase(
       }))
       .sort((a, b) => b.similarity - a.similarity)
       .slice(0, topK);
-    
+
     return results;
   } catch (error) {
     console.error('Knowledge base search error:', error);
@@ -106,16 +106,16 @@ export function formatKnowledgeResults(results: SearchResult[]): string {
   if (results.length === 0) {
     return 'No relevant information found in knowledge base.';
   }
-  
+
   let formatted = '📚 **From Capital Bridge Solutions Knowledge Base:**\n\n';
-  
+
   results.forEach((result, index) => {
     formatted += `${index + 1}. **${result.chunk.title}**\n`;
     formatted += `${result.chunk.content}\n`;
     formatted += `Source: ${result.chunk.url}\n`;
     formatted += `Relevance: ${(result.similarity * 100).toFixed(1)}%\n\n`;
   });
-  
+
   return formatted;
 }
 
@@ -148,13 +148,13 @@ export const BLOG_ARTICLES = [
     keywords: ['calculator', 'DSCR ratio', 'cash flow', 'qualification'],
   },
   {
-    slug: 'dscr-loan-rates-california-2025',
-    title: 'DSCR Loan Rates 2025',
+    slug: 'dscr-loan-rates-california-2026',
+    title: 'DSCR Loan Rates 2026',
     category: 'Rates & Terms',
-    keywords: ['rates', 'interest rates', '2025', 'current rates'],
+    keywords: ['rates', 'interest rates', '2026', 'current rates'],
   },
   {
-    slug: 'dscr-loan-requirements-california-2025',
+    slug: 'dscr-loan-requirements-california-2026',
     title: 'DSCR Loan Requirements',
     category: 'Qualification',
     keywords: ['requirements', 'qualify', 'eligibility', 'criteria'],
@@ -244,10 +244,10 @@ export const BLOG_ARTICLES = [
     keywords: ['foreign national', 'international', 'non-US citizen', 'ITIN'],
   },
   {
-    slug: 'dscr-loan-predictions-2025',
-    title: 'DSCR Loan Market Predictions 2025',
+    slug: 'dscr-loan-predictions-2026',
+    title: 'DSCR Loan Market Predictions 2026',
     category: 'Market Insights',
-    keywords: ['2025', 'predictions', 'forecast', 'trends', 'outlook'],
+    keywords: ['2026', 'predictions', 'forecast', 'trends', 'outlook'],
   },
   {
     slug: 'dscr-loan-tax-benefits',

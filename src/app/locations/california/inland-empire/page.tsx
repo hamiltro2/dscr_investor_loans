@@ -284,7 +284,7 @@ export default function InlandEmpireDSCRPage() {
                 </div>
 
                 <p className="text-xs text-gray-500 mt-4 text-center">
-                  *Data based on 3BR single-family homes with 20% down at 7.0% interest. Updated Q1 2025.
+                  *Data based on 3BR single-family homes with 20% down at 7.0% interest. Updated Q1 2026.
                 </p>
               </div>
 

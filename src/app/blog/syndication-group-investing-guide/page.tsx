@@ -28,7 +28,7 @@ export default function Article() {
             Real Estate Syndication & Group Investing: Pool Capital to Buy Bigger Deals
           </h1>
           <div className="flex items-center gap-4 text-gray-600">
-            <time dateTime="2025-01-15">January 15, 2025</time>
+            <time dateTime="2026-01-15">January 15, 2026</time>
             <span>•</span>
             <span>13 min read</span>
           </div>
@@ -306,7 +306,7 @@ export default function Article() {
           <div className="bg-purple-50 border-l-4 border-purple-500 p-6 my-6">
             <p className="font-semibold mb-3">Case Study: First-Time Syndicator</p>
             <p><strong>Sponsor:</strong> Mike, 42, owned 7 SFR rentals, wanted to scale</p>
-            
+
             <p className="mt-4"><strong>The Deal:</strong></p>
             <ul className="space-y-1">
               <li>Property: 24-unit apartment complex, Phoenix</li>

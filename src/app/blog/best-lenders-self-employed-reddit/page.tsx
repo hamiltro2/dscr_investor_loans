@@ -127,8 +127,8 @@ export default function BestLendersSelfEmployedRedditPage() {
       <ArticleSchema
         headline="Best Lenders for Self-Employed (Reddit Recommendations & Real Reviews)"
         description="Real Reddit recommendations for self-employed mortgage lenders. Bank statement loans, DSCR loans, and no-doc options that actually work. Rates from 5.5%."
-        datePublished="2025-01-12T00:00:00Z"
-        dateModified="2025-01-12T00:00:00Z"
+        datePublished="2026-01-12T00:00:00Z"
+        dateModified="2026-01-12T00:00:00Z"
         author="Capital Bridge Solutions"
         image="/Self-employed-DSCR_loans.png"
         url="https://www.capitalbridgesolutions.com/blog/best-lenders-self-employed-reddit"

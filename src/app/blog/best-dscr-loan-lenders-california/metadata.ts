@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Best DSCR Loan Lenders California 2025 | Compare Rates & Reviews',
+  title: 'Best DSCR Loan Lenders California 2026 | Compare Rates & Reviews',
   description: 'Compare the best DSCR loan lenders in California. Expert reviews, rates from 5.5%, requirements, and detailed comparisons. Find the right lender for your investment property.',
   keywords: [
     'best dscr lenders california',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     'top dscr lenders'
   ],
   openGraph: {
-    title: 'Best DSCR Loan Lenders California 2025 | Compare Rates & Reviews',
+    title: 'Best DSCR Loan Lenders California 2026 | Compare Rates & Reviews',
     description: 'Expert comparison of the best DSCR loan lenders in California. Rates from 5.5%, requirements, and detailed reviews.',
     type: 'article',
     url: 'https://www.capitalbridgesolutions.com/blog/best-dscr-loan-lenders-california',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Best DSCR Loan Lenders California 2025 [Top 10]',
+    title: 'Best DSCR Loan Lenders California 2026 [Top 10]',
     description: 'Compare the best DSCR loan lenders in California. Expert reviews and rate comparisons.',
     images: ['/DSCR_Loan_Calculator.png'],
   },

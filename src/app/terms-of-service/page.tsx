@@ -17,8 +17,8 @@ export default function TermsOfServicePage() {
             Terms of Service
           </h1>
           <p className="text-gray-600">
-            <strong>Effective Date:</strong> January 1, 2025<br />
-            <strong>Last Updated:</strong> January 1, 2025
+            <strong>Effective Date:</strong> January 1, 2026<br />
+            <strong>Last Updated:</strong> January 1, 2026
           </p>
         </div>
 
@@ -87,7 +87,7 @@ export default function TermsOfServicePage() {
           </ul>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">6. AI Chat Assistant (Cap)</h2>
-          
+
           <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">6.1 How Cap Works</h3>
           <p>Cap is an AI-powered assistant that:</p>
           <ul className="list-disc pl-6 space-y-2">
@@ -108,7 +108,7 @@ export default function TermsOfServicePage() {
           </ul>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">7. Intellectual Property</h2>
-          
+
           <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">7.1 Our Content</h3>
           <p>
             All content on our website, including text, graphics, logos, software, and AI models, is owned by Capital Bridge Solutions or our licensors and protected by intellectual property laws.

@@ -7,50 +7,50 @@ const blogPosts = [
   // Featured Calculator
   {
     slug: 'dscr-loan-calculator-california',
-    title: 'DSCR Loan Calculator California: Free Tool + 2025 Rates',
+    title: 'DSCR Loan Calculator California: Free Tool + 2026 Rates',
     excerpt: 'Calculate your DSCR loan eligibility instantly. See real examples for Los Angeles, Orange County, and San Diego properties with current rates starting at 5.5%.',
-    date: '2025-01-05',
+    date: '2026-01-05',
     readTime: '8 min read',
     category: 'Tools & Calculators'
   },
   // State-Specific Guides
   {
     slug: 'dscr-loans-texas',
-    title: 'DSCR Loans Texas: Investment Property Financing Guide 2025',
+    title: 'DSCR Loans Texas: Investment Property Financing Guide 2026',
     excerpt: 'Complete guide to DSCR loans in Texas. Dallas, Houston, Austin, San Antonio markets. No income verification, rates starting at 5.5%.',
-    date: '2025-01-05',
+    date: '2026-01-05',
     readTime: '12 min read',
     category: 'State Guides'
   },
   {
     slug: 'dscr-loans-florida',
-    title: 'DSCR Loans Florida: Vacation Rental & Investment Guide 2025',
+    title: 'DSCR Loans Florida: Vacation Rental & Investment Guide 2026',
     excerpt: 'Get DSCR loans in Florida for vacation rentals and investment properties. Orlando, Miami, Tampa markets. Rates from 5.5%.',
-    date: '2025-01-05',
+    date: '2026-01-05',
     readTime: '13 min read',
     category: 'State Guides'
   },
   {
     slug: 'dscr-loans-arizona',
-    title: 'DSCR Loans Arizona: Phoenix & Scottsdale Investment Guide 2025',
+    title: 'DSCR Loans Arizona: Phoenix & Scottsdale Investment Guide 2026',
     excerpt: 'Arizona DSCR loans for vacation rentals and investment properties. Phoenix, Scottsdale, Tucson markets. Rates from 5.5%.',
-    date: '2025-01-05',
+    date: '2026-01-05',
     readTime: '11 min read',
     category: 'State Guides'
   },
   {
     slug: 'dscr-loans-georgia',
-    title: 'DSCR Loans Georgia: Atlanta Investment Property Guide 2025',
+    title: 'DSCR Loans Georgia: Atlanta Investment Property Guide 2026',
     excerpt: 'Get DSCR loans in Georgia with no income verification. Atlanta, Savannah markets. Rates from 5.5%.',
-    date: '2025-01-05',
+    date: '2026-01-05',
     readTime: '11 min read',
     category: 'State Guides'
   },
   {
     slug: 'dscr-loans-nevada',
-    title: 'DSCR Loans Nevada: Las Vegas & Reno Investment Guide 2025',
+    title: 'DSCR Loans Nevada: Las Vegas & Reno Investment Guide 2026',
     excerpt: 'Nevada DSCR loans for vacation rentals and investment properties. No state income tax, rates from 5.5%.',
-    date: '2025-01-05',
+    date: '2026-01-05',
     readTime: '12 min read',
     category: 'State Guides'
   },
@@ -73,27 +73,27 @@ const blogPosts = [
   },
   // Requirements & Rates
   {
-    slug: 'dscr-loan-requirements-california-2025',
-    title: 'DSCR Loan Requirements California 2025: What You Need to Know',
-    excerpt: 'Complete breakdown of 2025 DSCR loan requirements including credit scores, down payments, property types, and documentation needed.',
-    date: '2025-01-05',
+    slug: 'dscr-loan-requirements-california-2026',
+    title: 'DSCR Loan Requirements California 2026: What You Need to Know',
+    excerpt: 'Complete breakdown of 2026 DSCR loan requirements including credit scores, down payments, property types, and documentation needed.',
+    date: '2026-01-05',
     readTime: '10 min read',
     category: 'Loan Guides'
   },
   {
-    slug: 'dscr-loan-rates-california-2025',
-    title: 'DSCR Loan Rates California 2025: Current Rates & Factors',
+    slug: 'dscr-loan-rates-california-2026',
+    title: 'DSCR Loan Rates California 2026: Current Rates & Factors',
     excerpt: 'Current DSCR rates starting at 5.5%. Complete rate tables by credit score, factors affecting your rate, and strategies to get the best pricing.',
-    date: '2025-01-05',
+    date: '2026-01-05',
     readTime: '10 min read',
     category: 'Rates & Terms'
   },
   // Self-Employed & No Tax Returns
   {
     slug: 'best-dscr-loan-lenders-california',
-    title: 'Best DSCR Loan Lenders California 2025 [Top 10 Comparison]',
+    title: 'Best DSCR Loan Lenders California 2026 [Top 10 Comparison]',
     excerpt: 'Compare the best DSCR loan lenders in California. Expert reviews, rates starting at 5.5%, requirements, and detailed comparisons to find the perfect lender.',
-    date: '2025-01-05',
+    date: '2026-01-05',
     readTime: '14 min read',
     category: 'Lender Reviews'
   },
@@ -199,9 +199,9 @@ const blogPosts = [
   },
   // Market Insights
   {
-    slug: 'dscr-loan-predictions-2025',
-    title: 'DSCR Loan Market Predictions 2025',
-    excerpt: 'Expert predictions for DSCR loans in 2025. Rate forecasts, market trends, and what investors should expect in the coming year.',
+    slug: 'dscr-loan-predictions-2026',
+    title: 'DSCR Loan Market Predictions 2026',
+    excerpt: 'Expert predictions for DSCR loans in 2026. Rate forecasts, market trends, and what investors should expect in the coming year.',
     date: '2024-10-04',
     readTime: '10 min read',
     category: 'Market Insights'

@@ -91,7 +91,7 @@ export default function SanDiegoDSCRLoansPage() {
           </section>
 
           <section className="mb-12">
-            <h2 className="text-3xl font-bold text-white mb-6">San Diego Real Estate Market Data 2025</h2>
+            <h2 className="text-3xl font-bold text-white mb-6">San Diego Real Estate Market Data 2026</h2>
             <div className="bg-dark-900/50 rounded-xl border border-dark-800 p-8">
               <div className="grid md:grid-cols-3 gap-8">
                 <div>

@@ -28,7 +28,7 @@ export default function Article() {
             Section 8 Rental Property Financing: Build a Recession-Proof Portfolio with Guaranteed Rent
           </h1>
           <div className="flex items-center gap-4 text-gray-600">
-            <time dateTime="2025-01-15">January 15, 2025</time>
+            <time dateTime="2026-01-15">January 15, 2026</time>
             <span>•</span>
             <span>12 min read</span>
           </div>
@@ -102,7 +102,7 @@ export default function Article() {
             <li>Affordable property prices (maximize cash-on-cash return)</li>
           </ul>
 
-          <h3>Best Section 8 Markets 2025</h3>
+          <h3>Best Section 8 Markets 2026</h3>
           <ul>
             <li><strong>Texas:</strong> Dallas, Houston, San Antonio (high payment standards, low prices)</li>
             <li><strong>Florida:</strong> Tampa, Jacksonville, Orlando (growing demand)</li>

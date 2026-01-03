@@ -50,7 +50,7 @@ export default function PartnerNetworkPage() {
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
             Why Join Our Partner Network?
           </h2>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white rounded-lg shadow-lg p-8">
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4">
@@ -121,7 +121,7 @@ export default function PartnerNetworkPage() {
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
             Who We're Looking For
           </h2>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-white rounded-lg p-6 text-center">
               <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-4 mx-auto">
@@ -187,7 +187,7 @@ export default function PartnerNetworkPage() {
           <p className="text-center text-gray-600 mb-12">
             Simple, affordable pricing. Lock in founding rates before we scale.
           </p>
-          
+
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="bg-white rounded-lg shadow-xl p-8 border-2 border-gray-200">
               <h3 className="text-2xl font-bold mb-4 text-gray-900">Standard</h3>
@@ -280,7 +280,7 @@ export default function PartnerNetworkPage() {
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
             Frequently Asked Questions
           </h2>
-          
+
           <div className="space-y-6">
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-bold mb-2 text-gray-900">How many partners will you accept per market?</h3>
@@ -292,7 +292,7 @@ export default function PartnerNetworkPage() {
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-bold mb-2 text-gray-900">When will the extension launch?</h3>
               <p className="text-gray-600">
-                We're launching in Q1 2025. Founding partners will be featured from day one and get early access to leads.
+                We're launching in Q1 2026. Founding partners will be featured from day one and get early access to leads.
               </p>
             </div>
 

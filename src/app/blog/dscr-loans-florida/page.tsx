@@ -9,10 +9,10 @@ export default function DSCRLoansFloridaPage() {
   return (
     <>
       <ArticleSchema
-        headline="DSCR Loans Florida: Vacation Rental & Investment Property Guide 2025"
+        headline="DSCR Loans Florida: Vacation Rental & Investment Property Guide 2026"
         description="Complete guide to DSCR loans in Florida. Perfect for vacation rentals, Airbnb properties, and long-term investments. Miami, Tampa, Orlando markets. Rates from 5.5%."
         datePublished="2024-10-04T00:00:00.000Z"
-        dateModified="2025-01-05T00:00:00.000Z"
+        dateModified="2026-01-05T00:00:00.000Z"
         author="Capital Bridge Solutions"
         image="/DSCR_Loans_Florida_Vacation_Rental_Investment_Guide.png"
         url="https://www.capitalbridgesolutions.com/blog/dscr-loans-florida"
@@ -31,11 +31,11 @@ export default function DSCRLoansFloridaPage() {
               </nav>
 
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                DSCR Loans Florida: Vacation Rental & Investment Property Guide 2025
+                DSCR Loans Florida: Vacation Rental & Investment Property Guide 2026
               </h1>
 
               <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
-                <span>Updated: January 5, 2025</span>
+                <span>Updated: January 5, 2026</span>
                 <span>•</span>
                 <span>13 min read</span>
                 <span>•</span>
@@ -51,7 +51,7 @@ export default function DSCRLoansFloridaPage() {
             <div className="max-w-4xl mx-auto">
               <BlogImage
                 src="/DSCR_Loans_Florida_Vacation_Rental_Investment_Guide.png"
-                alt="DSCR Loans Florida 2025 - Vacation rental and investment property financing for Miami, Orlando, Tampa markets"
+                alt="DSCR Loans Florida 2026 - Vacation rental and investment property financing for Miami, Orlando, Tampa markets"
                 width={1200}
                 height={630}
                 priority={true}

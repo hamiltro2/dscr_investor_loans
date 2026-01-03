@@ -4,10 +4,10 @@ import { ArrowLeft, Calculator, Phone } from 'lucide-react';
 import PhoneButton from '@/components/PhoneButton';
 
 export const metadata: Metadata = {
-  title: 'What is a DSCR Loan? Complete Guide 2025 | Capital Bridge Solutions',
+  title: 'What is a DSCR Loan? Complete Guide 2026 | Capital Bridge Solutions',
   description: 'A DSCR loan is a no-doc investment property loan that qualifies based on rental income, not personal income. Learn how DSCR loans work, requirements, and rates starting at 5.5%.',
   openGraph: {
-    title: 'What is a DSCR Loan? Complete Guide 2025',
+    title: 'What is a DSCR Loan? Complete Guide 2026',
     description: 'No-doc investment property loans starting at 5.5%. Qualify based on rental income, not personal income. 620 credit minimum.',
   },
 };

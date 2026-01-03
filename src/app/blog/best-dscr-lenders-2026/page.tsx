@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Star, TrendingUp, DollarSign, Clock, CheckCircle, XCircle, Phone, ArrowRight, Award, Shield, Zap, Target, AlertCircle } from 'lucide-react';
 import { ArticleSchema } from '@/components/ArticleSchema';
 
-export default function BestDSCRLenders2025Page() {
+export default function BestDSCRLenders2026Page() {
   const handlePhoneClick = () => {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'conversion', {
@@ -16,13 +16,13 @@ export default function BestDSCRLenders2025Page() {
   return (
     <>
       <ArticleSchema
-        headline="Best DSCR Lenders 2025: Complete Ranking & Comparison for Real Estate Investors"
-        description="Compare the top 7 DSCR lenders for 2025. See rates, fees, and closing times. Find the best DSCR loan for California and nationwide investment properties."
+        headline="Best DSCR Lenders 2026: Complete Ranking & Comparison for Real Estate Investors"
+        description="Compare the top 7 DSCR lenders for 2026. See rates, fees, and closing times. Find the best DSCR loan for California and nationwide investment properties."
         datePublished="2024-11-16T00:00:00.000Z"
         dateModified="2024-11-16T00:00:00.000Z"
         author="Capital Bridge Solutions"
-        image="/blog/best-dscr-lenders-2025.png"
-        url="https://www.capitalbridgesolutions.com/blog/best-dscr-lenders-2025"
+        image="/blog/best-dscr-lenders-2026.png"
+        url="https://www.capitalbridgesolutions.com/blog/best-dscr-lenders-2026"
       />
       <article className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
         {/* Hero Section */}
@@ -34,15 +34,15 @@ export default function BestDSCRLenders2025Page() {
                 <span>/</span>
                 <Link href="/blog" className="hover:text-primary-400">Blog</Link>
                 <span>/</span>
-                <span className="text-white">Best DSCR Lenders 2025</span>
+                <span className="text-white">Best DSCR Lenders 2026</span>
               </nav>
 
               <div className="inline-block px-4 py-1 bg-emerald-500/20 border border-emerald-500/30 rounded-full text-emerald-400 text-sm font-semibold mb-6">
-                Updated for 2025-2026
+                Updated for 2026-2026
               </div>
 
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                Best DSCR Lenders 2025: Complete Ranking & Comparison for Real Estate Investors
+                Best DSCR Lenders 2026: Complete Ranking & Comparison for Real Estate Investors
               </h1>
 
               <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400 mb-6">
@@ -55,7 +55,7 @@ export default function BestDSCRLenders2025Page() {
 
               <div className="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/30 rounded-xl p-6">
                 <p className="text-lg text-gray-300">
-                  We analyzed the <strong className="text-emerald-400">top 7 DSCR lenders</strong> for 2025 based on rates,
+                  We analyzed the <strong className="text-emerald-400">top 7 DSCR lenders</strong> for 2026 based on rates,
                   fees, closing times, and customer reviews. Our #1 pick for California investors:
                   <strong className="text-emerald-400"> Capital Bridge Solutions</strong> with rates from 5.5% and 5-7 day closings.
                 </p>
@@ -68,7 +68,7 @@ export default function BestDSCRLenders2025Page() {
         <section className="py-12">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold text-white mb-8 text-center">2025 DSCR Lender Rankings</h2>
+              <h2 className="text-3xl font-bold text-white mb-8 text-center">2026 DSCR Lender Rankings</h2>
 
               <div className="space-y-4">
                 {/* #1 Capital Bridge */}
@@ -242,7 +242,7 @@ export default function BestDSCRLenders2025Page() {
               <div className="mt-8 bg-primary-500/10 border border-primary-500/30 rounded-xl p-6 text-center">
                 <p className="text-gray-300 mb-4">
                   <strong className="text-white">Our methodology:</strong> Rankings based on rates, fees, closing speed,
-                  credit requirements, customer reviews, and lender reliability. Updated monthly for 2025.
+                  credit requirements, customer reviews, and lender reliability. Updated monthly for 2026.
                 </p>
               </div>
             </div>

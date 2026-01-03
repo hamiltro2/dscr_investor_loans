@@ -28,7 +28,7 @@ export default function Article() {
             Self-Storage & Commercial DSCR Financing: Recession-Proof Real Estate with 30-40% Margins
           </h1>
           <div className="flex items-center gap-4 text-gray-600">
-            <time dateTime="2025-01-15">January 15, 2025</time>
+            <time dateTime="2026-01-15">January 15, 2026</time>
             <span>•</span>
             <span>12 min read</span>
           </div>
@@ -221,7 +221,7 @@ export default function Article() {
 
           <h2>Self-Storage Market Research</h2>
 
-          <h3>Best Markets for Self-Storage 2025</h3>
+          <h3>Best Markets for Self-Storage 2026</h3>
           <ul>
             <li><strong>Population Growth:</strong> Phoenix, Austin, Nashville, Tampa</li>
             <li><strong>Supply Constrained:</strong> California coastal cities</li>

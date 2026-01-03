@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'House Hacking Strategies 2025: Live Free & Build Wealth | Capital Bridge Solutions',
+  title: 'House Hacking Strategies 2026: Live Free & Build Wealth | Capital Bridge Solutions',
   description: 'House hacking guide: Live for free while building real estate wealth. Duplex, triplex, and fourplex strategies with low down payments. FHA to DSCR conversion for California & nationwide investors.',
   openGraph: {
     title: 'House Hacking Investment Strategies | Capital Bridge Solutions',
@@ -25,10 +25,10 @@ export default function Article() {
 
         <header className="mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            House Hacking Strategies 2025: Live for Free While Building Real Estate Wealth
+            House Hacking Strategies 2026: Live for Free While Building Real Estate Wealth
           </h1>
           <div className="flex items-center gap-4 text-gray-600">
-            <time dateTime="2025-01-15">January 15, 2025</time>
+            <time dateTime="2026-01-15">January 15, 2026</time>
             <span>•</span>
             <span>14 min read</span>
           </div>
@@ -251,7 +251,7 @@ export default function Article() {
           <div className="bg-purple-50 border-l-4 border-purple-500 p-6 my-6">
             <p className="font-semibold mb-3">Case Study: First-Time Investor Triplex House Hack</p>
             <p><strong>Investor:</strong> Jessica, 29, teacher, San Diego</p>
-            
+
             <p className="mt-4"><strong>Starting Position:</strong></p>
             <ul className="space-y-1">
               <li>Renting apartment: $1,800/month</li>

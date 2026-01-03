@@ -690,7 +690,7 @@ export default function Home() {
 
             <div className="grid md:grid-cols-2 gap-6 mb-8">
               <Link href="/blog/best-lenders-self-employed-california" className="bg-gradient-to-br from-primary-500/10 to-primary-600/10 border border-primary-500/40 rounded-xl p-6 hover:border-primary-500/60 transition-all duration-300 group">
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">Best Lenders for Self-Employed in California 2025</h3>
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">Best Lenders for Self-Employed in California 2026</h3>
                 <p className="text-gray-400 text-sm mb-4">Compare top 10 lenders for self-employed borrowers. Bank statement loans, DSCR, and no-doc options. Rates from 5.5%.</p>
                 <span className="text-primary-400 text-sm font-semibold">Read Complete Guide →</span>
               </Link>

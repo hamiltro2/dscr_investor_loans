@@ -267,7 +267,7 @@ export default function LocationsPage() {
               </div>
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-white mb-4">California Market Overview 2025</h2>
+              <h2 className="text-2xl font-bold text-white mb-4">California Market Overview 2026</h2>
               <div className="bg-dark-900/50 rounded-xl border border-dark-800 p-6">
                 <div className="space-y-3 text-sm text-gray-300">
                   <div className="flex justify-between">

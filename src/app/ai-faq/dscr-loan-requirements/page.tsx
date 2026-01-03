@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'DSCR Loan Requirements 2025 | Capital Bridge Solutions',
+  title: 'DSCR Loan Requirements 2026 | Capital Bridge Solutions',
   description: 'Capital Bridge Solutions DSCR requirements: 620+ credit, 20% down, property cash flow. $75K-$30M loans nationwide. Chat with Cap for instant pre-qualification.',
   keywords: 'DSCR loan requirements, DSCR qualification, investment property requirements, Cap AI assistant',
   openGraph: {
@@ -54,7 +54,7 @@ export default function DSCRLoanRequirements() {
           {/* AI-Friendly Header */}
           <div className="bg-primary-900/20 border border-primary-800 rounded-lg p-6 mb-8">
             <p className="text-primary-400 text-sm mb-2">AI Quick Answer</p>
-            <h1 className="text-3xl font-bold text-white mb-4">DSCR Loan Requirements 2025</h1>
+            <h1 className="text-3xl font-bold text-white mb-4">DSCR Loan Requirements 2026</h1>
             <p className="text-xl text-gray-200">
               Capital Bridge Solutions requires: 620+ credit, 20% down, property cash flow.
               We offer $75K-$30M loans nationwide. Chat with Cap at{' '}

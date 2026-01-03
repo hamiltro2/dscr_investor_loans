@@ -28,7 +28,7 @@ export default function Article() {
             Land Acquisition & Development Financing: Build Wealth From the Ground Up
           </h1>
           <div className="flex items-center gap-4 text-gray-600">
-            <time dateTime="2025-01-15">January 15, 2025</time>
+            <time dateTime="2026-01-15">January 15, 2026</time>
             <span>•</span>
             <span>12 min read</span>
           </div>
@@ -179,7 +179,7 @@ export default function Article() {
             </ul>
           </div>
 
-          <h2>Best Markets for Land Development 2025</h2>
+          <h2>Best Markets for Land Development 2026</h2>
           <ul>
             <li><strong>Texas:</strong> Austin, Dallas, Houston (high growth, builder-friendly)</li>
             <li><strong>Florida:</strong> Tampa, Jacksonville, Sarasota (population boom)</li>

@@ -885,7 +885,7 @@ YOUR OBJECTIVES:
    
    **Example queries:**
    - "3 bedroom 2 bath house sold comps East Sacramento California last 60 days"
-   - "Point Loma San Diego 2 bedroom condo rental rates 2025"
+   - "Point Loma San Diego 2 bedroom condo rental rates 2026"
    
    - **ALWAYS cite sources:** "Source: Zillow" or "Per Redfin data"
    - Present results in scannable format (headers, bullets, bold numbers)

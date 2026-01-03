@@ -150,7 +150,7 @@ export default function CapPage() {
               },
               {
                 title: 'Advanced Strategies',
-                items: ['Portfolio financing', 'Foreign investor loans', 'Tax benefits', 'Market trends 2025'],
+                items: ['Portfolio financing', 'Foreign investor loans', 'Tax benefits', 'Market trends 2026'],
               },
             ].map((category, index) => (
               <div key={index} className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-xl border border-gray-200">

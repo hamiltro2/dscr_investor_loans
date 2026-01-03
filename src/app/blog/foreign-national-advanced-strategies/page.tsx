@@ -28,7 +28,7 @@ export default function Article() {
             Foreign National Real Estate Investing: Advanced Strategies for Building a US Portfolio
           </h1>
           <div className="flex items-center gap-4 text-gray-600">
-            <time dateTime="2025-01-15">January 15, 2025</time>
+            <time dateTime="2026-01-15">January 15, 2026</time>
             <span>•</span>
             <span>15 min read</span>
           </div>
@@ -211,7 +211,7 @@ export default function Article() {
             <li>International airport (easy to visit)</li>
           </ul>
 
-          <h3>Best Markets 2025</h3>
+          <h3>Best Markets 2026</h3>
           <ul>
             <li><strong>Texas:</strong> Dallas, Houston, Austin (no state income tax, strong growth)</li>
             <li><strong>Florida:</strong> Tampa, Jacksonville, Orlando (no state income tax)</li>

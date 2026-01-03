@@ -28,7 +28,7 @@ export default function Article() {
             Opportunity Zone Investing: Defer & Eliminate Capital Gains Taxes While Building Wealth
           </h1>
           <div className="flex items-center gap-4 text-gray-600">
-            <time dateTime="2025-01-15">January 15, 2025</time>
+            <time dateTime="2026-01-15">January 15, 2026</time>
             <span>•</span>
             <span>11 min read</span>
           </div>

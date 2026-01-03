@@ -33,10 +33,10 @@ export default function BestLendersSelfEmployedCAPage() {
   return (
     <>
       <ArticleSchema
-        headline="Best Lenders for Self-Employed in California 2025: Top 10 Comparison"
+        headline="Best Lenders for Self-Employed in California 2026: Top 10 Comparison"
         description="Compare the best mortgage lenders for self-employed borrowers in California. No tax returns required. Bank statement loans, DSCR loans, and more. Rates from 5.5%."
-        datePublished="2025-01-12T00:00:00Z"
-        dateModified="2025-01-12T00:00:00Z"
+        datePublished="2026-01-12T00:00:00Z"
+        dateModified="2026-01-12T00:00:00Z"
         author="Capital Bridge Solutions"
         image="/Self-employed-DSCR_loans.png"
         url="https://www.capitalbridgesolutions.com/blog/best-lenders-self-employed-california"
@@ -55,7 +55,7 @@ export default function BestLendersSelfEmployedCAPage() {
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                Best Lenders for Self-Employed in California 2025
+                Best Lenders for Self-Employed in California 2026
               </h1>
 
               <p className="text-xl text-gray-300 mb-8">
@@ -89,7 +89,7 @@ export default function BestLendersSelfEmployedCAPage() {
           {/* Featured Image */}
           <BlogImage
             src="/Self-employed-DSCR_loans.png"
-            alt="Best Lenders for Self-Employed in California 2025 - Compare top mortgage lenders for self-employed borrowers"
+            alt="Best Lenders for Self-Employed in California 2026 - Compare top mortgage lenders for self-employed borrowers"
             width={1200}
             height={630}
             priority={true}
@@ -174,8 +174,8 @@ export default function BestLendersSelfEmployedCAPage() {
               <div
                 key={lender.id}
                 className={`rounded-2xl p-8 border mb-8 ${index === 0
-                    ? 'bg-gradient-to-br from-primary-500/10 to-primary-600/10 border-primary-500/20'
-                    : 'bg-gradient-to-br from-white/8 to-white/[0.03] backdrop-blur-xl border-white/10'
+                  ? 'bg-gradient-to-br from-primary-500/10 to-primary-600/10 border-primary-500/20'
+                  : 'bg-gradient-to-br from-white/8 to-white/[0.03] backdrop-blur-xl border-white/10'
                   }`}
               >
                 <div className="flex items-start justify-between mb-4 flex-wrap gap-4">
@@ -187,8 +187,8 @@ export default function BestLendersSelfEmployedCAPage() {
                           <Star
                             key={i}
                             className={`w-5 h-5 ${i < Math.floor(lender.rating)
-                                ? 'fill-primary-400 text-primary-400'
-                                : 'text-gray-600'
+                              ? 'fill-primary-400 text-primary-400'
+                              : 'text-gray-600'
                               }`}
                           />
                         ))}

@@ -228,8 +228,8 @@ export default function BestLendersSelfEmployedBadCreditPage() {
       <ArticleSchema
         headline="Best Lenders for Self-Employed with Bad Credit (580-680 Scores)"
         description="Compare mortgage lenders for self-employed borrowers with bad credit. Bank statement loans and DSCR options for 580-680 credit scores. No tax returns required."
-        datePublished="2025-01-12T00:00:00Z"
-        dateModified="2025-01-12T00:00:00Z"
+        datePublished="2026-01-12T00:00:00Z"
+        dateModified="2026-01-12T00:00:00Z"
         author="Capital Bridge Solutions"
         image="/Self-employed-DSCR_loans.png"
         url="https://www.capitalbridgesolutions.com/blog/best-lenders-self-employed-bad-credit"
@@ -340,8 +340,8 @@ export default function BestLendersSelfEmployedBadCreditPage() {
               <div
                 key={index}
                 className={`rounded-2xl p-8 border mb-8 ${index === 0
-                    ? 'bg-gradient-to-br from-primary-500/10 to-primary-600/10 border-primary-500/20'
-                    : 'bg-gradient-to-br from-white/8 to-white/[0.03] backdrop-blur-xl border-white/10'
+                  ? 'bg-gradient-to-br from-primary-500/10 to-primary-600/10 border-primary-500/20'
+                  : 'bg-gradient-to-br from-white/8 to-white/[0.03] backdrop-blur-xl border-white/10'
                   }`}
               >
                 <div className="flex items-start justify-between mb-4 flex-wrap gap-4">
@@ -353,8 +353,8 @@ export default function BestLendersSelfEmployedBadCreditPage() {
                           <Star
                             key={i}
                             className={`w-5 h-5 ${i < Math.floor(lender.rating)
-                                ? 'fill-primary-400 text-primary-400'
-                                : 'text-gray-600'
+                              ? 'fill-primary-400 text-primary-400'
+                              : 'text-gray-600'
                               }`}
                           />
                         ))}

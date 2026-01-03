@@ -9,10 +9,10 @@ export default function DSCRLoansArizonaPage() {
   return (
     <>
       <ArticleSchema
-        headline="DSCR Loans Arizona: Phoenix & Scottsdale Investment Guide 2025"
+        headline="DSCR Loans Arizona: Phoenix & Scottsdale Investment Guide 2026"
         description="Get DSCR loans in Arizona for vacation rentals and investment properties. Phoenix, Scottsdale, Tucson markets. No income verification, rates from 5.5%."
         datePublished="2024-10-04T00:00:00.000Z"
-        dateModified="2025-01-05T00:00:00.000Z"
+        dateModified="2026-01-05T00:00:00.000Z"
         author="Capital Bridge Solutions"
         image="/DSCR_Loans_Arizona.png"
         url="https://www.capitalbridgesolutions.com/blog/dscr-loans-arizona"
@@ -30,11 +30,11 @@ export default function DSCRLoansArizonaPage() {
               </nav>
 
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                DSCR Loans Arizona: Phoenix & Scottsdale Investment Guide 2025
+                DSCR Loans Arizona: Phoenix & Scottsdale Investment Guide 2026
               </h1>
 
               <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
-                <span>Updated: January 5, 2025</span>
+                <span>Updated: January 5, 2026</span>
                 <span>•</span>
                 <span>11 min read</span>
                 <span>•</span>
@@ -49,7 +49,7 @@ export default function DSCRLoansArizonaPage() {
             <div className="max-w-4xl mx-auto">
               <BlogImage
                 src="/DSCR_Loans_Arizona.png"
-                alt="DSCR Loans Arizona 2025 - Investment property financing for Phoenix, Scottsdale, Tucson markets"
+                alt="DSCR Loans Arizona 2026 - Investment property financing for Phoenix, Scottsdale, Tucson markets"
                 width={1200}
                 height={630}
                 priority={true}

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ArrowLeft, Calculator } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'What is DSCR in Real Estate? Complete Guide 2025',
+  title: 'What is DSCR in Real Estate? Complete Guide 2026',
   description: 'DSCR (Debt Service Coverage Ratio) measures if rental income covers mortgage payments. Formula: Monthly Rent ÷ Monthly Debt. 1.0+ qualifies for DSCR loans.',
 };
 
@@ -23,8 +23,8 @@ export default function WhatIsDSCRInRealEstatePage() {
         <div className="bg-primary-600/10 border-l-4 border-primary-500 rounded-r-xl p-6 mb-8">
           <h2 className="text-lg font-semibold text-primary-300 mb-3">Quick Answer</h2>
           <p className="text-white text-lg leading-relaxed">
-            <strong>DSCR (Debt Service Coverage Ratio)</strong> in real estate measures whether a rental property generates enough income to cover its debt payments. 
-            <strong> Formula: Monthly Rent ÷ (Mortgage + Taxes + Insurance + HOA).</strong> A DSCR of 1.0 means rent exactly covers debt. 
+            <strong>DSCR (Debt Service Coverage Ratio)</strong> in real estate measures whether a rental property generates enough income to cover its debt payments.
+            <strong> Formula: Monthly Rent ÷ (Mortgage + Taxes + Insurance + HOA).</strong> A DSCR of 1.0 means rent exactly covers debt.
             1.25 means 25% cushion. Lenders require 1.0-1.25 minimum.
           </p>
         </div>
@@ -113,20 +113,18 @@ export default function WhatIsDSCRInRealEstatePage() {
                   color: 'red'
                 },
               ].map((item, idx) => (
-                <div key={idx} className={`bg-dark-900/50 rounded-xl border ${
-                  item.color === 'green' ? 'border-green-600/30' :
-                  item.color === 'yellow' ? 'border-yellow-600/30' :
-                  item.color === 'red' ? 'border-red-600/30' :
-                  'border-dark-800'
-                } p-6`}>
+                <div key={idx} className={`bg-dark-900/50 rounded-xl border ${item.color === 'green' ? 'border-green-600/30' :
+                    item.color === 'yellow' ? 'border-yellow-600/30' :
+                      item.color === 'red' ? 'border-red-600/30' :
+                        'border-dark-800'
+                  } p-6`}>
                   <div className="flex items-start justify-between mb-2">
                     <div>
-                      <div className={`text-xl font-bold ${
-                        item.color === 'green' ? 'text-green-400' :
-                        item.color === 'yellow' ? 'text-yellow-400' :
-                        item.color === 'red' ? 'text-red-400' :
-                        'text-primary-400'
-                      }`}>{item.ratio}</div>
+                      <div className={`text-xl font-bold ${item.color === 'green' ? 'text-green-400' :
+                          item.color === 'yellow' ? 'text-yellow-400' :
+                            item.color === 'red' ? 'text-red-400' :
+                              'text-primary-400'
+                        }`}>{item.ratio}</div>
                       <div className="text-white font-semibold mt-1">{item.meaning}</div>
                     </div>
                   </div>

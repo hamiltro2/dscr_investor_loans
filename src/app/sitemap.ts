@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.capitalbridgesolutions.com'
-  
+
   // Define all your routes
   const routes = [
     '',
@@ -43,8 +43,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/blog/airbnb-dscr-loans-california',
     '/blog/no-tax-return-investment-property-loans',
     '/blog/dscr-loan-calculator-california',
-    '/blog/dscr-loan-rates-california-2025',
-    '/blog/dscr-loan-requirements-california-2025',
+    '/blog/dscr-loan-rates-california-2026',
+    '/blog/dscr-loan-requirements-california-2026',
     '/blog/dscr-vs-hard-money-loans',
     '/blog/fix-and-flip-dscr-loans-california',
     '/blog/how-to-qualify-for-dscr-loan',
@@ -65,13 +65,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/blog/dscr-loan-refinancing',
     '/blog/portfolio-dscr-loans',
     '/blog/dscr-loans-foreign-investors',
-    '/blog/dscr-loan-predictions-2025',
+    '/blog/dscr-loan-predictions-2026',
     '/blog/dscr-loan-tax-benefits',
     '/blog/dscr-loans-market-downturn',
     '/blog/case-study-first-time-investor-620-credit',
     '/blog/case-study-10-property-portfolio',
     '/blog/capital-bridge-vs-kiavi-vs-angeloak',
-    '/blog/best-dscr-lenders-2025',
+    '/blog/best-dscr-lenders-2026',
     // AI-Optimized FAQ Pages
     '/ai-faq/what-is-a-dscr-loan',
     '/ai-faq/dscr-loan-requirements',
@@ -79,7 +79,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/ai-faq/how-cap-analyzes-properties',
     '/ai-faq/cap-vs-competitors',
   ]
-  
+
   // Define AI guidance files with custom priorities
   const aiFiles = [
     { path: '/llm-guidance.json', priority: 0.9 },
@@ -92,21 +92,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/ai-content-feed.txt', priority: 0.75 },
     { path: '/robots.txt', priority: 0.5 },
   ]
-  
+
   // Generate sitemap entries for regular routes
   const routeEntries = routes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: (route === '' ? 'weekly' : 'monthly') as 'weekly' | 'monthly',
-    priority: route === '' ? 1 : 
-             route === '/cap' || route === '/chat-with-cap' ? 0.95 : // High priority for AI chatbot pages
-             route.includes('/ai-faq/') ? 0.9 : // AI-optimized FAQ pages
-             route.includes('services') || route.includes('get-started') ? 0.9 :
-             route.includes('/locations/california/') ? 0.85 : // California subpages important
-             route.includes('/locations/') ? 0.8 : // Other location pages
-             0.7,
+    priority: route === '' ? 1 :
+      route === '/cap' || route === '/chat-with-cap' ? 0.95 : // High priority for AI chatbot pages
+        route.includes('/ai-faq/') ? 0.9 : // AI-optimized FAQ pages
+          route.includes('services') || route.includes('get-started') ? 0.9 :
+            route.includes('/locations/california/') ? 0.85 : // California subpages important
+              route.includes('/locations/') ? 0.8 : // Other location pages
+                0.7,
   }))
-  
+
   // Generate sitemap entries for AI files
   const aiEntries = aiFiles.map((file) => ({
     url: `${baseUrl}${file.path}`,
@@ -114,7 +114,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: 'monthly' as const,
     priority: file.priority,
   }))
-  
+
   // Combine and return all entries
   return [...routeEntries, ...aiEntries]
 }

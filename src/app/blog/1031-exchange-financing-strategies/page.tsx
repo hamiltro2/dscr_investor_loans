@@ -30,7 +30,7 @@ export default function Article() {
             1031 Exchange Financing Strategies: How to Defer Taxes While Upgrading Your Portfolio
           </h1>
           <div className="flex items-center gap-4 text-gray-600">
-            <time dateTime="2025-01-15">January 15, 2025</time>
+            <time dateTime="2026-01-15">January 15, 2026</time>
             <span>•</span>
             <span>12 min read</span>
           </div>

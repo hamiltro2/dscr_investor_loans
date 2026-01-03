@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ArrowLeft, Calculator } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'How Does a DSCR Loan Work? Step-by-Step Guide 2025',
+  title: 'How Does a DSCR Loan Work? Step-by-Step Guide 2026',
   description: 'Learn exactly how DSCR loans work: qualification process, calculation formula, and approval steps. Get pre-approved in 24-48 hours with rates starting at 5.5%.',
 };
 

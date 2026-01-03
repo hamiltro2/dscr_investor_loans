@@ -87,10 +87,10 @@ export default function BestDSCRLendersCaliforniaPage() {
   return (
     <>
       <ArticleSchema
-        headline="Best DSCR Loan Lenders California 2025: Top 10 Comparison"
+        headline="Best DSCR Loan Lenders California 2026: Top 10 Comparison"
         description="Expert comparison and reviews of the best DSCR loan lenders in California. Compare rates, requirements, and find the right lender for your investment property."
         datePublished="2024-10-06T02:00:00Z"
-        dateModified="2025-01-05T00:00:00Z"
+        dateModified="2026-01-05T00:00:00Z"
         author="Capital Bridge Solutions"
         image="/Best_DSCR_Loan_Lenders_California.png"
         url="https://www.capitalbridgesolutions.com/blog/best-dscr-loan-lenders-california"
@@ -114,7 +114,7 @@ export default function BestDSCRLendersCaliforniaPage() {
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                Best DSCR Loan Lenders California 2025
+                Best DSCR Loan Lenders California 2026
               </h1>
 
               <p className="text-xl text-gray-300 mb-8">
@@ -149,7 +149,7 @@ export default function BestDSCRLendersCaliforniaPage() {
           {/* Featured Image */}
           <BlogImage
             src="/Best_DSCR_Loan_Lenders_California.png"
-            alt="Best DSCR Loan Lenders California 2025 - Expert comparison and reviews"
+            alt="Best DSCR Loan Lenders California 2026 - Expert comparison and reviews"
             width={1200}
             height={630}
             priority={true}
@@ -266,7 +266,7 @@ export default function BestDSCRLendersCaliforniaPage() {
               </table>
             </div>
             <p className="text-sm text-gray-400 mt-4">
-              *Rates as of January 2025. Actual rates vary based on credit score, down payment, DSCR ratio, and property type.
+              *Rates as of January 2026. Actual rates vary based on credit score, down payment, DSCR ratio, and property type.
             </p>
           </div>
 
@@ -943,7 +943,7 @@ export default function BestDSCRLendersCaliforniaPage() {
               <div className="bg-dark-800 border border-primary-500/20 rounded-xl p-6">
                 <h3 className="text-xl font-bold text-white mb-4">Who has the lowest DSCR loan rates in California?</h3>
                 <p className="text-gray-400 mb-4">
-                  As of January 2025, the lowest DSCR loan rates in California start at <strong className="text-green-400">5.5%</strong> for
+                  As of January 2026, the lowest DSCR loan rates in California start at <strong className="text-green-400">5.5%</strong> for
                   well-qualified borrowers (720+ credit, 25%+ down, 1.25+ DSCR). Capital Bridge Solutions and Visio Lending consistently
                   offer the most competitive rates.
                 </p>
@@ -1139,7 +1139,7 @@ export default function BestDSCRLendersCaliforniaPage() {
             <h2 className="text-2xl font-bold text-white mb-6">Related Articles</h2>
             <div className="grid md:grid-cols-3 gap-6">
               <a href="/blog/dscr-loan-rates-california-2024" className="bg-dark-800 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition-colors">
-                <h3 className="text-lg font-bold text-white mb-2">DSCR Loan Rates California 2025</h3>
+                <h3 className="text-lg font-bold text-white mb-2">DSCR Loan Rates California 2026</h3>
                 <p className="text-gray-400 text-sm">Current rates and factors affecting your DSCR loan rate</p>
               </a>
               <a href="/blog/dscr-loan-requirements-california-2024" className="bg-dark-800 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition-colors">
