@@ -8,13 +8,14 @@ interface InfoCardProps {
   title: string;
   description: string;
   panelTitle: string;
+  bgImage?: string;
   steps: Array<{
     title: string;
     description: string;
   }>;
 }
 
-export function InfoCard({ icon: Icon, title, description, panelTitle, steps }: InfoCardProps) {
+export function InfoCard({ icon: Icon, title, description, panelTitle, bgImage, steps }: InfoCardProps) {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
 
   const handleScroll = (e: Event) => {
@@ -53,36 +54,47 @@ export function InfoCard({ icon: Icon, title, description, panelTitle, steps }: 
   };
 
   return (
-    <div className="card card-primary relative overflow-hidden">
-      <Icon className="w-12 h-12 text-primary-500 icon-glow mb-4" />
-      <h3 className="text-xl font-display font-bold mb-3 text-dark-50">
-        {title}
-      </h3>
-      <p className="text-dark-200 mb-4">
-        {description}
-      </p>
-      <button 
-        onClick={() => setIsPanelOpen(true)}
-        className="btn-secondary inline-flex items-center gap-2 hover:bg-[hsl(var(--primary))] hover:text-[hsl(var(--primary-foreground))]"
-      >
-        Learn More
-        <svg 
-          className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" 
-          fill="none" 
-          stroke="currentColor" 
-          viewBox="0 0 24 24"
-        >
-          <path 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            strokeWidth="2" 
-            d="M9 5l7 7-7 7"
+    <div className="card card-primary relative overflow-hidden group flex flex-col h-full min-h-[320px]">
+      {bgImage && (
+        <>
+          <div 
+            className="absolute inset-0 z-0 bg-cover bg-center opacity-100 brightness-110"
+            style={{ backgroundImage: `url(${bgImage})` }}
           />
-        </svg>
-      </button>
+          <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#020817]/95 via-[#020817]/60 to-[#020817]/30 pointer-events-none" />
+        </>
+      )}
+      
+      <div className="relative z-10 flex flex-col flex-1 pt-4">
+        <h3 className="text-xl font-display font-bold mb-3 text-white drop-shadow-lg">
+          {title}
+        </h3>
+        <p className="text-gray-100 mb-6 flex-1 text-sm leading-relaxed drop-shadow-md font-medium">
+          {description}
+        </p>
+        <button 
+          onClick={() => setIsPanelOpen(true)}
+          className="btn-secondary inline-flex items-center gap-2 hover:bg-[hsl(var(--primary))] hover:text-[hsl(var(--primary-foreground))] w-fit"
+        >
+          Learn More
+          <svg 
+            className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-2" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth="2" 
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </button>
+      </div>
 
       {/* Slide-out Panel */}
-      <div className={`slide-panel ${isPanelOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
+      <div className={`slide-panel z-50 ${isPanelOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
         <div className="slide-panel-content">
           <div className="panel-header">
             <div className="flex justify-between items-center">

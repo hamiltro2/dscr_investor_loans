@@ -4,7 +4,6 @@ import Script from 'next/script'
 import './globals.css'
 import Navigation from '@/components/Navigation'
 import { Footer } from '@/components/Footer'
-import { ExitIntentPopup } from '@/components/ExitIntentPopup'
 import { TrustBar } from '@/components/TrustBar'
 import { IntentTracking } from '@/components/IntentTracking'
 import { CapChatWidget } from '@/components/CapChatWidget'
@@ -373,7 +372,6 @@ export default function RootLayout({
         <Navigation />
         {children}
         <Footer />
-        <ExitIntentPopup />
         <TrustBar />
         <IntentTracking />
         <CapChatWidget />

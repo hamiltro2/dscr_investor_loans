@@ -909,7 +909,7 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error('[Agent] Error:', error);
     return new Response(
-      JSON.stringify({ error: 'Internal server error' }),
+      JSON.stringify({ error: error instanceof Error ? error.message : String(error) }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }

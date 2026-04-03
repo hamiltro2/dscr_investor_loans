@@ -469,11 +469,13 @@ export function CapTextChat() {
         })
       });
 
-      if (!response.ok) {
-        throw new Error(`API error: ${response.status}`);
-      }
+      const data = await (async () => {
+        try { return await response.json(); } catch { return {}; }
+      })();
 
-      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status} - ${data.error || JSON.stringify(data)}`);
+      }
       
       // Check for error responses (even with 200 status)
       if (data.error && !data.message) {
