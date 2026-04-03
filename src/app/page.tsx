@@ -8,6 +8,7 @@ import { TypewriterText } from '@/components/TypewriterText'
 import { InfoCard } from '@/components/InfoCard'
 import { FAQ } from '@/components/FAQ'
 import { AIOptimizedContent } from '@/components/AIOptimizedContent'
+import { DynamicHeroHeadline } from '@/components/DynamicHeroHeadline'
 
 // Declare gtag for TypeScript
 declare global {
@@ -173,17 +174,7 @@ export default function Home() {
           {/* Top Text Section */}
           <div className="text-center max-w-4xl mx-auto mb-12 space-y-6">
             <div>
-              <h1 className="title-glow font-display text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-none mb-4">
-                <span className="block text-white font-light text-xl sm:text-2xl uppercase tracking-[0.2em] mb-4 opacity-80">
-                  Our Promise
-                </span>
-                <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300">
-                  No Investor
-                </span>
-                <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 -mt-2">
-                  Left Behind
-                </span>
-              </h1>
+              <DynamicHeroHeadline />
               <p className="text-xl text-emerald-100/90 font-light max-w-2xl mx-auto">
                 Direct-to-borrower financing. Experience our streamlined process and close your investment fast!
               </p>
@@ -315,7 +306,7 @@ export default function Home() {
             {/* Feature Tools Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-2 w-full max-w-3xl px-4">
               {/* ChatGPT Store Button */}
-              <a href="https://chatgpt.com/g/g-sjsI8JcZt-cap-ai-real-estate-loan-analyzer" target="_blank" rel="noopener noreferrer" className="relative flex items-center gap-4 w-full sm:w-[340px] bg-[#071d14] hover:bg-[#0a271b] border border-emerald-900/40 rounded-xl p-4 transition-all duration-300 group shadow-[0_4px_20px_rgba(16,185,129,0.05)] hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)] overflow-visible h-[80px]">
+              <a href="https://chatgpt.com/g/g-6918c503a9088191bf61ea1f0f10fe20-cap-dscr-loan-advisor-for-real-estate-investors" target="_blank" rel="noopener noreferrer" className="relative flex items-center gap-4 w-full sm:w-[340px] bg-[#071d14] hover:bg-[#0a271b] border border-emerald-900/40 rounded-xl p-4 transition-all duration-300 group shadow-[0_4px_20px_rgba(16,185,129,0.05)] hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)] overflow-visible h-[80px]">
                 <div className="absolute -top-3 right-6 bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-lg transform group-hover:-translate-y-0.5 transition-transform z-10">
                   <svg className="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                   FEATURED
@@ -333,7 +324,7 @@ export default function Home() {
               </a>
 
               {/* Chrome Extension Button */}
-              <a href="#" target="_blank" rel="noopener noreferrer" className="relative flex items-center gap-4 w-full sm:w-[340px] bg-[#141b25] hover:bg-[#1a2331] border border-blue-900/40 rounded-xl p-4 transition-all duration-300 group shadow-[0_4px_20px_rgba(59,130,246,0.05)] hover:shadow-[0_8px_30px_rgba(59,130,246,0.15)] h-[80px]">
+              <a href="https://www.capitalbridgesolutions.com/chrome-extension" target="_blank" rel="noopener noreferrer" className="relative flex items-center gap-4 w-full sm:w-[340px] bg-[#141b25] hover:bg-[#1a2331] border border-blue-900/40 rounded-xl p-4 transition-all duration-300 group shadow-[0_4px_20px_rgba(59,130,246,0.05)] hover:shadow-[0_8px_30px_rgba(59,130,246,0.15)] h-[80px]">
                 <div className="flex-shrink-0 bg-[#1d2735] p-2.5 rounded-lg border border-blue-900/30">
                   <svg className="w-5 h-5 text-blue-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2A10,10,0,1,0,22,12A10,10,0,0,0,12,2ZM18,6.88a7.86,7.86,0,0,1,2,4.89H14.1L18,6.88ZM12,14.5A2.5,2.5,0,1,1,14.5,12A2.5,2.5,0,0,1,12,14.5ZM13,4.19C16.27,4.88,18.84,7.43,20.08,10.66H10.51a4.5,4.5,0,0,1,2.53-6.47ZM6,17.12a7.86,7.86,0,0,1-2-4.89h5.9L6,17.12ZM3.92,13.34c.16,3,.94,5.82,2.44,8.19A8.13,8.13,0,0,1,3.92,13.34Zm8.08,6.47a4.5,4.5,0,0,1-2.53-6.47H10.51C11.54,16.5,12.77,18.52,12,19.81Z"/></svg>
                 </div>

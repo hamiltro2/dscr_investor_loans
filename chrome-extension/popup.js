@@ -85,6 +85,12 @@ document.addEventListener('DOMContentLoaded', function() {
   chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
     if (tabs[0]) {
       chrome.tabs.sendMessage(tabs[0].id, {action: 'getPropertyData'}, (response) => {
+        // Safely catch the expected error if popup is opened on non-supported sites (like Google or a blank tab)
+        if (chrome.runtime.lastError) {
+          console.log('No content script listening on this tab:', chrome.runtime.lastError.message);
+          return;
+        }
+        
         if (response && response.price) {
           console.log('Popup requested and received data:', response);
           
