@@ -24,7 +24,7 @@ export function LightLandingPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20 sm:h-24">
             <Link href="/" className="flex items-center group">
-               <span className="font-black text-xl sm:text-2xl text-[#001D4A] tracking-tight hover:text-emerald-700 transition-colors">Capital Bridge</span>
+               <span className="font-black text-xl sm:text-2xl text-[#001D4A] tracking-tight hover:text-emerald-700 transition-colors">Capital Bridge Solutions</span>
             </Link>
             <div className="flex items-center gap-4 sm:gap-8">
               <div className="hidden sm:flex flex-col items-end">
@@ -50,7 +50,7 @@ export function LightLandingPage() {
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             
             {/* Left Column: Pragmatic Investor Copy */}
-            <div className="lg:col-span-6 text-center lg:text-left space-y-8">
+            <div className="lg:col-span-5 text-center lg:text-left space-y-8">
               {/* Dynamic Headline Component handles the H1 */}
               <DynamicHeroHeadlineLight />
               
@@ -82,7 +82,7 @@ export function LightLandingPage() {
             </div>
 
             {/* Right Column: MultiStepForm */}
-            <div className="w-full max-w-xl mx-auto lg:col-span-6 relative z-20">
+            <div className="w-full max-w-2xl mx-auto lg:col-span-7 relative z-20">
               <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-2xl relative border border-slate-300">
                 <h3 className="text-2xl font-black text-[#001D4A] mb-2 text-center">Scale Your Portfolio</h3>
                 <p className="text-slate-500 text-sm mb-6 text-center font-medium">See how much capital you qualify for today.</p>
