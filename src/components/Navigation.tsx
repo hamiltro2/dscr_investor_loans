@@ -27,7 +27,7 @@ export default function Navigation() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-dark-800 bg-dark-950/80 backdrop-blur supports-[backdrop-filter]:bg-dark-950/80">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/95">
       <nav className="container flex h-24 items-center justify-between">
         {/* Logo */}
         <Link 
@@ -50,7 +50,7 @@ export default function Navigation() {
             <Link
               key={item.name}
               href={item.href}
-              className="text-sm font-semibold leading-6 text-dark-200 hover:text-dark-50 transition-colors"
+              className="text-sm font-bold leading-6 text-slate-800 hover:text-blue-700 transition-colors"
               onMouseEnter={() => handleLinkHover(item.href)}
             >
               {item.name}
@@ -63,7 +63,7 @@ export default function Navigation() {
               // Dispatch custom event to open ChatWidget
               window.dispatchEvent(new Event('openChatWidget'));
             }}
-            className="group relative inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-lg font-semibold text-sm hover:from-primary-600 hover:to-primary-700 transition-all shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer"
+            className="group relative inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg font-semibold text-sm hover:from-blue-700 hover:to-blue-900 transition-all shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer"
           >
             <MessageCircle className="w-4 h-4 group-hover:animate-pulse" />
             <span>Chat with Cap</span>
@@ -79,7 +79,7 @@ export default function Navigation() {
             <Link
               key={item.name}
               href={item.href}
-              className="text-sm font-semibold leading-6 text-dark-200 hover:text-dark-50 transition-colors"
+              className="text-sm font-bold leading-6 text-slate-800 hover:text-blue-700 transition-colors"
               onMouseEnter={() => handleLinkHover(item.href)}
             >
               {item.name}

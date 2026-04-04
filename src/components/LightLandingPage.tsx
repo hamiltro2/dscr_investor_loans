@@ -33,12 +33,13 @@ export function LightLandingPage() {
                   (949) 339-3555
                 </a>
               </div>
-              <button 
+              <a 
+                href="#apply-form"
                 onClick={() => window.gtag && window.gtag('event', 'conversion', { 'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D' })}
                 className="relative group px-6 sm:px-8 py-3 rounded-md bg-[#001D4A] text-white font-bold text-sm sm:text-base hover:bg-blue-900 transition-all shadow-md hover:shadow-lg"
               >
                 Access Capital
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -82,7 +83,7 @@ export function LightLandingPage() {
             </div>
 
             {/* Right Column: MultiStepForm */}
-            <div className="w-full max-w-2xl mx-auto lg:col-span-7 relative z-20">
+            <div id="apply-form" className="w-full max-w-2xl mx-auto lg:col-span-7 relative z-20 scroll-mt-32">
               <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-2xl relative border border-slate-300">
                 <h3 className="text-2xl font-black text-[#001D4A] mb-2 text-center">Scale Your Portfolio</h3>
                 <p className="text-slate-500 text-sm mb-6 text-center font-medium">See how much capital you qualify for today.</p>
