@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Menu, MessageCircle, Sparkles } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -16,6 +17,13 @@ const navigation = [
 
 export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
+
+  // Suppress the global dark navigation on dedicated A/B test landing pages 
+  // so they can safely render their own specialized white "LightLandingPage" headers.
+  if (pathname && ['/investor', '/dscr', '/apply', '/rates'].includes(pathname)) {
+    return null;
+  }
 
   // Preload pages on hover
   const handleLinkHover = (href: string) => {
