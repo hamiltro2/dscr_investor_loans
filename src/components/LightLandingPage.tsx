@@ -27,7 +27,7 @@ export function LightLandingPage() {
               <img 
                 src="/Capital_Bridge_solutions_Logo.png" 
                 alt="Capital Bridge Solutions" 
-                className="h-10 sm:h-12 w-auto transition-transform group-hover:scale-105"
+                className="h-12 sm:h-16 lg:h-20 w-auto transition-transform group-hover:scale-105 object-contain"
               />
             </Link>
             <div className="flex items-center gap-4 sm:gap-8">
@@ -91,10 +91,8 @@ export function LightLandingPage() {
                 <h3 className="text-2xl font-black text-[#001D4A] mb-2 text-center">Scale Your Portfolio</h3>
                 <p className="text-slate-500 text-sm mb-6 text-center font-medium">See how much capital you qualify for today.</p>
                 
-                {/* Form Background needs to remain readable. We use our light wrapper classes if needed, 
-                    but the MultiStepForm natively uses bg-dark-700, so it will actually look beautiful 
-                    as a dark, high-contrast module embedded inside this white card. */}
-                <div className="overflow-hidden rounded-xl border border-slate-800 shadow-inner">
+                {/* Form Background is explicitly set to dark mode so the MultiStepForm renders perfectly */}
+                <div className="overflow-hidden bg-slate-900 text-white rounded-xl border border-slate-800 shadow-inner p-2 sm:p-4">
                   <MultiStepForm />
                 </div>
               </div>
@@ -171,7 +169,7 @@ export function LightLandingPage() {
       <footer className="bg-slate-900 py-16 border-t border-slate-800 text-slate-400">
         <div className="container mx-auto px-4 md:flex items-center justify-between">
           <div className="mb-8 md:mb-0">
-             <img src="/Capital_Bridge_solutions_Logo.png" alt="Logo" className="h-10 mb-6 brightness-0 invert opacity-40 hover:opacity-100 transition-opacity" />
+             <img src="/Capital_Bridge_solutions_Logo.png" alt="Logo" className="h-14 lg:h-16 mb-6 brightness-0 invert opacity-40 hover:opacity-100 transition-opacity object-contain" />
              <div className="text-sm">
                © {new Date().getFullYear()} Capital Bridge Solutions.<br/>All Rights Reserved.
              </div>
