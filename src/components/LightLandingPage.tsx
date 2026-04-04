@@ -54,7 +54,7 @@ export function LightLandingPage() {
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             
             {/* Left Column: Pragmatic Investor Copy */}
-            <div className="lg:col-span-7 text-center lg:text-left space-y-8">
+            <div className="lg:col-span-6 text-center lg:text-left space-y-8">
               {/* Dynamic Headline Component handles the H1 */}
               <DynamicHeroHeadlineLight />
               
@@ -86,7 +86,7 @@ export function LightLandingPage() {
             </div>
 
             {/* Right Column: MultiStepForm */}
-            <div className="w-full max-w-md mx-auto lg:col-span-5 relative z-20">
+            <div className="w-full max-w-xl mx-auto lg:col-span-6 relative z-20">
               <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-2xl relative border border-slate-300">
                 <h3 className="text-2xl font-black text-[#001D4A] mb-2 text-center">Scale Your Portfolio</h3>
                 <p className="text-slate-500 text-sm mb-6 text-center font-medium">See how much capital you qualify for today.</p>
