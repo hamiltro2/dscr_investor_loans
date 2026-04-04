@@ -23,12 +23,8 @@ export function LightLandingPage() {
       <nav className="fixed w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20 sm:h-24">
-            <Link href="/" className="flex items-center gap-3 group">
-              <img 
-                src="/Capital_Bridge_solutions_Logo.png" 
-                alt="Capital Bridge Solutions" 
-                className="h-12 sm:h-16 lg:h-20 w-auto transition-transform group-hover:scale-105 object-contain"
-              />
+            <Link href="/" className="flex items-center group">
+               <span className="font-black text-xl sm:text-2xl text-[#001D4A] tracking-tight hover:text-emerald-700 transition-colors">Capital Bridge</span>
             </Link>
             <div className="flex items-center gap-4 sm:gap-8">
               <div className="hidden sm:flex flex-col items-end">
