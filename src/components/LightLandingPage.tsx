@@ -24,7 +24,11 @@ export function LightLandingPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20 sm:h-24">
             <Link href="/" className="flex items-center group">
-               <span className="font-black text-xl sm:text-2xl text-[#001D4A] tracking-tight hover:text-emerald-700 transition-colors">Capital Bridge Solutions</span>
+              <img 
+                src="/Capital_Bridge_solutions_Logo.png" 
+                alt="Capital Bridge Solutions" 
+                className="h-16 sm:h-20 lg:h-[88px] w-auto transition-transform duration-300 group-hover:scale-105 object-contain"
+              />
             </Link>
             <div className="flex items-center gap-4 sm:gap-8">
               <div className="hidden sm:flex flex-col items-end">
