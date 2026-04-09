@@ -40,7 +40,6 @@ const MultiStepForm = dynamic(
 
 export default function Home() {
   const [showDisclosureModal, setShowDisclosureModal] = useState(false);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const cards = [
     {
       icon: Zap,
@@ -199,46 +198,58 @@ export default function Home() {
           {/* Bottom Layout: Video (Left) + Form (Right) */}
           <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-12 lg:gap-20 w-full max-w-6xl mx-auto pt-4 lg:pl-16">
             
-            {/* Left Column: Video & Socials */}
+            {/* Left Column: Pain-Point Hero Image & Socials */}
             <div className="w-full lg:w-auto flex flex-col items-center lg:items-start flex-shrink-0">
-              {/* YouTube Video with Brian (Short) */}
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 group w-[340px] max-w-full z-10">
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-emerald-500/20 blur opacity-50"></div>
-                <div className="relative aspect-[9/16] rounded-xl overflow-hidden bg-dark-900 border border-white/5 cursor-pointer" onClick={() => setIsVideoPlaying(true)}>
-                  {!isVideoPlaying ? (
-                    <>
-                      <img 
-                        src="https://img.youtube.com/vi/Z7hbEyf-AQ4/maxresdefault.jpg" 
-                        alt="Brian from Southern California"
-                        className="w-full h-full object-cover scale-[1.02] contrast-[1.08] saturate-[1.15] brightness-[1.05]"
-                      />
-                      {/* Edge Vignette to hide artifacting */}
-                      <div className="absolute inset-0 box-shadow-inner bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.5)_120%)] pointer-events-none"></div>
-                      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500 flex items-center justify-center">
-                        <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center shadow-2xl transform group-hover:scale-110 transition-transform duration-300 backdrop-blur-sm bg-opacity-90 hover:bg-opacity-100">
-                          <svg className="w-8 h-8 text-white translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+              {/* Pain-Point Hero Card */}
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 group w-[380px] max-w-full z-10">
+                <div className="absolute -inset-1 bg-gradient-to-r from-amber-500/20 to-red-500/20 blur opacity-50"></div>
+                <div className="relative rounded-xl overflow-hidden bg-dark-900 border border-white/5">
+                  {/* Hero Image */}
+                  <div className="relative aspect-[3/4] overflow-hidden">
+                    <img 
+                      src="/images/investor_pain_point_hero.png" 
+                      alt="Real estate investor who lost a deal to a cash buyer"
+                      className="w-full h-full object-cover scale-[1.02] contrast-[1.05] saturate-[1.1] brightness-[0.85]"
+                    />
+                    {/* Dark gradient overlay for text readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/60 pointer-events-none"></div>
+                    
+                    {/* Top badge */}
+                    <div className="absolute top-4 left-4 flex items-center gap-2">
+                      <div className="px-3 py-1.5 bg-red-600/90 backdrop-blur-sm rounded-full flex items-center gap-1.5 shadow-lg">
+                        <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z" /></svg>
+                        <span className="text-white text-xs font-bold uppercase tracking-wider">Sound Familiar?</span>
+                      </div>
+                    </div>
+
+                    {/* Pain point text overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-6 space-y-3">
+                      <h3 className="text-white text-2xl sm:text-[26px] font-extrabold leading-tight tracking-tight drop-shadow-xl">
+                        Lost Another Deal<br/>
+                        <span className="text-red-400">to a Cash Buyer?</span>
+                      </h3>
+                      <p className="text-white/80 text-sm font-medium leading-relaxed drop-shadow-lg">
+                        Stop watching properties slip away while your bank takes 45+ days to close.
+                      </p>
+                      
+                      {/* Rate callout */}
+                      <div className="flex items-center gap-3 pt-1">
+                        <div className="flex items-center gap-2 px-3 py-2 bg-emerald-500/20 backdrop-blur-md rounded-lg border border-emerald-400/30">
+                          <svg className="w-4 h-4 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                          <span className="text-emerald-300 text-sm font-bold">DSCR Loans from 5.99%</span>
                         </div>
                       </div>
-                      <div className="absolute top-0 left-0 w-full p-4 bg-gradient-to-b from-black/80 to-transparent">
-                        <span className="text-white text-[15px] font-semibold tracking-wide drop-shadow-md">Real Estate Investor Success</span>
-                        <div className="text-white/80 text-xs mt-0.5 font-medium">Capital Bridge Solutions</div>
+                      <div className="flex items-center gap-2 px-3 py-2 bg-white/10 backdrop-blur-md rounded-lg border border-white/10 w-fit">
+                        <svg className="w-4 h-4 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <span className="text-white/90 text-sm font-semibold">Close in 5–7 Days</span>
                       </div>
-                    </>
-                  ) : (
-                    <iframe 
-                      className="w-full h-full"
-                      src="https://www.youtube.com/embed/Z7hbEyf-AQ4?autoplay=1&loop=1&playlist=Z7hbEyf-AQ4&controls=1" 
-                      title="Brian from Southern California" 
-                      frameBorder="0" 
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                      allowFullScreen>
-                    </iframe>
-                  )}
+                    </div>
+                  </div>
                 </div>
               </div>
 
               {/* Social Accounts */}
-              <div className="flex items-center gap-5 pt-6 w-[340px] justify-center lg:justify-start lg:pl-4">
+              <div className="flex items-center gap-5 pt-6 w-[380px] justify-center lg:justify-start lg:pl-4">
                 <span className="text-white/60 text-sm uppercase tracking-wider">Follow us:</span>
                 <a href="https://www.instagram.com/thecapitalbridgesolutions/" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-pink-500 transition-colors">
                    <svg className="w-[26px] h-[26px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
