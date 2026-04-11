@@ -101,10 +101,20 @@ export function MultiStepForm() {
       clearTimeout(timeoutId);
       const result = await response.json();
       if (result.success) {
-        // Fire Google Ads conversion tracking for form submission
+        // Fire Google Ads conversion tracking with Enhanced Conversions
         if (window.gtag) {
+          window.gtag('set', 'user_data', {
+            'email': formData.email,
+            'phone_number': formData.phone,
+            'address': {
+              'first_name': formData.name.split(' ')[0] || '',
+              'last_name': formData.name.split(' ').slice(1).join(' ') || ''
+            }
+          });
           window.gtag('event', 'conversion', {
-            'send_to': 'AW-1002915679/aOGJCNjKxa0aEN-Ond4D'
+            'send_to': 'AW-1002915679/aOGJCNjKxa0aEN-Ond4D',
+            'value': parseFloat(formData.loanAmount) * 0.01 || 1.0,
+            'currency': 'USD'
           });
         }
         
@@ -165,10 +175,20 @@ export function MultiStepForm() {
         
         if (result.success) {
           // ── Conversion Tracking ────────────────────────────────
-          // Fire Google Ads conversion event
+          // Fire Google Ads conversion with Enhanced Conversions
           if (window.gtag) {
+            window.gtag('set', 'user_data', {
+              'email': formData.email,
+              'phone_number': formData.phone,
+              'address': {
+                'first_name': formData.name.split(' ')[0] || '',
+                'last_name': formData.name.split(' ').slice(1).join(' ') || ''
+              }
+            });
             window.gtag('event', 'conversion', {
-              'send_to': 'AW-1002915679/aOGJCNjKxa0aEN-Ond4D'
+              'send_to': 'AW-1002915679/aOGJCNjKxa0aEN-Ond4D',
+              'value': parseFloat(formData.loanAmount) * 0.01 || 1.0,
+              'currency': 'USD'
             });
           }
 
