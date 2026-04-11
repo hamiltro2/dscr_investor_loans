@@ -164,6 +164,29 @@ export function MultiStepForm() {
         const result = await response.json();
         
         if (result.success) {
+          // ── Conversion Tracking ────────────────────────────────
+          // Fire Google Ads conversion event
+          if (window.gtag) {
+            window.gtag('event', 'conversion', {
+              'send_to': 'AW-1002915679/aOGJCNjKxa0aEN-Ond4D'
+            });
+          }
+
+          // Fire AppLovin conversion tracking
+          const loanAmountValue = parseInt(formData.loanAmount.replace(/\D/g, '')) || 0;
+          trackFormSubmission(loanAmountValue * 0.01, 'loan_application');
+
+          // Push to dataLayer for GTM
+          if (window.dataLayer) {
+            window.dataLayer.push({
+              'event': 'form_submission_success',
+              'formType': 'loan_application',
+              'loanType': formData.loanType,
+              'loanAmount': formData.loanAmount
+            });
+          }
+          // ────────────────────────────────────────────────────────
+
           setShowSuccess(true);
           // Reset form after 5 seconds
           setTimeout(() => {
