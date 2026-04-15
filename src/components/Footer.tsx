@@ -31,7 +31,7 @@ export function Footer() {
             </p>
             <div className="space-y-4">
               <a 
-                href="tel:+19496146390" 
+                href="tel:+19493393555" 
                 className="inline-flex items-center gap-3 text-primary-400 hover:text-primary-300 transition-colors font-medium text-lg"
                 onClick={() => window.gtag && window.gtag('event', 'conversion', {'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'})}
               >

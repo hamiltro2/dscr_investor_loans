@@ -9,6 +9,7 @@ import { InfoCard } from '@/components/InfoCard'
 import { FAQ } from '@/components/FAQ'
 import { AIOptimizedContent } from '@/components/AIOptimizedContent'
 import { DynamicHeroHeadline } from '@/components/DynamicHeroHeadline'
+import { QuickCaptureForm } from '@/components/QuickCaptureForm'
 
 // Declare gtag for TypeScript
 declare global {
@@ -450,29 +451,37 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Call to Action Section */}
-      <section className="py-6 sm:py-8 relative isolate">
-        <div className="absolute inset-0 bg-gradient-radial from-primary-500/10 via-transparent to-transparent" />
+      {/* Quick Capture CTA Section */}
+      <section className="py-10 sm:py-14 relative isolate" id="quick-apply">
+        <div className="absolute inset-0 bg-gradient-radial from-emerald-500/10 via-transparent to-transparent" />
         <div className="container relative">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="title-glow font-display text-4xl sm:text-5xl font-bold mb-4 pb-2 bg-clip-text text-transparent bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--primary)/.7)]">
-              Start Your Successful Investment Journey Now!
-            </h2>
-            <p className="text-xl mb-4 text-dark-200">
-              Take the first step towards building your real estate portfolio with our expert guidance and competitive rates.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              {highlights.map((highlight, index) => (
-                <div key={index} className="flex flex-col items-center text-center p-6 rounded-xl bg-dark-900/40 border border-emerald-600/30">
-                  <div className="mb-4 p-3 rounded-full bg-emerald-500/10">
-                    <svg className="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <h3 className="text-lg font-semibold text-emerald-400 mb-2">{highlight.title}</h3>
-                  <p className="text-dark-300 text-sm">{highlight.description}</p>
-                </div>
-              ))}
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="title-glow font-display text-3xl sm:text-4xl font-bold mb-3 pb-2 bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-emerald-300">
+                Get Your Free Rate Quote in 60 Seconds
+              </h2>
+              <p className="text-lg text-dark-200 max-w-2xl mx-auto">
+                No credit check. No obligations. Just your personalized DSCR loan options.
+              </p>
+            </div>
+
+            {/* Quick Form Card */}
+            <QuickCaptureForm />
+
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap items-center justify-center gap-6 mt-6">
+              <div className="flex items-center gap-2 text-dark-300 text-sm">
+                <svg className="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>
+                <span>256-bit SSL Encrypted</span>
+              </div>
+              <div className="flex items-center gap-2 text-dark-300 text-sm">
+                <svg className="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <span>Response within 24 hours</span>
+              </div>
+              <div className="flex items-center gap-2 text-dark-300 text-sm">
+                <svg className="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                <span>No impact on your credit</span>
+              </div>
             </div>
           </div>
         </div>
@@ -596,9 +605,9 @@ export default function Home() {
               <p className="text-lg text-gray-300 mb-4">
                 <strong className="text-white">Self-employed in California?</strong> Get pre-qualified without tax returns in 24 hours.
               </p>
-              <Link href="/get-started" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+              <a href="#quick-apply" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
                 Get Pre-Qualified Now →
-              </Link>
+              </a>
             </div>
           </div>
         </div>
