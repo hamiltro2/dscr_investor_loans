@@ -162,7 +162,7 @@ export function ExitIntentPopup() {
                 {/* Benefits */}
                 <div className="grid grid-cols-3 gap-4 mb-8">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-primary-400">5.5%</div>
+                    <div className="text-2xl font-bold text-primary-400">5.9%</div>
                     <div className="text-sm text-gray-400">Rates From</div>
                   </div>
                   <div className="text-center border-x border-dark-700">

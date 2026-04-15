@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Capital Bridge Solutions - Real Estate Investment Financing',
-    description: 'Specialized DSCR loans and investment property financing. Get approved in 24-48 hours with no tax returns required. Rates from 5.5%.',
+    description: 'Specialized DSCR loans and investment property financing. Get approved in 24-48 hours with no tax returns required. Rates from 5.9%.',
     url: 'https://www.capitalbridgesolutions.com',
     siteName: 'Capital Bridge Solutions',
     images: [
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Capital Bridge Solutions - DSCR Loans & Investment Financing',
-    description: 'Get approved for investment property loans in 24-48 hours. No tax returns required. Competitive rates starting at 5.5%.',
+    description: 'Get approved for investment property loans in 24-48 hours. No tax returns required. Competitive rates starting at 5.9%.',
     images: ['/logo.png'],
     creator: '@capitalbridgesol',
   },
