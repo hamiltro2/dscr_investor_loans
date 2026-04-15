@@ -100,7 +100,7 @@ export default function DSCRLoansLandingPage() {
     'Qualify Based on Property Income',
     'Self-Employed Friendly',
     '24-48 Hour Approval',
-    'Rates from 5.5%',
+    'Rates from 5.9%',
     'Up to $30 Million'
   ];
 
@@ -655,7 +655,7 @@ export default function DSCRLoansLandingPage() {
         <div className="container relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              Lock in 5.5% on 30 Year Fixed DSCR Loans
+              Lock in 5.9% on 30 Year Fixed DSCR Loans
               {urlParams?.get('_location') && (
                 <span className="block text-3xl md:text-4xl mt-4 text-primary-400">
                   in {urlParams.get('_location')}
@@ -689,7 +689,7 @@ export default function DSCRLoansLandingPage() {
                 <div className="text-gray-400">Happy Investors</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary-400">5.5%</div>
+                <div className="text-3xl font-bold text-primary-400">5.9%</div>
                 <div className="text-gray-400">Rates From</div>
               </div>
             </div>
