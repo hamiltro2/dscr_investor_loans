@@ -26,6 +26,8 @@ function getEmailSubject(formType: string, data: any): string {
       return `New Consultation Request - ${data.serviceType}`;
     case 'extension':
       return 'CBS Chrome Extension Request';
+    case 'quick-capture':
+      return '🔥 New Quick Lead - Capital Bridge Solutions';
     default:
       return 'New Inquiry - Capital Bridge Solutions';
   }
@@ -92,6 +94,17 @@ function getEmailContent(formType: string, data: any): string {
         ${data.hoaFees && data.hoaFees !== 'N/A' ? `<p><strong>HOA Fees:</strong> ${data.hoaFees}</p>` : ''}
         ${data.propertyTax && data.propertyTax !== 'N/A' ? `<p><strong>Property Tax:</strong> ${data.propertyTax}</p>` : ''}
         <p><strong>Source:</strong> ${data.source}</p>
+      `;
+    
+    case 'quick-capture':
+      return `
+        <h2>🔥 Quick Lead Capture</h2>
+        ${baseContent}
+        ${data.loanType ? `<p><strong>Loan Type:</strong> ${data.loanType}</p>` : ''}
+        ${data.source ? `<p><strong>Source:</strong> ${data.source}</p>` : ''}
+        ${data.message ? `<p><strong>Notes:</strong> ${data.message}</p>` : ''}
+        <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;">
+        <p style="color: #059669; font-weight: bold;">⚡ This lead came from the mid-page quick capture form — high scroll intent.</p>
       `;
     
     default:
