@@ -10,6 +10,7 @@ import { AIOptimizedContent } from '@/components/AIOptimizedContent'
 import { DynamicHeroHeadline } from '@/components/DynamicHeroHeadline'
 import { QuickCaptureForm } from '@/components/QuickCaptureForm'
 import { HeroLeadForm } from '@/components/HeroLeadForm'
+import { StickyMobileCTA } from '@/components/StickyMobileCTA'
 
 // Declare gtag for TypeScript
 declare global {
@@ -307,46 +308,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Image Card */}
-      <div className="py-12 sm:py-16">
+      {/* Social Proof Stats + CTA */}
+      <section className="py-10 sm:py-14 bg-gradient-to-b from-dark-950 to-dark-900/80">
         <div className="container">
-          <div className="mx-auto max-w-4xl">
-            <div className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm border border-white/10 shadow-2xl hover:shadow-3xl transition-all duration-700 ease-out">
-              {/* Subtle glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-
-              {/* Content */}
-              <div className="relative p-8 sm:p-12">
-                <div className="flex flex-col items-center text-center space-y-6">
-                  {/* Image container with elegant styling */}
-                  <div className="relative">
-                    <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
-                    <div className="relative overflow-hidden rounded-2xl bg-white/5 backdrop-blur-sm border border-white/20 p-4 shadow-xl">
-                      <img
-                        src="/14.png"
-                        alt="Professional showcase"
-                        className="w-full h-auto max-w-2xl mx-auto rounded-xl shadow-lg transition-transform duration-500 group-hover:scale-[1.02]"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Optional caption area */}
-                  <div className="max-w-2xl">
-                    <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-6"></div>
-                    <p className="text-white/80 text-lg font-light leading-relaxed tracking-wide">
-                      Excellence in real estate investment solutions
-                    </p>
-                  </div>
-                </div>
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">Join Thousands of Investors Who&apos;ve Funded With Us</h2>
+              <p className="text-dark-300 text-base">Trusted by real estate professionals across all 50 states</p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-8">
+              <div className="text-center p-5 rounded-2xl bg-dark-800/40 border border-white/5">
+                <div className="text-3xl sm:text-4xl font-bold text-emerald-400 mb-1">$500M+</div>
+                <div className="text-dark-300 text-sm">Loans Funded</div>
               </div>
-
-              {/* Decorative corner accents */}
-              <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-transparent rounded-br-full opacity-50"></div>
-              <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-purple-500/10 to-transparent rounded-tl-full opacity-50"></div>
+              <div className="text-center p-5 rounded-2xl bg-dark-800/40 border border-white/5">
+                <div className="text-3xl sm:text-4xl font-bold text-emerald-400 mb-1">3,500+</div>
+                <div className="text-dark-300 text-sm">Happy Investors</div>
+              </div>
+              <div className="text-center p-5 rounded-2xl bg-dark-800/40 border border-white/5">
+                <div className="text-3xl sm:text-4xl font-bold text-emerald-400 mb-1">24-48h</div>
+                <div className="text-dark-300 text-sm">Pre-Approval</div>
+              </div>
+              <div className="text-center p-5 rounded-2xl bg-dark-800/40 border border-white/5">
+                <div className="text-3xl sm:text-4xl font-bold text-emerald-400 mb-1">50</div>
+                <div className="text-dark-300 text-sm">States Served</div>
+              </div>
+            </div>
+            <div className="text-center">
+              <a href="#quick-apply" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-emerald-500/20 transform hover:scale-[1.02] transition-all duration-300">
+                Get Your Free Rate Quote
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" /></svg>
+              </a>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Testimonials Section */}
       <div className="py-8 sm:py-12 bg-gradient-to-b from-dark-950/50 to-dark-900/30">
@@ -559,6 +555,9 @@ export default function Home() {
 
       {/* AI Optimized Content - Hidden but readable by Google AI */}
       <AIOptimizedContent />
+
+      {/* Sticky Mobile CTA - appears after scrolling past hero */}
+      <StickyMobileCTA />
     </main>
   )
 }
