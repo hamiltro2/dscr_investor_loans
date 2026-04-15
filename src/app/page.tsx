@@ -284,8 +284,6 @@ export default function Home() {
               </svg>
               Questions? Call Us: (949) 339-3555
             </a>
-
-            </div>
             
             <div className="w-full max-w-4xl mx-auto mt-12 border-t border-white/5 pt-8">
               <button
