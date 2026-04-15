@@ -2,14 +2,14 @@
 
 import { Zap, TrendingDown, Users } from 'lucide-react'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
-import { Suspense, useState } from 'react'
+import { useState } from 'react'
 import { TypewriterText } from '@/components/TypewriterText'
 import { InfoCard } from '@/components/InfoCard'
 import { FAQ } from '@/components/FAQ'
 import { AIOptimizedContent } from '@/components/AIOptimizedContent'
 import { DynamicHeroHeadline } from '@/components/DynamicHeroHeadline'
 import { QuickCaptureForm } from '@/components/QuickCaptureForm'
+import { HeroLeadForm } from '@/components/HeroLeadForm'
 
 // Declare gtag for TypeScript
 declare global {
@@ -18,26 +18,7 @@ declare global {
   }
 }
 
-// Only load the MultiStepForm dynamically since it's heavy
-const MultiStepForm = dynamic(
-  () => import('@/components/MultiStepForm').then(mod => ({ default: mod.MultiStepForm })),
-  {
-    loading: () => (
-      <div className="card animate-pulse">
-        <div className="h-8 w-3/4 bg-dark-800 rounded mb-6"></div>
-        <div className="space-y-4">
-          {[...Array(4)].map((_, i) => (
-            <div key={i}>
-              <div className="h-4 w-1/4 bg-dark-800 rounded mb-2"></div>
-              <div className="h-10 bg-dark-800 rounded"></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    ),
-    ssr: false
-  }
-)
+
 
 export default function Home() {
   const [showDisclosureModal, setShowDisclosureModal] = useState(false);
@@ -267,11 +248,11 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right Column: MultiStepForm */}
+            {/* Right Column: Simplified Lead Form */}
             <div className="w-full flex-1 flex justify-center lg:justify-start">
               <div className="relative w-full max-w-[640px] z-10 mt-8 lg:mt-0">
                 <div className="absolute -inset-1 bg-gradient-to-br from-emerald-500/30 to-blue-500/20 rounded-3xl blur-md opacity-60"></div>
-                <div className="relative bg-dark-900/90 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl p-4 sm:p-6 pb-2 min-h-[400px]">
+                <div className="relative bg-dark-900/90 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl p-4 sm:p-6 pb-4">
                   <div className="flex items-center justify-between mb-4 pl-2 border-b border-white/5 pb-4">
                     <div className="flex items-center gap-3">
                       <div className="w-1.5 h-6 bg-emerald-500 rounded-full"></div>
@@ -285,18 +266,7 @@ export default function Home() {
                       Disclosure
                     </button>
                   </div>
-                  <Suspense fallback={
-                    <div className="animate-pulse space-y-4 pt-4">
-                      <div className="h-4 w-1/4 bg-dark-800 rounded"></div>
-                      <div className="h-12 bg-dark-800 rounded"></div>
-                      <div className="h-4 w-1/4 bg-dark-800 rounded mt-6"></div>
-                      <div className="h-12 bg-dark-800 rounded"></div>
-                    </div>
-                  }>
-                    <div className="hero-form-wrapper">
-                       <MultiStepForm />
-                    </div>
-                  </Suspense>
+                  <HeroLeadForm />
                 </div>
               </div>
             </div>
