@@ -115,7 +115,7 @@ export function QuickCaptureForm() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="John Smith"
-              className="w-full px-4 py-3 bg-dark-800/80 border border-dark-700/60 rounded-xl text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all duration-200"
+              className="w-full px-4 py-3 bg-white border border-dark-700/60 rounded-xl text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all duration-200"
             />
           </div>
 
@@ -131,7 +131,7 @@ export function QuickCaptureForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="john@example.com"
-              className="w-full px-4 py-3 bg-dark-800/80 border border-dark-700/60 rounded-xl text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all duration-200"
+              className="w-full px-4 py-3 bg-white border border-dark-700/60 rounded-xl text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all duration-200"
             />
           </div>
 
@@ -147,7 +147,7 @@ export function QuickCaptureForm() {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="(555) 123-4567"
-              className="w-full px-4 py-3 bg-dark-800/80 border border-dark-700/60 rounded-xl text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all duration-200"
+              className="w-full px-4 py-3 bg-white border border-dark-700/60 rounded-xl text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all duration-200"
             />
           </div>
         </div>
