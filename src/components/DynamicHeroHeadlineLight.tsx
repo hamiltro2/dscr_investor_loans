@@ -6,7 +6,9 @@ import { Suspense, useEffect, useState } from 'react';
 function HeadlineContent() {
   const searchParams = useSearchParams();
   const rawKeyword = searchParams.get('keyword');
+  const rawOffer = searchParams.get('offer');
   const [keyword, setKeyword] = useState<string | null>(null);
+  const [offer, setOffer] = useState<string | null>(null);
 
   useEffect(() => {
     if (rawKeyword) {
@@ -17,7 +19,27 @@ function HeadlineContent() {
         .join(' ');
       setKeyword(cleaned);
     }
-  }, [rawKeyword]);
+    if (rawOffer) {
+      setOffer(rawOffer.toLowerCase());
+    }
+  }, [rawKeyword, rawOffer]);
+
+  // Special Offer Design
+  if (offer === '500credit') {
+    return (
+      <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-none mb-4 animate-[fadeIn_0.5s_ease-in-out]">
+        <span className="block text-slate-500 font-bold text-xl sm:text-2xl uppercase tracking-[0.2em] mb-4">
+          New Loan Program
+        </span>
+        <span className="block text-slate-900">
+          500+ Credit Score
+        </span>
+        <span className="block text-blue-700 -mt-2 drop-shadow-sm">
+          65% LTV Single Family
+        </span>
+      </h1>
+    );
+  }
 
   // Light Theme styling (Navy Blue & Slate)
   if (keyword) {

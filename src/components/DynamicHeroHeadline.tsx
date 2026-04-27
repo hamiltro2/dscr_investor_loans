@@ -6,7 +6,9 @@ import { Suspense, useEffect, useState } from 'react';
 function HeadlineContent() {
   const searchParams = useSearchParams();
   const rawKeyword = searchParams.get('keyword');
+  const rawOffer = searchParams.get('offer');
   const [keyword, setKeyword] = useState<string | null>(null);
+  const [offer, setOffer] = useState<string | null>(null);
 
   useEffect(() => {
     if (rawKeyword) {
@@ -18,7 +20,27 @@ function HeadlineContent() {
         .join(' ');
       setKeyword(cleaned);
     }
-  }, [rawKeyword]);
+    if (rawOffer) {
+      setOffer(rawOffer.toLowerCase());
+    }
+  }, [rawKeyword, rawOffer]);
+
+  // Special Offer Design
+  if (offer === '500credit') {
+    return (
+      <h1 className="title-glow font-display text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-none mb-4 animate-[fadeIn_0.5s_ease-in-out]">
+        <span className="block text-white font-light text-xl sm:text-2xl uppercase tracking-[0.2em] mb-4 opacity-80">
+          New Loan Program
+        </span>
+        <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300 pb-2">
+          500+ Credit Score
+        </span>
+        <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 -mt-2 pb-4">
+          65% LTV Single Family
+        </span>
+      </h1>
+    );
+  }
 
   // Dynamic Keyword Injection Design
   if (keyword) {
@@ -27,10 +49,10 @@ function HeadlineContent() {
         <span className="block text-white font-light text-xl sm:text-2xl uppercase tracking-[0.2em] mb-4 opacity-80">
           Looking For
         </span>
-        <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300">
+        <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300 pb-2">
           The Best Rates On
         </span>
-        <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 -mt-2">
+        <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 -mt-2 pb-4">
           {keyword}
         </span>
       </h1>
@@ -43,10 +65,10 @@ function HeadlineContent() {
       <span className="block text-white font-light text-xl sm:text-2xl uppercase tracking-[0.2em] mb-4 opacity-80">
         Our Promise
       </span>
-      <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300">
+      <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300 pb-2">
         No Investor
       </span>
-      <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 -mt-2">
+      <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 -mt-2 pb-4">
         Left Behind
       </span>
     </h1>
@@ -61,10 +83,10 @@ export function DynamicHeroHeadline() {
         <span className="block text-white font-light text-xl sm:text-2xl uppercase tracking-[0.2em] mb-4 opacity-80">
           Our Promise
         </span>
-        <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300">
+        <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300 pb-2">
           No Investor
         </span>
-        <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 -mt-2">
+        <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 -mt-2 pb-4">
           Left Behind
         </span>
       </h1>
