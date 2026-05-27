@@ -42,6 +42,22 @@ function HeadlineContent() {
     );
   }
 
+  if (offer === 'rate599') {
+    return (
+      <h1 className="title-glow font-display text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-none mb-4 animate-[fadeIn_0.5s_ease-in-out]">
+        <span className="block text-white font-light text-xl sm:text-2xl uppercase tracking-[0.2em] mb-4 opacity-80">
+          Special Rate Offer
+        </span>
+        <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300 pb-2">
+          DSCR Loans from 5.99%
+        </span>
+        <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 -mt-2 pb-4">
+          No W-2 or Tax Returns Required
+        </span>
+      </h1>
+    );
+  }
+
   // Dynamic Keyword Injection Design
   if (keyword) {
     return (
