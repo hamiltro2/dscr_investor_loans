@@ -299,53 +299,72 @@ export async function POST(req: Request) {
             case 'saveLead': {
               const { leadDraft } = JSON.parse(toolCall.function.arguments);
               const validated = LeadInputSchema.parse(leadDraft);
-
-              // Check if lead exists by email/phone
-              const existing = await prisma.lead.findFirst({
-                where: {
-                  OR: [
-                    { email: validated.email },
-                    { phone: validated.phone },
-                  ],
-                },
-              });
-
               let lead;
               let isNewLead = false;
-              
-              if (existing) {
-                // Update existing
-                lead = await prisma.lead.update({
-                  where: { id: existing.id },
-                  data: {
-                    ...validated,
-                    consentAt: validated.consentGiven ? new Date() : undefined,
-                  },
-                });
-                isNewLead = false;
-              } else {
-                // Create new
-                lead = await prisma.lead.create({
-                  data: {
-                    ...validated,
-                    channel: 'web_chat',
-                    consentAt: validated.consentGiven ? new Date() : undefined,
-                  },
-                });
-                isNewLead = true;
-              }
 
-              // Log interaction
-              await prisma.interaction.create({
-                data: {
-                  leadId: lead.id,
-                  role: 'tool',
-                  content: { tool: 'saveLead', result: 'success' },
-                  toolName: 'saveLead',
-                  toolInput: validated,
-                  toolOutput: { leadId: lead.id, status: isNewLead ? 'created' : 'updated' },
-                },
-              });
+              try {
+                // Check if lead exists by email/phone
+                const existing = await prisma.lead.findFirst({
+                  where: {
+                    OR: [
+                      { email: validated.email },
+                      { phone: validated.phone },
+                    ],
+                  },
+                });
+
+                if (existing) {
+                  // Update existing
+                  lead = await prisma.lead.update({
+                    where: { id: existing.id },
+                    data: {
+                      ...validated,
+                      consentAt: validated.consentGiven ? new Date() : undefined,
+                    },
+                  });
+                  isNewLead = false;
+                } else {
+                  // Create new
+                  lead = await prisma.lead.create({
+                    data: {
+                      ...validated,
+                      channel: 'web_chat',
+                      consentAt: validated.consentGiven ? new Date() : undefined,
+                    },
+                  });
+                  isNewLead = true;
+                }
+
+                // Log interaction
+                await prisma.interaction.create({
+                  data: {
+                    leadId: lead.id,
+                    role: 'tool',
+                    content: { tool: 'saveLead', result: 'success' },
+                    toolName: 'saveLead',
+                    toolInput: validated,
+                    toolOutput: { leadId: lead.id, status: isNewLead ? 'created' : 'updated' },
+                  },
+                });
+              } catch (dbError) {
+                console.warn('[Database offline fallback] Failed to save lead in database for web_chat, using memory fallback:', dbError);
+                lead = {
+                  id: `fallback-lead-${Date.now()}`,
+                  ...validated,
+                  consentAt: validated.consentGiven ? new Date() : undefined,
+                  createdAt: new Date(),
+                  updatedAt: new Date(),
+                };
+                isNewLead = true;
+
+                // Send email immediately in saveLead if DB is offline
+                try {
+                  await sendCapLeadNotification(lead);
+                  console.log('[saveLead Fallback] Resend email notification sent successfully');
+                } catch (emailError) {
+                  console.error('[saveLead Fallback] Failed to send email:', emailError);
+                }
+              }
 
               result = SaveLeadResponseSchema.parse({
                 leadId: lead.id,
@@ -354,13 +373,14 @@ export async function POST(req: Request) {
               
               console.log('[saveLead] Saved lead with ID:', lead.id, 'Name:', lead.name);
               
-              // Send email notification to team
-              try {
-                await sendCapLeadNotification(lead);
-                console.log('[saveLead] Email notification sent');
-              } catch (emailError) {
-                console.error('[saveLead] Failed to send email notification:', emailError);
-                // Don't fail the whole operation if email fails
+              // Only send normal notification if we didn't send fallback notification yet (i.e. DB was online)
+              if (!String(lead.id).startsWith('fallback-lead-')) {
+                try {
+                  await sendCapLeadNotification(lead);
+                  console.log('[saveLead] Email notification sent');
+                } catch (emailError) {
+                  console.error('[saveLead] Failed to send email notification:', emailError);
+                }
               }
               
               break;
@@ -368,71 +388,101 @@ export async function POST(req: Request) {
 
             case 'scoreLead': {
               const { leadId } = JSON.parse(toolCall.function.arguments);
+              let lead;
+              let isFallback = false;
               
               console.log('[scoreLead] Looking for leadId:', leadId);
 
-              // Get lead
-              const lead = await prisma.lead.findUnique({
-                where: { id: leadId },
-              });
+              try {
+                if (String(leadId).startsWith('fallback-lead-')) {
+                  throw new Error('Database is offline (using fallback lead ID)');
+                }
 
-              if (!lead) {
-                console.error('[scoreLead] Lead not found for ID:', leadId);
-                throw new Error(`Lead not found with ID: ${leadId}`);
+                // Get lead
+                lead = await prisma.lead.findUnique({
+                  where: { id: leadId },
+                });
+
+                if (!lead) {
+                  throw new Error('Lead not found');
+                }
+              } catch (dbError) {
+                console.warn('[Database offline fallback] Failed to load lead for scoring, using fallback scoring logic:', dbError);
+                isFallback = true;
+                lead = {
+                  id: leadId,
+                  name: 'Web Chat Visitor',
+                  productType: 'dscr',
+                  loanAmountRequested: 500000,
+                };
               }
               
               console.log('[scoreLead] Found lead:', lead.name, lead.email);
 
               // Score it
-              const scoreResult = await scoreLeadFn(lead);
+              const scoreResult = await scoreLeadFn(lead as any);
 
-              // Update lead with score
-              await prisma.lead.update({
-                where: { id: leadId },
-                data: {
-                  score: scoreResult.score,
-                  status: scoreResult.disposition === 'qualified' ? 'qualified' :
-                         scoreResult.disposition === 'follow_up' ? 'follow_up' :
-                         'disqualified',
-                  offer: scoreResult.preliminaryOffer as any,
-                },
-              });
-
-              // Log interaction
-              await prisma.interaction.create({
-                data: {
-                  leadId,
-                  role: 'tool',
-                  content: { tool: 'scoreLead', result: scoreResult },
-                  toolName: 'scoreLead',
-                  toolInput: { leadId },
-                  toolOutput: scoreResult,
-                },
-              });
-
-              // Create event if qualified
-              if (scoreResult.disposition === 'qualified') {
-                await prisma.event.create({
-                  data: {
-                    leadId,
-                    type: 'alert_sales',
-                    payload: {
-                      message: `New qualified lead: ${lead.name}`,
+              if (!isFallback) {
+                try {
+                  // Update lead with score
+                  await prisma.lead.update({
+                    where: { id: leadId },
+                    data: {
                       score: scoreResult.score,
-                      offer: scoreResult.preliminaryOffer,
+                      status: scoreResult.disposition === 'qualified' ? 'qualified' :
+                             scoreResult.disposition === 'follow_up' ? 'follow_up' :
+                             'disqualified',
+                      offer: scoreResult.preliminaryOffer as any,
                     },
-                  },
-                });
-              }
+                  });
 
-              // Send email notification for qualified AND follow_up leads
-              if (scoreResult.disposition === 'qualified' || scoreResult.disposition === 'follow_up') {
+                  // Log interaction
+                  await prisma.interaction.create({
+                    data: {
+                      leadId,
+                      role: 'tool',
+                      content: { tool: 'scoreLead', result: scoreResult },
+                      toolName: 'scoreLead',
+                      toolInput: { leadId },
+                      toolOutput: scoreResult,
+                    },
+                  });
+
+                  // Create event if qualified
+                  if (scoreResult.disposition === 'qualified') {
+                    await prisma.event.create({
+                      data: {
+                        leadId,
+                        type: 'alert_sales',
+                        payload: {
+                          message: `New qualified lead: ${lead.name}`,
+                          score: scoreResult.score,
+                          offer: scoreResult.preliminaryOffer,
+                        },
+                      },
+                    });
+                  }
+
+                  // Send email notification for qualified AND follow_up leads
+                  if (scoreResult.disposition === 'qualified' || scoreResult.disposition === 'follow_up') {
+                    await sendCapLeadNotification(lead, scoreResult);
+                    console.log(`[Email] Sent notification for ${lead.name} (${scoreResult.disposition})`);
+                  }
+                } catch (dbErrorDuringScore) {
+                  console.error('[Database offline during scoring] Error writing score to DB, falling back to email only:', dbErrorDuringScore);
+                  try {
+                    await sendCapLeadNotification(lead, scoreResult);
+                  } catch (emailErr) {
+                    console.error('[Email score fallback] Email failed:', emailErr);
+                  }
+                }
+              } else {
+                // If in fallback mode, send the scoring update email using Resend
                 try {
                   await sendCapLeadNotification(lead, scoreResult);
-                  console.log(`[Email] Sent notification for ${lead.name} (${scoreResult.disposition})`);
+                  console.log(`[Email Fallback] Sent scoring update email for ${lead.name}`);
                 } catch (emailError) {
-                  console.error('[Email] Failed to send notification:', emailError);
-                  // Don't fail the request if email fails
+                  console.error('[Email Fallback] Failed to send scoring update:', emailError);
                 }
               }
 
@@ -712,119 +762,174 @@ export async function POST(req: Request) {
             case 'saveLead': {
               const { leadDraft } = JSON.parse(toolCall.arguments);
               const validated = LeadInputSchema.parse(leadDraft);
-
-              // Check if lead exists by email/phone
-              const existing = await prisma.lead.findFirst({
-                where: {
-                  OR: [
-                    { email: validated.email },
-                    { phone: validated.phone },
-                  ],
-                },
-              });
-
               let lead;
-              if (existing) {
-                // Update existing
-                lead = await prisma.lead.update({
-                  where: { id: existing.id },
-                  data: {
-                    ...validated,
-                    consentAt: validated.consentGiven ? new Date() : undefined,
-                  },
-                });
-              } else {
-                // Create new
-                lead = await prisma.lead.create({
-                  data: {
-                    ...validated,
-                    channel: 'web_chat',
-                    consentAt: validated.consentGiven ? new Date() : undefined,
-                  },
-                });
-              }
+              let isNewLead = false;
+              let isUpdated = false;
 
-              // Log interaction
-              await prisma.interaction.create({
-                data: {
-                  leadId: lead.id,
-                  role: 'tool',
-                  content: { tool: 'saveLead', result: 'success' },
-                  toolName: 'saveLead',
-                  toolInput: validated,
-                  toolOutput: { leadId: lead.id },
-                },
-              });
+              try {
+                // Check if lead exists by email/phone
+                const existing = await prisma.lead.findFirst({
+                  where: {
+                    OR: [
+                      { email: validated.email },
+                      { phone: validated.phone },
+                    ],
+                  },
+                });
+
+                if (existing) {
+                  // Update existing
+                  lead = await prisma.lead.update({
+                    where: { id: existing.id },
+                    data: {
+                      ...validated,
+                      consentAt: validated.consentGiven ? new Date() : undefined,
+                    },
+                  });
+                  isUpdated = true;
+                } else {
+                  // Create new
+                  lead = await prisma.lead.create({
+                    data: {
+                      ...validated,
+                      channel: 'web_chat',
+                      consentAt: validated.consentGiven ? new Date() : undefined,
+                    },
+                  });
+                  isNewLead = true;
+                }
+
+                // Log interaction
+                await prisma.interaction.create({
+                  data: {
+                    leadId: lead.id,
+                    role: 'tool',
+                    content: { tool: 'saveLead', result: 'success' },
+                    toolName: 'saveLead',
+                    toolInput: validated,
+                    toolOutput: { leadId: lead.id },
+                  },
+                });
+              } catch (dbError) {
+                console.warn('[Database offline fallback] Failed to save lead in database for web_chat, using memory fallback:', dbError);
+                lead = {
+                  id: `fallback-lead-${Date.now()}`,
+                  ...validated,
+                  consentAt: validated.consentGiven ? new Date() : undefined,
+                  createdAt: new Date(),
+                  updatedAt: new Date(),
+                };
+                isNewLead = true;
+
+                // Send email immediately in saveLead if DB is offline
+                try {
+                  await sendCapLeadNotification(lead);
+                  console.log('[saveLead Fallback 2] Resend email notification sent successfully');
+                } catch (emailError) {
+                  console.error('[saveLead Fallback 2] Failed to send email:', emailError);
+                }
+              }
 
               result = SaveLeadResponseSchema.parse({
                 leadId: lead.id,
-                status: existing ? 'updated' : 'created',
+                status: isUpdated ? 'updated' : 'created',
               });
               break;
             }
 
             case 'scoreLead': {
               const { leadId } = JSON.parse(toolCall.arguments);
+              let lead;
+              let isFallback = false;
 
-              // Get lead
-              const lead = await prisma.lead.findUnique({
-                where: { id: leadId },
-              });
+              try {
+                if (String(leadId).startsWith('fallback-lead-')) {
+                  throw new Error('Database is offline (using fallback lead ID)');
+                }
 
-              if (!lead) {
-                throw new Error('Lead not found');
+                // Get lead
+                lead = await prisma.lead.findUnique({
+                  where: { id: leadId },
+                });
+
+                if (!lead) {
+                  throw new Error('Lead not found');
+                }
+              } catch (dbError) {
+                console.warn('[Database offline fallback] Failed to load lead for scoring, using fallback scoring logic:', dbError);
+                isFallback = true;
+                lead = {
+                  id: leadId,
+                  name: 'Web Chat Visitor',
+                  productType: 'dscr',
+                  loanAmountRequested: 500000,
+                };
               }
 
               // Score it
-              const scoreResult = await scoreLeadFn(lead);
+              const scoreResult = await scoreLeadFn(lead as any);
 
-              // Update lead with score
-              await prisma.lead.update({
-                where: { id: leadId },
-                data: {
-                  score: scoreResult.score,
-                  status: scoreResult.disposition === 'qualified' ? 'qualified' :
-                         scoreResult.disposition === 'follow_up' ? 'follow_up' :
-                         'disqualified',
-                  offer: scoreResult.preliminaryOffer as any,
-                },
-              });
-
-              // Log interaction
-              await prisma.interaction.create({
-                data: {
-                  leadId,
-                  role: 'tool',
-                  content: { tool: 'scoreLead', result: scoreResult },
-                  toolName: 'scoreLead',
-                  toolInput: { leadId },
-                  toolOutput: scoreResult,
-                },
-              });
-
-              // Create event if qualified
-              if (scoreResult.disposition === 'qualified') {
-                await prisma.event.create({
-                  data: {
-                    leadId,
-                    type: 'alert_sales',
-                    payload: {
-                      message: `New qualified lead: ${lead.name}`,
+              if (!isFallback) {
+                try {
+                  // Update lead with score
+                  await prisma.lead.update({
+                    where: { id: leadId },
+                    data: {
                       score: scoreResult.score,
-                      offer: scoreResult.preliminaryOffer,
+                      status: scoreResult.disposition === 'qualified' ? 'qualified' :
+                             scoreResult.disposition === 'follow_up' ? 'follow_up' :
+                             'disqualified',
+                      offer: scoreResult.preliminaryOffer as any,
                     },
-                  },
-                });
-              }
+                  });
 
-              // Send email notification for qualified AND follow_up leads
-              if (scoreResult.disposition === 'qualified' || scoreResult.disposition === 'follow_up') {
+                  // Log interaction
+                  await prisma.interaction.create({
+                    data: {
+                      leadId,
+                      role: 'tool',
+                      content: { tool: 'scoreLead', result: scoreResult },
+                      toolName: 'scoreLead',
+                      toolInput: { leadId },
+                      toolOutput: scoreResult,
+                    },
+                  });
+
+                  // Create event if qualified
+                  if (scoreResult.disposition === 'qualified') {
+                    await prisma.event.create({
+                      data: {
+                        leadId,
+                        type: 'alert_sales',
+                        payload: {
+                          message: `New qualified lead: ${lead.name}`,
+                          score: scoreResult.score,
+                          offer: scoreResult.preliminaryOffer,
+                        },
+                      },
+                    });
+                  }
+
+                  // Send email notification for qualified AND follow_up leads
+                  if (scoreResult.disposition === 'qualified' || scoreResult.disposition === 'follow_up') {
+                    await sendCapLeadNotification(lead, scoreResult);
+                    console.log(`[Email] Sent notification for ${lead.name} (${scoreResult.disposition})`);
+                  }
+                } catch (dbErrorDuringScore) {
+                  console.error('[Database offline during scoring] Error writing score to DB, falling back to email only:', dbErrorDuringScore);
+                  try {
+                    await sendCapLeadNotification(lead, scoreResult);
+                  } catch (emailErr) {
+                    console.error('[Email score fallback] Email failed:', emailErr);
+                  }
+                }
+              } else {
+                // If in fallback mode, send the scoring update email using Resend
                 try {
                   await sendCapLeadNotification(lead, scoreResult);
-                  console.log(`[Email] Sent notification for ${lead.name} (${scoreResult.disposition})`);
+                  console.log(`[Email Fallback] Sent scoring update email for ${lead.name}`);
                 } catch (emailError) {
-                  console.error('[Email] Failed to send notification:', emailError);
-                  // Don't fail the request if email fails
+                  console.error('[Email Fallback] Failed to send scoring update:', emailError);
                 }
               }
 

@@ -60,45 +60,57 @@ export async function POST(req: NextRequest) {
 
     const validated = LeadInputSchema.parse(leadDraft);
 
-    const existing = await prisma.lead.findFirst({
-      where: {
-        OR: [{ email: validated.email }, { phone: validated.phone }],
-      },
-    });
-
     let lead;
     let isNewLead = false;
 
-    if (existing) {
-      lead = await prisma.lead.update({
-        where: { id: existing.id },
-        data: {
-          ...validated,
-          channel: 'chatgpt_app',
-          consentAt: validated.consentGiven ? new Date() : undefined,
+    try {
+      const existing = await prisma.lead.findFirst({
+        where: {
+          OR: [{ email: validated.email }, { phone: validated.phone }],
         },
       });
-    } else {
-      lead = await prisma.lead.create({
+
+      if (existing) {
+        lead = await prisma.lead.update({
+          where: { id: existing.id },
+          data: {
+            ...validated,
+            channel: 'chatgpt_app',
+            consentAt: validated.consentGiven ? new Date() : undefined,
+          },
+        });
+      } else {
+        lead = await prisma.lead.create({
+          data: {
+            ...validated,
+            channel: 'chatgpt_app',
+            consentAt: validated.consentGiven ? new Date() : undefined,
+          },
+        });
+        isNewLead = true;
+      }
+
+      await prisma.interaction.create({
         data: {
-          ...validated,
-          channel: 'chatgpt_app',
-          consentAt: validated.consentGiven ? new Date() : undefined,
+          leadId: lead.id,
+          role: 'tool',
+          content: { endpoint: 'chatgpt/save-lead', result: 'success' },
+          toolName: 'chatgpt_save_lead',
+          toolInput: validated,
+          toolOutput: { leadId: lead.id, status: isNewLead ? 'created' : 'updated' },
         },
       });
+    } catch (dbError) {
+      console.warn('[Database offline fallback] Failed to save lead in database, falling back to Resend email only:', dbError);
+      lead = {
+        id: `fallback-lead-${Date.now()}`,
+        ...validated,
+        consentAt: validated.consentGiven ? new Date() : undefined,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
       isNewLead = true;
     }
-
-    await prisma.interaction.create({
-      data: {
-        leadId: lead.id,
-        role: 'tool',
-        content: { endpoint: 'chatgpt/save-lead', result: 'success' },
-        toolName: 'chatgpt_save_lead',
-        toolInput: validated,
-        toolOutput: { leadId: lead.id, status: isNewLead ? 'created' : 'updated' },
-      },
-    });
 
     try {
       await sendCapLeadNotification(lead);

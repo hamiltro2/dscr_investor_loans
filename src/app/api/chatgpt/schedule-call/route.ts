@@ -60,16 +60,6 @@ export async function POST(req: NextRequest) {
 
     const combinedNotes = noteParts.join(' | ');
 
-    // Check if lead already exists
-    const existing = await prisma.lead.findFirst({
-      where: {
-        OR: [
-          { email },
-          { phone },
-        ],
-      },
-    });
-
     let lead;
     let isNewLead = false;
 
@@ -85,48 +75,69 @@ export async function POST(req: NextRequest) {
       consentAt: new Date(),
     };
 
-    if (existing) {
-      // Update existing lead
-      lead = await prisma.lead.update({
-        where: { id: existing.id },
-        data: leadData,
+    try {
+      // Check if lead already exists
+      const existing = await prisma.lead.findFirst({
+        where: {
+          OR: [
+            { email },
+            { phone },
+          ],
+        },
       });
-    } else {
-      // Create new lead
-      lead = await prisma.lead.create({
-        data: leadData,
+
+      if (existing) {
+        // Update existing lead
+        lead = await prisma.lead.update({
+          where: { id: existing.id },
+          data: leadData,
+        });
+      } else {
+        // Create new lead
+        lead = await prisma.lead.create({
+          data: leadData,
+        });
+        isNewLead = true;
+      }
+
+      // Create interaction record for the call request
+      await prisma.interaction.create({
+        data: {
+          leadId: lead.id,
+          role: 'tool',
+          content: { 
+            endpoint: 'chatgpt/schedule-call', 
+            result: 'call_requested',
+            preferred_date,
+            preferred_time,
+            timezone,
+          },
+          toolName: 'chatgpt_schedule_call',
+          toolInput: {
+            full_name,
+            email,
+            phone,
+            preferred_date,
+            preferred_time,
+            topic,
+          },
+          toolOutput: { 
+            leadId: lead.id, 
+            status: isNewLead ? 'created' : 'updated',
+            call_scheduled: true,
+          },
+        },
       });
+    } catch (dbError) {
+      console.warn('[Database offline fallback] Failed to register schedule call in database, using memory fallback:', dbError);
+      lead = {
+        id: `fallback-lead-${Date.now()}`,
+        ...leadData,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
       isNewLead = true;
     }
-
-    // Create interaction record for the call request
-    await prisma.interaction.create({
-      data: {
-        leadId: lead.id,
-        role: 'tool',
-        content: { 
-          endpoint: 'chatgpt/schedule-call', 
-          result: 'call_requested',
-          preferred_date,
-          preferred_time,
-          timezone,
-        },
-        toolName: 'chatgpt_schedule_call',
-        toolInput: {
-          full_name,
-          email,
-          phone,
-          preferred_date,
-          preferred_time,
-          topic,
-        },
-        toolOutput: { 
-          leadId: lead.id, 
-          status: isNewLead ? 'created' : 'updated',
-          call_scheduled: true,
-        },
-      },
-    });
 
     // Send email notification
     try {
