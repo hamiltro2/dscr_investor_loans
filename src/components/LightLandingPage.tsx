@@ -3,14 +3,14 @@
 import { Zap, TrendingDown, Users, CheckCircle2, ShieldCheck, Clock, TrendingUp, Building2, HardHat, BarChart3 } from 'lucide-react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { DynamicHeroHeadlineLight } from '@/components/DynamicHeroHeadlineLight';
+import { DynamicHeroHeadline } from '@/components/DynamicHeroHeadline';
 
 const MultiStepForm = dynamic(
   () => import('@/components/MultiStepForm').then(mod => ({ default: mod.MultiStepForm })),
   {
     loading: () => (
-      <div className="card animate-pulse h-[500px] flex items-center justify-center bg-white rounded-2xl shadow-xl w-full border border-slate-200">
-        <span className="text-slate-500 font-medium">Loading Application...</span>
+      <div className="card animate-pulse h-[500px] flex items-center justify-center bg-dark-900 rounded-2xl shadow-xl w-full border border-dark-800">
+        <span className="text-dark-400 font-medium">Loading Application...</span>
       </div>
     )
   }
@@ -18,29 +18,29 @@ const MultiStepForm = dynamic(
 
 export function LightLandingPage() {
   return (
-    <main className="min-h-screen bg-[#F8FAFC] text-slate-900 font-sans selection:bg-emerald-200">
+    <main className="min-h-screen bg-dark-950 text-white font-sans selection:bg-emerald-800 selection:text-white">
       {/* Navigation */}
-      <nav className="fixed w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+      <nav className="fixed w-full z-50 transition-all duration-300 bg-dark-950/95 backdrop-blur-md border-b border-dark-800 shadow-lg">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20 sm:h-24">
             <Link href="/" className="flex items-center group">
               <img 
-                src="/Capital_Bridge_solutions_Logo_Cropped.png" 
+                src="/logo.png" 
                 alt="Capital Bridge Solutions" 
-                className="h-10 sm:h-12 lg:h-14 w-auto transition-transform duration-300 group-hover:scale-105 object-contain"
+                className="h-16 sm:h-20 w-auto transition-transform duration-300 group-hover:scale-105 object-contain"
               />
             </Link>
             <div className="flex items-center gap-4 sm:gap-8">
               <div className="hidden sm:flex flex-col items-end">
-                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Speak to a Funding Specialist</span>
-                <a href="tel:949-339-3555" className="text-xl font-black text-slate-900 hover:text-emerald-700 transition-colors flex items-center gap-2">
+                <span className="text-xs font-bold text-dark-400 uppercase tracking-wider mb-1">Speak to a Funding Specialist</span>
+                <a href="tel:949-339-3555" className="text-xl font-black text-white hover:text-emerald-400 transition-colors flex items-center gap-2">
                   (949) 339-3555
                 </a>
               </div>
               <a 
                 href="#apply-form"
                 onClick={() => window.gtag && window.gtag('event', 'conversion', { 'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D' })}
-                className="relative group px-6 sm:px-8 py-3 rounded-md bg-[#001D4A] text-white font-bold text-sm sm:text-base hover:bg-blue-900 transition-all shadow-md hover:shadow-lg"
+                className="relative group px-6 sm:px-8 py-3 rounded-md bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold text-sm sm:text-base hover:from-emerald-500 hover:to-emerald-400 transition-all shadow-md hover:shadow-lg"
               >
                 Access Capital
               </a>
@@ -50,17 +50,18 @@ export function LightLandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 sm:pt-40 pb-16 lg:pt-44 lg:pb-20 relative overflow-hidden bg-white border-b border-slate-200">
+      <section className="pt-32 sm:pt-40 pb-16 lg:pt-44 lg:pb-20 relative overflow-hidden bg-dark-950 border-b border-dark-900">
+        <div className="absolute inset-0 bg-gradient-radial from-primary-500/20 via-transparent to-transparent pointer-events-none" />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             
             {/* Left Column: Pragmatic Investor Copy */}
             <div className="lg:col-span-5 text-center lg:text-left space-y-8">
               {/* Dynamic Headline Component handles the H1 */}
-              <DynamicHeroHeadlineLight />
+              <DynamicHeroHeadline />
               
-              <p className="text-xl sm:text-2xl text-slate-600 font-medium max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                Stop letting traditional banks slow down your portfolio growth. Borrow based on the <strong className="text-emerald-700 font-bold">property's cash flow</strong>, not your personal income.
+              <p className="text-xl sm:text-2xl text-emerald-100/90 font-light max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                Stop letting traditional banks slow down your portfolio growth. Borrow based on the <strong className="text-emerald-400 font-bold">property's cash flow</strong>, not your personal income.
               </p>
 
               {/* Growth-Oriented Pillars Grid */}
@@ -71,15 +72,15 @@ export function LightLandingPage() {
                   { icon: ShieldCheck, text: "No W-2s or Tax Returns", desc: "Fast, asset-based underwriting" },
                   { icon: HardHat, text: "Fix & Flip or Buy & Hold", desc: "Solutions for your exact real estate strategy" }
                 ].map((pillar, i) => (
-                  <div key={i} className="flex gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                  <div key={i} className="flex gap-4 p-4 rounded-xl bg-dark-900/50 border border-white/10 shadow-lg hover:border-emerald-500/30 transition-all">
                     <div className="flex-shrink-0 mt-1">
-                      <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                         <pillar.icon className="w-5 h-5 text-[#001D4A]" />
+                      <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                         <pillar.icon className="w-5 h-5 text-emerald-400" />
                       </div>
                     </div>
                     <div className="text-left">
-                      <div className="font-bold text-slate-900">{pillar.text}</div>
-                      <div className="text-sm text-slate-500 mt-1">{pillar.desc}</div>
+                      <div className="font-bold text-white">{pillar.text}</div>
+                      <div className="text-sm text-dark-300 mt-1">{pillar.desc}</div>
                     </div>
                   </div>
                 ))}
@@ -88,12 +89,13 @@ export function LightLandingPage() {
 
             {/* Right Column: MultiStepForm */}
             <div id="apply-form" className="w-full max-w-2xl mx-auto lg:col-span-7 relative z-20 scroll-mt-32">
-              <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-2xl relative border border-slate-300">
-                <h3 className="text-2xl font-black text-[#001D4A] mb-2 text-center">Scale Your Portfolio</h3>
-                <p className="text-slate-500 text-sm mb-6 text-center font-medium">See how much capital you qualify for today.</p>
+              <div className="bg-dark-900/95 backdrop-blur-xl rounded-2xl p-6 sm:p-8 shadow-2xl relative border border-white/10">
+                <div className="absolute -inset-1 bg-gradient-to-br from-emerald-500/20 to-blue-500/10 rounded-2xl blur-md opacity-40 -z-10"></div>
+                <h3 className="text-2xl font-black text-white mb-2 text-center">Scale Your Portfolio</h3>
+                <p className="text-dark-300 text-sm mb-6 text-center font-medium">See how much capital you qualify for today.</p>
                 
-                {/* Form Background is explicitly set to dark mode so the MultiStepForm renders perfectly */}
-                <div className="overflow-hidden bg-slate-900 text-white rounded-xl border border-slate-800 shadow-inner p-2 sm:p-4">
+                {/* Form Background */}
+                <div className="overflow-hidden bg-dark-950 text-white rounded-xl border border-white/5 shadow-inner p-2 sm:p-4">
                   <MultiStepForm />
                 </div>
               </div>
@@ -104,39 +106,39 @@ export function LightLandingPage() {
       </section>
 
       {/* Pragmatic Visuals Section */}
-      <section className="py-20 lg:py-24 bg-[#F8FAFC]">
+      <section className="py-20 lg:py-24 bg-dark-950/50 relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-6">Capital for Real Investors</h2>
-            <p className="text-slate-600 text-lg md:text-xl max-w-3xl mx-auto">Whether you are buying a turnkey 4-plex or funding an extensive flip, we provide the reliable leverage you need to acquire assets and increase your cash flow.</p>
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-6">Capital for Real Investors</h2>
+            <p className="text-dark-200 text-lg md:text-xl max-w-3xl mx-auto">Whether you are buying a turnkey 4-plex or funding an extensive flip, we provide the reliable leverage you need to acquire assets and increase your cash flow.</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
             {/* Practical Multi Family Image */}
-            <div className="group relative rounded-2xl overflow-hidden shadow-xl border border-slate-200 bg-white">
+            <div className="group relative rounded-2xl overflow-hidden shadow-xl border border-white/5 bg-dark-900">
               <div className="aspect-[4/3] w-full overflow-hidden">
                 <img 
                   src="/images/multifamily_investment_property.png"
                   alt="Multi-Family Investment Property Cash Flow"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-90"
                 />
               </div>
-              <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-md shadow-md border border-slate-100 flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-emerald-600 font-bold" />
-                <span className="font-bold text-slate-900 text-sm">Long Term Rentals (DSCR)</span>
+              <div className="absolute top-4 left-4 bg-dark-900/95 backdrop-blur-sm px-4 py-2 rounded-md shadow-md border border-white/10 flex items-center gap-2">
+                <TrendingUp className="w-4 h-4 text-emerald-400 font-bold" />
+                <span className="font-bold text-white text-sm">Long Term Rentals (DSCR)</span>
               </div>
             </div>
 
             {/* Active Investor Fix and Flip Image */}
-            <div className="group relative rounded-2xl overflow-hidden shadow-xl border border-slate-200 bg-white">
+            <div className="group relative rounded-2xl overflow-hidden shadow-xl border border-white/5 bg-dark-900">
               <div className="aspect-[4/3] w-full overflow-hidden">
                 <img 
                   src="/images/investor_on_site.png"
                   alt="Active Real Estate Investor Renovating Property"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-90"
                 />
               </div>
-              <div className="absolute top-4 left-4 bg-[#001D4A]/95 backdrop-blur-sm px-4 py-2 rounded-md shadow-md border border-[#001D4A] flex items-center gap-2">
+              <div className="absolute top-4 left-4 bg-emerald-600/95 backdrop-blur-sm px-4 py-2 rounded-md shadow-md border border-emerald-500 flex items-center gap-2">
                 <HardHat className="w-4 h-4 text-white font-bold" />
                 <span className="font-bold text-white text-sm">Fix & Flip Financing</span>
               </div>
@@ -146,28 +148,29 @@ export function LightLandingPage() {
       </section>
 
       {/* Institutional Trust Section */}
-      <section className="bg-[#001D4A] py-16 text-white border-y border-slate-800">
-        <div className="container mx-auto px-4 text-center">
-            <h3 className="text-xl md:text-2xl font-medium text-blue-200 mb-8">Join thousands of high-performing investors scaling with Capital Bridge</h3>
-            <div className="flex flex-wrap justify-center gap-12 md:gap-24 items-center opacity-80">
+      <section className="bg-dark-900 py-16 text-white border-y border-white/5 relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-transparent pointer-events-none" />
+        <div className="container mx-auto px-4 text-center relative z-10">
+            <h3 className="text-xl md:text-2xl font-medium text-emerald-100/90 mb-8">Join thousands of high-performing investors scaling with Capital Bridge</h3>
+            <div className="flex flex-wrap justify-center gap-12 md:gap-24 items-center opacity-90">
                 <div className="text-center">
-                    <div className="text-4xl font-black mb-1">A+</div>
-                    <div className="text-sm uppercase tracking-wider text-blue-300 font-bold">BBB Rating</div>
+                    <div className="text-4xl font-black mb-1 text-emerald-400">A+</div>
+                    <div className="text-sm uppercase tracking-wider text-dark-300 font-bold">BBB Rating</div>
                 </div>
                 <div className="text-center">
-                    <div className="text-4xl font-black mb-1">10<span className="text-2xl ml-1 text-blue-400">Days</span></div>
-                    <div className="text-sm uppercase tracking-wider text-blue-300 font-bold">Average Closing</div>
+                    <div className="text-4xl font-black mb-1 text-emerald-400">10<span className="text-2xl ml-1 text-emerald-300">Days</span></div>
+                    <div className="text-sm uppercase tracking-wider text-dark-300 font-bold">Average Closing</div>
                 </div>
                 <div className="text-center">
-                    <div className="text-4xl font-black mb-1">None</div>
-                    <div className="text-sm uppercase tracking-wider text-blue-300 font-bold">Portfolio Limits</div>
+                    <div className="text-4xl font-black mb-1 text-emerald-400">None</div>
+                    <div className="text-sm uppercase tracking-wider text-dark-300 font-bold">Portfolio Limits</div>
                 </div>
             </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 py-16 border-t border-slate-800 text-slate-400">
+      <footer className="bg-dark-950 py-16 border-t border-white/5 text-dark-400">
         <div className="container mx-auto px-4 md:flex items-center justify-between">
           <div className="mb-8 md:mb-0">
              <img src="/Capital_Bridge_solutions_Logo.png" alt="Logo" className="h-14 lg:h-16 mb-6 brightness-0 invert opacity-40 hover:opacity-100 transition-opacity object-contain" />
@@ -175,7 +178,7 @@ export function LightLandingPage() {
                © {new Date().getFullYear()} Capital Bridge Solutions.<br/>All Rights Reserved.
              </div>
           </div>
-          <div className="max-w-md text-xs sm:text-sm text-slate-500 leading-relaxed md:text-right">
+          <div className="max-w-md text-xs sm:text-sm text-dark-500 leading-relaxed md:text-right">
             Lending primarily for investment properties. Not intended for owner-occupied residential use. Rates and terms are subject to change based on market conditions, property valuation, and borrower qualification.
           </div>
         </div>
