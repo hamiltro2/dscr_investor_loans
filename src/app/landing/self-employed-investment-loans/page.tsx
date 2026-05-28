@@ -11,29 +11,58 @@ export default function SelfEmployedInvestmentLoansLanding() {
     loanAmount: '',
     propertyType: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.name || !formData.email || !formData.phone) return;
     
-    // Track conversion
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'conversion', {
-        'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          formType: 'loan',
+          data: {
+            ...formData,
+            loanType: 'DSCR Loan (Self-Employed Landing)',
+            source: 'Landing Page - Self-Employed DSCR',
+            message: `Lead submitted from Self-Employed DSCR landing page.`
+          }
+        })
       });
-    }
 
-    // Track form submission
-    if (typeof window !== 'undefined' && window.dataLayer) {
-      window.dataLayer.push({
-        event: 'form_submission_success',
-        formType: 'self_employed_landing_page',
-        loanAmount: formData.loanAmount,
-        propertyType: formData.propertyType
-      });
-    }
+      // Track conversion
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'conversion', {
+          'send_to': 'AW-1002915679/nvg3CMaA2J4bEN-Ond4D'
+        });
+      }
 
-    console.log('Form submitted:', formData);
-    alert('Thank you! We\'ll contact you within 24 hours.');
+      // Track form submission
+      if (typeof window !== 'undefined' && window.dataLayer) {
+        window.dataLayer.push({
+          event: 'form_submission_success',
+          formType: 'self_employed_landing_page',
+          loanAmount: formData.loanAmount,
+          propertyType: formData.propertyType
+        });
+      }
+
+      setIsSuccess(true);
+      setTimeout(() => {
+        setIsSuccess(false);
+        setFormData({ name: '', email: '', phone: '', loanAmount: '', propertyType: '' });
+      }, 5000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('There was an error sending your request. Please try again or call us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handlePhoneClick = () => {
@@ -120,101 +149,121 @@ export default function SelfEmployedInvestmentLoansLanding() {
               <h2 className="text-2xl font-bold text-white mb-2">Get Pre-Qualified Today</h2>
               <p className="text-gray-400 mb-6">No credit check to get started. Response within 24 hours.</p>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
-                    placeholder="John Smith"
-                  />
+              {isSuccess ? (
+                <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-8 text-center h-full flex flex-col justify-center items-center">
+                  <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mb-6 mx-auto">
+                    <CheckCircle className="w-8 h-8 text-green-500" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4">Request Received!</h3>
+                  <p className="text-gray-300 text-lg">
+                    Thank you, {formData.name.split(' ')[0]}. We have received your request and our loan experts will contact you shortly at {formData.phone}.
+                  </p>
                 </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
+                      placeholder="John Smith"
+                    />
+                  </div>
 
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
-                    placeholder="john@example.com"
-                  />
-                </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
+                      placeholder="john@example.com"
+                    />
+                  </div>
 
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
-                    Phone Number *
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    required
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
-                    placeholder="(949) 123-4567"
-                  />
-                </div>
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
+                      Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      required
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
+                      placeholder="(949) 123-4567"
+                    />
+                  </div>
 
-                <div>
-                  <label htmlFor="loanAmount" className="block text-sm font-medium text-gray-300 mb-2">
-                    Loan Amount Needed *
-                  </label>
-                  <select
-                    id="loanAmount"
-                    required
-                    value={formData.loanAmount}
-                    onChange={(e) => setFormData({ ...formData, loanAmount: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
+                  <div>
+                    <label htmlFor="loanAmount" className="block text-sm font-medium text-gray-300 mb-2">
+                      Loan Amount Needed *
+                    </label>
+                    <select
+                      id="loanAmount"
+                      required
+                      value={formData.loanAmount}
+                      onChange={(e) => setFormData({ ...formData, loanAmount: e.target.value })}
+                      className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
+                    >
+                      <option value="">Select loan amount</option>
+                      <option value="100k-250k">$100,000 - $250,000</option>
+                      <option value="250k-500k">$250,000 - $500,000</option>
+                      <option value="500k-1m">$500,000 - $1,000,000</option>
+                      <option value="1m+">$1,000,000+</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label htmlFor="propertyType" className="block text-sm font-medium text-gray-300 mb-2">
+                      Property Type *
+                    </label>
+                    <select
+                      id="propertyType"
+                      required
+                      value={formData.propertyType}
+                      onChange={(e) => setFormData({ ...formData, propertyType: e.target.value })}
+                      className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
+                    >
+                      <option value="">Select property type</option>
+                      <option value="single-family">Single Family</option>
+                      <option value="multi-family">Multi-Family (2-4 units)</option>
+                      <option value="condo">Condo/Townhouse</option>
+                      <option value="commercial">Commercial</option>
+                    </select>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-primary-500 hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-primary-500/50 flex items-center justify-center gap-2"
                   >
-                    <option value="">Select loan amount</option>
-                    <option value="100k-250k">$100,000 - $250,000</option>
-                    <option value="250k-500k">$250,000 - $500,000</option>
-                    <option value="500k-1m">$500,000 - $1,000,000</option>
-                    <option value="1m+">$1,000,000+</option>
-                  </select>
-                </div>
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      'Get Pre-Qualified Now'
+                    )}
+                  </button>
 
-                <div>
-                  <label htmlFor="propertyType" className="block text-sm font-medium text-gray-300 mb-2">
-                    Property Type *
-                  </label>
-                  <select
-                    id="propertyType"
-                    required
-                    value={formData.propertyType}
-                    onChange={(e) => setFormData({ ...formData, propertyType: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
-                  >
-                    <option value="">Select property type</option>
-                    <option value="single-family">Single Family</option>
-                    <option value="multi-family">Multi-Family (2-4 units)</option>
-                    <option value="condo">Condo/Townhouse</option>
-                    <option value="commercial">Commercial</option>
-                  </select>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-primary-500 hover:bg-primary-600 text-white font-bold py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-primary-500/50"
-                >
-                  Get Pre-Qualified Now
-                </button>
-
-                <p className="text-xs text-gray-500 text-center">
-                  By submitting, you agree to our Terms of Service and Privacy Policy
-                </p>
-              </form>
+                  <p className="text-xs text-gray-500 text-center">
+                    By submitting, you agree to our Terms of Service and Privacy Policy
+                  </p>
+                </form>
+              )}
             </div>
           </div>
         </div>
