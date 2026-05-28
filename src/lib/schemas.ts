@@ -35,8 +35,14 @@ export const DispositionSchema = z.enum([
 export const LeadInputSchema = z.object({
   // Contact (required)
   name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
-  phone: z.string().regex(/^\+?[\d\s\-\(\)]+$/, 'Invalid phone number'),
+  email: z.preprocess(
+    (val) => typeof val === 'string' ? val.trim().replace(/\s+/g, '') : val,
+    z.string().email('Invalid email address')
+  ),
+  phone: z.preprocess(
+    (val) => typeof val === 'string' ? val.trim() : val,
+    z.string().min(5, 'Invalid phone number')
+  ),
   channel: z.string().optional(),
 
   // Product
@@ -45,25 +51,78 @@ export const LeadInputSchema = z.object({
   // Property
   address: z.string().optional(),
   city: z.string().optional(),
-  state: z.string().length(2, 'State must be 2-letter code').optional(),
-  zip: z.string().regex(/^\d{5}(-\d{4})?$/, 'Invalid ZIP code').optional(),
+  state: z.preprocess(
+    (val) => {
+      if (typeof val === 'string') {
+        const trimmed = val.trim();
+        if (trimmed.length === 2) return trimmed.toUpperCase();
+        return trimmed;
+      }
+      return val;
+    },
+    z.string().optional()
+  ),
+  zip: z.preprocess(
+    (val) => typeof val === 'string' ? val.trim() : val,
+    z.string().optional()
+  ),
   propertyType: z.string().optional(),
 
   // Loan
-  loanAmountRequested: z.number().positive().optional(),
+  loanAmountRequested: z.preprocess(
+    (val) => {
+      if (typeof val === 'string') {
+        const num = parseFloat(val.replace(/[$,]/g, ''));
+        return isNaN(num) ? undefined : num;
+      }
+      if (typeof val === 'number') return val;
+      return undefined;
+    },
+    z.number().positive().optional()
+  ),
   timeline: z.string().optional(),
   exitStrategy: z.string().optional(),
 
   // Product-specific
-  rehabBudget: z.number().positive().optional(), // fix&flip
-  arv: z.number().positive().optional(), // fix&flip ARV
+  rehabBudget: z.preprocess(
+    (val) => {
+      if (typeof val === 'string') {
+        const num = parseFloat(val.replace(/[$,]/g, ''));
+        return isNaN(num) ? undefined : num;
+      }
+      if (typeof val === 'number') return val;
+      return undefined;
+    },
+    z.number().positive().optional()
+  ), // fix&flip
+  arv: z.preprocess(
+    (val) => {
+      if (typeof val === 'string') {
+        const num = parseFloat(val.replace(/[$,]/g, ''));
+        return isNaN(num) ? undefined : num;
+      }
+      if (typeof val === 'number') return val;
+      return undefined;
+    },
+    z.number().positive().optional()
+  ), // fix&flip ARV
   currentMortgageInfo: z.object({
     balance: z.number().positive(),
     rate: z.number().positive(),
     maturityDate: z.string(),
     payment: z.number().positive(),
   }).optional(), // balloon_refi
-  rentalIncome: z.number().positive().optional(), // dscr
+  rentalIncome: z.preprocess(
+    (val) => {
+      if (typeof val === 'string') {
+        const num = parseFloat(val.replace(/[$,]/g, ''));
+        return isNaN(num) ? undefined : num;
+      }
+      if (typeof val === 'number') return val;
+      return undefined;
+    },
+    z.number().positive().optional()
+  ), // dscr
   dscrInputs: z.object({
     monthlyTaxes: z.number().nonnegative().optional(),
     monthlyInsurance: z.number().nonnegative().optional(),
