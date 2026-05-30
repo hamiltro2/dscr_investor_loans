@@ -45,9 +45,9 @@ export default function Navigation() {
         >
           <div className="relative overflow-hidden rounded-lg">
             <img 
-              src="/logo.png" 
+              src="/logo_transparent.png" 
               alt="Capital Bridge Solutions" 
-              className="h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105 mix-blend-screen"
+              className="h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
           </div>
         </Link>
