@@ -40,14 +40,14 @@ export default function Navigation() {
         {/* Logo */}
         <Link 
           href="/" 
-          className="flex items-center transition-all duration-300 hover:opacity-80 group"
+          className="flex items-center"
           onMouseEnter={() => handleLinkHover('/')}
         >
           <div className="relative overflow-hidden rounded-lg">
             <img 
               src="/logo_transparent.png" 
               alt="Capital Bridge Solutions" 
-              className="h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              className="h-20 w-auto object-contain"
             />
           </div>
         </Link>
