@@ -51,7 +51,7 @@ export function FAQ() {
     },
     {
       question: "What down payment do I need for an investment property?",
-      answer: "Down payment requirements typically start at 20% for DSCR loans, though some programs may require 25-30% depending on your credit score and the property type. We also have creative financing solutions that may help reduce your upfront cash requirements. Let's discuss your specific situation to find the best option."
+      answer: "Down payment requirements can start as low as 15% for highly qualified borrowers, though 20% is typical for most DSCR loans. Some programs may require 25-30% depending on your credit score and the property type. We also have creative financing solutions that may help reduce your upfront cash requirements. Let's discuss your specific situation to find the best option."
     },
     {
       question: "Can I get cash out from my existing investment properties?",
