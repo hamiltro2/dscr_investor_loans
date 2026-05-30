@@ -130,6 +130,12 @@ export const BLOG_ARTICLES = [
     keywords: ['620 credit', 'bad credit', 'low credit score', 'minimum credit'],
   },
   {
+    slug: 'best-lenders-self-employed-bad-credit',
+    title: 'Best Lenders for Self-Employed with Bad Credit',
+    category: 'Credit Requirements',
+    keywords: ['bad credit', 'self employed', 'credit score', '580', '600', '620'],
+  },
+  {
     slug: 'airbnb-dscr-loans-california',
     title: 'Airbnb DSCR Loans in California',
     category: 'Property Types',
@@ -152,6 +158,12 @@ export const BLOG_ARTICLES = [
     title: 'DSCR Loan Rates 2026',
     category: 'Rates & Terms',
     keywords: ['rates', 'interest rates', '2026', 'current rates'],
+  },
+  {
+    slug: 'dscr-loan-prepayment-penalties-guide',
+    title: 'DSCR Loan Prepayment Penalties Guide',
+    category: 'Rates & Terms',
+    keywords: ['prepayment penalty', '5-4-3-2-1', 'hard vs soft prepay', 'yield maintenance'],
   },
   {
     slug: 'dscr-loan-requirements-california-2026',
@@ -220,10 +232,34 @@ export const BLOG_ARTICLES = [
     keywords: ['multi-family', 'multifamily', 'duplex', 'triplex', 'fourplex'],
   },
   {
+    slug: 'section-8-rental-property-financing',
+    title: 'Section 8 Rental Property Financing',
+    category: 'Property Types',
+    keywords: ['Section 8', 'affordable housing', 'guaranteed rent', 'housing choice voucher'],
+  },
+  {
+    slug: 'self-storage-commercial-dscr-financing',
+    title: 'Self-Storage & Commercial DSCR Financing',
+    category: 'Property Types',
+    keywords: ['self-storage', 'car wash', 'commercial DSCR', 'recession proof'],
+  },
+  {
+    slug: 'mixed-use-property-dscr-loans',
+    title: 'Mixed-Use Property DSCR Loans',
+    category: 'Property Types',
+    keywords: ['mixed-use', 'commercial and residential', 'retail', 'apartments'],
+  },
+  {
     slug: 'dscr-vs-conventional-loans',
     title: 'DSCR vs Conventional Loans',
     category: 'Comparisons',
     keywords: ['conventional', 'traditional', 'comparison', 'difference'],
+  },
+  {
+    slug: 'capital-bridge-vs-kiavi-vs-angeloak',
+    title: 'Capital Bridge Solutions vs Kiavi vs AngelOak',
+    category: 'Comparisons',
+    keywords: ['comparison', 'lenders', 'Kiavi', 'Angel Oak', 'Capital Bridge'],
   },
   {
     slug: 'dscr-loan-refinancing',
@@ -244,6 +280,18 @@ export const BLOG_ARTICLES = [
     keywords: ['foreign national', 'international', 'non-US citizen', 'ITIN'],
   },
   {
+    slug: 'foreign-national-advanced-strategies',
+    title: 'Foreign National Real Estate Investing Advanced Strategies',
+    category: 'Advanced Topics',
+    keywords: ['foreign national', 'ITIN', 'LLC structure', 'tax treaty'],
+  },
+  {
+    slug: 'non-recourse-dscr-loans-guide',
+    title: 'Non-Recourse DSCR Loans Guide',
+    category: 'Advanced Topics',
+    keywords: ['non-recourse', 'bad boy carve-outs', 'deficiency judgment', 'asset protection'],
+  },
+  {
     slug: 'dscr-loan-predictions-2026',
     title: 'DSCR Loan Market Predictions 2026',
     category: 'Market Insights',
@@ -256,10 +304,34 @@ export const BLOG_ARTICLES = [
     keywords: ['tax benefits', 'deductions', 'tax advantages', 'IRS'],
   },
   {
+    slug: '1031-exchange-financing-strategies',
+    title: '1031 Exchange Financing Strategies',
+    category: 'Tax & Finance',
+    keywords: ['1031 exchange', 'like kind', 'tax deferral', 'replacement property'],
+  },
+  {
+    slug: 'opportunity-zone-investing-guide',
+    title: 'Opportunity Zone Investing Guide',
+    category: 'Tax & Finance',
+    keywords: ['opportunity zone', 'QOF', 'capital gains tax', 'tax deferral'],
+  },
+  {
     slug: 'dscr-loans-market-downturn',
     title: 'DSCR Loans During Market Downturn',
     category: 'Market Insights',
     keywords: ['market downturn', 'recession', 'economic', 'crisis'],
+  },
+  {
+    slug: 'creative-financing-strategies',
+    title: 'Creative Financing Strategies',
+    category: 'Alternative Financing',
+    keywords: ['creative financing', 'seller financing', 'subject-to', 'lease option'],
+  },
+  {
+    slug: 'land-acquisition-development-financing',
+    title: 'Land Acquisition & Development Financing',
+    category: 'Alternative Financing',
+    keywords: ['land loan', 'construction loan', 'development', 'ground up'],
   },
   {
     slug: 'case-study-first-time-investor-620-credit',
@@ -272,5 +344,47 @@ export const BLOG_ARTICLES = [
     title: 'Case Study: Building a 10-Property Portfolio',
     category: 'Case Studies',
     keywords: ['portfolio case study', '10 properties', 'scaling'],
+  },
+  {
+    slug: 'brrrr-method-financing',
+    title: 'BRRRR Method Financing Guide',
+    category: 'Investment Strategies',
+    keywords: ['BRRRR', 'refinance', 'rehab', 'recycled capital'],
+  },
+  {
+    slug: 'house-hacking-investment-strategies',
+    title: 'House Hacking Strategies 2026',
+    category: 'Investment Strategies',
+    keywords: ['house hack', 'live rent free', 'multifamily house hacking'],
+  },
+  {
+    slug: 'syndication-group-investing-guide',
+    title: 'Real Estate Syndication & Group Investing Guide',
+    category: 'Investment Strategies',
+    keywords: ['syndication', 'group investing', 'GP LP', 'preferred return'],
+  },
+  {
+    slug: 'best-dscr-loan-lenders-california',
+    title: 'Best DSCR Loan Lenders California',
+    category: 'Lender Reviews',
+    keywords: ['best lenders', 'California DSCR', 'lender comparison'],
+  },
+  {
+    slug: 'best-dscr-lenders-2026',
+    title: 'Best DSCR Lenders 2026',
+    category: 'Lender Reviews',
+    keywords: ['top lenders', 'comparison', '2026 lenders'],
+  },
+  {
+    slug: 'best-lenders-self-employed-california',
+    title: 'Best Lenders for Self-Employed in California',
+    category: 'Lender Reviews',
+    keywords: ['self-employed California', 'bank statement mortgage', 'top lenders CA'],
+  },
+  {
+    slug: 'best-lenders-self-employed-reddit',
+    title: 'Best Lenders for Self-Employed Reddit Reviews',
+    category: 'Lender Reviews',
+    keywords: ['Reddit recommendations', 'reviews', 'self-employed feedback'],
   },
 ];

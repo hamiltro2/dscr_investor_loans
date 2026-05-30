@@ -64,6 +64,14 @@ const blogPosts = [
     category: 'Credit & Qualification'
   },
   {
+    slug: 'best-lenders-self-employed-bad-credit',
+    title: 'Best Lenders for Self-Employed with Bad Credit (580-680 Scores)',
+    excerpt: 'Need a mortgage but have self-employed write-offs and less-than-perfect credit? Compare the top lenders offering DSCR and bank statement options.',
+    date: '2026-01-12',
+    readTime: '12 min read',
+    category: 'Credit & Qualification'
+  },
+  {
     slug: 'how-to-qualify-for-dscr-loan',
     title: 'How to Qualify for DSCR Loan: Complete Guide',
     excerpt: 'Step-by-step qualification guide covering requirements, DSCR calculations, documents needed, and insider tips for getting approved.',
@@ -88,6 +96,14 @@ const blogPosts = [
     readTime: '10 min read',
     category: 'Rates & Terms'
   },
+  {
+    slug: 'dscr-loan-prepayment-penalties-guide',
+    title: 'DSCR Loan Prepayment Penalties: The Definitive Guide for Real Estate Investors',
+    excerpt: 'Everything you need to know about prepayment penalties on DSCR loans. Demystifying 5-4-3-2-1, soft vs hard penalties, and how to negotiate them.',
+    date: '2026-05-30',
+    readTime: '10 min read',
+    category: 'Rates & Terms'
+  },
   // Self-Employed & No Tax Returns
   {
     slug: 'best-dscr-loan-lenders-california',
@@ -95,6 +111,30 @@ const blogPosts = [
     excerpt: 'Compare the best DSCR loan lenders in California. Expert reviews, rates starting at 5.5%, requirements, and detailed comparisons to find the perfect lender.',
     date: '2026-01-05',
     readTime: '14 min read',
+    category: 'Lender Reviews'
+  },
+  {
+    slug: 'best-dscr-lenders-2026',
+    title: 'Best DSCR Lenders 2026: Complete Ranking & Comparison',
+    excerpt: 'We ranked the top 7 DSCR lenders for 2026 based on rates, points, processing times, and underwriting guidelines. Find the perfect fit for your real estate business.',
+    date: '2024-11-16',
+    readTime: '18 min read',
+    category: 'Lender Reviews'
+  },
+  {
+    slug: 'best-lenders-self-employed-california',
+    title: 'Best Lenders for Self-Employed in California 2026: Top 10 Comparison',
+    excerpt: 'The definitive ranking of the top 10 self-employed lenders in California. See who offers the best rates, lowest fees, and easiest qualification terms.',
+    date: '2026-01-12',
+    readTime: '15 min read',
+    category: 'Lender Reviews'
+  },
+  {
+    slug: 'best-lenders-self-employed-reddit',
+    title: 'Best Lenders for Self-Employed (Reddit Recommendations & Real Reviews)',
+    excerpt: 'Real feedback from the Reddit real estate community. See which self-employed mortgages, DSCR lenders, and bank statement programs get the highest marks.',
+    date: '2026-01-12',
+    readTime: '11 min read',
     category: 'Lender Reviews'
   },
   {
@@ -146,6 +186,30 @@ const blogPosts = [
     readTime: '11 min read',
     category: 'Property Types'
   },
+  {
+    slug: 'section-8-rental-property-financing',
+    title: 'Section 8 Rental Property Financing: Build a Recession-Proof Portfolio with Guaranteed Rent',
+    excerpt: 'How to buy and finance Section 8 housing using DSCR loans. Benefit from government-guaranteed rental income, stable tenants, and high cash-on-cash returns.',
+    date: '2026-01-15',
+    readTime: '12 min read',
+    category: 'Property Types'
+  },
+  {
+    slug: 'self-storage-commercial-dscr-financing',
+    title: 'Self-Storage & Commercial DSCR Financing: Recession-Proof Investments',
+    excerpt: 'Finance self-storage facilities, car washes, and commercial properties with DSCR loans. Learn why self-storage offers 30-40% margins with minimal management.',
+    date: '2026-01-15',
+    readTime: '12 min read',
+    category: 'Property Types'
+  },
+  {
+    slug: 'mixed-use-property-dscr-loans',
+    title: 'Mixed-Use Property DSCR Loans: Guidelines, LTVs, & Rates',
+    excerpt: 'Finance properties with mixed commercial and residential units using DSCR loans. Learn guidelines, LTV limits, and underwriting requirements for mixed-use investments.',
+    date: '2026-05-30',
+    readTime: '12 min read',
+    category: 'Property Types'
+  },
   // Loan Comparisons
   {
     slug: 'dscr-vs-hard-money-loans',
@@ -161,6 +225,14 @@ const blogPosts = [
     excerpt: 'Compare DSCR loans vs conventional loans for investment properties. See rates, requirements, pros/cons, and when to use each type.',
     date: '2024-10-04',
     readTime: '12 min read',
+    category: 'Loan Comparisons'
+  },
+  {
+    slug: 'capital-bridge-vs-kiavi-vs-angeloak',
+    title: 'Capital Bridge Solutions vs Kiavi vs AngelOak: DSCR Loan Comparison',
+    excerpt: 'A side-by-side comparison of three major DSCR lending platforms. Analyze starting rates, closing fees, prepayment penalty flexibility, and service quality.',
+    date: '2024-11-16',
+    readTime: '15 min read',
     category: 'Loan Comparisons'
   },
   // Investment Strategies
@@ -180,6 +252,30 @@ const blogPosts = [
     readTime: '11 min read',
     category: 'Investment Strategies'
   },
+  {
+    slug: 'brrrr-method-financing',
+    title: 'BRRRR Method Financing: The Ultimate Guide to Building Wealth with Recycled Capital',
+    excerpt: 'Master the Buy, Rehab, Rent, Refinance, Repeat strategy. Learn how to optimize your purchase financing and use DSCR cash-out refinance to pull 100% of your capital back.',
+    date: '2026-01-15',
+    readTime: '15 min read',
+    category: 'Investment Strategies'
+  },
+  {
+    slug: 'house-hacking-investment-strategies',
+    title: 'House Hacking Strategies 2026: Live for Free While Building Wealth',
+    excerpt: 'Live rent-free by purchasing multi-unit properties, renting out the other units, and using DSCR or low-down conventional financing. Complete 2026 playbook.',
+    date: '2026-01-15',
+    readTime: '14 min read',
+    category: 'Investment Strategies'
+  },
+  {
+    slug: 'syndication-group-investing-guide',
+    title: 'Real Estate Syndication & Group Investing: Pool Capital to Buy Bigger Deals',
+    excerpt: 'Pool capital with other investors to buy institutional-grade properties. Syndication structures, GP/LP roles, SEC regulations, and DSCR commercial loans.',
+    date: '2026-01-15',
+    readTime: '13 min read',
+    category: 'Investment Strategies'
+  },
   // Advanced Topics
   {
     slug: 'dscr-loan-refinancing',
@@ -194,6 +290,22 @@ const blogPosts = [
     title: 'DSCR Loans for Foreign Investors: ITIN Guide',
     excerpt: 'Get DSCR loans as a foreign investor. ITIN requirements, non-US citizen financing, and international real estate investment strategies.',
     date: '2024-10-04',
+    readTime: '11 min read',
+    category: 'Advanced Topics'
+  },
+  {
+    slug: 'foreign-national-advanced-strategies',
+    title: 'Foreign National Real Estate Investing: Advanced Strategies for US Portfolios',
+    excerpt: 'Advanced guide for international investors buying US real estate. Learn about ITINs, foreign entity structuring, tax treaties, and DSCR financing.',
+    date: '2026-01-15',
+    readTime: '15 min read',
+    category: 'Advanced Topics'
+  },
+  {
+    slug: 'non-recourse-dscr-loans-guide',
+    title: 'Non-Recourse DSCR Loans: How to Protect Your Personal Wealth',
+    excerpt: 'Protect your personal assets with non-recourse DSCR loans. Discover how non-recourse financing works, who qualifies, and how to safeguard your wealth.',
+    date: '2026-05-30',
     readTime: '11 min read',
     category: 'Advanced Topics'
   },
@@ -214,6 +326,7 @@ const blogPosts = [
     readTime: '11 min read',
     category: 'Market Insights'
   },
+  // Tax Strategies
   {
     slug: 'dscr-loan-tax-benefits',
     title: 'DSCR Loan Tax Benefits: Maximize Deductions',
@@ -222,7 +335,40 @@ const blogPosts = [
     readTime: '12 min read',
     category: 'Tax Strategies'
   },
-  // Case Studies
+  {
+    slug: '1031-exchange-financing-strategies',
+    title: '1031 Exchange Financing Strategies: How to Defer Taxes While Upgrading Your Portfolio',
+    excerpt: 'Discover how to seamlessly structure a 1031 exchange and secure financing for your replacement property. Capital deferral rules, timelines, and DSCR strategies.',
+    date: '2026-01-15',
+    readTime: '12 min read',
+    category: 'Tax Strategies'
+  },
+  {
+    slug: 'opportunity-zone-investing-guide',
+    title: 'Opportunity Zone Investing: Defer & Eliminate Capital Gains Taxes',
+    excerpt: 'Learn how to invest capital gains into Qualified Opportunity Zones to defer and completely eliminate tax on appreciation, paired with DSCR leverage.',
+    date: '2026-01-15',
+    readTime: '11 min read',
+    category: 'Tax Strategies'
+  },
+  // Alternative Financing
+  {
+    slug: 'creative-financing-strategies',
+    title: 'Creative Financing Strategies: Buy Real Estate with Little or No Money Down',
+    excerpt: 'Discover seller financing, subject-to, lease options, and master lease structures. Combine creative strategies with DSCR loans for rapid growth.',
+    date: '2026-01-15',
+    readTime: '14 min read',
+    category: 'Alternative Financing'
+  },
+  {
+    slug: 'land-acquisition-development-financing',
+    title: 'Land Acquisition & Development Financing: Build Wealth From the Ground Up',
+    excerpt: 'Finance raw land purchases and development projects with construction loans and DSCR financing. Ground-up development guide for real estate investors.',
+    date: '2026-01-15',
+    readTime: '12 min read',
+    category: 'Alternative Financing'
+  },
+  // Case Studies & Success Stories
   {
     slug: 'case-study-first-time-investor-620-credit',
     title: 'Case Study: First-Time Investor with 620 Credit Success',
