@@ -153,27 +153,42 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-radial from-primary-500/20 via-transparent to-transparent" />
         <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
           
-          {/* Top Text Section */}
-          <div className="text-center max-w-4xl mx-auto mb-12 space-y-6">
-            <div>
-              <DynamicHeroHeadline />
-              <p className="text-xl text-emerald-100/90 font-light max-w-2xl mx-auto">
-                Direct-to-borrower financing. Experience our streamlined process and close your investment fast!
-              </p>
+          {/* Top Section: Text (Left) + Image (Right) on large screens */}
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center max-w-6xl mx-auto mb-12">
+            <div className="lg:col-span-7 text-center lg:text-left space-y-6">
+              <div>
+                <DynamicHeroHeadline />
+                <p className="text-xl text-emerald-100/90 font-light max-w-2xl mx-auto lg:mx-0">
+                  Direct-to-borrower financing. Experience our streamlined process and close your investment fast!
+                </p>
+              </div>
+
+              {/* Highlights & Social Proof */}
+              <div className="flex flex-wrap gap-4 items-center justify-center lg:justify-start">
+                <div className="flex items-center gap-2 px-4 py-2 bg-dark-800/50 rounded-full border border-dark-700/50">
+                  <span className="text-white font-medium text-lg">5.99%</span>
+                  <span className="text-dark-300 text-sm">Rates From</span>
+                </div>
+                <div className="flex items-center gap-2 px-4 py-2 bg-dark-800/50 rounded-full border border-dark-700/50">
+                  <span className="text-white font-medium text-lg">15%</span>
+                  <span className="text-dark-300 text-sm">Down Payment</span>
+                </div>
+                <div className="flex items-center gap-2 px-4 py-2 bg-dark-800/50 rounded-full border border-emerald-500/30">
+                  <span className="text-emerald-400 font-medium text-sm uppercase tracking-wider">Fast Closing</span>
+                </div>
+              </div>
             </div>
 
-            {/* Highlights & Social Proof */}
-            <div className="flex flex-wrap gap-4 items-center justify-center">
-              <div className="flex items-center gap-2 px-4 py-2 bg-dark-800/50 rounded-full border border-dark-700/50">
-                <span className="text-white font-medium text-lg">5.99%</span>
-                <span className="text-dark-300 text-sm">Rates From</span>
-              </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-dark-800/50 rounded-full border border-dark-700/50">
-                <span className="text-white font-medium text-lg">15%</span>
-                <span className="text-dark-300 text-sm">Down Payment</span>
-              </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-dark-800/50 rounded-full border border-emerald-500/30">
-                <span className="text-emerald-400 font-medium text-sm uppercase tracking-wider">Fast Closing</span>
+            {/* Right Column: Relatable Real Estate Investors Image */}
+            <div className="lg:col-span-5 hidden lg:block relative">
+              <div className="absolute -inset-1 bg-gradient-to-br from-primary-500/20 to-emerald-500/20 blur-xl opacity-60 rounded-2xl"></div>
+              <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl aspect-[4/3] max-w-md mx-auto">
+                <img 
+                  src="/cbs_relatable_investors.png" 
+                  alt="Relatable everyday people building wealth through real estate" 
+                  className="w-full h-full object-cover scale-[1.02] contrast-[1.05]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-950/60 via-transparent to-transparent pointer-events-none"></div>
               </div>
             </div>
           </div>
