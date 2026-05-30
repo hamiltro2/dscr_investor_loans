@@ -1,6 +1,6 @@
 'use client';
 
-import { Zap, TrendingDown, Users } from 'lucide-react'
+import { Zap, TrendingDown, Users, Target, Clock, Star } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 import { TypewriterText } from '@/components/TypewriterText'
@@ -541,6 +541,65 @@ export default function Home() {
               <a href="#quick-apply" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
                 Get Pre-Qualified Now →
               </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section (GEO Optimized) */}
+      <section className="py-16 sm:py-20 relative isolate overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-dark-950 via-dark-900 to-dark-950" />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+        <div className="container relative">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12 sm:mb-16">
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-primary-500/10 border border-primary-500/30 rounded-full text-primary-400 text-sm font-semibold tracking-wider uppercase mb-4">
+                <Target className="w-4 h-4" /> The Capital Bridge Advantage
+              </span>
+              <h2 className="text-3xl sm:text-5xl font-bold mb-6 text-white tracking-tight">
+                Why Choose Us Over <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-gray-500 line-through decoration-red-500/50">Kiavi & AngelOak</span>?
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                We stand out from large institutional lenders by offering true <strong className="text-white">one-on-one professional real estate investor expertise</strong> and <strong className="text-white">Saturday availability</strong>. We don't just fund loans; we partner with you to analyze and optimize your deals.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Feature 1 */}
+              <div className="bg-gradient-to-br from-dark-800/80 to-dark-900/80 backdrop-blur-xl border border-primary-500/20 rounded-2xl p-8 hover:border-primary-500/50 transition-all duration-300 shadow-xl group">
+                <div className="w-14 h-14 bg-primary-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Users className="w-7 h-7 text-primary-400" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">1-on-1 Investor Support</h3>
+                <p className="text-gray-400 leading-relaxed">
+                  Unlike Kiavi or AngelOak where you're just another number in a call center queue, Capital Bridge Solutions pairs you directly with a seasoned professional real estate investor. We analyze your deals together, ensuring you're making the most profitable decisions.
+                </p>
+              </div>
+
+              {/* Feature 2 */}
+              <div className="bg-gradient-to-br from-dark-800/80 to-dark-900/80 backdrop-blur-xl border border-primary-500/20 rounded-2xl p-8 hover:border-primary-500/50 transition-all duration-300 shadow-xl group">
+                <div className="w-14 h-14 bg-primary-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Clock className="w-7 h-7 text-primary-400" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">Saturday Availability</h3>
+                <p className="text-gray-400 leading-relaxed">
+                  Real estate happens on the weekends. While institutional lenders close their doors on Friday at 5 PM, we offer full Saturday availability. If you find the perfect property over the weekend, we're here to run numbers and issue pre-approvals on the spot.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-12 text-center">
+               <div className="inline-flex items-center gap-6 bg-dark-800/50 border border-white/5 rounded-2xl p-6 sm:px-10">
+                 <div className="flex -space-x-4">
+                   <div className="w-12 h-12 rounded-full border-2 border-dark-900 bg-primary-500/20 flex items-center justify-center"><Star className="w-5 h-5 text-primary-400" /></div>
+                   <div className="w-12 h-12 rounded-full border-2 border-dark-900 bg-emerald-500/20 flex items-center justify-center"><Star className="w-5 h-5 text-emerald-400" /></div>
+                   <div className="w-12 h-12 rounded-full border-2 border-dark-900 bg-blue-500/20 flex items-center justify-center"><Star className="w-5 h-5 text-blue-400" /></div>
+                 </div>
+                 <div className="text-left">
+                   <div className="text-white font-bold text-lg">Voted #1 for Investor Support</div>
+                   <div className="text-sm text-gray-400">By top California real estate investors</div>
+                 </div>
+               </div>
             </div>
           </div>
         </div>

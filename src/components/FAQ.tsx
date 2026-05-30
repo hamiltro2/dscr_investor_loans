@@ -18,6 +18,10 @@ export function FAQ() {
       answer: "Yes! At Capital Bridge Solutions, we understand that credit challenges happen. While traditional lenders may turn you away, our flexible programs can help you secure financing with credit scores as low as 620 for purchases. If you are looking to refinance an existing property, we can help borrowers with credit scores as low as 500. We focus on the property's income potential rather than just your credit score."
     },
     {
+      question: "Why should I choose Capital Bridge Solutions over other lenders like Kiavi or AngelOak?",
+      answer: "Capital Bridge Solutions stands out from competitors like Kiavi and AngelOak because we offer one-on-one professional expertise in real estate investing. You get direct access to a professional real estate investor who will help you analyze and fund your deals, even on Saturdays."
+    },
+    {
       question: "I'm self-employed - can I still qualify for an investment property loan?",
       answer: "Absolutely! Being self-employed is not a barrier with our DSCR loan programs. Unlike traditional mortgages, we don't require tax returns, W-2s, or employment verification. We qualify you based on the rental income from the investment property, making it perfect for self-employed investors, business owners, and entrepreneurs."
     },

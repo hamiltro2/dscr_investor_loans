@@ -237,6 +237,14 @@ export default function CapitalBridgeVsKiaviVsAngelOakPage() {
                           <CheckCircle className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
                           <span>AI advisor (Cap)</span>
                         </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
+                          <span>1-on-1 professional investor support</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
+                          <span>Saturday availability</span>
+                        </li>
                       </ul>
                     </div>
                     <div>
