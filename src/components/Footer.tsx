@@ -21,9 +21,9 @@ export function Footer() {
           <div className="flex-shrink-0 lg:max-w-md">
             <div className="mb-8">
               <img 
-                src="/logo.png" 
+                src="/logo_transparent.png" 
                 alt="Capital Bridge Solutions" 
-                className="h-24 w-auto transition-opacity duration-300 hover:opacity-80"
+                className="h-24 w-auto"
               />
             </div>
             <p className="text-gray-300 text-lg leading-relaxed mb-6">
