@@ -149,7 +149,7 @@ export default function Home() {
   return (
     <main className="min-h-screen">
                   {/* Hero Section */}
-      <section className="relative isolate pt-14 pb-12 sm:pb-16 overflow-hidden">
+      <section className="relative isolate pt-14 pb-6 sm:pb-8 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-radial from-primary-500/20 via-transparent to-transparent" />
         <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
           
@@ -296,7 +296,7 @@ export default function Home() {
 
           </div>
           
-          <div className="text-center mt-12 mb-4 flex flex-col items-center">
+          <div className="text-center mt-6 mb-2 flex flex-col items-center">
             <a
               href="tel:+19493393555"
               className="inline-flex items-center gap-3 text-lg sm:text-xl font-light text-white/80 hover:text-white transition-colors duration-300 mb-8"
@@ -308,7 +308,7 @@ export default function Home() {
               Questions? Call Us: (949) 339-3555
             </a>
             
-            <div className="w-full max-w-4xl mx-auto mt-12 border-t border-white/5 pt-8">
+            <div className="w-full max-w-4xl mx-auto mt-6 border-t border-white/5 pt-4">
               <button
                 onClick={() => setShowDisclosureModal(true)}
                 className="text-xs text-white/40 hover:text-white/70 transition-colors duration-300 underline tracking-wide"
@@ -320,7 +320,7 @@ export default function Home() {
         </div>
       </section>
 {/* Features Section */}
-      <section className="py-8 sm:py-12 bg-dark-950">
+      <section className="pt-2 pb-8 sm:pt-4 sm:pb-12 bg-dark-950">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {cards.map((card, index) => (
