@@ -185,7 +185,7 @@ export default function Home() {
               <div className="absolute -inset-4 bg-gradient-to-br from-primary-500/20 to-emerald-500/20 blur-3xl opacity-40 rounded-full pointer-events-none"></div>
               
               <div 
-                className="relative overflow-hidden aspect-[4/3] max-w-md mx-auto"
+                className="relative overflow-hidden aspect-[4/3] max-w-md mx-auto rounded-2xl border border-white/10"
                 style={{
                   maskImage: 'radial-gradient(ellipse 85% 85% at 50% 50%, black 50%, transparent 100%)',
                   WebkitMaskImage: 'radial-gradient(ellipse 85% 85% at 50% 50%, black 50%, transparent 100%)'
