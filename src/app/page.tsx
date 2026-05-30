@@ -181,14 +181,21 @@ export default function Home() {
 
             {/* Right Column: Relatable Real Estate Investors Image */}
             <div className="lg:col-span-5 hidden lg:block relative">
-              <div className="absolute -inset-1 bg-gradient-to-br from-primary-500/20 to-emerald-500/20 blur-xl opacity-60 rounded-2xl"></div>
-              <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl aspect-[4/3] max-w-md mx-auto">
+              {/* Soft ambient glow behind */}
+              <div className="absolute -inset-4 bg-gradient-to-br from-primary-500/20 to-emerald-500/20 blur-3xl opacity-40 rounded-full pointer-events-none"></div>
+              
+              <div 
+                className="relative overflow-hidden aspect-[4/3] max-w-md mx-auto"
+                style={{
+                  maskImage: 'radial-gradient(ellipse 85% 85% at 50% 50%, black 50%, transparent 100%)',
+                  WebkitMaskImage: 'radial-gradient(ellipse 85% 85% at 50% 50%, black 50%, transparent 100%)'
+                }}
+              >
                 <img 
                   src="/cbs_relatable_investors.png" 
                   alt="Relatable everyday people building wealth through real estate" 
-                  className="w-full h-full object-cover scale-[1.02] contrast-[1.05]"
+                  className="w-full h-full object-cover scale-[1.02] contrast-[1.02] brightness-[0.9]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-950/60 via-transparent to-transparent pointer-events-none"></div>
               </div>
             </div>
           </div>
