@@ -104,7 +104,7 @@ export default function CreditSolutionsForm() {
   }
 
   return (
-    <div className="card">
+    <div className="bg-dark-800 border border-primary-500/20 rounded-2xl p-8 shadow-2xl">
       <h2 className="text-2xl font-bold mb-6 text-dark-50">
         Get Your Free Credit Assessment
       </h2>
@@ -119,7 +119,7 @@ export default function CreditSolutionsForm() {
             name="name"
             required
             disabled={isSubmitting}
-            className="w-full px-4 py-2 text-black rounded-lg border border-dark-700 bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="w-full px-4 py-3 bg-dark-900 border border-dark-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           />
@@ -135,7 +135,7 @@ export default function CreditSolutionsForm() {
             name="email"
             required
             disabled={isSubmitting}
-            className="w-full px-4 py-2 text-black rounded-lg border border-dark-700 bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="w-full px-4 py-3 bg-dark-900 border border-dark-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           />
@@ -151,7 +151,7 @@ export default function CreditSolutionsForm() {
             name="phone"
             required
             disabled={isSubmitting}
-            className="w-full px-4 py-2 text-black rounded-lg border border-dark-700 bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="w-full px-4 py-3 bg-dark-900 border border-dark-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
           />
@@ -166,7 +166,7 @@ export default function CreditSolutionsForm() {
             name="creditScore"
             required
             disabled={isSubmitting}
-            className="w-full px-4 py-2 text-black rounded-lg border border-dark-700 bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="w-full px-4 py-3 bg-dark-900 border border-dark-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
             value={formData.creditScore}
             onChange={handleChange}
           >
@@ -190,7 +190,7 @@ export default function CreditSolutionsForm() {
             rows={4}
             required
             disabled={isSubmitting}
-            className="w-full px-4 py-2 text-black rounded-lg border border-dark-700 bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="w-full px-4 py-3 bg-dark-900 border border-dark-700 rounded-lg text-white focus:outline-none focus:border-primary-500 transition-colors"
             value={formData.message}
             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
             placeholder="Tell us about your credit situation and goals..."

@@ -43,7 +43,7 @@ export default function CreditSolutions() {
       <section className="py-12 bg-dark-950">
         <div className="container">
           <div className="grid md:grid-cols-3 gap-8 mb-16">
-            <div className="card card-primary relative overflow-hidden">
+            <div className="bg-dark-800 border border-primary-500/20 rounded-xl p-6 relative overflow-hidden hover:border-primary-500/50 transition-colors shadow-lg">
               <Shield className="w-12 h-12 text-primary-500 icon-glow mb-4" />
               <h3 className="text-xl font-display font-bold mb-3 text-dark-50">
                 Professional Credit Repair Advice
@@ -53,7 +53,7 @@ export default function CreditSolutions() {
               </p>
             </div>
 
-            <div className="card card-primary relative overflow-hidden">
+            <div className="bg-dark-800 border border-primary-500/20 rounded-xl p-6 relative overflow-hidden hover:border-primary-500/50 transition-colors shadow-lg">
               <BookOpen className="w-12 h-12 text-primary-500 icon-glow mb-4" />
               <h3 className="text-xl font-display font-bold mb-3 text-dark-50">
                 Financial Education
@@ -63,7 +63,7 @@ export default function CreditSolutions() {
               </p>
             </div>
 
-            <div className="card card-primary relative overflow-hidden">
+            <div className="bg-dark-800 border border-primary-500/20 rounded-xl p-6 relative overflow-hidden hover:border-primary-500/50 transition-colors shadow-lg">
               <Target className="w-12 h-12 text-primary-500 icon-glow mb-4" />
               <h3 className="text-xl font-display font-bold mb-3 text-dark-50">
                 Personalized Solutions
@@ -104,7 +104,7 @@ export default function CreditSolutions() {
                     <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-blue-500/5 rounded-xl"></div>
                     
                     <img 
-                      src="/Capital_Bridge_solutions_team.png" 
+                      src="/Capital_Bridge_solutions_team_new.png" 
                       alt="Capital Bridge Solutions Expert Team" 
                       className="w-full h-auto rounded-xl shadow-lg transition-transform duration-500 group-hover:scale-[1.02] relative z-10"
                     />
