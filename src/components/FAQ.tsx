@@ -15,7 +15,7 @@ export function FAQ() {
   const faqs: FAQItem[] = [
     {
       question: "Can I get a DSCR loan with bad credit or a low credit score?",
-      answer: "Yes! At Capital Bridge Solutions, we understand that credit challenges happen. While traditional lenders may turn you away, we offer DSCR loan programs for borrowers with credit scores as low as 620. We focus on the property's income potential rather than just your credit score. We also have credit repair partners who can help improve your score for better rates."
+      answer: "Yes! At Capital Bridge Solutions, we understand that credit challenges happen. While traditional lenders may turn you away, our flexible programs can help you secure financing with credit scores as low as 620 for purchases. If you are looking to refinance an existing property, we can help borrowers with credit scores as low as 500. We focus on the property's income potential rather than just your credit score."
     },
     {
       question: "I'm self-employed - can I still qualify for an investment property loan?",
