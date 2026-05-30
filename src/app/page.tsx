@@ -497,7 +497,7 @@ export default function Home() {
                 <span className="text-primary-400 text-sm font-semibold">View Sacramento Market →</span>
               </Link>
 
-              <Link href="/locations/california/dscr-loans" className="bg-gradient-to-br from-primary-500/20 to-primary-600/20 border border-primary-500/40 rounded-xl p-6 hover:border-primary-500/60 transition-all duration-300 group">
+              <Link href="/locations/california/dscr-loans" className="bg-dark-800/50 border border-primary-500/20 rounded-xl p-6 hover:border-primary-500/40 transition-all duration-300 group">
                 <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">Complete CA Guide</h3>
                 <p className="text-gray-400 text-sm mb-4">Comprehensive California DSCR loan guide with 18 FAQs, requirements, and market data.</p>
                 <span className="text-primary-400 text-sm font-semibold">View Full Guide →</span>
