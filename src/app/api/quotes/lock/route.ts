@@ -109,16 +109,9 @@ export async function POST(req: NextRequest) {
       console.error('[A2A quotes-lock] Failed to send notification email:', emailError);
     }
 
-    // Format response lock expiry (48 hours from now)
-    const lockExpiry = new Date();
-    lockExpiry.setHours(lockExpiry.getHours() + 48);
-
     return NextResponse.json({
-      status: 'success',
-      rate_locked: quoteData.estimated_rate || '6.125%',
-      lock_expires: lockExpiry.toISOString(),
-      pre_approval_letter_url: `https://www.capitalbridgesolutions.com/pre-approvals/pa_${lead.id}.pdf`,
-      message: `Rate locked successfully. A Capital Bridge Solutions lending officer has been assigned to this transaction and will reach out to ${borrower.name} directly to coordinate closing.`,
+      status: 'pending_review',
+      message: `Your rate lock request for ${quoteData.estimated_rate || 'the estimated rate'} has been submitted successfully. A Capital Bridge Solutions lending officer is reviewing your scenario and will contact you directly at ${borrower.email} or ${borrower.phone} to confirm the lock and issue your pre-approval.`,
     });
 
   } catch (error) {

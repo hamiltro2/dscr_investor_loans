@@ -226,10 +226,11 @@ paths:
   /api/quotes/lock:
     post:
       operationId: lockDSCRRate
-      summary: Lock a calculated DSCR interest rate and submit lead
+      summary: Submit a DSCR interest rate lock request for human review
       description: |
-        Provide the borrower's contact info and the quote_id to lock the DSCR loan rate.
-        This writes the lead and rate lock transaction to the database and dispatches alert notifications.
+        Provide the borrower's contact info and the quote_id to submit a rate lock request.
+        This writes the lead and rate lock request transaction to the database, dispatches alert notifications,
+        and queues it for manual loan officer review.
       requestBody:
         required: true
         content:
@@ -262,7 +263,7 @@ paths:
                 - borrower
       responses:
         '200':
-          description: Rate successfully locked and pre-approval generated
+          description: Rate lock request submitted successfully for review
           content:
             application/json:
               schema:
@@ -270,16 +271,10 @@ paths:
                 properties:
                   status:
                     type: string
-                  rate_locked:
-                    type: string
-                  lock_expires:
-                    type: string
-                    format: date-time
-                  pre_approval_letter_url:
-                    type: string
-                    description: Link to download the PDF pre-approval letter
+                    description: Will return 'pending_review' when queued for review.
                   message:
                     type: string
+                    description: Instruction message for the borrower.
         '400':
           description: Invalid quote signature or borrower info
         '500':
