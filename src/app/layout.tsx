@@ -8,6 +8,7 @@ import { TrustBar } from '@/components/TrustBar'
 import { IntentTracking } from '@/components/IntentTracking'
 import { CapChatWidget } from '@/components/CapChatWidget'
 import { ApplovinPageView } from '@/components/ApplovinPageView'
+import FinancialProductSchema from '@/components/FinancialProductSchema'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat' })
@@ -137,6 +138,9 @@ export default function RootLayout({
           data-site-id="6ttmqgon3p1i"
           strategy="afterInteractive"
         />
+
+        {/* Structured Schema for Generative AI Search */}
+        <FinancialProductSchema />
 
         <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" />
         <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE" />

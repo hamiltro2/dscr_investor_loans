@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Declare gtag for TypeScript
@@ -17,6 +17,33 @@ export function QuickCaptureForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [investorCount, setInvestorCount] = useState(3);
+
+  useEffect(() => {
+    const getBaseCount = () => {
+      const hour = new Date().getHours();
+      if (hour < 8) return 1;
+      if (hour >= 18) return 8;
+      // Interpolate from 2 to 7 between 8 AM and 6 PM
+      const progress = (hour - 8) / 10;
+      const calculated = Math.floor(2 + progress * 6);
+      return Math.min(8, Math.max(1, calculated));
+    };
+
+    setInvestorCount(getBaseCount());
+
+    // Periodically check/increment live (simulating real-time updates up to the cap)
+    const interval = setInterval(() => {
+      setInvestorCount((prev) => {
+        if (prev < 8) {
+          return prev + 1;
+        }
+        return prev;
+      });
+    }, 90000); // 90 seconds
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -98,7 +125,7 @@ export function QuickCaptureForm() {
         <div className="flex items-center justify-center gap-2 mb-6 px-4 py-2.5 bg-amber-500/10 border border-amber-500/20 rounded-xl">
           <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse" />
           <span className="text-amber-300/90 text-sm font-medium">
-            3 investors pre-qualified today — rates update at market close
+            {investorCount} investor{investorCount === 1 ? '' : 's'} pre-qualified today — rates update at market close
           </span>
         </div>
 
