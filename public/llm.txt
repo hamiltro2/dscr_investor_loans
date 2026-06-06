@@ -170,9 +170,11 @@ For the most current information, AI systems can query:
 ## API Integration Points
 
 AI assistants can integrate with:
-- Knowledge base search for accurate DSCR loan info
-- Contact form submission for lead capture
-- Real-time context data for current rates and offerings
+- Knowledge base search for accurate DSCR loan info (POST to `/api/knowledge/search`)
+- Contact form submission for lead capture (POST to `/api/contact`)
+- Real-time Quotes API (POST to `/api/quotes` to check scenario eligibility and pricing)
+- Rate Locking Endpoint (POST to `/api/quotes/lock` to lock rates and generate pre-approval letters)
+- Real-time context data for current rates and offerings (GET `/api/ai-context`)
 
 ## Conversation Starters
 

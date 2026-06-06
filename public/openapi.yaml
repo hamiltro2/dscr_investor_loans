@@ -153,6 +153,138 @@ paths:
         '500':
           description: Server error
 
+  /api/quotes:
+    post:
+      operationId: getDSCRQuote
+      summary: Request an instant conditional DSCR loan quote
+      description: |
+        Calculate loan-to-value (LTV), interest rate, and DSCR ratio based on property scenarios.
+        No income verification or tax returns are required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                property_type:
+                  type: string
+                  enum: [SingleFamily, MultiFamily, Condo, Townhouse]
+                  description: The type of investment property
+                purchase_price:
+                  type: number
+                  description: Purchase price or property value
+                estimated_rent:
+                  type: number
+                  description: Projected monthly rental income
+                estimated_credit_score:
+                  type: integer
+                  description: Approximate credit score (FICO) of borrower (620+ minimum)
+                state:
+                  type: string
+                  description: Two-letter state code (e.g., CA, TX, FL)
+                is_short_term_rental:
+                  type: boolean
+                  description: Set to true if property is operated as an Airbnb/STR
+              required:
+                - property_type
+                - purchase_price
+                - estimated_rent
+                - estimated_credit_score
+                - state
+                - is_short_term_rental
+      responses:
+        '200':
+          description: A conditional loan pre-approval quote
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  quote_id:
+                    type: string
+                    description: Stateless quote token containing encrypted scenario details. Use this to lock the rate.
+                  estimated_rate:
+                    type: string
+                  loan_to_value:
+                    type: string
+                  requires_w2:
+                    type: boolean
+                  dscr_ratio:
+                    type: number
+                  message:
+                    type: string
+                  action_required:
+                    type: object
+        '400':
+          description: Invalid query options
+        '500':
+          description: Server error
+
+  /api/quotes/lock:
+    post:
+      operationId: lockDSCRRate
+      summary: Lock a calculated DSCR interest rate and submit lead
+      description: |
+        Provide the borrower's contact info and the quote_id to lock the DSCR loan rate.
+        This writes the lead and rate lock transaction to the database and dispatches alert notifications.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quote_id:
+                  type: string
+                  description: The stateless token returned from /api/quotes
+                borrower:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Borrower's full name
+                    email:
+                      type: string
+                      format: email
+                      description: Borrower's email address
+                    phone:
+                      type: string
+                      description: Borrower's phone number
+                  required:
+                    - name
+                    - email
+                    - phone
+              required:
+                - quote_id
+                - borrower
+      responses:
+        '200':
+          description: Rate successfully locked and pre-approval generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  rate_locked:
+                    type: string
+                  lock_expires:
+                    type: string
+                    format: date-time
+                  pre_approval_letter_url:
+                    type: string
+                    description: Link to download the PDF pre-approval letter
+                  message:
+                    type: string
+        '400':
+          description: Invalid quote signature or borrower info
+        '500':
+          description: Server error
+
 components:
   schemas:
     KnowledgeResult:
