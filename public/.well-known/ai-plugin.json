@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Capital Bridge Solutions",
+  "name_for_model": "CapitalBridgeSolutions",
+  "description_for_human": "Analyze property cash flows, run DSCR calculations, search loan guides, and get pre-qualified.",
+  "description_for_model": "Lender agent for Capital Bridge Solutions. Specialized in quoting and analyzing DSCR rental loans, Airbnb properties, and fix-and-flip scenarios. Supports W-2-exempt borrowers nationwide. Minimum FICO of 620 for purchases, down to FICO 500 for cash-out refinances. Calculates DSCR and coordinates pre-qualification calls.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://www.capitalbridgesolutions.com/cap-actions-openapi.json",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://www.capitalbridgesolutions.com/Small_logo_CBS-128.png",
+  "contact_email": "team@capitalbridgesolutions.com",
+  "legal_info_url": "https://www.capitalbridgesolutions.com/terms-of-service.html"
+}
