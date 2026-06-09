@@ -99,11 +99,9 @@ class AIService {
     const interestRate = 5.99;
     const loanAmount = price * (1 - downPaymentPercent / 100);
     
-    // Calculate monthly payment: M = P[r(1+r)^n]/[(1+r)^n-1]
+    // Calculate monthly payment (Interest-Only)
     const monthlyRate = interestRate / 100 / 12;
-    const numPayments = 360; // 30 years
-    const monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / 
-                          (Math.pow(1 + monthlyRate, numPayments) - 1);
+    const monthlyPayment = loanAmount * monthlyRate;
     
     // Calculate DSCR and cash flow
     const monthlyRent = rental?.estimatedRent || 0;

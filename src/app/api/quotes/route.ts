@@ -57,11 +57,9 @@ export async function POST(req: NextRequest) {
       baseRate += 0.25;
     }
 
-    // Estimate monthly PITIA
-    // Principal & Interest (30-year fixed)
+    // Estimate monthly PITIA using Interest-Only (preferred by investors to maximize DSCR and cash flow)
     const monthlyRate = baseRate / 100 / 12;
-    const numPayments = 360;
-    const monthlyPI = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+    const monthlyIO = loanAmount * monthlyRate;
 
     // Tax (CA is 1.06%, rest of US ~1.25% average)
     const annualTaxRate = state === 'CA' ? 0.0106 : 0.0125;
@@ -74,7 +72,7 @@ export async function POST(req: NextRequest) {
     const monthlyHOA = property_type === 'Condo' ? 150 : 0;
     const monthlyOther = 100; // Maintenance & Management
 
-    const monthlyPITIA = monthlyPI + monthlyTax + monthlyInsurance + monthlyHOA + monthlyOther;
+    const monthlyPITIA = monthlyIO + monthlyTax + monthlyInsurance + monthlyHOA + monthlyOther;
     const dscrRatio = estimated_rent / monthlyPITIA;
 
     // Build the quote data structure

@@ -62,18 +62,18 @@ Provide a detailed investment analysis in JSON format with:
    - Calculate TWO scenarios:
      a) 15% down at 5.99% interest: Loan = price * 0.85
      b) 20% down at 5.99% interest: Loan = price * 0.80
-   - Monthly payment formula: M = P[r(1+r)^n]/[(1+r)^n-1] where r=0.0599/12, n=360
-   - DSCR = Monthly Rent / Monthly Payment
-   - Cash Flow = Monthly Rent - Monthly Payment - Total Expenses
-   - Choose the BEST scenario and return:
-     - loanType: "DSCR Loan" (string)
-     - downPayment: 15 or 20 (number, not percentage)
-     - interestRate: 5.99 (number)
-     - loanAmount: calculated loan amount (number)
-     - monthlyPayment: calculated P&I payment (number)
-     - dscr: calculated DSCR ratio (number, 2 decimals)
-     - cashFlow: calculated monthly cash flow (number)
-     - recommendation: brief explanation why this option is better (string)
+    - Monthly payment formula: Monthly Payment = Loan Amount * (Interest Rate / 100 / 12) (Interest-Only calculation, preferred by real estate investors to maximize cash flow and DSCR ratio)
+    - DSCR = Monthly Rent / Monthly Payment
+    - Cash Flow = Monthly Rent - Monthly Payment - Total Expenses
+    - Choose the BEST scenario and return:
+      - loanType: "DSCR Loan" (string)
+      - downPayment: 15 or 20 (number, not percentage)
+      - interestRate: 5.99 (number)
+      - loanAmount: calculated loan amount (number)
+      - monthlyPayment: calculated Interest-Only payment (number)
+      - dscr: calculated DSCR ratio (number, 2 decimals)
+      - cashFlow: calculated monthly cash flow (number)
+      - recommendation: brief explanation why this option is better (string)
 
 4. **score**: Investment quality score
    - overall: score from 1-10

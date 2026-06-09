@@ -138,11 +138,9 @@ function calculateDSCR() {
   const downPayment = purchasePrice * (downPaymentPercent / 100);
   const loanAmount = purchasePrice - downPayment;
 
-  // Calculate monthly payment (fully amortizing Principal & Interest)
+  // Calculate monthly payment (Interest-Only to maximize investor cash flow)
   const monthlyRate = interestRate / 100 / 12;
-  const numberOfPayments = 30 * 12; // 30-year loan
-  const monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / 
-                        (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
+  const monthlyPayment = loanAmount * monthlyRate;
 
   // Calculate Net Operating Income
   const monthlyNOI = monthlyRent - monthlyExpenses;
