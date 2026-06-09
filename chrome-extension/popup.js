@@ -138,7 +138,7 @@ function calculateDSCR() {
   const downPayment = purchasePrice * (downPaymentPercent / 100);
   const loanAmount = purchasePrice - downPayment;
 
-  // Calculate monthly payment (interest-only for simplicity)
+  // Calculate monthly payment (fully amortizing Principal & Interest)
   const monthlyRate = interestRate / 100 / 12;
   const numberOfPayments = 30 * 12; // 30-year loan
   const monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / 

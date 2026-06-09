@@ -28,6 +28,19 @@ class LeadModal {
   }
 
   /**
+   * Escape HTML utility
+   */
+  escapeHTML(str) {
+    if (!str || typeof str !== 'string') return str || '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  /**
    * Render modal HTML
    */
   render() {
@@ -51,7 +64,7 @@ class LeadModal {
           <div class="modal-body">
             <!-- Property Summary -->
             <div class="property-summary">
-              <div class="property-address">${this.propertyData.address || 'Property Address'}</div>
+              <div class="property-address">${this.escapeHTML(this.propertyData.address) || 'Property Address'}</div>
               <div class="property-details">
                 <span>💰 ${this.formatPrice(this.propertyData.price)}</span>
                 ${this.propertyData.bedrooms ? `<span>🛏️ ${this.propertyData.bedrooms} bed</span>` : ''}

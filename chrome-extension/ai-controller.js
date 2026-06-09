@@ -142,6 +142,16 @@ class AIController {
    * Display AI analysis results
    */
   displayResults(analysis) {
+    const escapeHTML = (str) => {
+      if (!str || typeof str !== 'string') return str || '';
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    };
+
     const html = `
       <!-- Property Address -->
       <div class="property-address-header">
@@ -149,7 +159,7 @@ class AIController {
           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
           <circle cx="12" cy="10" r="3"></circle>
         </svg>
-        <div class="address-text">${analysis.address || 'Property Analysis'}</div>
+        <div class="address-text">${escapeHTML(analysis.address) || 'Property Analysis'}</div>
       </div>
 
       <!-- Deal Score -->
@@ -157,9 +167,9 @@ class AIController {
         <div class="score-number">${analysis.score.overall}<span style="font-size: 24px;">/10</span></div>
         <div class="score-rating">
           <span class="score-indicator ${this.getScoreClass(analysis.score.overall)}"></span>
-          ${analysis.score.rating}
+          ${escapeHTML(analysis.score.rating)}
         </div>
-        <p class="score-rationale">${analysis.score.rationale}</p>
+        <p class="score-rationale">${escapeHTML(analysis.score.rationale)}</p>
       </div>
 
       <!-- Monthly Expenses -->
@@ -216,7 +226,7 @@ class AIController {
           <span>Risks</span>
         </div>
         <div class="section-content">
-          ${analysis.risks.map(risk => `<div class="list-item">${risk}</div>`).join('')}
+          ${analysis.risks.map(risk => `<div class="list-item">${escapeHTML(risk)}</div>`).join('')}
         </div>
       </div>
       ` : ''}
@@ -231,7 +241,7 @@ class AIController {
           <span>Opportunities</span>
         </div>
         <div class="section-content">
-          ${analysis.opportunities.map(opp => `<div class="list-item opportunity">${opp}</div>`).join('')}
+          ${analysis.opportunities.map(opp => `<div class="list-item opportunity">${escapeHTML(opp)}</div>`).join('')}
         </div>
       </div>
       ` : ''}

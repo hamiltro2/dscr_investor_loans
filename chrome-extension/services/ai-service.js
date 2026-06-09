@@ -7,14 +7,12 @@
 class AIService {
   constructor() {
     // Load from config if available, otherwise use defaults
-    this.API_KEY = (typeof CONFIG !== 'undefined' && CONFIG.PERPLEXITY_API_KEY) 
-      || 'pplx-YOUR-API-KEY-HERE';
-    this.API_URL = 'https://api.perplexity.ai/chat/completions';
+    this.API_BASE_URL = (typeof CONFIG !== 'undefined' && CONFIG.API_BASE_URL) 
+      || 'https://www.capitalbridgesolutions.com';
+    this.API_URL = `${this.API_BASE_URL}/api/analyze-deal`;
     this.CACHE_DURATION = (typeof CONFIG !== 'undefined' && CONFIG.CACHE_DURATION_HOURS) 
       ? CONFIG.CACHE_DURATION_HOURS * 60 * 60 * 1000 
       : 24 * 60 * 60 * 1000;
-    this.MODEL = (typeof CONFIG !== 'undefined' && CONFIG.PERPLEXITY_MODEL) 
-      || 'sonar';
   }
 
   /**
@@ -37,12 +35,9 @@ class AIService {
         console.log('AI Service: Returning cached analysis');
         return cached;
       }
-
-      // Build AI prompt
-      const prompt = this._buildPrompt(propertyData);
       
-      // Call Perplexity API
-      const analysis = await this._callPerplexityAPI(prompt);
+      // Call backend API
+      const analysis = await this._callBackendAnalysisAPI(propertyData);
       
       // Parse and validate response
       const parsedAnalysis = this._parseAnalysis(analysis, propertyData);
@@ -58,119 +53,25 @@ class AIService {
   }
 
   /**
-   * Build the AI prompt
+   * Call Backend Analysis API
    * @private
    */
-  _buildPrompt(propertyData) {
-    const { price, address, beds, baths, sqft, propertyType, rent, hoaFees, propertyTax } = propertyData;
-    
-    return `You are a real estate investment analyst. Analyze this property for investment potential:
-
-Property Details:
-- Address: ${address}
-- Purchase Price: $${price.toLocaleString()}
-- Type: ${propertyType || 'Residential'}
-- Bedrooms: ${beds || 'N/A'}
-- Bathrooms: ${baths || 'N/A'}
-- Square Feet: ${sqft ? sqft.toLocaleString() : 'N/A'}
-${rent ? `- Listed Rent: $${rent.toLocaleString()}/month` : ''}
-${hoaFees ? `- HOA Fees: $${hoaFees.toLocaleString()}/month (ACTUAL from listing)` : ''}
-${propertyTax ? `- Annual Property Tax: $${propertyTax.toLocaleString()} (ACTUAL from listing)` : ''}
-
-Provide a detailed investment analysis in JSON format with:
-
-1. **expenses**: Monthly operating expenses breakdown
-   ${propertyTax ? `- propertyTax: ${Math.round(propertyTax / 12)} (MUST use this exact monthly value from listing)` : '- propertyTax: estimated monthly property tax'}
-   - insurance: estimated monthly insurance
-   ${hoaFees ? `- hoa: ${hoaFees} (MUST use this exact monthly value from listing)` : '- hoa: HOA fees (if applicable, or 0 if none)'}
-   - maintenance: monthly maintenance reserve
-   - vacancy: vacancy factor (5-10%)
-   - propertyManagement: property management fee
-   - total: sum of all expenses
-
-2. **rental**: Rental analysis
-   - estimatedRent: realistic monthly rent
-   - lowRange: conservative estimate
-   - highRange: optimistic estimate
-   - confidence: confidence level (low/medium/high)
-   - comparables: brief description of rental comps
-
-3. **financing**: Calculate DSCR loan financing (we specialize in DSCR loans)
-   - IMPORTANT: You MUST calculate actual numbers, not return null or undefined
-   - Purchase price: $${price.toLocaleString()}
-   - Calculate TWO scenarios:
-     a) 15% down at 5.99% interest: Loan = price * 0.85
-     b) 20% down at 5.99% interest: Loan = price * 0.80
-   - Monthly payment formula: M = P[r(1+r)^n]/[(1+r)^n-1] where r=0.0599/12, n=360
-   - DSCR = Monthly Rent / Monthly Payment
-   - Cash Flow = Monthly Rent - Monthly Payment - Total Expenses
-   - Choose the BEST scenario and return:
-     - loanType: "DSCR Loan" (string)
-     - downPayment: 15 or 20 (number, not percentage)
-     - interestRate: 5.99 (number)
-     - loanAmount: calculated loan amount (number)
-     - monthlyPayment: calculated P&I payment (number)
-     - dscr: calculated DSCR ratio (number, 2 decimals)
-     - cashFlow: calculated monthly cash flow (number)
-     - recommendation: brief explanation why this option is better (string)
-
-4. **score**: Investment quality score
-   - overall: score from 1-10
-   - rating: text rating (Avoid/Poor/Fair/Good/Strong/Excellent)
-   - rationale: 2-3 sentence explanation
-
-5. **risks**: Array of potential risks (max 3)
-
-6. **opportunities**: Array of value-add opportunities (max 3)
-
-CRITICAL: Return ONLY valid JSON with actual calculated numbers. Example structure:
-{
-  "expenses": {"propertyTax": 250, "insurance": 150, "hoa": 0, "maintenance": 100, "vacancy": 150, "propertyManagement": 120, "total": 770},
-  "rental": {"estimatedRent": 2500, "lowRange": 2300, "highRange": 2700, "confidence": "medium", "comparables": "Based on..."},
-  "financing": {"loanType": "DSCR Loan", "downPayment": 20, "interestRate": 5.99, "loanAmount": 320000, "monthlyPayment": 1900, "dscr": 1.32, "cashFlow": 830, "recommendation": "20% down..."},
-  "score": {"overall": 7, "rating": "Good", "rationale": "Solid..."},
-  "risks": ["Risk 1", "Risk 2"],
-  "opportunities": ["Opportunity 1"]
-}
-
-Return ONLY valid JSON, no markdown formatting.`;
-  }
-
-  /**
-   * Call Perplexity API
-   * @private
-   */
-  async _callPerplexityAPI(prompt) {
+  async _callBackendAnalysisAPI(propertyData) {
     const response = await fetch(this.API_URL, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${this.API_KEY}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        model: this.MODEL,
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a real estate investment analyst. Always respond with valid JSON only.'
-          },
-          {
-            role: 'user',
-            content: prompt
-          }
-        ],
-        temperature: 0.2,
-        max_tokens: 2000
-      })
+      body: JSON.stringify({ propertyData })
     });
 
     if (!response.ok) {
       const error = await response.json();
-      throw new Error(error.message || 'API request failed');
+      throw new Error(error.error || 'API request failed');
     }
 
     const data = await response.json();
-    return data.choices[0].message.content;
+    return data.result;
   }
 
   /**

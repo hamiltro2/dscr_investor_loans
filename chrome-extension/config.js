@@ -4,11 +4,10 @@
  */
 
 const CONFIG = {
-  // === AI ANALYSIS SETTINGS ===
+  // === API SETTINGS ===
+  API_BASE_URL: 'https://www.capitalbridgesolutions.com',
   
-  // Perplexity API Configuration
-  PERPLEXITY_API_KEY: 'pplx-YOUR-API-KEY-HERE', // REPLACE WITH YOUR KEY
-  PERPLEXITY_MODEL: 'sonar',
+  // === AI ANALYSIS SETTINGS ===
   
   // Free Tier Limits
   FREE_DAILY_LIMIT: 3, // Number of free AI analyses per day

@@ -530,7 +530,7 @@ function extractPropertyData() {
   // Realtor.com extraction
   else if (hostname.includes('realtor.com')) {
     // Price
-    const priceElement = document.querySelector('[data-label="property-meta-price"], .rui__sc-1ij6z0p-0');
+    const priceElement = document.querySelector('[data-label="property-meta-price"], div[class*="Price__price"], span[class*="Price__price"], [class*="price-value"]');
     if (priceElement) {
       propertyData.price = extractPrice(priceElement.textContent);
     }
