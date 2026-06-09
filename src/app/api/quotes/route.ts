@@ -78,6 +78,10 @@ export async function POST(req: NextRequest) {
     const dscrRatio = estimated_rent / monthlyPITIA;
 
     // Build the quote data structure
+    const rateMin = baseRate;
+    const rateMax = baseRate + 0.50;
+    const rateRangeStr = `${rateMin.toFixed(3)}% - ${rateMax.toFixed(3)}%`;
+
     const quotePayload = {
       property_type: property_type || 'SingleFamily',
       purchase_price,
@@ -86,7 +90,7 @@ export async function POST(req: NextRequest) {
       state: state || 'CA',
       is_short_term_rental: !!is_short_term_rental,
       loan_amount: Math.round(loanAmount),
-      estimated_rate: `${baseRate.toFixed(3)}%`,
+      estimated_rate: rateRangeStr,
       loan_to_value: `${Math.round(ltv * 100)}%`,
       dscr_ratio: parseFloat(dscrRatio.toFixed(3)),
     };
@@ -98,11 +102,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       status: 'qualified_conditional',
       quote_id: quoteId,
-      estimated_rate: `${baseRate.toFixed(3)}%`,
+      estimated_rate: rateRangeStr,
       loan_to_value: `${Math.round(ltv * 100)}%`,
       requires_w2: false,
       dscr_ratio: parseFloat(dscrRatio.toFixed(3)),
-      message: `This property cash-flows exceptionally well (DSCR: ${dscrRatio.toFixed(2)}). To issue an official Pre-Approval Letter and lock this ${baseRate.toFixed(3)}% rate for 48 hours, please provide the borrower's name, email, and mobile phone number.`,
+      message: `This property cash-flows conditional on guidelines (DSCR: ${dscrRatio.toFixed(2)}). To get a personalized quote range or start your pre-approval review, please provide the borrower's name, email, and mobile phone number to submit this scenario to our desk.`,
       action_required: {
         type: 'identification_handshake',
         endpoint: 'https://www.capitalbridgesolutions.com/api/quotes/lock',

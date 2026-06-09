@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
       email: borrower.email as string,
       productType: 'dscr',
       loanAmountRequested: quoteData.loan_amount || 300000,
-      notes: `A2A Gateway Quote Locked | Property type: ${quoteData.property_type || 'N/A'} | Price: $${quoteData.purchase_price || 'N/A'} | Rent: $${quoteData.estimated_rent || 'N/A'} | LTV: ${quoteData.loan_to_value || 'N/A'} | Credit Score FICO: ${quoteData.estimated_credit_score || 'N/A'} | State: ${quoteData.state || 'N/A'} | STR: ${quoteData.is_short_term_rental ? 'Yes' : 'No'}`,
+      notes: `A2A Gateway Quote Inquiry | Property type: ${quoteData.property_type || 'N/A'} | Price: $${quoteData.purchase_price || 'N/A'} | Rent: $${quoteData.estimated_rent || 'N/A'} | LTV: ${quoteData.loan_to_value || 'N/A'} | Credit Score FICO: ${quoteData.estimated_credit_score || 'N/A'} | State: ${quoteData.state || 'N/A'} | STR: ${quoteData.is_short_term_rental ? 'Yes' : 'No'}`,
       consentGiven: true,
       channel: 'a2a_gateway',
     };
@@ -111,7 +111,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       status: 'pending_review',
-      message: `Your rate lock request for ${quoteData.estimated_rate || 'the estimated rate'} has been submitted successfully. A Capital Bridge Solutions lending officer is reviewing your scenario and will contact you directly at ${borrower.email} or ${borrower.phone} to confirm the lock and issue your pre-approval.`,
+      message: `Your loan quote inquiry has been submitted successfully. A Capital Bridge Solutions lending officer is reviewing your scenario and will contact you directly at ${borrower.email} or ${borrower.phone} to discuss customized rate ranges, loan options, and pre-approval requirements.`,
     });
 
   } catch (error) {
