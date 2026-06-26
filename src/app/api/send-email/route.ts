@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jubvoulgtndbgsipyfgt.supabase.co';
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || 'dummy-key-for-build-stage';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 function generateCuid(): string {

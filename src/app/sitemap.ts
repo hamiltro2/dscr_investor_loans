@@ -72,6 +72,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/blog/case-study-10-property-portfolio',
     '/blog/capital-bridge-vs-kiavi-vs-angeloak',
     '/blog/best-dscr-lenders-2026',
+    '/blog/best-no-doc-loans-lenders-comparison',
     // AI-Optimized FAQ Pages
     '/ai-faq/what-is-a-dscr-loan',
     '/ai-faq/dscr-loan-requirements',
