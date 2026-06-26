@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { trackFormSubmission } from '@/utils/applovin';
 
 // Declare gtag for TypeScript
@@ -21,6 +21,16 @@ export function HeroLeadForm() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const offerParam = params.get('offer');
+      if (offerParam && offerParam.toLowerCase() === 'secondmortgage') {
+        setFormData(prev => ({ ...prev, loanType: 'Second Mortgage' }));
+      }
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -129,6 +139,7 @@ export function HeroLeadForm() {
           >
             <option value="" className="text-gray-400">Select Loan Type</option>
             <option value="DSCR Loan">DSCR Loan</option>
+            <option value="Second Mortgage">Second Mortgage</option>
             <option value="Hard Money Loan">Hard Money Loan</option>
             <option value="Refinance out of Balloon Note">Refinance / Balloon Note</option>
             <option value="Ground Up Construction Loans">Construction Loan</option>

@@ -223,6 +223,19 @@ export default function BestLendersSelfEmployedBadCreditPage() {
     }
   ];
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': faqs.map((faq) => ({
+      '@type': 'Question',
+      'name': faq.q,
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': faq.a
+      }
+    }))
+  };
+
   return (
     <>
       <ArticleSchema
@@ -233,6 +246,10 @@ export default function BestLendersSelfEmployedBadCreditPage() {
         author="Capital Bridge Solutions"
         image="/Self-employed-DSCR_loans.png"
         url="https://www.capitalbridgesolutions.com/blog/best-lenders-self-employed-bad-credit"
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       <article className="min-h-screen bg-gradient-to-b from-dark-950 to-dark-900 text-gray-100">

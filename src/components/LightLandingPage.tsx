@@ -1,6 +1,7 @@
 'use client';
 
-import { Zap, TrendingDown, Users, CheckCircle2, ShieldCheck, Clock, TrendingUp, Building2, HardHat, BarChart3 } from 'lucide-react';
+import { useState } from 'react';
+import { Zap, TrendingDown, Users, CheckCircle2, ShieldCheck, Clock, TrendingUp, Building2, HardHat, BarChart3, ChevronDown, ChevronUp } from 'lucide-react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { DynamicHeroHeadline } from '@/components/DynamicHeroHeadline';
@@ -17,6 +18,43 @@ const MultiStepForm = dynamic(
 );
 
 export function LightLandingPage() {
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  const landingFaqs = [
+    {
+      q: "How do I qualify for a DSCR loan?",
+      a: "To qualify for a DSCR loan, the primary requirement is that the property's rental income must equal or exceed its monthly debt obligations (mortgage payment, property tax, insurance, and HOA fees). This corresponds to a Debt Service Coverage Ratio (DSCR) of 1.0 or higher. You will also need a minimum credit score of 620 and a down payment starting at 15-20%."
+    },
+    {
+      q: "What are the starting rates and upfront points?",
+      a: "Our DSCR rates start as low as 5.5% for well-qualified borrowers. Additionally, for loans over $450,000, our upfront points are only 0.75%, helping real estate investors save thousands on transaction fees compared to typical lenders who charge 2-3% in points."
+    },
+    {
+      q: "Is personal income verification required?",
+      a: "No. Because our underwriting is asset-based, we do not require tax returns, W-2s, paystubs, or employment verification. This is ideal for self-employed real estate investors, 1099 contractors, and those who write off business expenses."
+    },
+    {
+      q: "How fast can Capital Bridge Solutions close a loan?",
+      a: "We provide pre-approvals within 24-48 hours. Our streamlined, digital processing allows us to close loans in an average of 10 business days—significantly faster than traditional banks, which average 30 to 45 days."
+    }
+  ];
+
+  const toggleFaq = (index: number) => {
+    setOpenFaqIndex(openFaqIndex === index ? null : index);
+  };
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': landingFaqs.map((faq) => ({
+      '@type': 'Question',
+      'name': faq.q,
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': faq.a
+      }
+    }))
+  };
   return (
     <main className="min-h-screen bg-dark-950 text-white font-sans selection:bg-emerald-800 selection:text-white">
       {/* Navigation */}
@@ -166,6 +204,45 @@ export function LightLandingPage() {
                     <div className="text-sm uppercase tracking-wider text-dark-300 font-bold">Portfolio Limits</div>
                 </div>
             </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 bg-dark-950 border-t border-white/5">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-6">Frequently Asked Questions</h2>
+            <p className="text-dark-200 text-lg md:text-xl">Common questions about our investment property loan programs</p>
+          </div>
+
+          <div className="max-w-4xl mx-auto space-y-4">
+            {landingFaqs.map((faq, index) => (
+              <div
+                key={index}
+                className="bg-dark-900/50 rounded-xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-emerald-500/30"
+              >
+                <button
+                  onClick={() => toggleFaq(index)}
+                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 transition-colors duration-300 hover:bg-dark-900/70"
+                  aria-expanded={openFaqIndex === index}
+                >
+                  <h3 className="text-lg font-semibold text-white pr-4">{faq.q}</h3>
+                  <span className="flex-shrink-0 text-emerald-400">
+                    {openFaqIndex === index ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                  </span>
+                </button>
+                <div className={`transition-all duration-300 ease-in-out ${openFaqIndex === index ? 'max-h-96' : 'max-h-0'} overflow-hidden`}>
+                  <div className="px-6 pb-5">
+                    <p className="text-gray-300 leading-relaxed">{faq.a}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

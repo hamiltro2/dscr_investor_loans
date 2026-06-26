@@ -71,3 +71,5 @@ gcp-credentials.json
 
 .env*.local
 .env.production
+.env.vercel
+.env.vercel.pulled

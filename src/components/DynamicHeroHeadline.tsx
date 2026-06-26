@@ -58,6 +58,22 @@ function HeadlineContent() {
     );
   }
 
+  if (offer === 'secondmortgage') {
+    return (
+      <h1 className="title-glow font-display text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-none mb-4 animate-[fadeIn_0.5s_ease-in-out]">
+        <span className="block text-white font-light text-xl sm:text-2xl uppercase tracking-[0.2em] mb-4 opacity-80">
+          Home Equity 2nd Mortgages
+        </span>
+        <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300 pb-2">
+          Up To $1,000,000 Limit
+        </span>
+        <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 -mt-2 pb-4">
+          30-Yr Fixed / 10-Yr Interest Only
+        </span>
+      </h1>
+    );
+  }
+
   // Dynamic Keyword Injection Design
   if (keyword) {
     return (

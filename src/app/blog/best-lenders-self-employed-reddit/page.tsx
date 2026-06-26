@@ -122,6 +122,19 @@ export default function BestLendersSelfEmployedRedditPage() {
     }
   ];
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': redditFAQs.map((faq) => ({
+      '@type': 'Question',
+      'name': faq.q,
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': faq.a
+      }
+    }))
+  };
+
   return (
     <>
       <ArticleSchema
@@ -132,6 +145,10 @@ export default function BestLendersSelfEmployedRedditPage() {
         author="Capital Bridge Solutions"
         image="/Self-employed-DSCR_loans.png"
         url="https://www.capitalbridgesolutions.com/blog/best-lenders-self-employed-reddit"
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       <article className="min-h-screen bg-gradient-to-b from-dark-950 to-dark-900 text-gray-100">

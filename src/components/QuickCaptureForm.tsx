@@ -18,8 +18,16 @@ export function QuickCaptureForm() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState('');
   const [investorCount, setInvestorCount] = useState(3);
+  const [offer, setOffer] = useState('');
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const offerParam = params.get('offer');
+      if (offerParam) {
+        setOffer(offerParam.toLowerCase());
+      }
+    }
     const getBaseCount = () => {
       const hour = new Date().getHours();
       if (hour < 8) return 1;
@@ -65,9 +73,11 @@ export function QuickCaptureForm() {
             name,
             email,
             phone,
-            loanType: 'DSCR Loan',
-            source: 'Quick Capture Form (Mid-Page CTA)',
-            message: 'Lead submitted via inline quick-capture form — high intent, responded to "60 Second Rate Quote" CTA.'
+            loanType: offer === 'secondmortgage' ? 'Second Mortgage' : 'DSCR Loan',
+            source: offer === 'secondmortgage' ? 'Quick Capture Form (2nd Mortgage Offer)' : 'Quick Capture Form (Mid-Page CTA)',
+            message: offer === 'secondmortgage'
+              ? 'Lead submitted via inline quick-capture form for California 2nd Mortgages — high intent.'
+              : 'Lead submitted via inline quick-capture form — high intent, responded to "60 Second Rate Quote" CTA.'
           }
         }),
         signal: controller.signal

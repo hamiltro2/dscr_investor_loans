@@ -55,6 +55,13 @@ export function MultiStepForm() {
 
   useEffect(() => {
     setIsClient(true);
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const offerParam = params.get('offer');
+      if (offerParam && offerParam.toLowerCase() === 'secondmortgage') {
+        setFormData(prev => ({ ...prev, loanType: 'Second Mortgage' }));
+      }
+    }
   }, []);
 
   const isStepComplete = (step: number) => {
@@ -294,6 +301,7 @@ export function MultiStepForm() {
                   <div className="grid gap-2">
                     {[
                       'DSCR Loan',
+                      'Second Mortgage',
                       'Hard Money Loan',
                       'Refinance out of Balloon Note',
                       'Ground Up Construction Loans',

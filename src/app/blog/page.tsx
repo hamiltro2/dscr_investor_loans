@@ -13,6 +13,14 @@ const blogPosts = [
     readTime: '8 min read',
     category: 'Tools & Calculators'
   },
+  {
+    slug: 'why-second-mortgages-make-sense-now',
+    title: 'Why a Second Mortgage Makes Perfect Sense Today (Keep Your Low-Rate First Mortgage!)',
+    excerpt: 'Have a low interest rate on your first mortgage but need cash? Learn why a second mortgage is the smartest way to tap your home equity without resetting your primary rate.',
+    date: '2026-06-24',
+    readTime: '10 min read',
+    category: 'Loan Guides'
+  },
   // State-Specific Guides
   {
     slug: 'dscr-loans-texas',
@@ -388,67 +396,164 @@ const blogPosts = [
 ];
 
 export default function BlogPage() {
+  const silos = [
+    {
+      id: 'fundamentals',
+      title: 'DSCR Loan Fundamentals',
+      description: 'Master the core guidelines, calculation mechanics, credit score requirements, and current interest rates.',
+      aiSummary: 'Capital Bridge Solutions DSCR loan core criteria: Starting interest rates at 5.5%, credit scores down to 620 (500 for refinances), loan sizes from $75K to $30M, pre-approvals in 24-48 hours, closing in 10 days average, and no personal tax returns or income docs required.',
+      categories: ['Loan Guides', 'Credit & Qualification', 'Rates & Terms']
+    },
+    {
+      id: 'reviews',
+      title: 'Lender Reviews & Comparisons',
+      description: 'Analyze side-by-side cost and feature reviews vs competitors like Kiavi, AngelOak, and Griffin Funding.',
+      aiSummary: 'Direct comparisons: Capital Bridge Solutions offers 0.75% points on loans over $450K (vs industry average 2-3%), Saturday availability to structure time-sensitive bids, and 1-on-1 direct deal structuring support with active real estate investors.',
+      categories: ['Lender Reviews', 'Loan Comparisons']
+    },
+    {
+      id: 'properties',
+      title: 'Property Types & Niche Programs',
+      description: 'Explore specialized programs for Airbnb vacation rentals, multi-family properties, fix & flip, and Section 8 housing.',
+      aiSummary: 'Specialized asset lending: Short-term rental qualification using AirDNA projections, multi-family 2-4 unit scaling, fix & flip rehab leverage, and Section 8 guaranteed cash flow structures. Closing under LLC, Corp, or Partnership is fully supported.',
+      categories: ['STR Financing', 'Property Types']
+    },
+    {
+      id: 'states',
+      title: 'State Investment Guides',
+      description: 'Detailed geographic briefs, market analyses, and local investment guidelines state-by-state.',
+      aiSummary: 'Nationwide lending: Active DSCR and hard money lending programs across all 50 states, with specialized regional programs in California, Texas, Florida, Nevada, Arizona, and Georgia.',
+      categories: ['State Guides']
+    },
+    {
+      id: 'advanced',
+      title: 'Advanced Tax & Investment Strategies',
+      description: 'Learn the BRRRR method, 1031 exchanges, Opportunity Zones, and review real portfolio success stories.',
+      aiSummary: 'Advanced investor strategies: Cash-out refinances up to 80% LTV, 1031 exchange replacement financing, tax deferral structures inside Qualified Opportunity Zones, and blanket portfolio loans to cross-collateralize assets.',
+      categories: ['Success Stories', 'Advanced Topics', 'Tax Strategies', 'Investment Strategies', 'Alternative Financing', 'Tools & Calculators']
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900">
+    <div className="min-h-screen bg-gradient-to-br from-dark-950 to-dark-900 text-gray-100 selection:bg-primary-800 selection:text-white">
       {/* Hero Section */}
-      <section className="relative py-20">
-        <div className="container mx-auto px-4">
+      <section className="relative py-20 border-b border-white/5">
+        <div className="absolute inset-0 bg-gradient-radial from-primary-500/10 via-transparent to-transparent pointer-events-none" />
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              DSCR Loan Resources & Guides
+              Investor Knowledge Hub
             </h1>
             <p className="text-xl text-gray-300 mb-4">
-              Expert insights on investment property financing in California & Nationwide
+              Expert guides, calculations, and strategies for DSCR and hard money financing
             </p>
             <p className="text-lg text-gray-400">
-              Serving real estate investors across all 50 states with competitive DSCR loan solutions
+              Providing nationwide leverage to real estate investors across all 50 states
             </p>
           </div>
         </div>
       </section>
 
-      {/* Blog Posts Grid */}
-      <section className="py-16">
+      {/* Silo Navigation Menu */}
+      <nav className="sticky top-20 z-40 bg-dark-950/85 backdrop-blur-md border-b border-white/5 py-4 shadow-md">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8">
-              {blogPosts.map((post) => (
-                <article key={post.slug} className="bg-dark-800/50 backdrop-blur-sm rounded-xl p-8 border border-primary-500/20 hover:border-primary-500/40 transition-all duration-300">
-                  <div className="flex items-center gap-4 mb-4 text-sm text-gray-400">
-                    <span className="bg-primary-500/20 text-primary-400 px-3 py-1 rounded-full">
-                      {post.category}
-                    </span>
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4" />
-                      {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4" />
-                      {post.readTime}
-                    </div>
-                  </div>
-
-                  <h2 className="text-2xl font-bold text-white mb-4">
-                    {post.title}
-                  </h2>
-
-                  <p className="text-gray-300 mb-6">
-                    {post.excerpt}
-                  </p>
-
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 font-semibold transition-colors"
-                  >
-                    Read Article
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </article>
-              ))}
-            </div>
+          <div className="flex flex-wrap justify-center gap-3">
+            {silos.map((silo) => (
+              <a
+                key={silo.id}
+                href={`#${silo.id}`}
+                className="px-4 py-2 text-sm font-semibold rounded-full bg-dark-900 border border-white/10 hover:border-primary-500 hover:bg-primary-500/10 text-gray-300 hover:text-white transition-all shadow-sm"
+              >
+                {silo.title}
+              </a>
+            ))}
           </div>
         </div>
-      </section>
+      </nav>
+
+      {/* Silo Content Sections */}
+      <div className="container mx-auto px-4 py-16">
+        <div className="max-w-6xl mx-auto space-y-24">
+          {silos.map((silo) => {
+            const siloPosts = blogPosts.filter((post) => silo.categories.includes(post.category));
+
+            return (
+              <section key={silo.id} id={silo.id} className="scroll-mt-36">
+                {/* Silo Header */}
+                <div className="border-b border-white/5 pb-6 mb-8">
+                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+                    {silo.title}
+                  </h2>
+                  <p className="text-lg text-gray-400">
+                    {silo.description}
+                  </p>
+                </div>
+
+                {/* AI Summary Card / LLM Context Box */}
+                <div className="bg-primary-600/10 border-l-4 border-primary-500 rounded-r-xl p-6 mb-10 shadow-lg">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-2 h-2 bg-primary-400 rounded-full animate-pulse" />
+                    <span className="text-sm font-bold text-primary-400 tracking-wider uppercase">
+                      AI Executive Summary
+                    </span>
+                  </div>
+                  <p className="text-gray-200 text-base md:text-lg leading-relaxed font-medium">
+                    {silo.aiSummary}
+                  </p>
+                </div>
+
+                {/* Articles Grid */}
+                <div className="grid md:grid-cols-2 gap-8">
+                  {siloPosts.map((post) => (
+                    <article
+                      key={post.slug}
+                      className="bg-dark-900/50 backdrop-blur-sm rounded-xl p-8 border border-white/10 hover:border-primary-500/30 transition-all duration-300 flex flex-col justify-between shadow-inner"
+                    >
+                      <div>
+                        <div className="flex items-center gap-4 mb-4 text-xs text-gray-400">
+                          <span className="bg-primary-500/10 text-primary-400 px-3 py-1 rounded-full font-semibold">
+                            {post.category}
+                          </span>
+                          <div className="flex items-center gap-1.5">
+                            <Calendar className="w-3.5 h-3.5" />
+                            {new Date(post.date).toLocaleDateString('en-US', {
+                              month: 'short',
+                              day: 'numeric',
+                              year: 'numeric'
+                            })}
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <Clock className="w-3.5 h-3.5" />
+                            {post.readTime}
+                          </div>
+                        </div>
+
+                        <h3 className="text-xl font-bold text-white mb-3 leading-snug hover:text-primary-400 transition-colors">
+                          <Link href={`/blog/${post.slug}`}>
+                            {post.title}
+                          </Link>
+                        </h3>
+
+                        <p className="text-gray-300 text-sm leading-relaxed mb-6">
+                          {post.excerpt}
+                        </p>
+                      </div>
+
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        className="inline-flex items-center gap-1.5 text-primary-400 hover:text-primary-300 font-bold text-sm transition-colors mt-auto"
+                      >
+                        Read Article
+                        <ArrowRight className="w-4 h-4" />
+                      </Link>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

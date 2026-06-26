@@ -1,5 +1,19 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jubvoulgtndbgsipyfgt.supabase.co';
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+function generateCuid(): string {
+  // A standard cuid is: 'c' + timestamp (base36, 8 chars) + counter (base36, 4 chars) + fingerprint (base36, 4 chars) + random (base36, 8 chars)
+  const timestamp = Date.now().toString(36).padStart(8, '0');
+  const counter = Math.floor(Math.random() * 1679616).toString(36).padStart(4, '0'); // 1679616 = 36^4
+  const fingerprint = 'cbs1';
+  const random = Math.floor(Math.random() * 2821109907456).toString(36).padStart(8, '0'); // 2821109907456 = 36^8
+  return `c${timestamp}${counter}${fingerprint}${random}`.substring(0, 25);
+}
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -112,6 +126,89 @@ function getEmailContent(formType: string, data: any): string {
   }
 }
 
+function mapToProductType(loanType?: string): string {
+  if (!loanType) return 'dscr';
+  const normalized = loanType.toLowerCase();
+  if (normalized.includes('dscr')) return 'dscr';
+  if (normalized.includes('fix') || normalized.includes('flip')) return 'fix_flip';
+  if (normalized.includes('refi') || normalized.includes('refinance')) return 'balloon_refi';
+  if (normalized.includes('note')) return 'note_finance';
+  return 'hard_money';
+}
+
+function getLeadData(formType: string, data: any) {
+  const baseData = {
+    name: data.name || 'Unknown',
+    email: data.email || 'unknown@example.com',
+    phone: data.phone || '',
+    channel: formType === 'extension' ? 'extension' : 'web',
+  };
+
+  switch (formType) {
+    case 'loan': {
+      const loanAmount = data.loanAmount ? parseFloat(data.loanAmount.toString().replace(/[^0-9.]/g, '')) : null;
+      return {
+        ...baseData,
+        productType: mapToProductType(data.loanType),
+        propertyType: data.propertyType || null,
+        loanAmountRequested: loanAmount ? Number(loanAmount) : null,
+        notes: `Loan Application. Credit Score: ${data.creditScore || 'N/A'}. Employment Type: ${data.employmentType || 'N/A'}.${data.message ? ` Message: ${data.message}` : ''}`,
+      };
+    }
+    case 'dscr': {
+      const propertyValue = data.propertyValue ? parseFloat(data.propertyValue.toString().replace(/[^0-9.]/g, '')) : null;
+      const monthlyRent = data.monthlyRent ? parseFloat(data.monthlyRent.toString().replace(/[^0-9.]/g, '')) : null;
+      const monthlyExpenses = data.monthlyExpenses ? parseFloat(data.monthlyExpenses.toString().replace(/[^0-9.]/g, '')) : null;
+      return {
+        ...baseData,
+        productType: 'dscr',
+        rentalIncome: monthlyRent ? Number(monthlyRent) : null,
+        dscrInputs: {
+          propertyValue: propertyValue || null,
+          monthlyExpenses: monthlyExpenses || null,
+          dscrRatio: data.dscrRatio || null,
+        },
+        notes: `DSCR Calculator Inquiry. Property Value: $${data.propertyValue || 'N/A'}. Monthly Rent: $${data.monthlyRent || 'N/A'}. Monthly Expenses: $${data.monthlyExpenses || 'N/A'}. DSCR Ratio: ${data.dscrRatio || 'N/A'}.`,
+      };
+    }
+    case 'credit':
+      return {
+        ...baseData,
+        productType: 'hard_money',
+        notes: `Credit Solutions Inquiry. Credit Score Range: ${data.creditScore || 'N/A'}. Message: ${data.message || 'N/A'}`,
+      };
+    case 'consultation':
+      return {
+        ...baseData,
+        productType: 'hard_money',
+        notes: `Consultation Request. Service Type: ${data.serviceType || 'N/A'}. Preferred Time: ${data.preferredTime || 'N/A'}. Message: ${data.message || 'N/A'}`,
+      };
+    case 'extension': {
+      const price = data.propertyPrice ? parseFloat(data.propertyPrice.toString().replace(/[^0-9.]/g, '')) : null;
+      return {
+        ...baseData,
+        productType: 'dscr',
+        address: data.propertyAddress || null,
+        loanAmountRequested: price ? Number(price) : null,
+        notes: `Chrome Extension Request. Address: ${data.propertyAddress || 'N/A'}. Price: ${data.propertyPrice || 'N/A'}. Beds/Baths: ${data.propertyBeds || 'N/A'}/${data.propertyBaths || 'N/A'}. Sqft: ${data.propertySqft || 'N/A'}. Estimated Rent: ${data.estimatedRent || 'N/A'}. HOA: ${data.hoaFees || 'N/A'}. Tax: ${data.propertyTax || 'N/A'}. Source: ${data.source || 'N/A'}`,
+      };
+    }
+    case 'quick-capture':
+      return {
+        ...baseData,
+        channel: 'web_quick',
+        productType: mapToProductType(data.loanType),
+        notes: `Quick Lead Capture. Source: ${data.source || 'N/A'}. Message: ${data.message || 'N/A'}`,
+      };
+    default:
+      return {
+        ...baseData,
+        productType: 'hard_money',
+        notes: `Inquiry of type ${formType}. Data: ${JSON.stringify(data)}`,
+      };
+  }
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -119,6 +216,73 @@ export async function POST(request: Request) {
     const recipients = process.env.SMTP_TO?.split(',') || [];
     const htmlContent = getEmailContent(formType, data);
     const subject = getEmailSubject(formType, data);
+
+    // Persist lead to database with try-catch block for graceful fallback
+    try {
+      const leadData = getLeadData(formType, data);
+      let leadId = null;
+      let existingLead = null;
+
+      if (leadData.email || leadData.phone) {
+        const orConditions = [];
+        if (leadData.email) orConditions.push(`email.eq.${leadData.email}`);
+        if (leadData.phone) orConditions.push(`phone.eq.${leadData.phone}`);
+
+        const { data: existingLeads, error: selectError } = await supabase
+          .from('Lead')
+          .select('*')
+          .or(orConditions.join(','))
+          .order('createdAt', { ascending: false })
+          .limit(1);
+
+        if (selectError) {
+          console.error('Database query error:', selectError.message, selectError.details);
+        } else if (existingLeads && existingLeads.length > 0) {
+          existingLead = existingLeads[0];
+          leadId = existingLead.id;
+        }
+      }
+
+      if (leadId && existingLead) {
+        const notes = existingLead.notes 
+          ? `${existingLead.notes}\n\n[Update ${new Date().toISOString()}]: ${leadData.notes}` 
+          : leadData.notes;
+          
+        const { error: updateError } = await supabase
+          .from('Lead')
+          .update({
+            ...leadData,
+            notes,
+            updatedAt: new Date().toISOString()
+          })
+          .eq('id', leadId);
+          
+        if (updateError) {
+          console.error('Database update error:', updateError.message, updateError.details);
+        } else {
+          console.log('Database: Updated existing lead via REST', leadId);
+        }
+      } else {
+        const generatedId = generateCuid();
+        const { data: newLead, error: insertError } = await supabase
+          .from('Lead')
+          .insert([{
+            id: generatedId,
+            ...leadData,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          }])
+          .select();
+          
+        if (insertError) {
+          console.error('Database insert error:', insertError.message, insertError.details);
+        } else if (newLead && newLead.length > 0) {
+          console.log('Database: Created new lead via REST', newLead[0].id);
+        }
+      }
+    } catch (dbError) {
+      console.error('Failed to log lead to database (falling back gracefully to SMTP):', dbError);
+    }
 
     // Send email and wait for confirmation
     try {

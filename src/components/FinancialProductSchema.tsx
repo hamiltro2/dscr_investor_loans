@@ -33,15 +33,15 @@ export default function FinancialProductSchema() {
           '@type': 'Offer',
           'priceSpecification': {
             '@type': 'UnitPriceSpecification',
-            'price': '5.99',
+            'price': '5.50',
             'priceCurrency': 'USD',
             'unitText': 'percent interest rate starting'
           }
         },
-        'feesAndCommissionsSpecification': 'Starting rates from 5.99% interest. Minimum credit score of 620 required, with flexible options down to 580 with compensating factors. Down payments start at 20% on purchases.',
+        'feesAndCommissionsSpecification': 'Starting rates from 5.50% interest. Minimum credit score of 620 required, with flexible options down to 500 on refinances. Down payments start at 15-20% on purchases.',
         'interestRate': {
           '@type': 'QuantitativeValue',
-          'minValue': 5.99,
+          'minValue': 5.50,
           'unitText': 'Percent'
         }
       },
