@@ -44,10 +44,33 @@ function extractContentFromFile(filePath: string): string | null {
       return htmlToText(match[1]);
     }
     
-    // Fallback: extract from return statement
-    const returnMatch = content.match(/return\s*\(([\s\S]*?)\);?\s*}/);
-    if (returnMatch) {
-      return htmlToText(returnMatch[1]);
+    // Fallback: extract from return statement using parenthesis matching
+    const returnIdx = content.indexOf('return (');
+    if (returnIdx !== -1) {
+      const startIdx = returnIdx + 8; // length of 'return ('
+      let bracketCount = 1;
+      let endIdx = startIdx;
+      
+      while (bracketCount > 0 && endIdx < content.length) {
+        const char = content[endIdx];
+        if (char === '(') {
+          bracketCount++;
+        } else if (char === ')') {
+          bracketCount--;
+        }
+        endIdx++;
+      }
+      
+      if (bracketCount === 0) {
+        const jsxContent = content.substring(startIdx, endIdx - 1);
+        return htmlToText(jsxContent);
+      }
+    }
+    
+    // Direct return match without parens fallback
+    const directReturnMatch = content.match(/return\s+([\s\S]*?);?\s*}/);
+    if (directReturnMatch) {
+      return htmlToText(directReturnMatch[1]);
     }
     
     return null;
@@ -87,15 +110,18 @@ async function buildKnowledgeBase() {
   
   // Process each blog article
   for (const article of BLOG_ARTICLES) {
-    const articleDir = join(blogDir, article.slug);
-    const pagePath = join(articleDir, 'page.tsx');
+    // Cast to any to access customPath/customUrl properties
+    const art = article as any;
+    const pagePath = art.customPath 
+      ? join(process.cwd(), art.customPath)
+      : join(blogDir, art.slug, 'page.tsx');
     
     if (!existsSync(pagePath)) {
-      console.warn(`⚠️  Article not found: ${article.slug}`);
+      console.warn(`⚠️  Article/Page not found: ${pagePath}`);
       continue;
     }
     
-    console.log(`📄 Processing: ${article.title}`);
+    console.log(`📄 Processing: ${art.title} (${pagePath})`);
     
     // Extract content
     const content = extractContentFromFile(pagePath);
@@ -108,16 +134,20 @@ async function buildKnowledgeBase() {
     const chunks = chunkContent(content);
     console.log(`   ✓ Extracted ${chunks.length} chunk(s)`);
     
+    const articleUrl = art.customUrl
+      ? art.customUrl
+      : `https://www.capitalbridgesolutions.com/blog/${art.slug}`;
+    
     // Create knowledge chunks
     chunks.forEach((chunk, index) => {
       knowledgeChunks.push({
-        id: `${article.slug}-${index}`,
+        id: `${art.slug}-${index}`,
         content: chunk,
-        title: article.title,
-        url: `https://www.capitalbridgesolutions.com/blog/${article.slug}`,
-        category: article.category,
+        title: art.title,
+        url: articleUrl,
+        category: art.category,
         metadata: {
-          keywords: article.keywords,
+          keywords: art.keywords,
           chunkIndex: index,
           totalChunks: chunks.length,
         },

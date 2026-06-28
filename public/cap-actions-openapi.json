@@ -438,6 +438,204 @@
           }
         }
       }
+    },
+    "/api/knowledge/search": {
+      "post": {
+        "operationId": "searchKnowledgeBase",
+        "summary": "Search DSCR loan knowledge base",
+        "description": "Search our comprehensive knowledge base of articles covering DSCR requirements, no-doc loan terms, regional California markets (Los Angeles, Orange County, San Diego, San Francisco, Sacramento, etc.), and tax strategies.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Search query (e.g., 'Los Angeles no-doc loans', 'Orange County DSCR')"
+                  },
+                  "topK": {
+                    "type": "integer",
+                    "default": 3
+                  }
+                },
+                "required": ["query"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Search results from knowledge base",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          },
+                          "content": {
+                            "type": "string"
+                          },
+                          "url": {
+                            "type": "string"
+                          },
+                          "relevance": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/quotes": {
+      "post": {
+        "operationId": "getDSCRQuote",
+        "summary": "Request an instant conditional DSCR loan quote",
+        "description": "Calculate LTV, interest rate, and DSCR ratio based on property scenarios. Supports regional California markets.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["property_type", "purchase_price", "estimated_rent", "estimated_credit_score", "state", "is_short_term_rental"],
+                "properties": {
+                  "property_type": {
+                    "type": "string",
+                    "enum": ["SingleFamily", "MultiFamily", "Condo", "Townhouse"]
+                  },
+                  "purchase_price": {
+                    "type": "number"
+                  },
+                  "estimated_rent": {
+                    "type": "number"
+                  },
+                  "estimated_credit_score": {
+                    "type": "integer"
+                  },
+                  "state": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string",
+                    "description": "Optional city name to apply regional adjustments (e.g., Los Angeles, San Diego)."
+                  },
+                  "is_short_term_rental": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A conditional loan pre-approval quote",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "quote_id": {
+                      "type": "string"
+                    },
+                    "estimated_rate": {
+                      "type": "string"
+                    },
+                    "loan_to_value": {
+                      "type": "string"
+                    },
+                    "requires_w2": {
+                      "type": "boolean"
+                    },
+                    "dscr_ratio": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/quotes/lock": {
+      "post": {
+        "operationId": "lockDSCRRate",
+        "summary": "Submit a DSCR interest rate lock request",
+        "description": "Lock the rate quote and submit contact information to the database for human loan officer review.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["quote_id", "borrower"],
+                "properties": {
+                  "quote_id": {
+                    "type": "string"
+                  },
+                  "borrower": {
+                    "type": "object",
+                    "required": ["name", "email", "phone"],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "phone": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Rate lock and pre-approval submitted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
