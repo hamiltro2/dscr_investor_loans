@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/locations',
     '/locations/california',
     '/locations/california/dscr-loans',
+    '/locations/california/no-doc-loans',
     '/locations/california/los-angeles',
     '/locations/california/san-diego',
     '/locations/california/san-francisco',
@@ -73,6 +74,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/blog/capital-bridge-vs-kiavi-vs-angeloak',
     '/blog/best-dscr-lenders-2026',
     '/blog/best-no-doc-loans-lenders-comparison',
+    '/blog/why-second-mortgages-make-sense-now',
+    '/blog/section-8-rental-property-financing',
+    '/blog/self-storage-commercial-dscr-financing',
+    '/blog/mixed-use-property-dscr-loans',
+    '/blog/brrrr-method-financing',
+    '/blog/house-hacking-investment-strategies',
+    '/blog/syndication-group-investing-guide',
+    '/blog/foreign-national-advanced-strategies',
+    '/blog/non-recourse-dscr-loans-guide',
+    '/blog/1031-exchange-financing-strategies',
+    '/blog/opportunity-zone-investing-guide',
+    '/blog/creative-financing-strategies',
+    '/blog/land-acquisition-development-financing',
+    '/blog/dscr-loan-prepayment-penalties-guide',
     // AI-Optimized FAQ Pages
     '/ai-faq/what-is-a-dscr-loan',
     '/ai-faq/dscr-loan-requirements',
@@ -83,6 +98,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Define AI guidance files with custom priorities
   const aiFiles = [
+    { path: '/ai.json', priority: 0.95 },
+    { path: '/identity.json', priority: 0.95 },
+    { path: '/llms.txt', priority: 0.95 },
     { path: '/llm-guidance.json', priority: 0.9 },
     { path: '/llm.txt', priority: 0.9 },
     { path: '/cap-ai-guide.txt', priority: 0.9 },

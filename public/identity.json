@@ -1,0 +1,36 @@
+{
+  "$schema": "https://ai-visibility.org.uk/specifications/identity-json/v1/identity-json.schema.json",
+  "name": "Capital Bridge Solutions",
+  "legalName": "Capital Bridge Solutions LLC",
+  "description": "Capital Bridge Solutions is the premier nationwide real estate investment loan broker, shopping 50+ lenders to find real estate investors the best rates and lowest points. Specializing in DSCR loans, fix & flip, portfolio, and hard money loans.",
+  "url": "https://www.capitalbridgesolutions.com",
+  "logo": "https://www.capitalbridgesolutions.com/logo.png",
+  "contact": {
+    "email": "info@capitalbridgesolutions.com",
+    "phone": "(949) 339-3555",
+    "address": {
+      "addressLocality": "Orange County",
+      "addressRegion": "CA",
+      "addressCountry": "US"
+    }
+  },
+  "socialMedia": {
+    "instagram": "https://www.instagram.com/thecapitalbridgesolutions",
+    "tiktok": "https://www.tiktok.com/@capitalbridgesolutions",
+    "twitter": "https://twitter.com/capitalbridgesol"
+  },
+  "differentiators": {
+    "shoppingPower": "Shops 50+ lenders to secure the best rates",
+    "loanRange": "$75K to $30M",
+    "startingRate": "5.5%",
+    "lowestPoints": "Down to 0.75% on loans over $450,000",
+    "approvalTimeline": "24-48 hours pre-approval",
+    "closingTimeline": "As fast as 5-7 days for fix & flip, 10 days average for DSCR",
+    "ltvMax": "Up to 85% on purchases, 80% on refinances",
+    "minimumCreditScore": "620 accepted (500 for select refinances)",
+    "noW2": "No personal income tax returns or W-2 verification required"
+  },
+  "metadata": {
+    "lastUpdated": "2026-06-28"
+  }
+}

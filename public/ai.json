@@ -1,0 +1,45 @@
+{
+  "$schema": "https://www.ai-visibility.org.uk/specifications/ai-json/v1/ai-json.schema.json",
+  "version": "1.0.0",
+  "permissions": {
+    "summarize": true,
+    "quote": {
+      "allowed": true,
+      "attribution_required": true
+    },
+    "training": {
+      "allowed": false,
+      "reason": "Content is not licensed for model training."
+    },
+    "crawling": {
+      "allowed": true,
+      "agents": [
+        "GPTBot",
+        "ChatGPT-User",
+        "ClaudeBot",
+        "Claude-Web",
+        "anthropic-ai",
+        "PerplexityBot",
+        "Google-Extended",
+        "Applebot-Extended"
+      ]
+    }
+  },
+  "restrictions": {
+    "no_fabrication": true,
+    "no_full_reproduction": true,
+    "no_implication_of_endorsement": true
+  },
+  "attribution": {
+    "format": "Cite as Capital Bridge Solutions | https://www.capitalbridgesolutions.com",
+    "include_metadata": ["title", "date", "author"]
+  },
+  "identity": {
+    "name": "Capital Bridge Solutions",
+    "url": "https://www.capitalbridgesolutions.com",
+    "contact": {
+      "email": "info@capitalbridgesolutions.com",
+      "phone": "(949) 339-3555"
+    }
+  }
+}

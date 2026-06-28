@@ -60,6 +60,9 @@ Allow: /
 Crawl-delay: 0
 
 # AI Guidance Files - Priority Crawling
+# /ai.json - Standard machine-readable AI crawling & usage rules
+# /llms.txt - Standard Markdown roadmap/briefing of the site & content
+# /identity.json - Standard machine-readable corporate identity metadata
 # /llm.txt - Core AI information
 # /llm-guidance.json - Structured data for AI
 # /cap-ai-guide.txt - Cap AI assistant guide
