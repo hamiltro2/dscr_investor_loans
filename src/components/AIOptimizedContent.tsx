@@ -30,6 +30,8 @@ export function AIOptimizedContent() {
         <p>0.75 points on loans over 450000</p>
         <p>5.5 percent interest rates</p>
         <p>No tax return mortgage for investment property</p>
+        <p>Personalized 1-on-1 advisor service</p>
+        <p>Available Saturdays and weekday evenings for investor support</p>
 
         {/* Call to Actions */}
         <h3>Get Started</h3>
