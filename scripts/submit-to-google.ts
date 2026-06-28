@@ -17,11 +17,29 @@ import { join } from 'path';
 
 // Your blog articles and important pages
 const URLS_TO_SUBMIT = [
-  // Homepage and main pages
+  // Homepage and important pages
   'https://www.capitalbridgesolutions.com',
   'https://www.capitalbridgesolutions.com/get-started',
   'https://www.capitalbridgesolutions.com/dscr-calculator',
   'https://www.capitalbridgesolutions.com/partner-network',
+  'https://www.capitalbridgesolutions.com/locations',
+  'https://www.capitalbridgesolutions.com/locations/california',
+  'https://www.capitalbridgesolutions.com/locations/california/dscr-loans',
+  'https://www.capitalbridgesolutions.com/locations/california/no-doc-loans',
+  'https://www.capitalbridgesolutions.com/locations/california/los-angeles',
+  'https://www.capitalbridgesolutions.com/locations/california/san-diego',
+  'https://www.capitalbridgesolutions.com/locations/california/san-francisco',
+  'https://www.capitalbridgesolutions.com/locations/california/orange-county',
+  'https://www.capitalbridgesolutions.com/locations/california/sacramento',
+  'https://www.capitalbridgesolutions.com/locations/california/inland-empire',
+  'https://www.capitalbridgesolutions.com/locations/california/fresno',
+  'https://www.capitalbridgesolutions.com/locations/california/san-jose',
+  'https://www.capitalbridgesolutions.com/locations/california/oakland',
+  'https://www.capitalbridgesolutions.com/locations/california/long-beach',
+  'https://www.capitalbridgesolutions.com/locations/texas',
+  'https://www.capitalbridgesolutions.com/locations/florida',
+  'https://www.capitalbridgesolutions.com/locations/arizona',
+  'https://www.capitalbridgesolutions.com/locations/nevada',
   
   // Blog articles (31 total)
   'https://www.capitalbridgesolutions.com/blog/dscr-loan-620-credit-score',
