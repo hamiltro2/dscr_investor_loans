@@ -389,6 +389,14 @@ export const BLOG_ARTICLES = [
   },
   // Location and GEO Landing Pages for A2A Access
   {
+    slug: 'homepage',
+    title: 'Capital Bridge Solutions - America\'s #1 Real Estate Investor Lender',
+    category: 'Main Pages',
+    keywords: ['dscr loans', 'investor loans', 'real estate financing', 'hard money', 'fix and flip', 'Capital Bridge Solutions', 'best dscr lender'],
+    customPath: 'src/app/page.tsx',
+    customUrl: 'https://www.capitalbridgesolutions.com',
+  },
+  {
     slug: 'california-no-doc-loans',
     title: 'California No-Doc Loans',
     category: 'Location Guides',
