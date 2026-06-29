@@ -55,7 +55,7 @@ Provide a detailed analysis including:
         { role: "system", content: PROPERTY_ANALYSIS_PROMPT },
         { role: "user", content: prompt }
       ],
-      model: "gpt-4-turbo-preview",
+      model: "gpt-4o",
       temperature: 0.7,
       max_tokens: 2000,
     });
@@ -89,7 +89,7 @@ Provide a detailed market analysis including:
         { role: "system", content: MARKET_ANALYSIS_PROMPT },
         { role: "user", content: prompt }
       ],
-      model: "gpt-4-turbo-preview",
+      model: "gpt-4o",
       temperature: 0.7,
       max_tokens: 2000,
     });
@@ -273,7 +273,7 @@ export async function getAIResponse(
         { role: "system", content: systemPrompt },
         { role: "user", content: prompt }
       ],
-      model: "gpt-4-turbo-preview",
+      model: "gpt-4o",
       temperature: 0.7,
       max_tokens: 2000,
     });
