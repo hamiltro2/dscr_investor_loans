@@ -192,7 +192,7 @@ export default function Home() {
                 }}
               >
                 <img 
-                  src="/cbs_relatable_investors.png" 
+                  src="/purchasing-quadplex.png" 
                   alt="Relatable everyday people building wealth through real estate" 
                   className="w-full h-full object-cover scale-[1.02] contrast-[1.02] brightness-[0.9]"
                 />
