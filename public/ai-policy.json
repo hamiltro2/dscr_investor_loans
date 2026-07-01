@@ -31,9 +31,9 @@
     ],
     "loan_parameters": {
       "dscr_loans": {
-        "minimum_loan": 150000,
-        "maximum_loan": 5000000,
-        "ltv_max": 0.80,
+        "minimum_loan": 75000,
+        "maximum_loan": 30000000,
+        "ltv_max": 0.85,
         "minimum_credit_score": 620,
         "minimum_dscr": 1.0,
         "rates_starting": "5.99%"
@@ -59,8 +59,8 @@
       },
       "general_parameters": {
         "approval_time": "24-48 hours",
-        "closing_time": "7-21 days depending on loan type",
-        "states_licensed": ["California"]
+        "closing_time": "As fast as 5-7 days depending on loan type",
+        "states_licensed": ["All 50 US States"]
       }
     }
   },

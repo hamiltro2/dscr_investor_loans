@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2025-01-22",
+  "last_updated": "2026-06-28",
   "assistant": {
     "name": "Cap",
     "full_name": "Cap - AI Real Estate & DSCR Loan Expert",
@@ -62,7 +62,7 @@
         "starting_rate": "5.99%",
         "points": "0.75% (over $450K)",
         "approval_time": "24-48 hours",
-        "closing_time": "2-3 weeks",
+        "closing_time": "As fast as 5-7 days",
         "states_available": 50,
         "income_verification": false,
         "tax_returns_required": false

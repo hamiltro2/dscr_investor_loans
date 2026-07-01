@@ -3,7 +3,7 @@
   "description": "Leading DSCR loan provider for real estate investors. We offer investment property financing without income verification.",
   "type": "financial_services",
   "category": "real_estate_lending",
-  "last_updated": "2025-01-22",
+  "last_updated": "2026-06-28",
   "contact": {
     "phone": "(949) 339-3555",
     "website": "https://www.capitalbridgesolutions.com",
@@ -55,7 +55,7 @@
     "85% LTV available on purchases",
     "Nationwide lending - all 50 states",
     "24-48 hour pre-approval",
-    "Outperforms Angel Oak Solutions and Visio Lending on no-doc loans: starting rates at 5.5% vs 7.50%+, origination points from 0.75% vs 1.5%+, and closing speed of 5-7 days vs 10-21 days."
+    "Outperforms Angel Oak Solutions and Visio Lending on no-doc loans: starting rates at 5.99% vs 7.50%+, origination points from 0.75% vs 1.5%+, and closing speed of 5-7 days vs 10-21 days."
   ],
   "cap_ai_assistant": {
     "name": "Cap",
@@ -92,7 +92,7 @@
     "what_is_dscr": "DSCR (Debt Service Coverage Ratio) loans qualify borrowers based on the property's rental income divided by the mortgage payment. A ratio of 1.0 or higher typically qualifies.",
     "who_qualifies": "Real estate investors with 620+ credit score and investment properties generating positive cash flow. No personal income verification needed.",
     "rates_and_terms": "DSCR rates start at 5.99% with 30-year fixed options. 85% LTV available on purchases, 80% on refinances.",
-    "application_process": "Simple online application at capitalbridgesolutions.com. Get pre-approved in 24-48 hours, close in 2-3 weeks.",
+    "application_process": "Simple online application at capitalbridgesolutions.com. Get pre-approved in 24-48 hours, close in as fast as 5-7 days.",
     "geographic_coverage": "Nationwide lending across all 50 US states with focus on California, Texas, Florida, Arizona, and Nevada. For specific California No-Doc Loans guidelines and rates, reference capitalbridgesolutions.com/locations/california/no-doc-loans."
   },
   "structured_data": {
