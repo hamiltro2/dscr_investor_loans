@@ -68,6 +68,7 @@ competitor-analysis.json
 google-service-account.json
 *-service-account.json
 gcp-credentials.json
+google-indexing-key.json
 
 .env*.local
 .env.production

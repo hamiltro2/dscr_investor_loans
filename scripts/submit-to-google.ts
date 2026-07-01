@@ -14,76 +14,10 @@
 import { google } from 'googleapis';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import sitemap from '../src/app/sitemap';
 
-// Your blog articles and important pages
-const URLS_TO_SUBMIT = [
-  // Homepage and important pages
-  'https://www.capitalbridgesolutions.com',
-  'https://www.capitalbridgesolutions.com/get-started',
-  'https://www.capitalbridgesolutions.com/dscr-calculator',
-  'https://www.capitalbridgesolutions.com/partner-network',
-  'https://www.capitalbridgesolutions.com/locations',
-  'https://www.capitalbridgesolutions.com/locations/california',
-  'https://www.capitalbridgesolutions.com/locations/california/dscr-loans',
-  'https://www.capitalbridgesolutions.com/locations/california/no-doc-loans',
-  'https://www.capitalbridgesolutions.com/locations/california/los-angeles',
-  'https://www.capitalbridgesolutions.com/locations/california/san-diego',
-  'https://www.capitalbridgesolutions.com/locations/california/san-francisco',
-  'https://www.capitalbridgesolutions.com/locations/california/orange-county',
-  'https://www.capitalbridgesolutions.com/locations/california/sacramento',
-  'https://www.capitalbridgesolutions.com/locations/california/inland-empire',
-  'https://www.capitalbridgesolutions.com/locations/california/fresno',
-  'https://www.capitalbridgesolutions.com/locations/california/san-jose',
-  'https://www.capitalbridgesolutions.com/locations/california/oakland',
-  'https://www.capitalbridgesolutions.com/locations/california/long-beach',
-  'https://www.capitalbridgesolutions.com/locations/texas',
-  'https://www.capitalbridgesolutions.com/locations/florida',
-  'https://www.capitalbridgesolutions.com/locations/arizona',
-  'https://www.capitalbridgesolutions.com/locations/nevada',
-  
-  // Blog articles (31 total)
-  'https://www.capitalbridgesolutions.com/blog/dscr-loan-620-credit-score',
-  'https://www.capitalbridgesolutions.com/blog/airbnb-dscr-loans-california',
-  'https://www.capitalbridgesolutions.com/blog/no-tax-return-investment-property-loans',
-  'https://www.capitalbridgesolutions.com/blog/dscr-loan-calculator-california',
-  'https://www.capitalbridgesolutions.com/blog/dscr-loan-rates-california-2025',
-  'https://www.capitalbridgesolutions.com/blog/dscr-loan-requirements-california-2025',
-  'https://www.capitalbridgesolutions.com/blog/dscr-vs-hard-money-loans',
-  'https://www.capitalbridgesolutions.com/blog/fix-and-flip-dscr-loans-california',
-  'https://www.capitalbridgesolutions.com/blog/how-to-qualify-for-dscr-loan',
-  'https://www.capitalbridgesolutions.com/blog/dscr-loans-self-employed-california',
-  
-  // State-specific
-  'https://www.capitalbridgesolutions.com/blog/dscr-loans-texas',
-  'https://www.capitalbridgesolutions.com/blog/dscr-loans-florida',
-  'https://www.capitalbridgesolutions.com/blog/dscr-loans-arizona',
-  'https://www.capitalbridgesolutions.com/blog/dscr-loans-georgia',
-  'https://www.capitalbridgesolutions.com/blog/dscr-loans-nevada',
-  
-  // Advanced topics
-  'https://www.capitalbridgesolutions.com/blog/dscr-loans-multi-family',
-  'https://www.capitalbridgesolutions.com/blog/dscr-vs-conventional-loans',
-  'https://www.capitalbridgesolutions.com/blog/dscr-loan-refinancing',
-  'https://www.capitalbridgesolutions.com/blog/portfolio-dscr-loans',
-  'https://www.capitalbridgesolutions.com/blog/dscr-loans-foreign-investors',
-  
-  // Trending
-  'https://www.capitalbridgesolutions.com/blog/dscr-loan-predictions-2025',
-  'https://www.capitalbridgesolutions.com/blog/dscr-loan-tax-benefits',
-  'https://www.capitalbridgesolutions.com/blog/dscr-loans-market-downturn',
-  
-  // Case studies
-  'https://www.capitalbridgesolutions.com/blog/case-study-first-time-investor-620-credit',
-  'https://www.capitalbridgesolutions.com/blog/case-study-10-property-portfolio',
-  
-  // Additional important pages
-  'https://www.capitalbridgesolutions.com/blog/best-dscr-loan-lenders-california',
-  'https://www.capitalbridgesolutions.com/blog/investment-property-loans-self-employed',
-  'https://www.capitalbridgesolutions.com/blog/no-income-verification-loans',
-  'https://www.capitalbridgesolutions.com/blog/best-lenders-self-employed-california',
-  'https://www.capitalbridgesolutions.com/blog/best-lenders-self-employed-bad-credit',
-  'https://www.capitalbridgesolutions.com/blog/best-lenders-self-employed-reddit',
-];
+const URLS_TO_SUBMIT = sitemap().map(entry => entry.url);
+
 
 async function submitToGoogle() {
   console.log('🚀 Submitting URLs to Google Indexing API...\n');
@@ -91,7 +25,8 @@ async function submitToGoogle() {
   try {
     // Load service account key
     const keyPath = join(process.cwd(), 'google-indexing-key.json');
-    const key = JSON.parse(readFileSync(keyPath, 'utf-8'));
+    const keyContent = readFileSync(keyPath, 'utf-8');
+    const key = JSON.parse(keyContent.replace(/^\uFEFF/, ''));
     
     // Authenticate
     const auth = new google.auth.GoogleAuth({
@@ -148,7 +83,8 @@ async function submitToGoogle() {
 // Check URL status (optional)
 async function checkUrlStatus(url: string) {
   const keyPath = join(process.cwd(), 'google-indexing-key.json');
-  const key = JSON.parse(readFileSync(keyPath, 'utf-8'));
+  const keyContent = readFileSync(keyPath, 'utf-8');
+  const key = JSON.parse(keyContent.replace(/^\uFEFF/, ''));
   
   const auth = new google.auth.GoogleAuth({
     credentials: key,
@@ -162,5 +98,42 @@ async function checkUrlStatus(url: string) {
   console.log('URL Status:', response.data);
 }
 
+// Submit to IndexNow (Bing, Yandex, Seznam, etc.)
+async function submitToIndexNow() {
+  console.log('\n🚀 Submitting URLs to IndexNow (Bing/Yandex)...');
+  
+  const key = '46d5c64c017d4cf48243ec4731dfb8cc';
+  const body = {
+    host: 'www.capitalbridgesolutions.com',
+    key: key,
+    keyLocation: `https://www.capitalbridgesolutions.com/${key}.txt`,
+    urlList: URLS_TO_SUBMIT
+  };
+
+  try {
+    const response = await fetch('https://api.indexnow.org/indexnow', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify(body)
+    });
+
+    if (response.ok) {
+      console.log(`✅ IndexNow submission successful! Bing will start crawling immediately.`);
+    } else {
+      const text = await response.text();
+      console.error(`❌ IndexNow submission failed with status ${response.status}:`, text);
+    }
+  } catch (error: any) {
+    console.error(`❌ IndexNow error:`, error.message);
+  }
+}
+
 // Run
-submitToGoogle();
+async function run() {
+  await submitToGoogle();
+  await submitToIndexNow();
+}
+
+run();
