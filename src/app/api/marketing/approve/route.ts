@@ -177,6 +177,7 @@ export async function GET(request: NextRequest) {
   const TAX_RATE = lead.is_ca ? 0.0125 : 0.011;
   const INS_RATE = lead.is_ca ? 0.002 : 0.0015;
 
+  const loanAmount = price * 0.8;
   const interestRate = 0.0599; // Updated to 5.99% per user request
   
   const monthlyRate = interestRate / 12;
