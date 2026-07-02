@@ -35,7 +35,7 @@ export default function Navigation() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-dark-800 bg-dark-950/80 backdrop-blur supports-[backdrop-filter]:bg-dark-950/80">
+    <header className="sticky top-0 z-50 w-full border-b border-dark-800 bg-dark-950/80 backdrop-blur supports-[backdrop-filter]:bg-dark-950/80 print:hidden">
       <nav className="container flex h-24 items-center justify-between">
         {/* Logo */}
         <Link 

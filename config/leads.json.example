@@ -1,0 +1,46 @@
+[
+  {
+    "id": "ca-dallas-agent-example",
+    "type": "agent",
+    "name": "Jane Doe",
+    "handle": "@JaneDoeRE",
+    "address": "456 Sunset Blvd, Los Angeles, CA",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 950000,
+    "estimated_rent": 6500,
+    "has_adu_potential": true,
+    "estimated_adu_rent": 2800,
+    "is_str_zone": false,
+    "status": "pending"
+  },
+  {
+    "id": "ca-palm-springs-str-example",
+    "type": "wholesaler",
+    "name": "Desert Wholesalers",
+    "handle": "@DesertDeals",
+    "address": "123 Palm Canyon Dr, Palm Springs, CA",
+    "market": "Palm Springs, CA",
+    "is_ca": true,
+    "purchase_price": 720000,
+    "estimated_rent": 4200,
+    "has_adu_potential": false,
+    "is_str_zone": true,
+    "estimated_str_rent": 6800,
+    "status": "pending"
+  },
+  {
+    "id": "national-dallas-duplex-example",
+    "type": "wholesaler",
+    "name": "Dallas Cash Flow Hub",
+    "handle": "@DallasWholesale",
+    "address": "789 Elm St, Dallas, TX",
+    "market": "Dallas, TX",
+    "is_ca": false,
+    "purchase_price": 320000,
+    "estimated_rent": 2800,
+    "has_adu_potential": false,
+    "is_str_zone": false,
+    "status": "pending"
+  }
+]

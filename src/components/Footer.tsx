@@ -13,7 +13,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto w-full border-t border-dark-800 bg-dark-950/80 backdrop-blur supports-[backdrop-filter]:bg-dark-950/80">
+    <footer className="mt-auto w-full border-t border-dark-800 bg-dark-950/80 backdrop-blur supports-[backdrop-filter]:bg-dark-950/80 print:hidden">
       <div className="container py-20">
         {/* Main Footer Content */}
         <div className="flex flex-col lg:flex-row items-start justify-between gap-16 mb-12">
