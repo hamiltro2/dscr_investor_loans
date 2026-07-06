@@ -1,0 +1,44 @@
+[
+  {
+    "name": "PACE MORBY",
+    "handle": "@pacemorby",
+    "location": "National/CA",
+    "type": "wholesaler"
+  },
+  {
+    "name": "Jamil Damji",
+    "handle": "@JamilDamji",
+    "location": "National/CA",
+    "type": "wholesaler"
+  },
+  {
+    "name": "The Agency RE",
+    "handle": "@TheAgencyRE",
+    "location": "Beverly Hills, CA",
+    "type": "agent"
+  },
+  {
+    "name": "Compass California",
+    "handle": "@Compass",
+    "location": "California",
+    "type": "agent"
+  },
+  {
+    "name": "Josh Flagg",
+    "handle": "@JoshFlaggRE",
+    "location": "Los Angeles, CA",
+    "type": "agent"
+  },
+  {
+    "name": "Tracy Tutor",
+    "handle": "@tracytutor",
+    "location": "Los Angeles, CA",
+    "type": "agent"
+  },
+  {
+    "name": "Mauricio Umansky",
+    "handle": "@mauricioumansky",
+    "location": "Beverly Hills, CA",
+    "type": "agent"
+  }
+]

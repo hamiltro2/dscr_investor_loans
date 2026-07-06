@@ -505,7 +505,7 @@ export default function AuditClientPage({ lead }: AuditClientPageProps) {
                   <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto mb-4" />
                   <h4 className="text-lg font-bold text-white mb-2">Request Submitted!</h4>
                   <p className="text-gray-300 text-sm">
-                    Thank you. A Capital Bridge Solutions loan representative will analyze this deal and contact you shortly at <strong>{formData.phone}</strong>.
+                    Thank you. **Erol Senel (NMLS #211355)** or a Capital Bridge Solutions representative will analyze this deal and contact you shortly at <strong>{formData.phone}</strong>.
                   </p>
                 </motion.div>
               )}
@@ -657,10 +657,11 @@ export default function AuditClientPage({ lead }: AuditClientPageProps) {
         {/* Compliance Footer */}
         <div className="mt-auto border-t border-black pt-6 flex justify-between items-end text-[10px] text-gray-500">
           <div>
-            <p className="font-bold">CAPITAL BRIDGE SOLUTIONS, LLC</p>
+            <p className="font-bold text-black text-xs">CAPITAL BRIDGE SOLUTIONS, LLC</p>
+            <p className="font-bold text-gray-700 mt-1">Erol Senel | NMLS #211355</p>
             <p>Loans made or arranged pursuant to California Financing Law License #60DBO-94935.</p>
             <p>Capital Bridge Solutions is licensed by the California Department of Real Estate, Broker License #02113355.</p>
-            <p className="mt-1 font-semibold">Equal Housing Opportunity Lender. NMLS #211355.</p>
+            <p className="mt-1 font-semibold">Equal Housing Opportunity Lender.</p>
           </div>
           <div className="text-right">
             <p className="font-bold">SCAN TO CHECK RATES & APPLY</p>

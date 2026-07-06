@@ -1,0 +1,51 @@
+name: CBS Audit Pipeline
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Runs every hour
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/checkout@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Discovery & Audit
+        env:
+          # Discovery & Audit Secrets
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          MARKETING_APPROVAL_SECRET: ${{ secrets.MARKETING_APPROVAL_SECRET }}
+          
+          # Email Notification Secrets
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_FROM: ${{ secrets.SMTP_FROM }}
+          SMTP_TO: ${{ secrets.SMTP_TO }}
+          
+          # Website URL for Links
+          NEXT_PUBLIC_SITE_URL: "https://www.capitalbridgesolutions.com"
+        run: |
+          npx tsx scripts/handle-hunter.ts
+          npx tsx scripts/listing-scout.ts
+          npx tsx scripts/audit-leads.ts
+
+      - name: Commit Updated Leads
+        run: |
+          git config --global user.name "CBS Bot"
+          git config --global user.email "bot@capitalbridgesolutions.com"
+          git add config/leads.json config/targets.json
+          git commit -m "bot: auto-update leads and targets [skip ci]" || echo "No changes to commit"
+          git push

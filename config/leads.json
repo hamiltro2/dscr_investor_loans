@@ -27,7 +27,7 @@
     "has_adu_potential": false,
     "is_str_zone": true,
     "estimated_str_rent": 6800,
-    "status": "pending"
+    "status": "audited"
   },
   {
     "id": "national-dallas-duplex-example",
@@ -41,6 +41,32 @@
     "estimated_rent": 2800,
     "has_adu_potential": false,
     "is_str_zone": false,
-    "status": "pending"
+    "status": "audited"
+  },
+  {
+    "id": "scouted-1783368757343-28",
+    "type": "agent",
+    "name": "The Agency",
+    "handle": "@TheAgencyRE",
+    "address": "1154 N Wilton Pl, Los Angeles, CA 90004",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 1399900,
+    "estimated_rent": 8500,
+    "has_adu_potential": true,
+    "status": "audited"
+  },
+  {
+    "id": "scouted-1783368757343-553",
+    "type": "wholesaler",
+    "name": "Mikey Taylor",
+    "handle": "@mikeytaylor",
+    "address": "107 Delfern Dr, Los Angeles, CA 90077",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 65000000,
+    "estimated_rent": 250000,
+    "has_adu_potential": false,
+    "status": "audited"
   }
 ]
