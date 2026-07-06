@@ -38,6 +38,9 @@ async function sendTelegramNotification(lead: any, dscr: number, tweet: string) 
     return;
   }
 
+  const approveUrl = `https://www.capitalbridgesolutions.com/api/marketing/approve?id=${lead.id}&token=${generateToken(lead.id)}`;
+  const discardUrl = `https://www.capitalbridgesolutions.com/api/marketing/discard?id=${lead.id}&token=${generateToken(lead.id)}`;
+
   const message = `🔍 *New CBS Audit Ready!*
   
 *Property*: ${lead.address}
@@ -45,9 +48,7 @@ async function sendTelegramNotification(lead: any, dscr: number, tweet: string) 
 *Price*: $${lead.purchase_price.toLocaleString()}
 
 🐦 *Draft Outreach:*
-"${tweet}"
-
-🚀 [Approve & Post](https://www.capitalbridgesolutions.com/api/marketing/approve?id=${lead.id}&token=${generateToken(lead.id)})`;
+"${tweet}"`;
 
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
   try {
@@ -57,7 +58,15 @@ async function sendTelegramNotification(lead: any, dscr: number, tweet: string) 
       body: JSON.stringify({
         chat_id: chatId,
         text: message,
-        parse_mode: 'Markdown'
+        parse_mode: 'Markdown',
+        reply_markup: {
+          inline_keyboard: [
+            [
+              { text: "🚀 Approve & Post", url: approveUrl },
+              { text: "🗑️ Discard", url: discardUrl }
+            ]
+          ]
+        }
       })
     });
     const data = await response.json() as any;
