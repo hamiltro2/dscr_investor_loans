@@ -89,6 +89,16 @@ export function CapChatWidget(): JSX.Element {
     height: SIZE_CONSTRAINTS.height.default,
   });
   const [isResizing, setIsResizing] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // ============================================================================
   // Event Handlers (Memoized for Performance)
@@ -225,11 +235,20 @@ export function CapChatWidget(): JSX.Element {
    * Dynamic styles based on resize state
    * Memoized to prevent unnecessary recalculations
    */
-  const widgetStyles = useMemo(() => ({
-    width: `${size.width}px`,
-    height: `${size.height}px`,
-    boxShadow: isResizing ? '0 25px 50px -12px rgba(0, 0, 0, 0.5)' : undefined,
-  }), [size.width, size.height, isResizing]);
+  const widgetStyles = useMemo(() => {
+    if (isMobile) {
+      return {
+        height: '600px',
+        maxHeight: 'calc(100dvh - 2rem)',
+        boxShadow: isResizing ? '0 25px 50px -12px rgba(0, 0, 0, 0.5)' : undefined,
+      };
+    }
+    return {
+      width: `${size.width}px`,
+      height: `${size.height}px`,
+      boxShadow: isResizing ? '0 25px 50px -12px rgba(0, 0, 0, 0.5)' : undefined,
+    };
+  }, [size.width, size.height, isResizing, isMobile]);
 
   /**
    * Mode-specific display text
@@ -273,7 +292,7 @@ export function CapChatWidget(): JSX.Element {
       */}
       {isOpen && (
         <div 
-          className="fixed bottom-6 right-6 z-50 bg-[#0a0e1a] rounded-2xl shadow-2xl flex flex-col overflow-hidden border-2 border-primary-500/20 transition-shadow"
+          className="fixed bottom-4 left-4 right-4 sm:bottom-6 sm:right-6 sm:left-auto z-50 bg-[#0a0e1a] rounded-2xl shadow-2xl flex flex-col overflow-hidden border-2 border-primary-500/20 transition-shadow"
           style={widgetStyles}
           role="dialog"
           aria-label="Cap Chat Widget"
@@ -284,17 +303,17 @@ export function CapChatWidget(): JSX.Element {
             Three-direction resize support with visual feedback
           */}
           <div
-            className="absolute left-0 top-0 bottom-0 w-2 cursor-ew-resize hover:bg-primary-500/20 transition-colors z-10"
+            className="hidden sm:block absolute left-0 top-0 bottom-0 w-2 cursor-ew-resize hover:bg-primary-500/20 transition-colors z-10"
             onMouseDown={(e) => handleMouseDown(e, 'width')}
           />
           {/* Bottom edge resize */}
           <div
-            className="absolute left-0 right-0 bottom-0 h-2 cursor-ns-resize hover:bg-primary-500/20 transition-colors z-10"
+            className="hidden sm:block absolute left-0 right-0 bottom-0 h-2 cursor-ns-resize hover:bg-primary-500/20 transition-colors z-10"
             onMouseDown={(e) => handleMouseDown(e, 'height')}
           />
           {/* Bottom-left corner resize */}
           <div
-            className="absolute left-0 bottom-0 w-4 h-4 cursor-nesw-resize hover:bg-primary-500/40 transition-colors z-10"
+            className="hidden sm:block absolute left-0 bottom-0 w-4 h-4 cursor-nesw-resize hover:bg-primary-500/40 transition-colors z-10"
             onMouseDown={(e) => handleMouseDown(e, 'both')}
           />
           {/* 
