@@ -57,6 +57,22 @@ function HeadlineContent() {
     );
   }
 
+  if (offer === 'taxwriteoffs') {
+    return (
+      <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-none mb-4 animate-[fadeIn_0.5s_ease-in-out]">
+        <span className="block text-slate-500 font-bold text-xl sm:text-2xl uppercase tracking-[0.2em] mb-4">
+          Self-Employed Solution
+        </span>
+        <span className="block text-slate-900">
+          Denied Due to Tax Write-Offs?
+        </span>
+        <span className="block text-blue-700 -mt-2 drop-shadow-sm">
+          DSCR Loans with No W-2 or Tax Returns
+        </span>
+      </h1>
+    );
+  }
+
   if (offer === 'secondmortgage') {
     return (
       <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-none mb-4 animate-[fadeIn_0.5s_ease-in-out]">
