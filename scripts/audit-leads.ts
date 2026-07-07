@@ -3,6 +3,9 @@ import path from 'path';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
 import crypto from 'crypto';
+import { generateSocialGraphic } from './generate-social-graphic';
+import FormData from 'form-data';
+import axios from 'axios';
 
 dotenv.config({ path: path.join(process.cwd(), '.env.local') });
 
@@ -41,6 +44,7 @@ async function sendTelegramNotification(lead: any, dscr: number, tweet: string) 
   const approveUrl = `https://www.capitalbridgesolutions.com/api/marketing/approve?id=${lead.id}&token=${generateToken(lead.id)}`;
   const discardUrl = `https://www.capitalbridgesolutions.com/api/marketing/discard?id=${lead.id}&token=${generateToken(lead.id)}`;
 
+  // 1. Send the Main Text Message with Buttons
   const message = `🔍 *New CBS Audit Ready!*
   
 *Property*: ${lead.address}
@@ -52,7 +56,7 @@ async function sendTelegramNotification(lead: any, dscr: number, tweet: string) 
 
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
   try {
-    const response = await fetch(url, {
+    await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -69,11 +73,24 @@ async function sendTelegramNotification(lead: any, dscr: number, tweet: string) 
         }
       })
     });
-    const data = await response.json() as any;
-    if (data.ok) {
-      console.log("✅ Telegram notification sent.");
-    } else {
-      console.log("❌ Telegram API error:", data.description);
+
+    // 2. Try to generate and send the TikTok Graphic
+    try {
+      const graphicPath = await generateSocialGraphic(lead.id);
+      if (graphicPath && fs.existsSync(graphicPath)) {
+        const photoUrl = `https://api.telegram.org/bot${token}/sendPhoto`;
+        const form = new FormData();
+        form.append('chat_id', chatId);
+        form.append('photo', fs.createReadStream(graphicPath));
+        form.append('caption', `📸 TikTok/Social Graphic for ${lead.address.split(',')[0]}\nSave and post to Photo Mode!`);
+        
+        await axios.post(photoUrl, form, {
+          headers: form.getHeaders()
+        });
+        console.log(`✅ TikTok graphic sent to Telegram for ${lead.id}`);
+      }
+    } catch (err) {
+      console.error(`⚠️ Could not send TikTok graphic:`, err);
     }
   } catch (err: any) {
     console.error("❌ Error sending Telegram notification:", err.message);
