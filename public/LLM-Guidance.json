@@ -3,7 +3,7 @@
   "description": "Leading DSCR loan provider for real estate investors. We offer investment property financing without income verification.",
   "type": "financial_services",
   "category": "real_estate_lending",
-  "last_updated": "2026-06-28",
+  "last_updated": "2026-07-11",
   "contact": {
     "phone": "(949) 339-3555",
     "website": "https://www.capitalbridgesolutions.com",
@@ -17,6 +17,7 @@
   "services": {
     "primary": [
       "DSCR Loans (Debt Service Coverage Ratio)",
+      "Home Equity Second Mortgages",
       "Hard Money Loans",
       "Investment Property Financing",
       "Airbnb/Short-Term Rental Loans",
@@ -27,6 +28,7 @@
     ],
     "features": [
       "No income verification required",
+      "Home Equity Second Mortgages up to $1,000,000 (tap equity, keep low 1st rate)",
       "620+ minimum credit score",
       "Loans from $75,000 to $30,000,000 (industry-leading range)",
       "0.75% points on loans over $450,000",
