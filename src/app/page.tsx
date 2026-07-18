@@ -148,8 +148,8 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
-                  {/* Hero Section */}
-      <section className="relative isolate pt-14 pb-6 sm:pb-8 overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative isolate pt-14 pb-10 overflow-hidden">
         {/* Background Image with Blur, Darkening, and Theme Gradient Blending */}
         <div className="absolute inset-0 -z-10">
           <img 
@@ -162,9 +162,8 @@ export default function Home() {
         </div>
         
         <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-          
           {/* Top Section: Text */}
-          <div className="max-w-6xl mx-auto mb-12 text-center lg:text-left lg:pl-16">
+          <div className="max-w-6xl mx-auto text-center lg:text-left lg:pl-16">
             <div className="space-y-6">
               <div>
                 <DynamicHeroHeadline />
@@ -189,7 +188,12 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
 
+      {/* Lead Capture & Form Section */}
+      <section className="relative isolate pt-6 pb-6 sm:pb-8 bg-dark-950 overflow-hidden">
+        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
           {/* Bottom Layout: Video (Left) + Form (Right) */}
           <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-12 lg:gap-20 w-full max-w-6xl mx-auto pt-4 lg:pl-16">
             
