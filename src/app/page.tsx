@@ -155,9 +155,9 @@ export default function Home() {
           <img 
             src="/purchasing-quadplex.png" 
             alt="Real estate wealth building" 
-            className="w-full h-full object-cover object-center brightness-[0.20] blur-[2px] scale-105"
+            className="w-full h-full object-cover object-center brightness-[0.45] blur-[1px] scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-dark-950/80 via-dark-950/45 to-dark-950" />
+          <div className="absolute inset-0 bg-gradient-to-b from-dark-950/60 via-dark-950/20 to-dark-950/95" />
           <div className="absolute inset-0 bg-gradient-radial from-primary-500/10 via-transparent to-transparent" />
         </div>
         
