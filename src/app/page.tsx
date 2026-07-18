@@ -150,12 +150,22 @@ export default function Home() {
     <main className="min-h-screen">
                   {/* Hero Section */}
       <section className="relative isolate pt-14 pb-6 sm:pb-8 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-radial from-primary-500/20 via-transparent to-transparent" />
+        {/* Background Image with Blur, Darkening, and Theme Gradient Blending */}
+        <div className="absolute inset-0 -z-10">
+          <img 
+            src="/purchasing-quadplex.png" 
+            alt="Real estate wealth building" 
+            className="w-full h-full object-cover object-center brightness-[0.20] blur-[2px] scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-dark-950/80 via-dark-950/45 to-dark-950" />
+          <div className="absolute inset-0 bg-gradient-radial from-primary-500/10 via-transparent to-transparent" />
+        </div>
+        
         <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
           
-          {/* Top Section: Text (Left) + Image (Right) on large screens */}
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center max-w-6xl mx-auto mb-12">
-            <div className="lg:col-span-7 text-center lg:text-left space-y-6">
+          {/* Top Section: Text */}
+          <div className="max-w-6xl mx-auto mb-12 text-center lg:text-left lg:pl-16">
+            <div className="space-y-6">
               <div>
                 <DynamicHeroHeadline />
                 <p className="text-xl text-emerald-100/90 font-light max-w-2xl mx-auto lg:mx-0">
@@ -175,34 +185,6 @@ export default function Home() {
                 </div>
                 <div className="flex items-center gap-2 px-4 py-2 bg-dark-800/50 rounded-full border border-emerald-500/30">
                   <span className="text-emerald-400 font-medium text-sm uppercase tracking-wider">Fast Closing</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-5 hidden lg:block relative">
-              {/* Soft ambient glow behind */}
-              <div className="absolute -inset-4 bg-gradient-to-br from-primary-500/20 to-emerald-500/20 blur-3xl opacity-40 rounded-full pointer-events-none"></div>
-              
-              <div className="relative max-w-md mx-auto">
-                <div 
-                  className="relative overflow-hidden aspect-[4/3] rounded-2xl border border-white/10"
-                  style={{
-                    maskImage: 'radial-gradient(ellipse 85% 85% at 50% 50%, black 50%, transparent 100%)',
-                    WebkitMaskImage: 'radial-gradient(ellipse 85% 85% at 50% 50%, black 50%, transparent 100%)'
-                  }}
-                >
-                  <img 
-                    src="/purchasing-quadplex.png" 
-                    alt="Relatable everyday people building wealth through real estate" 
-                    className="w-full h-full object-cover scale-[1.02] contrast-[1.02] brightness-[0.9]"
-                  />
-                </div>
-                {/* Overlay Badge */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-dark-900/90 backdrop-blur-sm border border-emerald-500/30 px-4 py-2 rounded-full shadow-xl whitespace-nowrap z-10 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span className="text-white font-medium text-xs tracking-wider uppercase">
-                    Quadplex purchased with a DSCR Loan!
-                  </span>
                 </div>
               </div>
             </div>
