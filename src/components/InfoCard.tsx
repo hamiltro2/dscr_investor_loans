@@ -61,7 +61,7 @@ export function InfoCard({ icon: Icon, title, description, panelTitle, bgImage, 
             className="absolute inset-0 z-0 bg-cover bg-center opacity-100 brightness-110"
             style={{ backgroundImage: `url(${bgImage})` }}
           />
-          <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#020817]/95 via-[#020817]/60 to-[#020817]/30 pointer-events-none" />
+          <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#020817]/65 via-[#020817]/40 to-[#020817]/20 pointer-events-none" />
         </>
       )}
       
