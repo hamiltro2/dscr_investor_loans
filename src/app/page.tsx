@@ -172,7 +172,10 @@ export default function Home() {
             <div className="space-y-6">
               <div>
                 <DynamicHeroHeadline />
-                <p className="text-xl text-emerald-100/90 font-light max-w-2xl mx-auto lg:mx-0">
+                <p 
+                  className="text-xl text-white font-medium max-w-2xl mx-auto lg:mx-0"
+                  style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.9), 0 1px 2px rgba(0, 0, 0, 0.9)' }}
+                >
                   Direct-to-borrower financing. Experience our streamlined process and close your investment fast!
                 </p>
               </div>
