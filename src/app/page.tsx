@@ -154,7 +154,7 @@ export default function Home() {
         {/* Background Image with Blur, Darkening, and Theme Gradient Blending */}
         <div className="absolute inset-0 -z-10">
           <Image 
-            src="/purchasing-quadplex.png" 
+            src="/purchasing-suburban-sold.jpg" 
             alt="Real estate wealth building" 
             fill
             priority
