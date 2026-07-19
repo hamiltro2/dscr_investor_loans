@@ -158,7 +158,7 @@ export default function Home() {
             alt="Real estate wealth building" 
             fill
             priority
-            quality={95}
+            quality={100}
             sizes="100vw"
             className="object-cover object-center"
           />
