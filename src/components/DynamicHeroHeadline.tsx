@@ -116,7 +116,7 @@ function HeadlineContent() {
       <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300 pb-2">
         No Investor
       </span>
-      <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 -mt-2 pb-4">
+      <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300 -mt-2 pb-4">
         Left Behind
       </span>
     </h1>
@@ -134,7 +134,7 @@ export function DynamicHeroHeadline() {
         <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300 pb-2">
           No Investor
         </span>
-        <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 -mt-2 pb-4">
+        <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-300 -mt-2 pb-4">
           Left Behind
         </span>
       </h1>
