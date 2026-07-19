@@ -2,6 +2,7 @@
 
 import { Zap, TrendingDown, Users, Target, Clock, Star } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import { TypewriterText } from '@/components/TypewriterText'
 import { InfoCard } from '@/components/InfoCard'
@@ -152,10 +153,14 @@ export default function Home() {
       <section className="relative isolate pt-14 pb-10 overflow-hidden">
         {/* Background Image with Blur, Darkening, and Theme Gradient Blending */}
         <div className="absolute inset-0 -z-10">
-          <img 
+          <Image 
             src="/purchasing-quadplex.png" 
             alt="Real estate wealth building" 
-            className="w-full h-full object-cover object-center scale-105"
+            fill
+            priority
+            quality={95}
+            sizes="100vw"
+            className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-dark-950/40 via-transparent to-dark-950/90" />
           <div className="absolute inset-0 bg-gradient-radial from-primary-500/10 via-transparent to-transparent" />
