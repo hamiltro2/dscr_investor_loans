@@ -68,5 +68,19 @@
     "estimated_rent": 250000,
     "has_adu_potential": false,
     "status": "audited"
+  },
+  {
+    "id": "cbs-live-test-lead",
+    "type": "wholesaler",
+    "name": "Ricardo Live Test",
+    "handle": "@capbridgesol",
+    "address": "789 Elm St, Dallas, TX",
+    "market": "Dallas, TX",
+    "is_ca": false,
+    "purchase_price": 350000,
+    "estimated_rent": 2950,
+    "has_adu_potential": false,
+    "is_str_zone": false,
+    "status": "audited"
   }
 ]
