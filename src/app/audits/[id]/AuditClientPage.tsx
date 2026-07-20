@@ -251,50 +251,50 @@ export default function AuditClientPage({ lead }: AuditClientPageProps) {
         <div className="grid lg:grid-cols-3 gap-8 items-start">
           
           {/* Main Analytics Panel (Left columns) */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 bg-white text-gray-900 border border-gray-200 rounded-3xl p-6 sm:p-8 shadow-xl space-y-8">
             
             {/* KPI Cards */}
             <div className="grid sm:grid-cols-3 gap-6">
               
               {/* DSCR KPI */}
-              <div className="bg-dark-900 border border-dark-800 rounded-2xl p-6 relative overflow-hidden">
+              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-2 h-full bg-primary-500" />
-                <p className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2">DSCR Score</p>
-                <p className="text-4xl font-extrabold text-white mb-2">
+                <p className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-2">DSCR Score</p>
+                <p className="text-4xl font-extrabold text-gray-900 mb-2">
                   {dscr.toFixed(2)}x
                 </p>
                 <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${
                   dscr >= 1.2 
-                    ? 'bg-emerald-950 text-emerald-400 border border-emerald-500/20'
+                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                     : dscr >= 1.0
-                      ? 'bg-amber-950 text-amber-400 border border-amber-500/20'
-                      : 'bg-rose-950 text-rose-400 border border-rose-500/20'
+                      ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                      : 'bg-rose-50 text-rose-700 border border-rose-200'
                 }`}>
                   {dscr >= 1.2 ? 'Strong Cash-Flow' : dscr >= 1.0 ? 'Qualified' : 'No-Ratio Eligible'}
                 </span>
               </div>
 
               {/* Net Cash Flow KPI */}
-              <div className="bg-dark-900 border border-dark-800 rounded-2xl p-6 relative overflow-hidden">
+              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-2 h-full bg-emerald-500" />
-                <p className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2">Net Cash Flow</p>
-                <p className="text-4xl font-extrabold text-white mb-2">
+                <p className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-2">Net Cash Flow</p>
+                <p className="text-4xl font-extrabold text-gray-900 mb-2">
                   ${netCashFlow >= 0 ? '+' : ''}{Math.round(netCashFlow).toLocaleString()}/mo
                 </p>
-                <span className="text-gray-400 text-xs flex items-center gap-1">
-                  <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
+                <span className="text-gray-500 text-xs flex items-center gap-1">
+                  <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
                   <span>After full debt service</span>
                 </span>
               </div>
 
               {/* ROI KPI */}
-              <div className="bg-dark-900 border border-dark-800 rounded-2xl p-6 relative overflow-hidden">
+              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-2 h-full bg-cyan-500" />
-                <p className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2">Cash-on-Cash Return</p>
-                <p className="text-4xl font-extrabold text-white mb-2">
+                <p className="text-gray-500 text-xs font-bold uppercase tracking-wider mb-2">Cash-on-Cash Return</p>
+                <p className="text-4xl font-extrabold text-gray-900 mb-2">
                   {cocReturn.toFixed(1)}%
                 </p>
-                <span className="text-gray-400 text-xs">
+                <span className="text-gray-500 text-xs">
                   Est. annual yield
                 </span>
               </div>
@@ -302,18 +302,18 @@ export default function AuditClientPage({ lead }: AuditClientPageProps) {
             </div>
 
             {/* Income vs Expenses Horizontal Stack Chart */}
-            <div className="bg-dark-900 border border-dark-800 rounded-2xl p-8">
-              <h3 className="text-lg font-semibold mb-6">Income vs Expenses Analysis</h3>
+            <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 sm:p-8">
+              <h3 className="text-lg font-bold text-gray-900 mb-6">Income vs Expenses Analysis</h3>
               
               <div className="space-y-6">
                 
                 {/* Monthly Income bar */}
                 <div>
                   <div className="flex justify-between text-sm mb-2">
-                    <span className="text-gray-400">Estimated Gross Monthly Rent</span>
-                    <span className="font-semibold text-white">${Math.round(rent).toLocaleString()}/mo</span>
+                    <span className="text-gray-500">Estimated Gross Monthly Rent</span>
+                    <span className="font-bold text-gray-900">${Math.round(rent).toLocaleString()}/mo</span>
                   </div>
-                  <div className="w-full h-5 bg-dark-850 rounded-full overflow-hidden">
+                  <div className="w-full h-5 bg-gray-200 rounded-full overflow-hidden">
                     <div className="h-full bg-gradient-to-r from-primary-600 to-primary-500 rounded-full" style={{ width: '100%' }} />
                   </div>
                 </div>
@@ -321,10 +321,10 @@ export default function AuditClientPage({ lead }: AuditClientPageProps) {
                 {/* Monthly PITIA expenses bar */}
                 <div>
                   <div className="flex justify-between text-sm mb-2">
-                    <span className="text-gray-400">Total Est. Debt Service & Costs (PITIA)</span>
-                    <span className="font-semibold text-white">${Math.round(pitia).toLocaleString()}/mo</span>
+                    <span className="text-gray-500">Total Est. Debt Service & Costs (PITIA)</span>
+                    <span className="font-bold text-gray-900">${Math.round(pitia).toLocaleString()}/mo</span>
                   </div>
-                  <div className="w-full h-5 bg-dark-850 rounded-full overflow-hidden">
+                  <div className="w-full h-5 bg-gray-200 rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-gradient-to-r from-rose-600 to-rose-500 rounded-full" 
                       style={{ width: `${Math.min((pitia / rent) * 100, 100)}%` }} 
@@ -335,29 +335,29 @@ export default function AuditClientPage({ lead }: AuditClientPageProps) {
               </div>
 
               {/* Legend details */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-6 border-t border-dark-800 text-xs text-gray-400">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-6 border-t border-gray-200 text-xs text-gray-500">
                 <div>
-                  <p className="font-bold text-white mb-1">Principal & Interest:</p>
+                  <p className="font-bold text-gray-900 mb-1">Principal & Interest:</p>
                   <p>${Math.round(pi).toLocaleString()}/mo</p>
                 </div>
                 <div>
-                  <p className="font-bold text-white mb-1">Property Taxes:</p>
+                  <p className="font-bold text-gray-900 mb-1">Property Taxes:</p>
                   <p>${Math.round(monthlyTaxes).toLocaleString()}/mo {lead.is_ca && '(CA Prop 13)'}</p>
                 </div>
                 <div>
-                  <p className="font-bold text-white mb-1">Insurance Premium:</p>
+                  <p className="font-bold text-gray-900 mb-1">Insurance Premium:</p>
                   <p>${Math.round(monthlyInsurance).toLocaleString()}/mo {lead.is_ca && '(FAIR Plan hazard)'}</p>
                 </div>
                 <div>
-                  <p className="font-bold text-white mb-1">Interest Rate Pricing:</p>
+                  <p className="font-bold text-gray-900 mb-1">Interest Rate Pricing:</p>
                   <p>{(interestRate * 100).toFixed(2)}% Fixed Rate</p>
                 </div>
               </div>
             </div>
 
             {/* Down Payment Options Scenarios Grid */}
-            <div className="bg-dark-900 border border-dark-800 rounded-2xl p-8">
-              <h3 className="text-lg font-semibold mb-6">Down Payment Leverage Scenarios</h3>
+            <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 sm:p-8">
+              <h3 className="text-lg font-bold text-gray-900 mb-6">Down Payment Leverage Scenarios</h3>
               
               <div className="grid md:grid-cols-3 gap-6">
                 {downPaymentOptions.map((opt) => {
@@ -370,30 +370,30 @@ export default function AuditClientPage({ lead }: AuditClientPageProps) {
                   const cash = rent - totalPitia;
                   
                   return (
-                    <div key={opt.downPercent} className="bg-dark-950 border border-dark-800 rounded-xl p-5 hover:border-primary-500/30 transition-colors">
+                    <div key={opt.downPercent} className="bg-white border border-gray-200 rounded-xl p-5 hover:border-primary-500 transition-all shadow-sm">
                       <div className="flex items-center justify-between mb-4">
-                        <span className="font-bold text-white text-lg">{opt.downPercent}% Down</span>
-                        <span className="text-xs bg-primary-950 text-primary-400 font-semibold px-2 py-0.5 rounded border border-primary-500/20">
+                        <span className="font-bold text-gray-900 text-lg">{opt.downPercent}% Down</span>
+                        <span className="text-xs bg-primary-50 text-primary-700 font-semibold px-2 py-0.5 rounded border border-primary-200">
                           {(opt.rate * 100).toFixed(2)}% Rate
                         </span>
                       </div>
                       
-                      <div className="space-y-3 text-sm text-gray-400">
+                      <div className="space-y-3 text-sm text-gray-500">
                         <div className="flex justify-between">
                           <span>Equity Req:</span>
-                          <span className="text-white font-semibold">${Math.round(downAmount).toLocaleString()}</span>
+                          <span className="text-gray-900 font-bold">${Math.round(downAmount).toLocaleString()}</span>
                         </div>
                         <div className="flex justify-between">
                           <span>Monthly PITIA:</span>
-                          <span className="text-white font-semibold">${Math.round(totalPitia).toLocaleString()}</span>
+                          <span className="text-gray-900 font-semibold">${Math.round(totalPitia).toLocaleString()}</span>
                         </div>
                         <div className="flex justify-between">
                           <span>DSCR:</span>
-                          <span className="text-emerald-400 font-bold">{ratio.toFixed(2)}x</span>
+                          <span className="text-emerald-600 font-bold">{ratio.toFixed(2)}x</span>
                         </div>
-                        <div className="flex justify-between pt-2 border-t border-dark-800">
+                        <div className="flex justify-between pt-2 border-t border-gray-100">
                           <span>Monthly Yield:</span>
-                          <span className="text-white font-semibold text-base">${Math.round(cash).toLocaleString()}</span>
+                          <span className="text-gray-900 font-extrabold text-base">${Math.round(cash).toLocaleString()}</span>
                         </div>
                       </div>
                     </div>
@@ -403,12 +403,12 @@ export default function AuditClientPage({ lead }: AuditClientPageProps) {
             </div>
 
             {/* ADU / STR context panel description */}
-            <div className="bg-primary-950/20 border border-primary-500/20 rounded-2xl p-6">
-              <h4 className="text-primary-400 font-bold mb-2 flex items-center gap-2">
-                <HelpCircle className="w-5 h-5" />
+            <div className="bg-primary-50 border border-primary-200 rounded-2xl p-6">
+              <h4 className="text-primary-700 font-bold mb-2 flex items-center gap-2">
+                <HelpCircle className="w-5 h-5 text-primary-500" />
                 <span>How is this California Audit calculated?</span>
               </h4>
-              <p className="text-gray-300 text-sm leading-relaxed">
+              <p className="text-gray-600 text-sm leading-relaxed">
                 We default properties in California to a **1.25%** property tax rate under Prop 13 guidelines and adjust homeowner insurance estimates upward to account for localized fire and FAIR Plan hazard zones. If ADU potential is indicated, the alternate scenario evaluates the impact of adding a secondary income unit without requiring tax returns or W-2 checks. Short-Term Rental calculations leverage regional AirDNA comp trends.
               </p>
             </div>
