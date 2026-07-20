@@ -416,9 +416,9 @@ export default function AuditClientPage({ lead }: AuditClientPageProps) {
           </div>
 
           {/* Lead Capture Panel (Right Column) */}
-          <div className="bg-dark-900 border border-dark-800 rounded-2xl p-8 sticky top-28">
-            <h3 className="text-xl font-bold text-white mb-2">Get Pre-Approved</h3>
-            <p className="text-gray-400 text-sm mb-6">
+          <div className="bg-white border border-gray-200 rounded-3xl p-8 sticky top-28 shadow-xl text-gray-900">
+            <h3 className="text-xl font-extrabold text-gray-900 mb-2">Get Pre-Approved</h3>
+            <p className="text-gray-600 text-sm mb-6">
               Lock in rates starting at 5.99% for this specific property with our no-doc DSCR investor loan.
             </p>
 
@@ -432,7 +432,7 @@ export default function AuditClientPage({ lead }: AuditClientPageProps) {
                   className="space-y-4 text-left"
                 >
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Your Name</label>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Your Name</label>
                     <input
                       type="text"
                       name="name"
@@ -440,12 +440,12 @@ export default function AuditClientPage({ lead }: AuditClientPageProps) {
                       value={formData.name}
                       onChange={handleInputChange}
                       placeholder="Jane Doe"
-                      className="w-full bg-dark-950 border border-dark-800 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all text-sm"
+                      className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-gray-950 placeholder-gray-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all text-sm"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Email Address</label>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Email Address</label>
                     <input
                       type="email"
                       name="email"
@@ -453,12 +453,12 @@ export default function AuditClientPage({ lead }: AuditClientPageProps) {
                       value={formData.email}
                       onChange={handleInputChange}
                       placeholder="jane@example.com"
-                      className="w-full bg-dark-950 border border-dark-800 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all text-sm"
+                      className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-gray-950 placeholder-gray-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all text-sm"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Phone Number</label>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Phone Number</label>
                     <input
                       type="tel"
                       name="phone"
@@ -466,18 +466,18 @@ export default function AuditClientPage({ lead }: AuditClientPageProps) {
                       value={formData.phone}
                       onChange={handleInputChange}
                       placeholder="(949) 555-0199"
-                      className="w-full bg-dark-950 border border-dark-800 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all text-sm"
+                      className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-gray-950 placeholder-gray-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all text-sm"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Property Inquiry Notes</label>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Property Inquiry Notes</label>
                     <textarea
                       name="notes"
                       rows={3}
                       value={formData.notes}
                       onChange={handleInputChange}
-                      className="w-full bg-dark-950 border border-dark-800 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all text-sm"
+                      className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-gray-950 placeholder-gray-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all text-sm"
                     />
                   </div>
 
@@ -500,11 +500,11 @@ export default function AuditClientPage({ lead }: AuditClientPageProps) {
                 <motion.div 
                   initial={{ scale: 0.95, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  className="bg-emerald-950/20 border border-emerald-500/20 rounded-xl p-6 text-center"
+                  className="bg-emerald-50 border border-emerald-200 rounded-xl p-6 text-center"
                 >
-                  <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto mb-4" />
-                  <h4 className="text-lg font-bold text-white mb-2">Request Submitted!</h4>
-                  <p className="text-gray-300 text-sm">
+                  <CheckCircle className="w-12 h-12 text-emerald-500 mx-auto mb-4" />
+                  <h4 className="text-lg font-bold text-emerald-950 mb-2">Request Submitted!</h4>
+                  <p className="text-emerald-800 text-sm">
                     Thank you. **Erol Senel (NMLS #211355)** or a Capital Bridge Solutions representative will analyze this deal and contact you shortly at <strong>{formData.phone}</strong>.
                   </p>
                 </motion.div>
