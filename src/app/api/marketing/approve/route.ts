@@ -187,8 +187,9 @@ export async function GET(request: NextRequest) {
     if (!xResult.success) {
       return new NextResponse(
         `<html>
+          <head><meta charset="utf-8"></head>
           <body style="font-family: sans-serif; text-align: center; padding: 50px; background: #0f172a; color: white;">
-            <h2 style="color: #dc3545;">✗ Posting Failed</h2>
+            <h2 style="color: #dc3545;">❌ Posting Failed</h2>
             <p>Could not post audit to X.com.</p>
             <div style="background: #1e293b; padding: 20px; text-align: left; border-radius: 8px; max-width: 600px; margin: 20px auto; overflow-x: auto; border: 1px solid #dc3545;">
               <code>${xResult.error}</code>
@@ -197,7 +198,7 @@ export async function GET(request: NextRequest) {
             <a href="/audits/${id}" style="color: #38bdf8; text-decoration: none;">Go back to Audit Preview</a>
           </body>
         </html>`,
-        { headers: { 'Content-Type': 'text/html' } }
+        { headers: { 'Content-Type': 'text/html; charset=utf-8' } }
       );
     }
 
@@ -216,8 +217,9 @@ export async function GET(request: NextRequest) {
 
     return new NextResponse(
       `<html>
+        <head><meta charset="utf-8"></head>
         <body style="font-family: sans-serif; text-align: center; padding: 50px; background: #0f172a; color: white;">
-          <h2 style="color: #10b981;">✓ Successfully Posted!</h2>
+          <h2 style="color: #10b981;">✅ Successfully Posted!</h2>
           <p>The DSCR cash flow audit has been published to the brand X.com account.</p>
           <p><strong>Published Tweet ID:</strong> <code>${xResult.data?.data?.id || 'N/A'}</code></p>
           <div style="margin: 30px 0;">
@@ -226,13 +228,14 @@ export async function GET(request: NextRequest) {
           </div>
         </body>
       </html>`,
-      { headers: { 'Content-Type': 'text/html' } }
+      { headers: { 'Content-Type': 'text/html; charset=utf-8' } }
     );
   } catch (fatalErr: any) {
     return new NextResponse(
       `<html>
+        <head><meta charset="utf-8"></head>
         <body style="font-family: sans-serif; text-align: center; padding: 50px; background: #0f172a; color: white;">
-          <h2 style="color: #dc3545;">✗ Critical Server Error</h2>
+          <h2 style="color: #dc3545;">❌ Critical Server Error</h2>
           <p>The approval system encountered an unexpected error.</p>
           <div style="background: #1e293b; padding: 20px; text-align: left; border-radius: 8px; max-width: 600px; margin: 20px auto; overflow-x: auto; border: 1px solid #dc3545;">
             <code>${fatalErr.message}</code>
@@ -240,7 +243,7 @@ export async function GET(request: NextRequest) {
           <a href="/" style="color: #38bdf8; text-decoration: none;">Return to Home</a>
         </body>
       </html>`,
-      { headers: { 'Content-Type': 'text/html' }, status: 500 }
+      { headers: { 'Content-Type': 'text/html; charset=utf-8' }, status: 500 }
     );
   }
 }

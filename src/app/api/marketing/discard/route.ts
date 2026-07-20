@@ -54,14 +54,15 @@ export async function GET(request: NextRequest) {
 
   return new NextResponse(
     `<html>
+      <head><meta charset="utf-8"></head>
       <body style="font-family: sans-serif; text-align: center; padding: 50px; background: #0f172a; color: white;">
-        <h2 style="color: #94a3b8;">✓ Lead Discarded</h2>
+        <h2 style="color: #94a3b8;">🗑️ Lead Discarded</h2>
         <p>This property has been removed from the active outreach queue.</p>
         <div style="margin: 30px 0;">
           <a href="/" style="background: #334155; color: white; padding: 12px 24px; text-decoration: none; border-radius: 30px; font-weight: bold;">Return Home</a>
         </div>
       </body>
     </html>`,
-    { headers: { 'Content-Type': 'text/html' } }
+    { headers: { 'Content-Type': 'text/html; charset=utf-8' } }
   );
 }
