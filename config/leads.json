@@ -82,5 +82,57 @@
     "has_adu_potential": false,
     "is_str_zone": false,
     "status": "audited"
+  },
+  {
+    "id": "scouted-1784701138554-89",
+    "type": "agent",
+    "name": "Mauricio Umansky",
+    "handle": "@mauricioumansky",
+    "address": "8555 Hollywood Blvd, Los Angeles, CA 90069",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 2750000,
+    "estimated_rent": 14500,
+    "has_adu_potential": true,
+    "status": "audited"
+  },
+  {
+    "id": "scouted-1784701138554-150",
+    "type": "agent",
+    "name": "The Agency",
+    "handle": "@TheAgencyRE",
+    "address": "432 Oakhurst Dr, Beverly Hills, CA 90212",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 1850000,
+    "estimated_rent": 9800,
+    "has_adu_potential": true,
+    "status": "audited"
+  },
+  {
+    "id": "scouted-1784701138554-794",
+    "type": "agent",
+    "name": "Compass California",
+    "handle": "@Compass",
+    "address": "1234 Palm Canyon Dr, Palm Springs, CA 92264",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 890000,
+    "estimated_rent": 5200,
+    "has_adu_potential": true,
+    "status": "audited"
+  },
+  {
+    "id": "scouted-1784701138554-100",
+    "type": "agent",
+    "name": "Tracy Tutor",
+    "handle": "@tracytutor",
+    "address": "910 Hillcrest Rd, Beverly Hills, CA 90210",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 4950000,
+    "estimated_rent": 22000,
+    "has_adu_potential": true,
+    "status": "audited"
   }
 ]
