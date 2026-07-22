@@ -64,6 +64,42 @@ async function scoutListings() {
       rent: 250000,
       is_ca: true,
       type: "wholesaler"
+    },
+    {
+      handle: "@mauricioumansky",
+      name: "Mauricio Umansky",
+      address: "8555 Hollywood Blvd, Los Angeles, CA 90069",
+      price: 2750000,
+      rent: 14500,
+      is_ca: true,
+      type: "agent"
+    },
+    {
+      handle: "@TheAgencyRE",
+      name: "The Agency",
+      address: "432 Oakhurst Dr, Beverly Hills, CA 90212",
+      price: 1850000,
+      rent: 9800,
+      is_ca: true,
+      type: "agent"
+    },
+    {
+      handle: "@Compass",
+      name: "Compass California",
+      address: "1234 Palm Canyon Dr, Palm Springs, CA 92264",
+      price: 890000,
+      rent: 5200,
+      is_ca: true,
+      type: "agent"
+    },
+    {
+      handle: "@tracytutor",
+      name: "Tracy Tutor",
+      address: "910 Hillcrest Rd, Beverly Hills, CA 90210",
+      price: 4950000,
+      rent: 22000,
+      is_ca: true,
+      type: "agent"
     }
   ];
 
