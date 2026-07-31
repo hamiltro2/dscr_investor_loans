@@ -186,5 +186,44 @@
     "estimated_rent": 15000,
     "has_adu_potential": true,
     "status": "audited"
+  },
+  {
+    "id": "scouted-1785484374749-416",
+    "type": "agent",
+    "name": "Tracy Tutor",
+    "handle": "@tracytutor",
+    "address": "512 N Elm Dr, Beverly Hills, CA 90210",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 4500000,
+    "estimated_rent": 19500,
+    "has_adu_potential": true,
+    "status": "audited"
+  },
+  {
+    "id": "scouted-1785484374749-976",
+    "type": "wholesaler",
+    "name": "Jamil Damji",
+    "handle": "@JamilDamji",
+    "address": "1422 Bellevue Ave, Los Angeles, CA 90026",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 980000,
+    "estimated_rent": 5800,
+    "has_adu_potential": true,
+    "status": "audited"
+  },
+  {
+    "id": "scouted-1785484374749-876",
+    "type": "wholesaler",
+    "name": "PACE MORBY",
+    "handle": "@pacemorby",
+    "address": "2201 Lake Shore Ave, Los Angeles, CA 90039",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 1150000,
+    "estimated_rent": 6500,
+    "has_adu_potential": true,
+    "status": "audited"
   }
 ]
