@@ -225,5 +225,44 @@
     "estimated_rent": 6500,
     "has_adu_potential": true,
     "status": "audited"
+  },
+  {
+    "id": "scouted-1785494461570-634",
+    "type": "agent",
+    "name": "Compass California",
+    "handle": "@Compass",
+    "address": "2895 E Grand Blvd, Corona, CA 92879",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 790000,
+    "estimated_rent": 4900,
+    "has_adu_potential": true,
+    "status": "audited"
+  },
+  {
+    "id": "scouted-1785494461570-374",
+    "type": "agent",
+    "name": "The Agency",
+    "handle": "@TheAgencyRE",
+    "address": "10445 Wilshire Blvd, Los Angeles, CA 90024",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 1590000,
+    "estimated_rent": 8200,
+    "has_adu_potential": true,
+    "status": "audited"
+  },
+  {
+    "id": "scouted-1785494461570-683",
+    "type": "agent",
+    "name": "Compass California",
+    "handle": "@Compass",
+    "address": "308 Constantia Rd, Palm Springs, CA 92264",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 1100000,
+    "estimated_rent": 6900,
+    "has_adu_potential": true,
+    "status": "audited"
   }
 ]
