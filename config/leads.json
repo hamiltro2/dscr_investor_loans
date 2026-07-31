@@ -134,5 +134,18 @@
     "estimated_rent": 22000,
     "has_adu_potential": true,
     "status": "audited"
+  },
+  {
+    "id": "scouted-1785475921987-865",
+    "type": "agent",
+    "name": "Mauricio Umansky",
+    "handle": "@mauricioumansky",
+    "address": "2455 Oak Knoll Ave, San Marino, CA 91108",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 2490000,
+    "estimated_rent": 11500,
+    "has_adu_potential": true,
+    "status": "audited"
   }
 ]
