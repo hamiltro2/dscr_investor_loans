@@ -264,5 +264,31 @@
     "estimated_rent": 6900,
     "has_adu_potential": true,
     "status": "audited"
+  },
+  {
+    "id": "scouted-1785502660303-47",
+    "type": "agent",
+    "name": "Mauricio Umansky",
+    "handle": "@mauricioumansky",
+    "address": "201 N Canon Dr, Beverly Hills, CA 90210",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 2950000,
+    "estimated_rent": 13800,
+    "has_adu_potential": true,
+    "status": "audited"
+  },
+  {
+    "id": "scouted-1785502660303-151",
+    "type": "agent",
+    "name": "Tracy Tutor",
+    "handle": "@tracytutor",
+    "address": "1501 Ocean Ave, Santa Monica, CA 90401",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 3450000,
+    "estimated_rent": 16200,
+    "has_adu_potential": true,
+    "status": "audited"
   }
 ]
