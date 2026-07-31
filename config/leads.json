@@ -147,5 +147,44 @@
     "estimated_rent": 11500,
     "has_adu_potential": true,
     "status": "audited"
+  },
+  {
+    "id": "scouted-1785477044700-59",
+    "type": "agent",
+    "name": "Compass California",
+    "handle": "@Compass",
+    "address": "742 Evergreen Terrace, Palm Springs, CA 92262",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 650000,
+    "estimated_rent": 4200,
+    "has_adu_potential": true,
+    "status": "audited"
+  },
+  {
+    "id": "scouted-1785477044700-79",
+    "type": "agent",
+    "name": "The Agency",
+    "handle": "@TheAgencyRE",
+    "address": "1842 N Kingsley Dr, Los Angeles, CA 90027",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 1250000,
+    "estimated_rent": 7100,
+    "has_adu_potential": true,
+    "status": "audited"
+  },
+  {
+    "id": "scouted-1785477044700-383",
+    "type": "agent",
+    "name": "Josh Flagg",
+    "handle": "@JoshFlaggRE",
+    "address": "9300 Civic Center Dr, Beverly Hills, CA 90210",
+    "market": "Los Angeles, CA",
+    "is_ca": true,
+    "purchase_price": 3200000,
+    "estimated_rent": 15000,
+    "has_adu_potential": true,
+    "status": "audited"
   }
 ]
