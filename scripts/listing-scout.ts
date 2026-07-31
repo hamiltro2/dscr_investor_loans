@@ -216,8 +216,8 @@ async function scoutListings() {
     // Prevent duplicates
     if (leads.some(l => l.address === listing.address)) continue;
 
-    // Limit to 1 new lead per run to drip-feed notifications hourly
-    if (newLeadsAdded >= 1) break;
+    // Limit to 3 new leads per run to drip-feed notifications hourly
+    if (newLeadsAdded >= 3) break;
 
     const newLead: Lead = {
       id: `scouted-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
