@@ -417,23 +417,23 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
             </div>
 
             {/* 4 Key Institutional Metrics (Tabular Precision) */}
-            <div className="p-6 sm:p-10">
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                <div className="bg-[#F5F5F7]/70 rounded-2xl p-5 border border-[#E5E5EA]">
-                  <p className="text-xs font-bold uppercase tracking-wider text-[#86868B] mb-1">
+            <div className="p-5 sm:p-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5">
+                <div className="bg-[#F5F5F7]/70 rounded-2xl p-4 sm:p-5 border border-[#E5E5EA] min-w-0 overflow-hidden">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#86868B] mb-1">
                     Estimated Asset Value
                   </p>
-                  <p className="text-2xl sm:text-3xl font-extrabold text-[#1D1D1F] tabular-nums">
+                  <p className="text-2xl xl:text-[26px] font-extrabold text-[#1D1D1F] tabular-nums tracking-tight truncate">
                     ${lead.estimatedValue.toLocaleString()}
                   </p>
                   <p className="text-xs text-[#515154] mt-1 font-medium">{lead.propertyType}</p>
                 </div>
 
-                <div className="bg-[#ECFDF5] rounded-2xl p-5 border border-[#A7F3D0]">
-                  <p className="text-xs font-bold uppercase tracking-wider text-[#047857] mb-1">
+                <div className="bg-[#ECFDF5] rounded-2xl p-4 sm:p-5 border border-[#A7F3D0] min-w-0 overflow-hidden">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#047857] mb-1">
                     Protected Owner Equity
                   </p>
-                  <p className="text-2xl sm:text-3xl font-extrabold text-[#065F46] tabular-nums">
+                  <p className="text-2xl xl:text-[26px] font-extrabold text-[#065F46] tabular-nums tracking-tight truncate">
                     ${lead.protectedEquity.toLocaleString()}
                   </p>
                   <p className="text-xs text-[#047857] mt-1 font-bold">
@@ -441,11 +441,11 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                   </p>
                 </div>
 
-                <div className="bg-[#F0F7FF] rounded-2xl p-5 border border-[#BFDBFE]">
-                  <p className="text-xs font-bold uppercase tracking-wider text-[#0066CC] mb-1">
+                <div className="bg-[#F0F7FF] rounded-2xl p-4 sm:p-5 border border-[#BFDBFE] min-w-0 overflow-hidden">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#0066CC] mb-1">
                     1st Mortgage (Keep Intact)
                   </p>
-                  <p className="text-2xl sm:text-3xl font-extrabold text-[#1D1D1F] tabular-nums">
+                  <p className="text-2xl xl:text-[26px] font-extrabold text-[#1D1D1F] tabular-nums tracking-tight">
                     {lead.firstLien.rate.toFixed(2)}%{' '}
                     <span className="text-base font-bold text-[#0066CC]">Fixed</span>
                   </p>
@@ -454,11 +454,11 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                   </p>
                 </div>
 
-                <div className="bg-[#FFFBEB] rounded-2xl p-5 border border-[#FDE68A]">
-                  <p className="text-xs font-bold uppercase tracking-wider text-[#B45309] mb-1">
+                <div className="bg-[#FFFBEB] rounded-2xl p-4 sm:p-5 border border-[#FDE68A] min-w-0 overflow-hidden">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-[#B45309] mb-1">
                     Isolated NOD Trigger (2nd Lien)
                   </p>
-                  <p className="text-2xl sm:text-3xl font-extrabold text-[#92400E] tabular-nums">
+                  <p className="text-2xl xl:text-[26px] font-extrabold text-[#92400E] tabular-nums tracking-tight truncate">
                     ${lead.secondLien.amount.toLocaleString()}
                   </p>
                   <p className="text-xs text-[#B45309] mt-1 font-bold">
@@ -1023,7 +1023,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                   ✓ EQUITY SAVED BY CBS
                 </div>
               </div>
-              <div className="sm:col-span-8 grid grid-cols-3 gap-2 text-center sm:text-left">
+              <div className="sm:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-left">
                 <div className="bg-white p-2.5 rounded-xl border border-[#E5E5EA]">
                   <p className="text-[10px] font-bold uppercase text-[#86868B]">Protected Equity</p>
                   <p className="text-base font-extrabold text-[#059669]">
