@@ -21,6 +21,7 @@ interface LeadCaptureModalProps {
   onClose: () => void;
   onSuccess: (leadId: string) => void;
   context?: string; // Context about what triggered the modal
+  transcriptText?: string;
 }
 
 interface FormData {
@@ -46,7 +47,7 @@ const PROPERTY_TYPES = [
   { value: 'multi_family', label: 'Multi-Family', icon: '🏗️' },
 ];
 
-export function LeadCaptureModal({ isOpen, onClose, onSuccess, context }: LeadCaptureModalProps) {
+export function LeadCaptureModal({ isOpen, onClose, onSuccess, context, transcriptText }: LeadCaptureModalProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -169,6 +170,7 @@ export function LeadCaptureModal({ isOpen, onClose, onSuccess, context }: LeadCa
           propertyType: formData.propertyType,
           loanAmount: parseInt(formData.loanAmount.replace(/\D/g, '')),
           notes: 'Lead captured via voice chat modal',
+          transcript: transcriptText || undefined,
         }),
       });
 

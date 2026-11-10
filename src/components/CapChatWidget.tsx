@@ -171,6 +171,16 @@ export function CapChatWidget(): JSX.Element {
   useEffect(() => {
     window.addEventListener(WIDGET_EVENTS.OPEN_CHAT, handleOpenChat);
     window.addEventListener(WIDGET_EVENTS.SWITCH_TO_TEXT, handleSwitchToText);
+
+    // Support deep-links such as /?chat=open or /?chat=voice
+    const params = new URLSearchParams(window.location.search);
+    const chatParam = params.get('chat');
+    if (chatParam === 'open' || chatParam === 'true') {
+      setIsOpen(true);
+    } else if (chatParam === 'voice') {
+      setMode('voice');
+      setIsOpen(true);
+    }
     
     return () => {
       window.removeEventListener(WIDGET_EVENTS.OPEN_CHAT, handleOpenChat);
@@ -225,7 +235,7 @@ export function CapChatWidget(): JSX.Element {
 
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
-  }, []);
+  }, [size.width, size.height]);
 
   // ============================================================================
   // Computed Values (Memoized)

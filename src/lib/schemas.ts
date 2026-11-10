@@ -215,23 +215,23 @@ export const SaveLeadToolSchema = z.object({
 });
 
 export const ScoreLeadToolSchema = z.object({
-  leadId: z.string().cuid(),
+  leadId: z.string().min(1),
 });
 
 export const ScheduleCallToolSchema = z.object({
-  leadId: z.string().cuid(),
+  leadId: z.string().min(1),
   preferredSlot: z.string().optional(),
 });
 
 export const CRMWebhookToolSchema = z.object({
-  leadId: z.string().cuid(),
+  leadId: z.string().min(1),
   payload: z.record(z.any()),
 });
 
 // ==================== API RESPONSES ====================
 
 export const SaveLeadResponseSchema = z.object({
-  leadId: z.string().cuid(),
+  leadId: z.string().min(1),
   status: z.enum(['created', 'updated']),
 });
 

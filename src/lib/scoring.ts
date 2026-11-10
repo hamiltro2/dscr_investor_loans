@@ -171,31 +171,31 @@ export async function scoreLead(lead: Lead): Promise<ScoreResult> {
   if (lead.productType === 'dscr' && lead.rentalIncome && loanAmount > 0) {
     // Get detailed inputs if available, otherwise use defaults
     const inputs = (lead.dscrInputs as any) || {};
-    const taxes = inputs.monthlyTaxes || 0;
-    const insurance = inputs.monthlyInsurance || 0;
-    const hoa = inputs.monthlyHOA || 0;
-    const rate = inputs.proposedRate || 0.055; // Default to 5.5%
+    const taxes = Number(inputs.monthlyTaxes) || 0;
+    const insurance = Number(inputs.monthlyInsurance) || 0;
+    const hoa = Number(inputs.monthlyHOA) || 0;
+    const rawRate = Number(inputs.proposedRate) || 0.0599;
+    const rate = rawRate > 1 ? rawRate / 100 : rawRate; // Support both 5.99 and 0.0599
 
-    // Simple DSCR calculation: Rental Income / Monthly Payment
-    // Monthly payment for 30-year loan at given rate
+    // Standard Lender DSCR calculation: Gross Monthly Rent / Monthly PITIA
     const monthlyRate = rate / 12;
     const numPayments = 360; // 30 years
-    const monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+    const monthlyPI =
+      loanAmount *
+      ((monthlyRate * Math.pow(1 + monthlyRate, numPayments)) /
+        (Math.pow(1 + monthlyRate, numPayments) - 1));
+    const monthlyPITIA = monthlyPI + taxes + insurance + hoa;
 
-    // NOI (Net Operating Income) = Rental Income - Operating Expenses
-    const noi = Number(lead.rentalIncome) - taxes - insurance - hoa;
-
-    // DSCR = NOI / Monthly Payment
-    if (monthlyPayment > 0) {
-      dscr = noi / monthlyPayment;
+    if (monthlyPITIA > 0) {
+      dscr = Number(lead.rentalIncome) / monthlyPITIA;
     }
 
     const dscrAdj = getDSCRAdjustment(dscr);
     score += dscrAdj;
-    reasoning += `DSCR ${dscr.toFixed(2)} (Rent: $${lead.rentalIncome}, Payment: $${monthlyPayment.toFixed(0)}) → ${dscrAdj >= 0 ? '+' : ''}${dscrAdj}\n`;
+    reasoning += `DSCR ${dscr.toFixed(2)} (Rent: $${lead.rentalIncome}, PITIA: $${monthlyPITIA.toFixed(0)}) → ${dscrAdj >= 0 ? '+' : ''}${dscrAdj}\n`;
 
     if (dscr < 1.0) {
-      riskFlags.push('Negative cash flow (DSCR < 1.0)');
+      riskFlags.push('Sub-1.0 DSCR (No-Ratio program required)');
     }
   }
 

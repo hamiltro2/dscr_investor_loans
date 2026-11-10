@@ -142,36 +142,6 @@ export async function POST(req: Request) {
         {
           type: 'function',
           function: {
-            name: 'scheduleCall',
-            description: 'Generate scheduling link for follow-up call',
-            parameters: {
-              type: 'object',
-              properties: {
-                leadId: { type: 'string' },
-                preferredSlot: { type: 'string' },
-              },
-              required: ['leadId'],
-            },
-          },
-        },
-        {
-          type: 'function',
-          function: {
-            name: 'crmWebhook',
-            description: 'Send lead data to CRM system',
-            parameters: {
-              type: 'object',
-              properties: {
-                leadId: { type: 'string' },
-                payload: { type: 'object' },
-              },
-              required: ['leadId', 'payload'],
-            },
-          },
-        },
-        {
-          type: 'function',
-          function: {
             name: 'analyzeDeal',
             description: 'Analyze investment property deal with comprehensive financial calculations. Returns DSCR, cash flow, ROI, cap rate, and qualification status. Use when investor asks about specific property numbers or wants to analyze a deal.',
             parameters: {
@@ -246,312 +216,286 @@ export async function POST(req: Request) {
       tool_choice: 'auto',
     });
 
+    // Format recent user/assistant conversation transcript for lead context
+    const transcriptSummary = Array.isArray(messages)
+      ? messages
+          .slice(-12)
+          .map((m: any) => {
+            const text =
+              typeof m.content === 'string'
+                ? m.content
+                : Array.isArray(m.content)
+                ? m.content.map((p: any) => p.text || '[Image]').join(' ')
+                : '';
+            return `${(m.role || 'user').toUpperCase()}: ${text.slice(0, 300)}`;
+          })
+          .join('\n')
+      : '';
+
+    // Track saved leads in-memory during this request so scoreLead in Round 2 works even if DB is in fallback mode
+    const inMemoryLeads = new Map<string, any>();
+
+    const executeToolCall = async (toolCall: any): Promise<any> => {
+      console.log('[Agent] Executing tool:', toolCall.function.name);
+      const rawArgs = JSON.parse(toolCall.function.arguments || '{}');
+
+      switch (toolCall.function.name) {
+        case 'searchKnowledgeBase': {
+          const { query, topK = 3 } = rawArgs;
+          const results = await searchKnowledgeBase(String(query), Number(topK) || 3);
+          return {
+            results: results.map((r) => ({
+              title: r.chunk.title,
+              url: r.chunk.url,
+              content: r.chunk.content,
+              similarity: r.similarity,
+            })),
+            count: results.length,
+          };
+        }
+
+        case 'perplexitySearch': {
+          const params = PerplexityQuerySchema.parse(rawArgs);
+          const searchResult = await perplexitySearch(params);
+          if (searchResult.snippets.length === 0) {
+            return {
+              success: false,
+              message:
+                'No property information found. The website may be blocking access or the property may not be publicly listed.',
+              snippets: [],
+            };
+          }
+          return {
+            success: true,
+            snippets: searchResult.snippets,
+            cached: searchResult.cached,
+          };
+        }
+
+        case 'saveLead': {
+          const { leadDraft } = rawArgs;
+          const validated = LeadInputSchema.parse(leadDraft);
+          const enrichedNotes = [
+            validated.notes || 'Web Chat Inquiry',
+            transcriptSummary ? `\n--- Chat Transcript ---\n${transcriptSummary}` : '',
+          ]
+            .filter(Boolean)
+            .join('\n');
+
+          let lead: any;
+          let isNewLead = false;
+
+          try {
+            const existing = await prisma.lead.findFirst({
+              where: {
+                OR: [{ email: validated.email }, { phone: validated.phone }],
+              },
+            });
+
+            if (existing) {
+              const mergedNotes = existing.notes
+                ? `${existing.notes}\n\n[Chat Update ${new Date().toISOString()}]: ${enrichedNotes}`
+                : enrichedNotes;
+              lead = await prisma.lead.update({
+                where: { id: existing.id },
+                data: {
+                  ...validated,
+                  notes: mergedNotes,
+                  consentAt: validated.consentGiven ? new Date() : undefined,
+                },
+              });
+              isNewLead = false;
+            } else {
+              lead = await prisma.lead.create({
+                data: {
+                  ...validated,
+                  notes: enrichedNotes,
+                  channel: 'web_chat',
+                  consentAt: validated.consentGiven ? new Date() : undefined,
+                },
+              });
+              isNewLead = true;
+            }
+
+            await prisma.interaction.create({
+              data: {
+                leadId: lead.id,
+                role: 'tool',
+                content: { tool: 'saveLead', result: 'success', transcript: transcriptSummary },
+                toolName: 'saveLead',
+                toolInput: validated as any,
+                toolOutput: { leadId: lead.id, status: isNewLead ? 'created' : 'updated' },
+              },
+            });
+          } catch (dbError) {
+            console.warn(
+              '[Database offline fallback] Failed to save lead in database for web_chat, using memory fallback:',
+              dbError
+            );
+            lead = {
+              id: `fallback-lead-${Date.now()}`,
+              ...validated,
+              notes: enrichedNotes,
+              channel: 'web_chat',
+              consentAt: validated.consentGiven ? new Date() : undefined,
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            };
+            isNewLead = true;
+          }
+
+          inMemoryLeads.set(lead.id, lead);
+
+          try {
+            await sendCapLeadNotification(lead);
+            console.log('[saveLead] Email + Telegram notification sent for:', lead.name);
+          } catch (emailError) {
+            console.error('[saveLead] Failed to send notification:', emailError);
+          }
+
+          return SaveLeadResponseSchema.parse({
+            leadId: lead.id,
+            status: isNewLead ? 'created' : 'updated',
+          });
+        }
+
+        case 'scoreLead': {
+          const { leadId } = rawArgs;
+          let lead: any = inMemoryLeads.get(leadId);
+          let isFallback = String(leadId).startsWith('fallback-lead-');
+
+          if (!lead && !isFallback) {
+            try {
+              lead = await prisma.lead.findUnique({ where: { id: leadId } });
+            } catch (dbError) {
+              console.warn('[scoreLead] DB lookup failed, using fallback lead:', dbError);
+              isFallback = true;
+            }
+          }
+
+          if (!lead) {
+            isFallback = true;
+            lead = {
+              id: leadId || `fallback-lead-${Date.now()}`,
+              name: 'Web Chat Investor',
+              email: 'pending@capitalbridgesolutions.com',
+              phone: 'Not provided',
+              productType: 'dscr',
+              loanAmountRequested: 500000,
+              notes: transcriptSummary,
+            };
+          }
+
+          const scoreResult = await scoreLeadFn(lead as any);
+
+          if (!isFallback) {
+            try {
+              await prisma.lead.update({
+                where: { id: leadId },
+                data: {
+                  score: scoreResult.score,
+                  status:
+                    scoreResult.disposition === 'qualified'
+                      ? 'qualified'
+                      : scoreResult.disposition === 'follow_up'
+                      ? 'follow_up'
+                      : 'disqualified',
+                  offer: scoreResult.preliminaryOffer as any,
+                },
+              });
+
+              await prisma.interaction.create({
+                data: {
+                  leadId,
+                  role: 'tool',
+                  content: { tool: 'scoreLead', result: scoreResult },
+                  toolName: 'scoreLead',
+                  toolInput: { leadId },
+                  toolOutput: scoreResult as any,
+                },
+              });
+            } catch (dbErr) {
+              console.warn('[scoreLead] Non-critical DB update error:', dbErr);
+            }
+          }
+
+          return scoreResult;
+        }
+
+        case 'analyzeDeal': {
+          const inputs: PropertyInputs = {
+            purchasePrice: Number(rawArgs.purchasePrice) || 0,
+            downPaymentPercent: Number(rawArgs.downPaymentPercent) || 20,
+            closingCostsPercent: Number(rawArgs.closingCostsPercent ?? 2.5),
+            rehabCosts: Number(rawArgs.rehabCosts ?? 0),
+            interestRate: Number(rawArgs.interestRate) || 5.99,
+            loanTermYears: Number(rawArgs.loanTermYears) || 30,
+            monthlyRent: Number(rawArgs.monthlyRent) || 0,
+            otherMonthlyIncome: Number(rawArgs.otherMonthlyIncome ?? 0),
+            vacancyRate: Number(rawArgs.vacancyRate ?? 0),
+            propertyTaxRate: Number(rawArgs.propertyTaxRate ?? 1.1),
+            insurance: Number(rawArgs.insurance ?? 125),
+            hoaFees: Number(rawArgs.hoaFees ?? 0),
+            propertyManagement: Number(rawArgs.propertyManagement ?? 0),
+            maintenance: Number(rawArgs.maintenance ?? 0),
+            utilities: Number(rawArgs.utilities ?? 0),
+            otherExpenses: Number(rawArgs.otherExpenses ?? 0),
+          };
+
+          const analysis = analyzeDeal(inputs);
+          const monthlyPITIA = Math.round(
+            analysis.monthly.debtService +
+              analysis.monthly.propertyTax +
+              analysis.monthly.insurance +
+              analysis.monthly.hoaFees
+          );
+
+          return {
+            success: true,
+            summary: {
+              totalCashNeeded: Math.round(analysis.acquisition.totalCashNeeded),
+              loanAmount: Math.round(analysis.acquisition.loanAmount),
+              monthlyPaymentPI: Math.round(analysis.monthly.debtService),
+              monthlyPITIA,
+              monthlyCashFlow: Math.round(analysis.monthly.cashFlow),
+              annualCashFlow: Math.round(analysis.annual.cashFlow),
+              dscr: Number(analysis.metrics.dscr.toFixed(2)),
+              cashOnCashReturn: Number(analysis.metrics.cashOnCashReturn.toFixed(2)),
+              capRate: Number(analysis.metrics.capRate.toFixed(2)),
+              qualifies: analysis.qualification.dcsrQualifies,
+              recommendation: analysis.qualification.recommendation,
+            },
+            fullAnalysis: analysis,
+          };
+        }
+
+        default:
+          return { error: `Unknown tool: ${toolCall.function.name}` };
+      }
+    };
+
     // Handle tool calls if present
     const choice = response.choices[0];
     if (choice.finish_reason === 'tool_calls' && choice.message.tool_calls) {
-      // Process tool calls
       const toolMessages = [];
-      
+
       for (const toolCall of choice.message.tool_calls) {
-        console.log('[Agent] Tool call:', toolCall.function.name);
-        
         let result: any;
-        
         try {
-          switch (toolCall.function.name) {
-            case 'searchKnowledgeBase': {
-              const { query, topK = 3 } = JSON.parse(toolCall.function.arguments);
-              const results = await searchKnowledgeBase(query, topK);
-              // Format results for the AI
-              result = {
-                results: results.map(r => ({
-                  title: r.chunk.title,
-                  url: r.chunk.url,
-                  content: r.chunk.content,
-                  similarity: r.similarity,
-                })),
-                count: results.length,
-              };
-              break;
-            }
-
-            case 'perplexitySearch': {
-              const params = PerplexityQuerySchema.parse(JSON.parse(toolCall.function.arguments));
-              const searchResult = await perplexitySearch(params);
-              
-              // Format for AI with better error messaging
-              if (searchResult.snippets.length === 0) {
-                result = {
-                  success: false,
-                  message: 'No property information found. The website may be blocking access or the property may not be publicly listed.',
-                  snippets: [],
-                };
-              } else {
-                result = {
-                  success: true,
-                  snippets: searchResult.snippets,
-                  cached: searchResult.cached,
-                };
-              }
-              break;
-            }
-
-            case 'saveLead': {
-              const { leadDraft } = JSON.parse(toolCall.function.arguments);
-              const validated = LeadInputSchema.parse(leadDraft);
-              let lead;
-              let isNewLead = false;
-
-              try {
-                // Check if lead exists by email/phone
-                const existing = await prisma.lead.findFirst({
-                  where: {
-                    OR: [
-                      { email: validated.email },
-                      { phone: validated.phone },
-                    ],
-                  },
-                });
-
-                if (existing) {
-                  // Update existing
-                  lead = await prisma.lead.update({
-                    where: { id: existing.id },
-                    data: {
-                      ...validated,
-                      consentAt: validated.consentGiven ? new Date() : undefined,
-                    },
-                  });
-                  isNewLead = false;
-                } else {
-                  // Create new
-                  lead = await prisma.lead.create({
-                    data: {
-                      ...validated,
-                      channel: 'web_chat',
-                      consentAt: validated.consentGiven ? new Date() : undefined,
-                    },
-                  });
-                  isNewLead = true;
-                }
-
-                // Log interaction
-                await prisma.interaction.create({
-                  data: {
-                    leadId: lead.id,
-                    role: 'tool',
-                    content: { tool: 'saveLead', result: 'success' },
-                    toolName: 'saveLead',
-                    toolInput: validated,
-                    toolOutput: { leadId: lead.id, status: isNewLead ? 'created' : 'updated' },
-                  },
-                });
-              } catch (dbError) {
-                console.warn('[Database offline fallback] Failed to save lead in database for web_chat, using memory fallback:', dbError);
-                lead = {
-                  id: `fallback-lead-${Date.now()}`,
-                  ...validated,
-                  consentAt: validated.consentGiven ? new Date() : undefined,
-                  createdAt: new Date(),
-                  updatedAt: new Date(),
-                };
-                isNewLead = true;
-
-                // Send email immediately in saveLead if DB is offline
-                try {
-                  await sendCapLeadNotification(lead);
-                  console.log('[saveLead Fallback] Resend email notification sent successfully');
-                } catch (emailError) {
-                  console.error('[saveLead Fallback] Failed to send email:', emailError);
-                }
-              }
-
-              result = SaveLeadResponseSchema.parse({
-                leadId: lead.id,
-                status: isNewLead ? 'created' : 'updated',
-              });
-              
-              console.log('[saveLead] Saved lead with ID:', lead.id, 'Name:', lead.name);
-              
-              // Only send normal notification if we didn't send fallback notification yet (i.e. DB was online)
-              if (!String(lead.id).startsWith('fallback-lead-')) {
-                try {
-                  await sendCapLeadNotification(lead);
-                  console.log('[saveLead] Email notification sent');
-                } catch (emailError) {
-                  console.error('[saveLead] Failed to send email notification:', emailError);
-                }
-              }
-              
-              break;
-            }
-
-            case 'scoreLead': {
-              const { leadId } = JSON.parse(toolCall.function.arguments);
-              let lead;
-              let isFallback = false;
-              
-              console.log('[scoreLead] Looking for leadId:', leadId);
-
-              try {
-                if (String(leadId).startsWith('fallback-lead-')) {
-                  throw new Error('Database is offline (using fallback lead ID)');
-                }
-
-                // Get lead
-                lead = await prisma.lead.findUnique({
-                  where: { id: leadId },
-                });
-
-                if (!lead) {
-                  throw new Error('Lead not found');
-                }
-              } catch (dbError) {
-                console.warn('[Database offline fallback] Failed to load lead for scoring, using fallback scoring logic:', dbError);
-                isFallback = true;
-                lead = {
-                  id: leadId,
-                  name: 'Web Chat Visitor',
-                  productType: 'dscr',
-                  loanAmountRequested: 500000,
-                };
-              }
-              
-              console.log('[scoreLead] Found lead:', lead.name, lead.email);
-
-              // Score it
-              const scoreResult = await scoreLeadFn(lead as any);
-
-              if (!isFallback) {
-                try {
-                  // Update lead with score
-                  await prisma.lead.update({
-                    where: { id: leadId },
-                    data: {
-                      score: scoreResult.score,
-                      status: scoreResult.disposition === 'qualified' ? 'qualified' :
-                             scoreResult.disposition === 'follow_up' ? 'follow_up' :
-                             'disqualified',
-                      offer: scoreResult.preliminaryOffer as any,
-                    },
-                  });
-
-                  // Log interaction
-                  await prisma.interaction.create({
-                    data: {
-                      leadId,
-                      role: 'tool',
-                      content: { tool: 'scoreLead', result: scoreResult },
-                      toolName: 'scoreLead',
-                      toolInput: { leadId },
-                      toolOutput: scoreResult,
-                    },
-                  });
-
-                  // Create event if qualified
-                  if (scoreResult.disposition === 'qualified') {
-                    await prisma.event.create({
-                      data: {
-                        leadId,
-                        type: 'alert_sales',
-                        payload: {
-                          message: `New qualified lead: ${lead.name}`,
-                          score: scoreResult.score,
-                          offer: scoreResult.preliminaryOffer,
-                        },
-                      },
-                    });
-                  }
-
-                  // Send email notification for qualified AND follow_up leads
-                  if (scoreResult.disposition === 'qualified' || scoreResult.disposition === 'follow_up') {
-                    await sendCapLeadNotification(lead, scoreResult);
-                    console.log(`[Email] Sent notification for ${lead.name} (${scoreResult.disposition})`);
-                  }
-                } catch (dbErrorDuringScore) {
-                  console.error('[Database offline during scoring] Error writing score to DB, falling back to email only:', dbErrorDuringScore);
-                  try {
-                    await sendCapLeadNotification(lead, scoreResult);
-                  } catch (emailErr) {
-                    console.error('[Email score fallback] Email failed:', emailErr);
-                  }
-                }
-              } else {
-                // If in fallback mode, send the scoring update email using Resend
-                try {
-                  await sendCapLeadNotification(lead, scoreResult);
-                  console.log(`[Email Fallback] Sent scoring update email for ${lead.name}`);
-                } catch (emailError) {
-                  console.error('[Email Fallback] Failed to send scoring update:', emailError);
-                }
-              }
-
-              result = scoreResult;
-              break;
-            }
-
-            case 'analyzeDeal': {
-              const args = JSON.parse(toolCall.function.arguments);
-              
-              // Build property inputs with defaults
-              const inputs: PropertyInputs = {
-                purchasePrice: args.purchasePrice,
-                downPaymentPercent: args.downPaymentPercent,
-                closingCostsPercent: args.closingCostsPercent ?? 3,
-                rehabCosts: args.rehabCosts ?? 0,
-                interestRate: args.interestRate,
-                loanTermYears: args.loanTermYears,
-                monthlyRent: args.monthlyRent,
-                otherMonthlyIncome: args.otherMonthlyIncome ?? 0,
-                vacancyRate: args.vacancyRate ?? 5,
-                propertyTaxRate: args.propertyTaxRate ?? 1.2,
-                insurance: args.insurance ?? 150,
-                hoaFees: args.hoaFees ?? 0,
-                propertyManagement: args.propertyManagement ?? (args.monthlyRent * 0.08),
-                maintenance: args.maintenance ?? (args.monthlyRent * 0.10),
-                utilities: args.utilities ?? 0,
-                otherExpenses: args.otherExpenses ?? 0,
-              };
-              
-              // Perform analysis
-              const analysis = analyzeDeal(inputs);
-              
-              // Return formatted results
-              result = {
-                success: true,
-                summary: {
-                  totalCashNeeded: analysis.acquisition.totalCashNeeded,
-                  monthlyCashFlow: analysis.monthly.cashFlow,
-                  annualCashFlow: analysis.annual.cashFlow,
-                  dscr: analysis.metrics.dscr,
-                  cashOnCashReturn: analysis.metrics.cashOnCashReturn,
-                  capRate: analysis.metrics.capRate,
-                  qualifies: analysis.qualification.dcsrQualifies,
-                  recommendation: analysis.qualification.recommendation,
-                },
-                fullAnalysis: analysis,
-              };
-              
-              break;
-            }
-            
-            default:
-              result = { error: `Unknown tool: ${toolCall.function.name}` };
-          }
+          result = await executeToolCall(toolCall);
         } catch (error) {
-          console.error('[Agent] Tool error:', error);
+          console.error('[Agent] Tool error (round 1):', error);
           result = { error: error instanceof Error ? error.message : 'Tool execution failed' };
         }
-        
+
         toolMessages.push({
           role: 'tool' as const,
           content: typeof result === 'string' ? result : JSON.stringify(result),
           tool_call_id: toolCall.id,
         });
       }
-      
+
       // Make another API call with tool results
-      // Include tools so GPT can call scoreLead after saveLead
       const followUpResponse = await openai.chat.completions.create({
         model: 'gpt-4o',
         messages: [
@@ -562,90 +506,23 @@ export async function POST(req: Request) {
         ],
         temperature: 0.7,
         max_tokens: 1000,
-        tools: tools as any, // Include tools for multi-step tool calling
+        tools: tools as any,
         tool_choice: 'auto',
       });
-      
-      // If follow-up also has tool calls, handle them recursively
+
       const followUpChoice = followUpResponse.choices[0];
       if (followUpChoice.finish_reason === 'tool_calls' && followUpChoice.message.tool_calls) {
-        // Process second round of tool calls (e.g., scoreLead after saveLead)
         const secondToolMessages = [];
-        
+
         for (const toolCall of followUpChoice.message.tool_calls) {
-          console.log('[Agent] Tool call (round 2):', toolCall.function.name);
-          
           let result: any;
-          
           try {
-            // Same switch logic as before
-            if (toolCall.function.name === 'scoreLead') {
-              const { leadId } = JSON.parse(toolCall.function.arguments);
-              console.log('[scoreLead Round 2] Looking for leadId:', leadId);
-              
-              const lead = await prisma.lead.findUnique({ where: { id: leadId } });
-              if (!lead) {
-                console.error('[scoreLead Round 2] Lead not found for ID:', leadId);
-                throw new Error(`Lead not found with ID: ${leadId}`);
-              }
-              console.log('[scoreLead Round 2] Found lead:', lead.name, lead.email);
-              
-              const scoreResult = await scoreLeadFn(lead);
-              
-              await prisma.lead.update({
-                where: { id: leadId },
-                data: {
-                  score: scoreResult.score,
-                  status: scoreResult.disposition === 'qualified' ? 'qualified' :
-                         scoreResult.disposition === 'follow_up' ? 'follow_up' :
-                         'disqualified',
-                  offer: scoreResult.preliminaryOffer as any,
-                },
-              });
-              
-              await prisma.interaction.create({
-                data: {
-                  leadId,
-                  role: 'tool',
-                  content: { tool: 'scoreLead', result: scoreResult },
-                  toolName: 'scoreLead',
-                  toolInput: { leadId },
-                  toolOutput: scoreResult,
-                },
-              });
-              
-              if (scoreResult.disposition === 'qualified') {
-                await prisma.event.create({
-                  data: {
-                    leadId,
-                    type: 'alert_sales',
-                    payload: {
-                      message: `New qualified lead: ${lead.name}`,
-                      score: scoreResult.score,
-                      offer: scoreResult.preliminaryOffer,
-                    },
-                  },
-                });
-              }
-              
-              if (scoreResult.disposition === 'qualified' || scoreResult.disposition === 'follow_up') {
-                try {
-                  await sendCapLeadNotification(lead, scoreResult);
-                  console.log(`[Email] Sent notification for ${lead.name} (${scoreResult.disposition})`);
-                } catch (emailError) {
-                  console.error('[Email] Failed to send notification:', emailError);
-                }
-              }
-              
-              result = scoreResult;
-            } else {
-              result = { error: `Unknown tool: ${toolCall.function.name}` };
-            }
+            result = await executeToolCall(toolCall);
           } catch (error) {
             console.error('[Agent] Tool error (round 2):', error);
             result = { error: error instanceof Error ? error.message : 'Tool execution failed' };
           }
-          
+
           secondToolMessages.push({
             role: 'tool' as const,
             content: typeof result === 'string' ? result : JSON.stringify(result),

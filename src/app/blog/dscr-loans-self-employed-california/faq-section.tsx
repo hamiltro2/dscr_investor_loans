@@ -116,7 +116,7 @@ export const CTASection = () => (
         </div>
         
         <p className="text-sm text-gray-400 mt-6">
-          California BRE License #12345678 | NMLS #1234567
+          CA DRE License #02113355 | NMLS #211355 | CA Financing Law License #60DBO-94935
         </p>
       </div>
     </div>

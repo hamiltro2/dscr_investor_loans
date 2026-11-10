@@ -1,28 +1,19 @@
-// Gemini Multimodal Live API Session Setup
+// Gemini Multimodal Live API Session Setup (Disabled in production in favor of Ultravox)
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
-  try {
-    const apiKey = process.env.GOOGLE_GEMINI_API_KEY;
-    
-    if (!apiKey) {
-      return NextResponse.json(
-        { error: 'GOOGLE_GEMINI_API_KEY not configured' },
-        { status: 500 }
-      );
-    }
+  const adminKey = req.headers.get('x-admin-key');
+  const expectedKey = process.env.ADMIN_API_KEY || process.env.CRON_SECRET;
 
-    // Return API key securely for client WebSocket connection
-    return NextResponse.json({
-      apiKey,
-      model: 'gemini-2.5-flash',
-      endpoint: 'generativelanguage.googleapis.com'
-    });
-  } catch (error) {
-    console.error('Error getting Gemini session:', error);
+  if (!expectedKey || adminKey !== expectedKey) {
     return NextResponse.json(
-      { error: 'Failed to initialize Gemini session' },
-      { status: 500 }
+      { error: 'Unauthorized: Direct API key retrieval is disabled' },
+      { status: 401 }
     );
   }
+
+  return NextResponse.json({
+    model: 'gemini-2.5-flash',
+    endpoint: 'generativelanguage.googleapis.com',
+  });
 }

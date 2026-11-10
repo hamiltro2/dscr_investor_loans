@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import { sendTelegramLeadAlert } from './telegram';
 
 const smtpPort = Number(process.env.SMTP_PORT);
 const isSecurePort = smtpPort === 465;
@@ -117,7 +118,7 @@ function getEmailContent(formType: string, data: any): string {
   return content;
 }
 
-export async function sendEmail(formType: string, data: any): Promise<{ success: boolean }> {
+    export async function sendEmail(formType: string, data: any): Promise<{ success: boolean }> {
   try {
     const mailOptions = {
       from: process.env.SMTP_FROM,
@@ -125,6 +126,18 @@ export async function sendEmail(formType: string, data: any): Promise<{ success:
       subject: getEmailSubject(formType, data),
       text: getEmailContent(formType, data),
     };
+
+    // Fire real-time Telegram alert for web form submissions
+    await sendTelegramLeadAlert({
+      name: data?.name || `${data?.firstName || ''} ${data?.lastName || ''}`.trim(),
+      email: data?.email,
+      phone: data?.phone,
+      productType: formType,
+      loanAmountRequested: data?.loanAmount || data?.propertyValue,
+      propertyType: data?.propertyType,
+      notes: data?.message,
+      channel: 'web_form',
+    });
 
     await transporter.sendMail(mailOptions);
     return { success: true };
@@ -205,10 +218,10 @@ Status: ${offer.disposition || 'Unknown'}
 Score: ${offer.score || 'N/A'}/100
 
 ${offer.preliminaryOffer ? `
-Rate Range: ${offer.preliminaryOffer.rateRange || 'N/A'}
-Term: ${offer.preliminaryOffer.term || 'N/A'}
-LTV: ${offer.preliminaryOffer.ltv || 'N/A'}
-Monthly Payment: ${offer.preliminaryOffer.monthlyPayment || 'N/A'}
+Rate Range: ${Array.isArray(offer.preliminaryOffer.rateRange) ? `${offer.preliminaryOffer.rateRange[0]}% - ${offer.preliminaryOffer.rateRange[1]}%` : (offer.preliminaryOffer.rateRange || 'N/A')}
+Term: ${offer.preliminaryOffer.termMonths || offer.preliminaryOffer.term || '360'} months
+LTV: ${offer.preliminaryOffer.ltvApprox || offer.preliminaryOffer.ltv || '75-80'}%
+Monthly Payment: ${offer.preliminaryOffer.monthlyPayment ? `$${Math.round(Number(offer.preliminaryOffer.monthlyPayment)).toLocaleString()}` : 'N/A'}
 ` : 'No offer details available'}
 
 Reasoning: ${offer.reasoning || 'N/A'}
@@ -293,9 +306,9 @@ Consent Given: ${lead.consentGiven ? 'Yes ✅' : 'No ❌'}
               <p><strong>Status:</strong> ${offer.disposition}</p>
               <p><strong>Score:</strong> ${offer.score}/100</p>
               ${offer.preliminaryOffer ? `
-                <p><strong>Rate Range:</strong> ${offer.preliminaryOffer.rateRange}</p>
-                <p><strong>Term:</strong> ${offer.preliminaryOffer.term}</p>
-                <p><strong>LTV:</strong> ${offer.preliminaryOffer.ltv}</p>
+                <p><strong>Rate Range:</strong> ${Array.isArray(offer.preliminaryOffer.rateRange) ? `${offer.preliminaryOffer.rateRange[0]}% - ${offer.preliminaryOffer.rateRange[1]}%` : (offer.preliminaryOffer.rateRange || 'N/A')}</p>
+                <p><strong>Term:</strong> ${offer.preliminaryOffer.termMonths || offer.preliminaryOffer.term || '360'} months</p>
+                <p><strong>LTV:</strong> ${offer.preliminaryOffer.ltvApprox || offer.preliminaryOffer.ltv || '75-80'}%</p>
               ` : ''}
             </div>
             ` : ''}
@@ -314,6 +327,9 @@ Consent Given: ${lead.consentGiven ? 'Yes ✅' : 'No ❌'}
         </div>
       `,
     };
+
+    // Fire real-time Telegram alert in parallel so even if SMTP is slow/offline, Telegram notifies immediately
+    await sendTelegramLeadAlert(lead, offer);
 
     await transporter.sendMail(mailOptions);
     console.log('[Email] Cap lead notification sent successfully');

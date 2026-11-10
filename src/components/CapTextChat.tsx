@@ -104,9 +104,9 @@ export function CapTextChat() {
     const handleStartLeadCapture = () => {
       // Auto-send "I need a DSCR loan" to trigger lead capture
       setInput('I need a DSCR loan');
-      // Auto-submit after a brief delay
+      // Auto-submit after a brief delay using inputRef's parent form (never first form on page)
       setTimeout(() => {
-        const form = document.querySelector('form');
+        const form = inputRef.current?.form;
         if (form) {
           form.requestSubmit();
         }
@@ -249,10 +249,20 @@ export function CapTextChat() {
         }
       });
       
-      // Create MediaRecorder with optimal settings
-      const mediaRecorder = new MediaRecorder(stream, {
-        mimeType: 'audio/webm;codecs=opus',
-      });
+      // Create MediaRecorder with cross-browser / iOS Safari mimeType fallback
+      const preferredMime =
+        typeof MediaRecorder !== 'undefined' &&
+        MediaRecorder.isTypeSupported &&
+        MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
+          ? 'audio/webm;codecs=opus'
+          : typeof MediaRecorder !== 'undefined' &&
+            MediaRecorder.isTypeSupported &&
+            MediaRecorder.isTypeSupported('audio/mp4')
+          ? 'audio/mp4'
+          : undefined;
+      const mediaRecorder = preferredMime
+        ? new MediaRecorder(stream, { mimeType: preferredMime })
+        : new MediaRecorder(stream);
       const chunks: Blob[] = [];
 
       // Start recording timer
@@ -401,12 +411,19 @@ export function CapTextChat() {
           { type: 'image_url', image_url: { url: imageData } }
         ];
       } else if (docData) {
-        // For documents, include file data and instructions
         const docInstruction = `Analyze this ${docData.type.includes('pdf') ? 'PDF' : docData.type.includes('word') ? 'Word' : 'document'} (${docData.name}) and extract key information relevant to real estate investing and loan qualification. ${userMessage}`;
-        messageContent = [
-          { type: 'text', text: docInstruction },
-          { type: 'image_url', image_url: { url: docData.data } }
-        ];
+        // OpenAI Chat Completions image_url only supports image/* MIME types
+        if (docData.type.startsWith('image/')) {
+          messageContent = [
+            { type: 'text', text: docInstruction },
+            { type: 'image_url', image_url: { url: docData.data } },
+          ];
+        } else if (docData.type === 'text/plain' && docData.data.includes(',')) {
+          const decodedText = atob(docData.data.split(',')[1] || '');
+          messageContent = `${docInstruction}\n\nDocument Contents:\n${decodedText.slice(0, 8000)}`;
+        } else {
+          messageContent = `${docInstruction}\n\n[Attached Document: ${docData.name} (${docData.type})]`;
+        }
       } else if (isPropertyUrl && urls) {
         // Fetch URL content from any real estate website
         try {

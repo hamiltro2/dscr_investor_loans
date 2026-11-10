@@ -198,7 +198,7 @@ export function Footer() {
                     <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"></div>
                     <div>
                       <h4 className="text-white font-medium mb-1">Licensed & Regulated</h4>
-                      <p className="text-gray-400 text-sm leading-relaxed">Equal Housing Lender | NMLS #1121965</p>
+                      <p className="text-gray-400 text-sm leading-relaxed">Equal Housing Lender | NMLS #211355 | CA DRE #02113355 | CFL #60DBO-94935</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
@@ -225,12 +225,12 @@ export function Footer() {
         <div className="pt-12 border-t border-dark-800/50">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <p className="text-gray-400 text-base">
-              © {currentYear} Capital Bridge Solutions. All rights reserved. | NMLS #1121965
+              © {currentYear} Capital Bridge Solutions. All rights reserved. | NMLS #211355 • CA DRE #02113355 • CFL #60DBO-94935
             </p>
             <div className="flex items-center gap-8 text-base text-gray-400">
-              <Link href="/privacy-policy" className="hover:text-primary-400 transition-colors">Privacy Policy</Link>
+              <Link href="/privacy" className="hover:text-primary-400 transition-colors">Privacy Policy</Link>
               <span className="text-gray-600">•</span>
-              <Link href="/terms-of-service" className="hover:text-primary-400 transition-colors">Terms of Service</Link>
+              <Link href="/terms" className="hover:text-primary-400 transition-colors">Terms of Service</Link>
             </div>
           </div>
         </div>

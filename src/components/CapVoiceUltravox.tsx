@@ -31,10 +31,44 @@ export function CapVoiceUltravox() {
   const audioContextRef = useRef<AudioContext | null>(null);
   const transcriptEndRef = useRef<HTMLDivElement>(null);
   const audioQueueRef = useRef<ArrayBuffer[]>([]);
+  const activeSourcesRef = useRef<Set<AudioBufferSourceNode>>(new Set());
   const isPlayingRef = useRef<boolean>(false);
   const nextPlayTimeRef = useRef<number>(0);
   const gainNodeRef = useRef<GainNode | null>(null);
   const isStreamingRef = useRef<boolean>(false); // Ref for immediate access
+
+  const ensureAudioContext = async (): Promise<AudioContext> => {
+    if (!audioContextRef.current || audioContextRef.current.state === 'closed') {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      audioContextRef.current = new AudioCtx({
+        latencyHint: 'interactive',
+        sampleRate: 24000,
+      });
+      gainNodeRef.current = null;
+    }
+    if (audioContextRef.current.state === 'suspended') {
+      await audioContextRef.current.resume().catch(() => {});
+    }
+    return audioContextRef.current;
+  };
+
+  const flushAudioPlayback = () => {
+    audioQueueRef.current = [];
+    activeSourcesRef.current.forEach((src) => {
+      try {
+        src.stop();
+        src.disconnect();
+      } catch {}
+    });
+    activeSourcesRef.current.clear();
+    if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+      nextPlayTimeRef.current = audioContextRef.current.currentTime;
+    } else {
+      nextPlayTimeRef.current = 0;
+    }
+    isPlayingRef.current = false;
+    setIsSpeaking(false);
+  };
 
   // Cleanup on unmount
   useEffect(() => {
@@ -52,6 +86,9 @@ export function CapVoiceUltravox() {
     try {
       setIsConnecting(true);
       setError(null);
+
+      // Unlock & initialize shared AudioContext synchronously inside user click gesture (critical for iOS Safari)
+      await ensureAudioContext();
 
       console.log('[Ultravox] Creating session...');
       
@@ -156,10 +193,8 @@ export function CapVoiceUltravox() {
       }
     }
 
-    // Clear audio queue and reset playback state
-    audioQueueRef.current = [];
-    isPlayingRef.current = false;
-    nextPlayTimeRef.current = 0;
+    // Clear audio queue, stop scheduled sources, and reset playback state
+    flushAudioPlayback();
 
     // Stop microphone
     if (mediaStreamRef.current) {
@@ -203,10 +238,9 @@ export function CapVoiceUltravox() {
       });
 
       mediaStreamRef.current = stream;
-      
-      // Create audio context for processing
-      const audioContext = new AudioContext({ sampleRate: 24000 });
-      audioContextRef.current = audioContext;
+
+      // Reuse shared AudioContext so gainNodeRef and playback sources never collide across contexts
+      const audioContext = await ensureAudioContext();
 
       const source = audioContext.createMediaStreamSource(stream);
       const processor = audioContext.createScriptProcessor(2048, 1, 1);
@@ -326,45 +360,15 @@ export function CapVoiceUltravox() {
   };
 
   const detectLeadIntent = (text: string): { detected: boolean; context: string } => {
-    // Check pattern categories and determine context
-    for (const [categoryName, patterns] of Object.entries(LEAD_INTENT_PATTERNS)) {
-      if (patterns.some(pattern => pattern.test(text))) {
-        // Determine context based on category
-        let context = '';
-        if (categoryName === 'refinanceIntent') context = 'refinance';
-        else if (categoryName === 'purchaseIntent') context = 'purchase';
-        else if (categoryName === 'urgencyPhrases') context = 'urgent';
-        else if (categoryName === 'rateRequests') context = 'rate';
-        else if (categoryName === 'propertyMentions') context = 'property';
-        else context = 'general';
-        
-        return { detected: true, context };
-      }
+    // Only auto-open the visual form if the user explicitly asks to fill out/open a form online.
+    // Otherwise, let Cap converse naturally and capture lead details via voice (or via the "Get Pre-Approved" button).
+    if (
+      /fill out.*(form|application)|open.*(form|application)|show.*(form|application)|type.*my.*(info|email|name)|prefer.*form/i.test(
+        text
+      )
+    ) {
+      return { detected: true, context: 'general' };
     }
-    
-    // Additional contextual checks
-    const lowerText = text.toLowerCase();
-    
-    // Check for specific conversational contexts
-    if (lowerText.includes('yes') || lowerText.includes('yeah') || lowerText.includes('sure')) {
-      // Check if the previous assistant message was asking about getting started
-      const lastAssistantMsg = transcript.filter(m => m.role === 'assistant').pop();
-      if (lastAssistantMsg && /get.*started|ready.*apply|want.*proceed/i.test(lastAssistantMsg.text)) {
-        return { detected: true, context: 'general' };
-      }
-    }
-    
-    // Check for property addresses (indicates serious intent)
-    if (/\d+\s+\w+\s+(street|st|avenue|ave|road|rd|drive|dr|lane|ln|way|boulevard|blvd)/i.test(text)) {
-      return { detected: true, context: 'property' };
-    }
-    
-    // Check for loan amounts mentioned
-    if (/\$?\d{3,}k|\$?\d{6,}|hundred.*thousand|million/i.test(text)) {
-      const hasLoanContext = /loan|borrow|finance|need|want/i.test(text);
-      if (hasLoanContext) return { detected: true, context: 'general' };
-    }
-    
     return { detected: false, context: '' };
   };
 
@@ -399,6 +403,9 @@ export function CapVoiceUltravox() {
         
         // User transcript
         if (data.role === 'user' && data.text) {
+          // User barge-in: immediately flush any remaining scheduled assistant audio
+          flushAudioPlayback();
+
           setTranscript(prev => [...prev, {
             role: 'user',
             text: data.text,
@@ -559,6 +566,19 @@ export function CapVoiceUltravox() {
         setIsSpeaking(false);
         break;
 
+      case 'playback_clear_buffer':
+      case 'clear_buffer':
+        flushAudioPlayback();
+        break;
+
+      case 'state':
+        if (data.state === 'listening') {
+          flushAudioPlayback();
+        } else if (data.state === 'speaking') {
+          setIsSpeaking(true);
+        }
+        break;
+
       case 'tool_call':
         console.log('[Ultravox] Tool called:', data.toolName, data.args);
         
@@ -624,15 +644,8 @@ export function CapVoiceUltravox() {
     setIsSpeaking(true);
 
     try {
-      // Create or reuse audio context at native sample rate for best quality
-      if (!audioContextRef.current || audioContextRef.current.state === 'closed') {
-        audioContextRef.current = new AudioContext({ 
-          latencyHint: 'interactive',  // Optimize for low latency
-          sampleRate: 24000  // Match Ultravox output
-        });
-      }
-
-      const audioContext = audioContextRef.current;
+      // Reuse shared audio context at 24kHz
+      const audioContext = await ensureAudioContext();
 
       // Create gain node if it doesn't exist or was disconnected
       if (!gainNodeRef.current) {
@@ -642,11 +655,6 @@ export function CapVoiceUltravox() {
       }
 
       const gainNode = gainNodeRef.current;
-
-      // Resume audio context if suspended (browser autoplay policy)
-      if (audioContext.state === 'suspended') {
-        await audioContext.resume();
-      }
 
       // Initialize playback timeline
       if (nextPlayTimeRef.current < audioContext.currentTime) {
@@ -668,10 +676,17 @@ export function CapVoiceUltravox() {
         const audioBuffer = audioContext.createBuffer(1, float32.length, 24000);
         audioBuffer.getChannelData(0).set(float32);
 
-        // Create source and connect directly
+        // Create source, track for instant barge-in cancellation, and connect directly
         const source = audioContext.createBufferSource();
         source.buffer = audioBuffer;
         source.connect(gainNode);
+        activeSourcesRef.current.add(source);
+        source.onended = () => {
+          activeSourcesRef.current.delete(source);
+          if (activeSourcesRef.current.size === 0 && audioQueueRef.current.length === 0) {
+            setIsSpeaking(false);
+          }
+        };
 
         // Schedule immediately at precise time
         source.start(nextPlayTimeRef.current);
@@ -841,13 +856,25 @@ export function CapVoiceUltravox() {
             Start Talking to Cap
           </button>
         ) : (
-          <div className="space-y-2">
-            <div className="flex items-center justify-center gap-2 text-green-400">
-              <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-sm font-semibold">Listening...</span>
+          <div className="space-y-3">
+            <div className="flex items-center justify-between px-2">
+              <div className="flex items-center gap-2 text-green-400">
+                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-sm font-semibold">Listening...</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setModalContext('general');
+                  setShowLeadModal(true);
+                }}
+                className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-primary-600/20 hover:bg-primary-600/30 text-primary-300 border border-primary-500/40 transition-colors"
+              >
+                📋 Enter Info via Form
+              </button>
             </div>
             <p className="text-xs text-center text-gray-400">
-              Speak naturally. Cap will respond automatically.
+              Speak naturally — you can interrupt Cap anytime or share your info by voice.
             </p>
           </div>
         )}
@@ -860,6 +887,7 @@ export function CapVoiceUltravox() {
         onClose={() => setShowLeadModal(false)}
         onSuccess={handleLeadModalSuccess}
         context={modalContext}
+        transcriptText={transcript.map((m) => `${m.role.toUpperCase()}: ${m.text}`).join('\n')}
       />
     </>
   );

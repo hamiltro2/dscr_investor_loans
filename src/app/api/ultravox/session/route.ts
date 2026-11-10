@@ -28,32 +28,33 @@ export async function POST(req: NextRequest) {
     }
 
     // Get base URL for tool callbacks
-    // In production, use NEXT_PUBLIC_BASE_URL or auto-detect from headers
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
-                    `${req.headers.get('x-forwarded-proto') || 'https'}://${req.headers.get('host')}`;
+    const rawHostUrl =
+      process.env.NEXT_PUBLIC_BASE_URL ||
+      `${req.headers.get('x-forwarded-proto') || 'https'}://${req.headers.get('host')}`;
+    const isDevelopment = rawHostUrl.includes('localhost') || rawHostUrl.includes('127.0.0.1');
+    // Always use HTTPS production URL for Ultravox cloud-to-server tool webhooks if running on localhost
+    const toolBaseUrl = isDevelopment
+      ? 'https://www.capitalbridgesolutions.com'
+      : rawHostUrl;
 
-    console.log('[Ultravox Session] Creating session with base URL:', baseUrl);
+    console.log('[Ultravox Session] Creating session with tool callback URL:', toolBaseUrl);
 
-    // Check if we're in development (localhost)
-    const isDevelopment = baseUrl.includes('localhost') || baseUrl.includes('127.0.0.1');
-    
-    // Force production mode if NEXT_PUBLIC_BASE_URL is explicitly set
-    const isProduction = !isDevelopment || process.env.NEXT_PUBLIC_BASE_URL !== undefined;
-    
     // Prepare request body
     const requestBody: any = {
       systemPrompt: getCapSystemPrompt(),
-      temperature: 0.7,
+      temperature: 0.4,
       voice: 'Mark',
       model: 'fixie-ai/ultravox-70B',
       languageHint: 'en',
-      
+      maxDuration: '600s',
+      joinTimeout: '45s',
+
       // Initial greeting (Ultravox uses "agent" role, not "assistant")
       firstSpeaker: 'FIRST_SPEAKER_AGENT', // Agent speaks first
-      
+
       // Recording & transcription
       recordingEnabled: true,
-      
+
       // Medium parameters
       medium: {
         serverWebSocket: {
@@ -61,19 +62,10 @@ export async function POST(req: NextRequest) {
           outputSampleRate: 24000,
         },
       },
-    };
 
-    // Tool configuration - Enable tools in production
-    if (isProduction) {
-      // Production: All tools enabled (HTTPS required)
-      requestBody.selectedTools = getCapTools(baseUrl);
-      console.log('[Ultravox Session] ✅ All tools enabled (HTTPS mode)');
-      console.log('[Ultravox Session] Lead capture will save to database & send emails');
-    } else {
-      // Local development without HTTPS
-      console.log('[Ultravox Session] ⚠️  Tools disabled - localhost requires ngrok for HTTPS');
-      console.log('[Ultravox Session] Set NEXT_PUBLIC_BASE_URL or deploy to production');
-    }
+      // Always enable all tools via HTTPS callback URL
+      selectedTools: getCapTools(toolBaseUrl),
+    };
 
     console.log('[Ultravox Session] Request:', JSON.stringify(requestBody, null, 2));
 

@@ -17,7 +17,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const results = await searchKnowledgeBase(query, topK);
+    const parsedTopK = Number(topK) > 0 ? Number(topK) : 3;
+    const results = await searchKnowledgeBase(String(query), parsedTopK);
 
     return NextResponse.json({ results });
   } catch (error) {

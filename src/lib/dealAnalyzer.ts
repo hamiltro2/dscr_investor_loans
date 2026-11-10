@@ -302,15 +302,16 @@ export function analyzeDeal(inputs: PropertyInputs): DealAnalysis {
   const annualCashFlow = monthlyCashFlow * 12;
   
   // ============================================================
-  // INVESTMENT METRICS
+  // INVESTMENT METRICS (Standard Lender DSCR = Gross Rent / PITIA)
   // ============================================================
   
-  const dscr = calculateDSCR(annualNOI, annualDebtService);
+  const monthlyPITIA = payment + propertyTax + inputs.insurance + inputs.hoaFees;
+  const dscr = calculateDSCR(grossIncome, monthlyPITIA);
   const cashOnCashReturn = calculateCashOnCashReturn(annualCashFlow, totalCashNeeded);
   const capRate = calculateCapRate(annualNOI, inputs.purchasePrice);
   const roi = calculateCashOnCashReturn(annualCashFlow, totalCashNeeded);
   const grm = calculateGRM(inputs.purchasePrice, annualGrossIncome);
-  const breakEvenOccupancy = totalExpenses / grossIncome * 100;
+  const breakEvenOccupancy = grossIncome > 0 ? (totalExpenses / grossIncome) * 100 : 0;
   
   // ============================================================
   // QUALIFICATION ANALYSIS
@@ -327,16 +328,14 @@ export function analyzeDeal(inputs: PropertyInputs): DealAnalysis {
   else cashFlowStatus = 'breakeven';
   
   let recommendation: string;
-  if (dscr >= idealDSCR && cashFlowStatus === 'positive') {
-    recommendation = 'Excellent deal! Strong DSCR and positive cash flow. Highly recommended.';
-  } else if (dscr >= minimumDSCR && cashFlowStatus === 'positive') {
-    recommendation = 'Good deal. Qualifies for DSCR financing with positive cash flow.';
-  } else if (dscr >= minimumDSCR && cashFlowStatus === 'breakeven') {
-    recommendation = 'Marginal deal. Qualifies but minimal cash flow. Consider negotiating price or increasing rent.';
-  } else if (dscr < minimumDSCR && dscr >= 0.9) {
-    recommendation = 'Close to qualifying. Consider larger down payment or rent increase to improve DSCR.';
+  if (dscr >= idealDSCR) {
+    recommendation = `Excellent deal! Strong ${dscr.toFixed(2)}x DSCR (well above 1.00x minimum) and qualifies for our best DSCR rate tiers.`;
+  } else if (dscr >= minimumDSCR) {
+    recommendation = `Qualifies for standard DSCR financing at ${dscr.toFixed(2)}x DSCR (meets 1.00x+ threshold) with no tax returns or personal income verification.`;
+  } else if (dscr >= 0.75) {
+    recommendation = `At ${dscr.toFixed(2)}x DSCR, this qualifies under our No-Ratio / Low-DSCR program (25-30% down) or can reach 1.00x+ with a slightly larger down payment or short-term rental projection.`;
   } else {
-    recommendation = 'Does not qualify. Property expenses exceed income. Avoid this deal or restructure significantly.';
+    recommendation = `Current DSCR is ${dscr.toFixed(2)}x. Consider a larger down payment, value-add rent increase, or our Bridge / Fix & Flip program while stabilizing rents.`;
   }
   
   // ============================================================

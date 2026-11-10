@@ -1,9 +1,21 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const authHeader = req.headers.get('authorization');
+  const adminKey = req.headers.get('x-admin-key');
+  const expectedSecret = process.env.ADMIN_API_KEY || process.env.CRON_SECRET;
+
+  if (
+    !expectedSecret ||
+    (adminKey !== expectedSecret && authHeader !== `Bearer ${expectedSecret}`)
+  ) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const leads = await prisma.lead.findMany({
+      take: 100,
       orderBy: {
         createdAt: 'desc',
       },
