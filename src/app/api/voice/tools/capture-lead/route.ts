@@ -204,7 +204,7 @@ export async function POST(req: NextRequest) {
       leadId: lead.id,
       status: isNewLead ? 'created' : 'updated',
       message: isNewLead
-        ? `Perfect! I've saved your information (Lead ID: ${lead.id}). Ricardo Hamilton or Erol Senel from our team will reach out within 24 hours to finalize your pre-approval!`
+        ? `Perfect! I've saved your information (Lead ID: ${lead.id}). Our senior underwriting team will reach out within 24 hours to finalize your pre-approval!`
         : `Updated your information (Lead ID: ${lead.id}). Our team will reach out within 24 hours!`,
     };
 

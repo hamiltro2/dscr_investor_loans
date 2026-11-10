@@ -194,7 +194,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
   };
 
   const smsBody = encodeURIComponent(
-    `Hi Ricardo & Erol, I just scanned the QR code for ${lead.propertyShort} and would like to review the ${activeOption.title} numbers.`
+    `Hi Capital Bridge Solutions, I just scanned the QR code for ${lead.propertyShort} and would like to review the ${activeOption.title} numbers.`
   );
 
   return (
@@ -814,7 +814,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                     Request Exact Payoff & Term Sheet
                   </h3>
                   <p className="text-xs text-white/85">
-                    Ricardo Hamilton & Erol Senel (NMLS #211355)
+                    Senior Advisory Desk • NMLS #211355 • CA DRE #02113355
                   </p>
                 </div>
               </div>
@@ -917,13 +917,13 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                       Confidential Term Sheet Request Received
                     </h4>
                     <p className="text-xs text-[#047857]">
-                      <strong>Ricardo Hamilton</strong> & <strong>Erol Senel (NMLS #211355)</strong> have
+                      Our <strong>Senior Underwriting Desk (NMLS #211355)</strong> has
                       been notified and will send your exact payoff breakdown shortly.
                     </p>
                   </div>
                 )}
 
-                {/* Partner Intelligence Box (Shows Ricardo & Erol the uncovered owner contact info) */}
+                {/* Partner Intelligence Box (Shows uncovered owner contact info) */}
                 <div className="pt-4 border-t border-[#E5E5EA] text-xs space-y-1.5 bg-[#F5F5F7]/70 p-4 rounded-2xl">
                   <div className="font-bold uppercase tracking-wider text-[10px] text-[#0066CC]">
                     Verified Public Filing Contact Record
@@ -1006,7 +1006,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
               </div>
               <div className="text-right text-xs text-[#1D1D1F] space-y-0.5">
                 <p className="font-bold">Direct Desk: (949) 339-3555</p>
-                <p className="text-[#515154]">ricardo@capitalbridgesolutions.com</p>
+                <p className="text-[#515154]">info@capitalbridgesolutions.com</p>
                 <p className="text-[#0066CC] font-semibold">www.capitalbridgesolutions.com</p>
               </div>
             </div>
@@ -1113,16 +1113,16 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                 <p className="text-[#515154]">Warm regards,</p>
                 <div>
                   <p className="font-extrabold text-sm text-[#1D1D1F]">
-                    Ricardo Hamilton & Erol Senel
+                    Senior Equity Advisory Desk
                   </p>
                   <p className="text-xs font-semibold text-[#0066CC]">
-                    Managing Partners | Capital Bridge Solutions
+                    Capital Bridge Solutions
                   </p>
                   <p className="text-[11px] text-[#515154]">
-                    Erol Senel • NMLS #211355 | CA DRE Broker #02113355
+                    NMLS #211355 | CA DRE Broker #02113355 | CFL #60DBO-94935
                   </p>
                   <p className="text-xs font-bold text-[#1D1D1F] mt-0.5">
-                    Direct: (949) 339-3555 • ricardo@capitalbridgesolutions.com
+                    Direct: (949) 339-3555 • info@capitalbridgesolutions.com
                   </p>
                 </div>
                 <p className="text-[11px] italic text-[#333336] pt-0.5">{lead.letterPs}</p>
