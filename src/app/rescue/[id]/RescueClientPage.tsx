@@ -384,32 +384,33 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                 </div>
               </div>
 
-              {/* Right 5 Columns: High-Converting Architectural Property Photography + Floating Badges */}
-              <div className="lg:col-span-5 relative min-h-[280px] sm:min-h-[340px] bg-[#E5E5EA] overflow-hidden">
-                <img
-                  src={lead.heroImage}
-                  alt={lead.propertyAddress}
-                  className="w-full h-full object-cover object-center"
-                />
-                {/* Subtle Gradient Scrim for High-Contrast Badge Legibility */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
-
-                {/* Top Right Property & Equity Saved Floating Pill */}
-                <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-md text-[#065F46] border border-[#A7F3D0] px-3.5 py-1.5 rounded-full text-xs font-extrabold shadow-lg flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-[#059669]" />
-                  <span>Property & {lead.equityPercent}% Equity Saved</span>
+              {/* Right 5 Columns: High-Converting Outcome Photography + Clean Footer Bar (No Text Clutter Over Subjects) */}
+              <div className="lg:col-span-5 flex flex-col justify-between bg-[#F5F5F7] border-t lg:border-t-0 lg:border-l border-[#E5E5EA]">
+                <div className="relative h-[260px] sm:h-[300px] w-full overflow-hidden bg-[#E5E5EA]">
+                  <img
+                    src={lead.heroImage}
+                    alt={lead.propertyAddress}
+                    className="w-full h-full object-cover object-center"
+                  />
+                  {/* Subtle Top-Right Pill Only */}
+                  <div className="absolute top-3.5 right-3.5 bg-white/95 backdrop-blur-md text-[#065F46] border border-[#A7F3D0] px-3 py-1.5 rounded-full text-xs font-extrabold shadow-md flex items-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4 text-[#059669] shrink-0" />
+                    <span>Property & {lead.equityPercent}% Equity Saved</span>
+                  </div>
                 </div>
 
-                {/* Bottom Outcome Caption & Protected Rate Overlay */}
-                <div className="absolute bottom-4 left-4 right-4 text-white space-y-2">
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#059669]/95 text-white text-[11px] font-bold uppercase tracking-wider shadow-sm">
-                    <ShieldCheck className="w-3.5 h-3.5" /> Foreclosure Stopped • Keep Your {lead.firstLien.rate.toFixed(2)}% 1st Mortgage
+                {/* Clean High-Contrast Caption Footer Below the Photo */}
+                <div className="p-5 bg-white border-t border-[#E5E5EA] space-y-2">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#ECFDF5] text-[#059669] border border-[#A7F3D0] text-[11px] font-extrabold uppercase tracking-wider">
+                    <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
+                    <span>Foreclosure Stopped • Keep Your {lead.firstLien.rate.toFixed(2)}% 1st Mortgage</span>
                   </div>
-                  <p className="text-sm font-bold tracking-tight drop-shadow-xs">
+                  <p className="text-xs sm:text-sm font-bold text-[#1D1D1F] leading-snug">
                     {lead.heroCaption}
                   </p>
-                  <p className="text-xs text-white/90 flex items-center gap-1 font-medium">
-                    <Lock className="w-3.5 h-3.5 text-[#6EE7B7]" /> Private Principal-to-Principal Bailout & Equity Protection
+                  <p className="text-xs text-[#515154] flex items-center gap-1.5 font-medium">
+                    <Lock className="w-3.5 h-3.5 text-[#0066CC] shrink-0" />
+                    <span>Private Principal-to-Principal Bailout & Equity Protection</span>
                   </p>
                 </div>
               </div>
@@ -800,7 +801,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
               {/* Visual Advisory Banner */}
               <div className="relative h-40 w-full bg-[#1D1D1F] overflow-hidden">
                 <img
-                  src="/images/bg_expert_guidance_humans.png"
+                  src="/images/cbs_property_saved_hero.jpg"
                   alt="Capital Bridge Solutions Advisory Desk"
                   className="w-full h-full object-cover object-center opacity-90"
                 />
