@@ -15,11 +15,9 @@ import {
   FileText,
   Smartphone,
   Sparkles,
-  Building2,
-  Calendar,
-  TrendingDown,
   Layers,
-  Mail,
+  Award,
+  MapPin,
 } from 'lucide-react';
 
 interface LienInfo {
@@ -55,6 +53,8 @@ interface RescueOption {
 
 export interface RescueLead {
   id: string;
+  heroImage: string;
+  heroCaption: string;
   county: string;
   apn: string;
   ownerEntity: string;
@@ -222,30 +222,29 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
           }
           @page {
             size: letter;
-            margin: 0.45in 0.55in;
+            margin: 0.4in 0.5in;
           }
         }
       `}</style>
 
       {/* Top Institutional Navigation & Partner Switcher (Hidden in Print) */}
-      <div className="no-print sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-[#D2D2D7]/80">
+      <div className="no-print sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#D2D2D7]/80 shadow-xs">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
-          {/* Brand Identity */}
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#0066CC] flex items-center justify-center text-white font-bold text-sm shadow-sm">
-              CB
-            </div>
-            <div>
+          {/* Brand Identity with Official Logo */}
+          <div className="flex items-center gap-3.5">
+            <img
+              src="/Capital_Bridge_solutions_Logo_Cropped.png"
+              alt="Capital Bridge Solutions"
+              className="h-9 w-auto object-contain"
+            />
+            <div className="hidden sm:block border-l border-[#D2D2D7] pl-3.5">
               <div className="flex items-center gap-2">
-                <span className="font-bold tracking-tight text-sm text-[#1D1D1F]">
-                  CAPITAL BRIDGE SOLUTIONS
-                </span>
-                <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#ECFDF5] text-[#059669] border border-[#A7F3D0]">
-                  <Lock className="w-3 h-3" /> Private Deal Room
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#ECFDF5] text-[#059669] border border-[#A7F3D0]">
+                  <Lock className="w-3 h-3" /> Private Equity Deal Room
                 </span>
               </div>
-              <p className="text-xs text-[#515154]">
-                Quantitative Debt & Equity Advisory • NMLS #211355 • DRE #02113355
+              <p className="text-[11px] text-[#515154] font-medium mt-0.5">
+                NMLS #211355 • CA DRE #02113355 • Direct: (949) 339-3555
               </p>
             </div>
           </div>
@@ -310,7 +309,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
       </div>
 
       {/* =====================================================================
-          VIEW 1: APPLE-CLEAN / MIT-ANALYTICAL INTERACTIVE DEAL ROOM
+          VIEW 1: APPLE-CLEAN / MIT-ANALYTICAL INTERACTIVE DEAL ROOM WITH IMAGERY
          ===================================================================== */}
       {viewMode === 'deal-room' && (
         <div className="no-print max-w-6xl mx-auto px-4 sm:px-6 pt-8 space-y-8">
@@ -334,159 +333,195 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
             </div>
           </div>
 
-          {/* Hero Executive Dossier Card */}
-          <div className="bg-white rounded-3xl border border-[#D2D2D7]/90 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 sm:p-10">
-            <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 pb-8 border-b border-[#E5E5EA]">
-              <div className="space-y-3 max-w-3xl">
-                <div className="inline-flex flex-wrap items-center gap-2">
-                  <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#F0F7FF] text-[#0066CC] border border-[#BFDBFE]">
-                    {lead.headlineBadge}
-                  </span>
-                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#F5F5F7] text-[#515154] border border-[#D2D2D7]">
-                    APN: {lead.apn} • {lead.county}
-                  </span>
+          {/* Hero Executive Dossier Card with Architectural Property Showcase */}
+          <div className="bg-white rounded-3xl border border-[#D2D2D7]/90 shadow-[0_12px_40px_rgb(0,0,0,0.05)] overflow-hidden">
+            {/* Split Architectural Hero Banner */}
+            <div className="grid lg:grid-cols-12 items-stretch border-b border-[#E5E5EA]">
+              {/* Left 7 Columns: Executive Identity & Scannable QR Preview */}
+              <div className="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-between space-y-6">
+                <div className="space-y-4">
+                  <div className="inline-flex flex-wrap items-center gap-2">
+                    <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#F0F7FF] text-[#0066CC] border border-[#BFDBFE]">
+                      {lead.headlineBadge}
+                    </span>
+                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#F5F5F7] text-[#515154] border border-[#D2D2D7]">
+                      APN: {lead.apn} • {lead.county}
+                    </span>
+                  </div>
+
+                  <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#1D1D1F] leading-tight">
+                    {lead.propertyAddress}
+                  </h1>
+
+                  <p className="text-base sm:text-lg text-[#515154] font-medium">
+                    Prepared Exclusively for{' '}
+                    <span className="text-[#1D1D1F] font-bold">{lead.ownerPerson}</span> (
+                    <span className="text-[#0066CC] font-semibold">{lead.ownerEntity}</span>)
+                  </p>
                 </div>
 
-                <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#1D1D1F] leading-tight">
-                  {lead.propertyAddress}
-                </h1>
-
-                <p className="text-base sm:text-lg text-[#515154] font-medium">
-                  Prepared Exclusively for{' '}
-                  <span className="text-[#1D1D1F] font-bold">{lead.ownerPerson}</span> (
-                  <span className="text-[#0066CC] font-semibold">{lead.ownerEntity}</span>)
-                </p>
+                {/* Scannable QR Callout Bar */}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4 bg-[#F5F5F7] p-4 rounded-2xl border border-[#D2D2D7]">
+                  <img
+                    src={qrImageUrl}
+                    alt="Property Deal Room QR Code"
+                    className="w-20 h-20 rounded-xl border border-[#D2D2D7] bg-white p-1 shrink-0"
+                  />
+                  <div className="space-y-1">
+                    <div className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#0066CC]">
+                      <QrCode className="w-3.5 h-3.5" /> Personalized QR Deal Room Active
+                    </div>
+                    <p className="text-xs font-medium text-[#333336] leading-relaxed">
+                      Scanning the QR code on the physical letter brings <strong>{lead.ownerPerson}</strong> directly to this custom payoff simulator and triggers an instant Telegram alert to your phone.
+                    </p>
+                    <button
+                      onClick={() => setViewMode('letter')}
+                      className="text-xs font-bold text-[#0066CC] hover:underline inline-flex items-center gap-1 pt-0.5"
+                    >
+                      Inspect Printable Physical Letter with QR <ArrowRight className="w-3 h-3" />
+                    </button>
+                  </div>
+                </div>
               </div>
 
-              {/* Right Scannable QR Preview Pill */}
-              <div className="flex items-center gap-4 bg-[#F5F5F7] p-4 rounded-2xl border border-[#D2D2D7] self-start">
+              {/* Right 5 Columns: High-Converting Architectural Property Photography + Floating Badges */}
+              <div className="lg:col-span-5 relative min-h-[280px] sm:min-h-[340px] bg-[#E5E5EA] overflow-hidden">
                 <img
-                  src={qrImageUrl}
-                  alt="Property Deal Room QR Code"
-                  className="w-20 h-20 rounded-xl border border-[#D2D2D7] bg-white p-1"
+                  src={lead.heroImage}
+                  alt={lead.propertyAddress}
+                  className="w-full h-full object-cover object-center"
                 />
-                <div className="space-y-1">
-                  <div className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-[#0066CC]">
-                    <QrCode className="w-3.5 h-3.5" /> Personalized QR Active
+                {/* Subtle Gradient Scrim for High-Contrast Badge Legibility */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
+
+                {/* Top Right Verified Equity Floating Pill */}
+                <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-md text-[#065F46] border border-[#A7F3D0] px-3.5 py-1.5 rounded-full text-xs font-extrabold shadow-lg flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-[#059669]" />
+                  <span>{lead.equityPercent}% Verified Equity</span>
+                </div>
+
+                {/* Bottom Architectural Caption & Protected Rate Overlay */}
+                <div className="absolute bottom-4 left-4 right-4 text-white space-y-2">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0066CC]/95 text-white text-[11px] font-bold uppercase tracking-wider shadow-sm">
+                    <Lock className="w-3 h-3" /> Protect {lead.firstLien.rate.toFixed(2)}% 1st Mortgage
                   </div>
-                  <p className="text-xs font-semibold text-[#1D1D1F] max-w-[190px]">
-                    Scanning the letter QR opens this live property model & alerts your Telegram.
+                  <p className="text-sm font-bold tracking-tight drop-shadow-xs">
+                    {lead.heroCaption}
                   </p>
-                  <button
-                    onClick={() => setViewMode('letter')}
-                    className="text-xs font-bold text-[#0066CC] hover:underline inline-flex items-center gap-1"
-                  >
-                    View Printed Letter with QR <ArrowRight className="w-3 h-3" />
-                  </button>
+                  <p className="text-xs text-white/85 flex items-center gap-1 font-medium">
+                    <MapPin className="w-3.5 h-3.5 text-[#60A5FA]" /> {lead.propertyType} • {lead.bedsBaths}
+                  </p>
                 </div>
               </div>
             </div>
 
             {/* 4 Key Institutional Metrics (Tabular Precision) */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-8">
-              <div className="bg-[#F5F5F7]/70 rounded-2xl p-5 border border-[#E5E5EA]">
-                <p className="text-xs font-bold uppercase tracking-wider text-[#86868B] mb-1">
-                  Estimated Asset Value
-                </p>
-                <p className="text-2xl sm:text-3xl font-extrabold text-[#1D1D1F] tabular-nums">
-                  ${lead.estimatedValue.toLocaleString()}
-                </p>
-                <p className="text-xs text-[#515154] mt-1 font-medium">{lead.propertyType}</p>
-              </div>
-
-              <div className="bg-[#ECFDF5] rounded-2xl p-5 border border-[#A7F3D0]">
-                <p className="text-xs font-bold uppercase tracking-wider text-[#047857] mb-1">
-                  Protected Owner Equity
-                </p>
-                <p className="text-2xl sm:text-3xl font-extrabold text-[#065F46] tabular-nums">
-                  ${lead.protectedEquity.toLocaleString()}
-                </p>
-                <p className="text-xs text-[#047857] mt-1 font-bold">
-                  {lead.equityPercent}% Net Equity ({lead.ltvPercent}% Combined LTV)
-                </p>
-              </div>
-
-              <div className="bg-[#F0F7FF] rounded-2xl p-5 border border-[#BFDBFE]">
-                <p className="text-xs font-bold uppercase tracking-wider text-[#0066CC] mb-1">
-                  1st Mortgage (Keep Intact)
-                </p>
-                <p className="text-2xl sm:text-3xl font-extrabold text-[#1D1D1F] tabular-nums">
-                  {lead.firstLien.rate.toFixed(2)}%{' '}
-                  <span className="text-base font-bold text-[#0066CC]">Fixed</span>
-                </p>
-                <p className="text-xs text-[#515154] mt-1 font-semibold">
-                  ${lead.firstLien.amount.toLocaleString()} Balance • Do Not Refi
-                </p>
-              </div>
-
-              <div className="bg-[#FFFBEB] rounded-2xl p-5 border border-[#FDE68A]">
-                <p className="text-xs font-bold uppercase tracking-wider text-[#B45309] mb-1">
-                  Isolated NOD Trigger (2nd Lien)
-                </p>
-                <p className="text-2xl sm:text-3xl font-extrabold text-[#92400E] tabular-nums">
-                  ${lead.secondLien.amount.toLocaleString()}
-                </p>
-                <p className="text-xs text-[#B45309] mt-1 font-bold">
-                  {lead.secondLien.rate}% • {lead.secondLien.maturityDate}
-                </p>
-              </div>
-            </div>
-
-            {/* MIT Capital Stack Visualizer */}
-            <div className="mt-8 pt-8 border-t border-[#E5E5EA]">
-              <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-                <div className="flex items-center gap-2">
-                  <Layers className="w-4 h-4 text-[#0066CC]" />
-                  <h2 className="text-sm font-bold uppercase tracking-wider text-[#1D1D1F]">
-                    Quantitative Capital Stack & Equity Cushion
-                  </h2>
+            <div className="p-6 sm:p-10">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <div className="bg-[#F5F5F7]/70 rounded-2xl p-5 border border-[#E5E5EA]">
+                  <p className="text-xs font-bold uppercase tracking-wider text-[#86868B] mb-1">
+                    Estimated Asset Value
+                  </p>
+                  <p className="text-2xl sm:text-3xl font-extrabold text-[#1D1D1F] tabular-nums">
+                    ${lead.estimatedValue.toLocaleString()}
+                  </p>
+                  <p className="text-xs text-[#515154] mt-1 font-medium">{lead.propertyType}</p>
                 </div>
-                <span className="text-xs font-semibold text-[#515154]">
-                  Total Debt: ${lead.totalDebt.toLocaleString()} ({lead.ltvPercent}% LTV) vs. Net Equity: $
-                  {lead.protectedEquity.toLocaleString()} ({lead.equityPercent}%)
-                </span>
+
+                <div className="bg-[#ECFDF5] rounded-2xl p-5 border border-[#A7F3D0]">
+                  <p className="text-xs font-bold uppercase tracking-wider text-[#047857] mb-1">
+                    Protected Owner Equity
+                  </p>
+                  <p className="text-2xl sm:text-3xl font-extrabold text-[#065F46] tabular-nums">
+                    ${lead.protectedEquity.toLocaleString()}
+                  </p>
+                  <p className="text-xs text-[#047857] mt-1 font-bold">
+                    {lead.equityPercent}% Net Equity ({lead.ltvPercent}% Combined LTV)
+                  </p>
+                </div>
+
+                <div className="bg-[#F0F7FF] rounded-2xl p-5 border border-[#BFDBFE]">
+                  <p className="text-xs font-bold uppercase tracking-wider text-[#0066CC] mb-1">
+                    1st Mortgage (Keep Intact)
+                  </p>
+                  <p className="text-2xl sm:text-3xl font-extrabold text-[#1D1D1F] tabular-nums">
+                    {lead.firstLien.rate.toFixed(2)}%{' '}
+                    <span className="text-base font-bold text-[#0066CC]">Fixed</span>
+                  </p>
+                  <p className="text-xs text-[#515154] mt-1 font-semibold">
+                    ${lead.firstLien.amount.toLocaleString()} Balance • Do Not Refi
+                  </p>
+                </div>
+
+                <div className="bg-[#FFFBEB] rounded-2xl p-5 border border-[#FDE68A]">
+                  <p className="text-xs font-bold uppercase tracking-wider text-[#B45309] mb-1">
+                    Isolated NOD Trigger (2nd Lien)
+                  </p>
+                  <p className="text-2xl sm:text-3xl font-extrabold text-[#92400E] tabular-nums">
+                    ${lead.secondLien.amount.toLocaleString()}
+                  </p>
+                  <p className="text-xs text-[#B45309] mt-1 font-bold">
+                    {lead.secondLien.rate}% • {lead.secondLien.maturityDate}
+                  </p>
+                </div>
               </div>
 
-              {/* Stacked Horizontal Bar */}
-              <div className="h-5 w-full rounded-full overflow-hidden flex bg-[#E5E5EA] p-0.5 gap-0.5">
-                <div
-                  style={{ width: `${firstLienPct}%` }}
-                  className="bg-[#0066CC] h-full rounded-l-full transition-all"
-                  title={`1st Mortgage: $${lead.firstLien.amount.toLocaleString()} (${lead.firstLien.rate}%)`}
-                />
-                <div
-                  style={{ width: `${secondLienPct}%` }}
-                  className="bg-[#D97706] h-full transition-all"
-                  title={`2nd Mortgage (NOD Target): $${lead.secondLien.amount.toLocaleString()}`}
-                />
-                <div
-                  style={{ width: `${equityPct}%` }}
-                  className="bg-[#10B981] h-full rounded-r-full transition-all"
-                  title={`Protected Net Equity: $${lead.protectedEquity.toLocaleString()} (${lead.equityPercent}%)`}
-                />
-              </div>
+              {/* MIT Capital Stack Visualizer */}
+              <div className="mt-8 pt-8 border-t border-[#E5E5EA]">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                  <div className="flex items-center gap-2">
+                    <Layers className="w-4 h-4 text-[#0066CC]" />
+                    <h2 className="text-sm font-bold uppercase tracking-wider text-[#1D1D1F]">
+                      Quantitative Capital Stack & Equity Cushion
+                    </h2>
+                  </div>
+                  <span className="text-xs font-semibold text-[#515154]">
+                    Total Debt: ${lead.totalDebt.toLocaleString()} ({lead.ltvPercent}% LTV) vs. Net Equity: $
+                    {lead.protectedEquity.toLocaleString()} ({lead.equityPercent}%)
+                  </span>
+                </div>
 
-              <div className="grid sm:grid-cols-3 gap-3 mt-3 text-xs">
-                <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-sm bg-[#0066CC] inline-block" />
-                  <span className="font-semibold text-[#1D1D1F]">
-                    1st Lien (${lead.firstLien.amount.toLocaleString()} @ {lead.firstLien.rate}%):
-                  </span>
-                  <span className="text-[#059669] font-bold">KEEP INTACT</span>
+                {/* Stacked Horizontal Bar */}
+                <div className="h-5 w-full rounded-full overflow-hidden flex bg-[#E5E5EA] p-0.5 gap-0.5">
+                  <div
+                    style={{ width: `${firstLienPct}%` }}
+                    className="bg-[#0066CC] h-full rounded-l-full transition-all"
+                    title={`1st Mortgage: $${lead.firstLien.amount.toLocaleString()} (${lead.firstLien.rate}%)`}
+                  />
+                  <div
+                    style={{ width: `${secondLienPct}%` }}
+                    className="bg-[#D97706] h-full transition-all"
+                    title={`2nd Mortgage (NOD Target): $${lead.secondLien.amount.toLocaleString()}`}
+                  />
+                  <div
+                    style={{ width: `${equityPct}%` }}
+                    className="bg-[#10B981] h-full rounded-r-full transition-all"
+                    title={`Protected Net Equity: $${lead.protectedEquity.toLocaleString()} (${lead.equityPercent}%)`}
+                  />
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-sm bg-[#D97706] inline-block" />
-                  <span className="font-semibold text-[#1D1D1F]">
-                    2nd Lien (${lead.secondLien.amount.toLocaleString()} @ {lead.secondLien.rate}%):
-                  </span>
-                  <span className="text-[#B45309] font-bold">REPLACE / RE-AMORTIZE</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-sm bg-[#10B981] inline-block" />
-                  <span className="font-semibold text-[#1D1D1F]">
-                    Protected Equity (${lead.protectedEquity.toLocaleString()}):
-                  </span>
-                  <span className="text-[#059669] font-bold">{lead.equityPercent}% CUSHION</span>
+
+                <div className="grid sm:grid-cols-3 gap-3 mt-3 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-sm bg-[#0066CC] inline-block" />
+                    <span className="font-semibold text-[#1D1D1F]">
+                      1st Lien (${lead.firstLien.amount.toLocaleString()} @ {lead.firstLien.rate}%):
+                    </span>
+                    <span className="text-[#059669] font-bold">KEEP INTACT</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-sm bg-[#D97706] inline-block" />
+                    <span className="font-semibold text-[#1D1D1F]">
+                      2nd Lien (${lead.secondLien.amount.toLocaleString()} @ {lead.secondLien.rate}%):
+                    </span>
+                    <span className="text-[#B45309] font-bold">REPLACE / RE-AMORTIZE</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-sm bg-[#10B981] inline-block" />
+                    <span className="font-semibold text-[#1D1D1F]">
+                      Protected Equity (${lead.protectedEquity.toLocaleString()}):
+                    </span>
+                    <span className="text-[#059669] font-bold">{lead.equityPercent}% CUSHION</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -760,151 +795,161 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
               </div>
             </div>
 
-            {/* Right 5 Columns: Confidential Partner Action Card */}
-            <div className="lg:col-span-5 bg-white rounded-3xl border border-[#D2D2D7]/90 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 sm:p-8 space-y-6 sticky top-20">
-              <div className="border-b border-[#E5E5EA] pb-4">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#059669]">
-                  DIRECT PRINCIPAL DESK • NO CREDIT PULL TO REVIEW
-                </span>
-                <h3 className="text-xl font-extrabold text-[#1D1D1F] mt-1">
-                  Request Exact Payoff & Term Sheet
-                </h3>
-                <p className="text-xs text-[#515154] mt-1">
-                  Speak directly with Managing Partners <strong>Ricardo Hamilton</strong> &{' '}
-                  <strong>Erol Senel (NMLS #211355)</strong>.
-                </p>
-              </div>
-
-              {/* 1-Tap Smartphone Buttons */}
-              <div className="grid grid-cols-2 gap-3">
-                <a
-                  href="tel:9493393555"
-                  className="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-[#0066CC] hover:bg-[#0055B3] text-white font-bold text-xs sm:text-sm shadow-sm transition-all"
-                >
-                  <Phone className="w-4 h-4" />
-                  <span>Call (949) 339-3555</span>
-                </a>
-                <a
-                  href={`sms:9493393555?&body=${smsBody}`}
-                  className="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-[#F5F5F7] hover:bg-[#E5E5EA] text-[#1D1D1F] border border-[#D2D2D7] font-bold text-xs sm:text-sm transition-all"
-                >
-                  <MessageSquare className="w-4 h-4 text-[#0066CC]" />
-                  <span>1-Tap Confidential Text</span>
-                </a>
-              </div>
-
-              {!isSubmitted ? (
-                <form onSubmit={handleFormSubmit} className="space-y-4">
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-[#515154] mb-1">
-                      Principal / Trustee Name
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={contactForm.name}
-                      onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#F5F5F7] border border-[#D2D2D7] text-sm font-medium text-[#1D1D1F] focus:outline-none focus:border-[#0066CC] focus:bg-white"
-                    />
+            {/* Right 5 Columns: Confidential Partner Action Card with Visual Advisory Header */}
+            <div className="lg:col-span-5 bg-white rounded-3xl border border-[#D2D2D7]/90 shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden sticky top-20">
+              {/* Visual Advisory Banner */}
+              <div className="relative h-40 w-full bg-[#1D1D1F] overflow-hidden">
+                <img
+                  src="/images/bg_expert_guidance_humans.png"
+                  alt="Capital Bridge Solutions Advisory Desk"
+                  className="w-full h-full object-cover object-center opacity-90"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                <div className="absolute bottom-3.5 left-5 right-5 text-white">
+                  <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#059669] text-[10px] font-extrabold uppercase tracking-wider mb-1">
+                    <Award className="w-3 h-3" /> Principal Advisory Desk
                   </div>
-
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#515154] mb-1">
-                        Direct Mobile / Phone
-                      </label>
-                      <input
-                        type="tel"
-                        required
-                        placeholder="(555) 000-0000"
-                        value={contactForm.phone}
-                        onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#F5F5F7] border border-[#D2D2D7] text-sm font-medium text-[#1D1D1F] focus:outline-none focus:border-[#0066CC] focus:bg-white"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#515154] mb-1">
-                        Confidential Email
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        value={contactForm.email}
-                        onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#F5F5F7] border border-[#D2D2D7] text-sm font-medium text-[#1D1D1F] focus:outline-none focus:border-[#0066CC] focus:bg-white"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-[#515154] mb-1">
-                      Selected Structure & Notes
-                    </label>
-                    <textarea
-                      rows={3}
-                      value={contactForm.notes}
-                      onChange={(e) => setContactForm({ ...contactForm, notes: e.target.value })}
-                      className="w-full px-3.5 py-2 rounded-xl bg-[#F5F5F7] border border-[#D2D2D7] text-xs font-medium text-[#1D1D1F] focus:outline-none focus:border-[#0066CC] focus:bg-white"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-3.5 px-6 rounded-2xl bg-[#1D1D1F] hover:bg-[#333336] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md transition-all"
-                  >
-                    <span>
-                      {isSubmitting
-                        ? 'Generating Term Sheet...'
-                        : `Send My ${activeOption.title.split(' ')[0]} Term Sheet`}
-                    </span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-
-                  <p className="text-[11px] text-center text-[#86868B]">
-                    🔒 100% Confidential. No SSN or credit pull required to review payoff figures.
-                  </p>
-                </form>
-              ) : (
-                <div className="bg-[#ECFDF5] border border-[#A7F3D0] rounded-2xl p-6 text-center space-y-2">
-                  <CheckCircle2 className="w-10 h-10 text-[#059669] mx-auto" />
-                  <h4 className="text-base font-extrabold text-[#065F46]">
-                    Confidential Term Sheet Request Received
-                  </h4>
-                  <p className="text-xs text-[#047857]">
-                    <strong>Ricardo Hamilton</strong> & <strong>Erol Senel (NMLS #211355)</strong> have
-                    been notified and will send your exact payoff breakdown shortly.
+                  <h3 className="text-lg font-extrabold leading-tight">
+                    Request Exact Payoff & Term Sheet
+                  </h3>
+                  <p className="text-xs text-white/85">
+                    Ricardo Hamilton & Erol Senel (NMLS #211355)
                   </p>
                 </div>
-              )}
+              </div>
 
-              {/* Partner Intelligence Box (Shows Ricardo & Erol the uncovered owner contact info) */}
-              <div className="pt-4 border-t border-[#E5E5EA] text-xs space-y-1.5 bg-[#F5F5F7]/70 p-4 rounded-2xl">
-                <div className="font-bold uppercase tracking-wider text-[10px] text-[#0066CC]">
-                  Verified Public Filing Contact Record
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-[#515154]">Decision-Maker:</span>
-                  <span className="font-bold text-[#1D1D1F]">{lead.ownerPerson}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-[#515154]">Mailing Address:</span>
-                  <span className="font-semibold text-[#1D1D1F] text-right">
-                    {lead.mailingAddress}, {lead.mailingCityStateZip}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-[#515154]">Filing Email:</span>
+              <div className="p-6 sm:p-8 space-y-6">
+                {/* 1-Tap Smartphone Buttons */}
+                <div className="grid grid-cols-2 gap-3">
                   <a
-                    href={`mailto:${lead.uncoveredEmail}`}
-                    className="font-bold text-[#0066CC] hover:underline"
+                    href="tel:9493393555"
+                    className="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-[#0066CC] hover:bg-[#0055B3] text-white font-bold text-xs sm:text-sm shadow-sm transition-all"
                   >
-                    {lead.uncoveredEmail}
+                    <Phone className="w-4 h-4" />
+                    <span>Call (949) 339-3555</span>
+                  </a>
+                  <a
+                    href={`sms:9493393555?&body=${smsBody}`}
+                    className="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-[#F5F5F7] hover:bg-[#E5E5EA] text-[#1D1D1F] border border-[#D2D2D7] font-bold text-xs sm:text-sm transition-all"
+                  >
+                    <MessageSquare className="w-4 h-4 text-[#0066CC]" />
+                    <span>1-Tap Confidential Text</span>
                   </a>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-[#515154]">Filing Phone:</span>
-                  <span className="font-semibold text-[#1D1D1F]">{lead.uncoveredPhone}</span>
+
+                {!isSubmitted ? (
+                  <form onSubmit={handleFormSubmit} className="space-y-4">
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#515154] mb-1">
+                        Principal / Trustee Name
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={contactForm.name}
+                        onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#F5F5F7] border border-[#D2D2D7] text-sm font-medium text-[#1D1D1F] focus:outline-none focus:border-[#0066CC] focus:bg-white"
+                      />
+                    </div>
+
+                    <div className="grid sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#515154] mb-1">
+                          Direct Mobile / Phone
+                        </label>
+                        <input
+                          type="tel"
+                          required
+                          placeholder="(555) 000-0000"
+                          value={contactForm.phone}
+                          onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-[#F5F5F7] border border-[#D2D2D7] text-sm font-medium text-[#1D1D1F] focus:outline-none focus:border-[#0066CC] focus:bg-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-[#515154] mb-1">
+                          Confidential Email
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={contactForm.email}
+                          onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-[#F5F5F7] border border-[#D2D2D7] text-sm font-medium text-[#1D1D1F] focus:outline-none focus:border-[#0066CC] focus:bg-white"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#515154] mb-1">
+                        Selected Structure & Notes
+                      </label>
+                      <textarea
+                        rows={3}
+                        value={contactForm.notes}
+                        onChange={(e) => setContactForm({ ...contactForm, notes: e.target.value })}
+                        className="w-full px-3.5 py-2 rounded-xl bg-[#F5F5F7] border border-[#D2D2D7] text-xs font-medium text-[#1D1D1F] focus:outline-none focus:border-[#0066CC] focus:bg-white"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full py-3.5 px-6 rounded-2xl bg-[#1D1D1F] hover:bg-[#333336] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md transition-all"
+                    >
+                      <span>
+                        {isSubmitting
+                          ? 'Generating Term Sheet...'
+                          : `Send My ${activeOption.title.split(' ')[0]} Term Sheet`}
+                      </span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+
+                    <p className="text-[11px] text-center text-[#86868B]">
+                      🔒 100% Confidential. No SSN or credit pull required to review payoff figures.
+                    </p>
+                  </form>
+                ) : (
+                  <div className="bg-[#ECFDF5] border border-[#A7F3D0] rounded-2xl p-6 text-center space-y-2">
+                    <CheckCircle2 className="w-10 h-10 text-[#059669] mx-auto" />
+                    <h4 className="text-base font-extrabold text-[#065F46]">
+                      Confidential Term Sheet Request Received
+                    </h4>
+                    <p className="text-xs text-[#047857]">
+                      <strong>Ricardo Hamilton</strong> & <strong>Erol Senel (NMLS #211355)</strong> have
+                      been notified and will send your exact payoff breakdown shortly.
+                    </p>
+                  </div>
+                )}
+
+                {/* Partner Intelligence Box (Shows Ricardo & Erol the uncovered owner contact info) */}
+                <div className="pt-4 border-t border-[#E5E5EA] text-xs space-y-1.5 bg-[#F5F5F7]/70 p-4 rounded-2xl">
+                  <div className="font-bold uppercase tracking-wider text-[10px] text-[#0066CC]">
+                    Verified Public Filing Contact Record
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-[#515154]">Decision-Maker:</span>
+                    <span className="font-bold text-[#1D1D1F]">{lead.ownerPerson}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-[#515154]">Mailing Address:</span>
+                    <span className="font-semibold text-[#1D1D1F] text-right">
+                      {lead.mailingAddress}, {lead.mailingCityStateZip}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-[#515154]">Filing Email:</span>
+                    <a
+                      href={`mailto:${lead.uncoveredEmail}`}
+                      className="font-bold text-[#0066CC] hover:underline"
+                    >
+                      {lead.uncoveredEmail}
+                    </a>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-[#515154]">Filing Phone:</span>
+                    <span className="font-semibold text-[#1D1D1F]">{lead.uncoveredPhone}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -913,7 +958,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
       )}
 
       {/* =====================================================================
-          VIEW 2: 8.5" x 11" PRINTABLE EXECUTIVE LETTER WITH SCANNABLE QR CODE
+          VIEW 2: 8.5" x 11" PRINTABLE EXECUTIVE LETTER WITH IMAGERY & QR CODE
          ===================================================================== */}
       {viewMode === 'letter' && (
         <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-8">
@@ -921,7 +966,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
           <div className="no-print mb-6 bg-white rounded-2xl border border-[#D2D2D7] p-4 flex flex-wrap items-center justify-between gap-4 shadow-sm">
             <div>
               <h2 className="text-sm font-bold text-[#1D1D1F]">
-                Executive Physical Mailer + Embedded Deal Room QR Code
+                Executive Physical Mailer + Architectural Property Strip + Scannable QR Code
               </h2>
               <p className="text-xs text-[#515154]">
                 Formatted for standard 8.5&quot; × 11&quot; linen or FedEx 2-Day envelope delivery.
@@ -940,21 +985,23 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
           </div>
 
           {/* 8.5" x 11" Paper Sheet */}
-          <div className="print-sheet bg-white text-[#1D1D1F] rounded-2xl border border-[#D2D2D7] shadow-[0_12px_40px_rgb(0,0,0,0.06)] p-8 sm:p-12 space-y-5 leading-relaxed">
-            {/* Institutional Letterhead */}
-            <div className="flex justify-between items-start border-b-2 border-[#1D1D1F] pb-4">
-              <div>
-                <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-[#0066CC] text-white font-extrabold text-xs flex items-center justify-center">
-                    CB
-                  </div>
-                  <h1 className="text-lg font-extrabold tracking-tight text-[#1D1D1F]">
-                    CAPITAL BRIDGE SOLUTIONS
-                  </h1>
+          <div className="print-sheet bg-white text-[#1D1D1F] rounded-2xl border border-[#D2D2D7] shadow-[0_12px_40px_rgb(0,0,0,0.06)] p-8 sm:p-10 space-y-4 leading-relaxed">
+            {/* Institutional Letterhead with Official Logo */}
+            <div className="flex justify-between items-center border-b-2 border-[#1D1D1F] pb-4">
+              <div className="flex items-center gap-3">
+                <img
+                  src="/Capital_Bridge_solutions_Logo_Cropped.png"
+                  alt="Capital Bridge Solutions"
+                  className="h-10 w-auto object-contain"
+                />
+                <div className="border-l border-[#D2D2D7] pl-3">
+                  <p className="text-[11px] font-bold uppercase tracking-widest text-[#0066CC]">
+                    PRIVATE DEBT RESTRUCTURE & EQUITY ADVISORY
+                  </p>
+                  <p className="text-[11px] text-[#515154]">
+                    Managing Partners • NMLS #211355 • CA DRE #02113355
+                  </p>
                 </div>
-                <p className="text-[11px] font-semibold uppercase tracking-widest text-[#515154] mt-1">
-                  Private Debt Restructure & Multi-Family Equity Advisory
-                </p>
               </div>
               <div className="text-right text-xs text-[#1D1D1F] space-y-0.5">
                 <p className="font-bold">Direct Desk: (949) 339-3555</p>
@@ -963,10 +1010,51 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
               </div>
             </div>
 
+            {/* Visual Architectural Property & Equity Snapshot Strip */}
+            <div className="grid sm:grid-cols-12 gap-4 bg-[#F5F5F7] border border-[#D2D2D7] rounded-2xl p-3 items-center">
+              <div className="sm:col-span-4 h-24 rounded-xl overflow-hidden relative">
+                <img
+                  src={lead.heroImage}
+                  alt={lead.propertyShort}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute bottom-1.5 left-2 bg-black/75 text-white text-[10px] font-bold px-2 py-0.5 rounded">
+                  APN: {lead.apn}
+                </div>
+              </div>
+              <div className="sm:col-span-8 grid grid-cols-3 gap-2 text-center sm:text-left">
+                <div className="bg-white p-2.5 rounded-xl border border-[#E5E5EA]">
+                  <p className="text-[10px] font-bold uppercase text-[#86868B]">Protected Equity</p>
+                  <p className="text-base font-extrabold text-[#059669]">
+                    ${(lead.protectedEquity / 1000000).toFixed(2)}M ({lead.equityPercent}%)
+                  </p>
+                  <p className="text-[10px] text-[#515154]">Combined LTV: {lead.ltvPercent}%</p>
+                </div>
+                <div className="bg-white p-2.5 rounded-xl border border-[#E5E5EA]">
+                  <p className="text-[10px] font-bold uppercase text-[#0066CC]">1st Lien (Keep)</p>
+                  <p className="text-base font-extrabold text-[#1D1D1F]">
+                    {lead.firstLien.rate.toFixed(2)}% Fixed
+                  </p>
+                  <p className="text-[10px] text-[#515154]">
+                    ${lead.firstLien.amount.toLocaleString()} Balance
+                  </p>
+                </div>
+                <div className="bg-white p-2.5 rounded-xl border border-[#E5E5EA]">
+                  <p className="text-[10px] font-bold uppercase text-[#B45309]">2nd Lien Target</p>
+                  <p className="text-base font-extrabold text-[#92400E]">
+                    ${lead.secondLien.amount.toLocaleString()}
+                  </p>
+                  <p className="text-[10px] text-[#B45309] font-semibold">
+                    {lead.secondLien.rate}% • Standalone Cure
+                  </p>
+                </div>
+              </div>
+            </div>
+
             {/* Date & Recipient Mailing Block */}
-            <div className="flex flex-col sm:flex-row sm:justify-between gap-4 text-xs sm:text-[13px] pt-1">
+            <div className="flex flex-col sm:flex-row sm:justify-between gap-4 text-xs sm:text-[13px]">
               <div className="space-y-0.5">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-[#0066CC] mb-1">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-[#0066CC] mb-0.5">
                   CONFIDENTIAL – PRINCIPAL TO PRINCIPAL
                 </p>
                 <p className="font-bold text-[#1D1D1F]">{lead.ownerPerson}</p>
@@ -976,22 +1064,18 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
               </div>
               <div className="sm:text-right text-xs text-[#515154] space-y-0.5">
                 <p className="font-semibold text-[#1D1D1F]">Date: {lead.letterDate}</p>
-                <p>County Record: {lead.county}</p>
-                <p>Parcel ID (APN): {lead.apn}</p>
-                <p className="text-[#059669] font-bold">
-                  Verified Equity: {lead.equityPercent}% (~$
-                  {(lead.protectedEquity / 1000000).toFixed(2)}M)
-                </p>
+                <p>Subject Asset: {lead.propertyShort}</p>
+                <p>Tax Status: {lead.taxesDelinquent ? 'Cured at Closing' : 'Paid Current'}</p>
               </div>
             </div>
 
             {/* Subject Box */}
-            <div className="bg-[#F5F5F7] border-l-4 border-[#0066CC] px-4 py-2.5 rounded-r-xl text-xs sm:text-[13px] font-bold text-[#1D1D1F]">
+            <div className="bg-[#F0F7FF] border-l-4 border-[#0066CC] px-4 py-2 rounded-r-xl text-xs sm:text-[13px] font-bold text-[#1D1D1F]">
               RE: {lead.letterSubject}
             </div>
 
             {/* Salutation & Opening Paragraphs */}
-            <div className="space-y-3 text-xs sm:text-[13px] text-[#1D1D1F]">
+            <div className="space-y-2.5 text-xs sm:text-[12.5px] text-[#1D1D1F]">
               <p className="font-semibold">Dear {lead.ownerSalutation},</p>
               {lead.letterParagraphs.map((p, idx) => (
                 <p key={idx}>{p}</p>
@@ -999,7 +1083,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
             </div>
 
             {/* Forensic Bullets */}
-            <div className="bg-[#F0F7FF]/70 border border-[#BFDBFE] rounded-xl p-4 space-y-2 text-xs sm:text-[12.5px]">
+            <div className="bg-[#F5F5F7] border border-[#D2D2D7] rounded-xl p-3.5 space-y-1.5 text-xs">
               {lead.letterBullets.map((b, idx) => (
                 <div key={idx} className="flex items-start gap-2">
                   <span className="font-bold text-[#0066CC] mt-0.5">•</span>
@@ -1009,9 +1093,9 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
             </div>
 
             {/* Solutions Section */}
-            <div className="space-y-2.5 text-xs sm:text-[13px] text-[#1D1D1F]">
+            <div className="space-y-2 text-xs sm:text-[12.5px] text-[#1D1D1F]">
               <p className="font-semibold">{lead.letterSolutionIntro}</p>
-              <div className="space-y-2 pl-2">
+              <div className="space-y-1.5 pl-2">
                 {lead.letterSolutions.map((s, idx) => (
                   <div key={idx} className="flex items-start gap-2">
                     <span className="font-extrabold text-[#059669]">{idx + 1}.</span>
@@ -1019,36 +1103,36 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                   </div>
                 ))}
               </div>
-              <p className="pt-1">{lead.letterClosing}</p>
+              <p className="pt-0.5">{lead.letterClosing}</p>
             </div>
 
             {/* Bottom Signature + Scannable Personalized QR Code Box */}
             <div className="pt-3 border-t border-[#E5E5EA] grid sm:grid-cols-12 gap-6 items-center">
-              <div className="sm:col-span-6 space-y-2 text-xs sm:text-[13px]">
+              <div className="sm:col-span-6 space-y-1.5 text-xs">
                 <p className="text-[#515154]">Warm regards,</p>
-                <div className="pt-1">
+                <div>
                   <p className="font-extrabold text-sm text-[#1D1D1F]">
                     Ricardo Hamilton & Erol Senel
                   </p>
                   <p className="text-xs font-semibold text-[#0066CC]">
                     Managing Partners | Capital Bridge Solutions
                   </p>
-                  <p className="text-xs text-[#515154]">
+                  <p className="text-[11px] text-[#515154]">
                     Erol Senel • NMLS #211355 | CA DRE Broker #02113355
                   </p>
-                  <p className="text-xs font-bold text-[#1D1D1F] mt-1">
+                  <p className="text-xs font-bold text-[#1D1D1F] mt-0.5">
                     Direct: (949) 339-3555 • ricardo@capitalbridgesolutions.com
                   </p>
                 </div>
-                <p className="text-[11px] italic text-[#333336] pt-1">{lead.letterPs}</p>
+                <p className="text-[11px] italic text-[#333336] pt-0.5">{lead.letterPs}</p>
               </div>
 
               {/* High-Contrast Apple-Clean QR Code Deal Room Box */}
-              <div className="sm:col-span-6 bg-[#F5F5F7] border-2 border-[#0066CC]/30 rounded-2xl p-4 flex items-center gap-4">
+              <div className="sm:col-span-6 bg-[#F0F7FF] border-2 border-[#0066CC]/30 rounded-2xl p-3.5 flex items-center gap-4">
                 <img
                   src={qrImageUrl}
                   alt={`QR Code for ${lead.propertyShort}`}
-                  className="w-28 h-28 rounded-xl bg-white p-1.5 border border-[#D2D2D7] shrink-0"
+                  className="w-24 h-24 rounded-xl bg-white p-1.5 border border-[#D2D2D7] shrink-0"
                 />
                 <div className="space-y-1 text-left">
                   <span className="inline-block px-2 py-0.5 rounded bg-[#0066CC] text-white text-[10px] font-extrabold uppercase tracking-wider">
@@ -1057,8 +1141,8 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                   <p className="text-xs font-extrabold text-[#1D1D1F]">
                     Scan With Your Phone Camera
                   </p>
-                  <p className="text-[11px] text-[#515154] leading-snug">
-                    Opens your private side-by-side payoff & monthly payment calculator for{' '}
+                  <p className="text-[11px] text-[#333336] leading-snug">
+                    Opens your custom payoff & monthly payment simulator for{' '}
                     <strong>{lead.propertyShort}</strong> (no login or credit pull required).
                   </p>
                   <p className="text-[10px] font-mono font-bold text-[#0066CC] break-all">

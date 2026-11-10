@@ -1,6 +1,8 @@
 [
   {
     "id": "31935-coast-hwy",
+    "heroImage": "/images/rescue_laguna_coast_hero.jpg",
+    "heroCaption": "South Laguna Beach Oceanfront Corridor • 71.14% Protected Equity ($5.18M)",
     "county": "Orange County",
     "apn": "658-113-45",
     "ownerEntity": "509 California Drive LLC",
@@ -125,6 +127,8 @@
   },
   {
     "id": "814-kensington",
+    "heroImage": "/images/rescue_la_quadplex_hero.jpg",
+    "heroCaption": "Angeleno Heights / Echo Park Multi-Family • 63.77% Protected Equity ($1.33M)",
     "county": "Los Angeles County",
     "apn": "5405-021-020",
     "ownerEntity": "The Robert McNellis Living Trust",
@@ -209,7 +213,7 @@
         "id": "option-b",
         "tag": "MAXIMUM MONTHLY CASH-FLOW RELIEF",
         "title": "30-Year Fixed DSCR 4-Plex Consolidation",
-        "subtitle": "Stretch the entire $755k debt stack from 10–15 years out to a full 30-year multi-family rental loan—cutting required monthly payments by ~$1,300+/mo.",
+        "subtitle": "Stretch the entire $755k debt stack from 10–15 years out to a full 30-year multi-family rental loan—cutting required monthly payments by ~$1,532/mo.",
         "newLoanAmount": 800000,
         "keepsFirstLien": false,
         "blendedEffectiveRate": 5.99,
