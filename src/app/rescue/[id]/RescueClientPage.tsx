@@ -394,22 +394,22 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                 {/* Subtle Gradient Scrim for High-Contrast Badge Legibility */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
 
-                {/* Top Right Verified Equity Floating Pill */}
+                {/* Top Right Property & Equity Saved Floating Pill */}
                 <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-md text-[#065F46] border border-[#A7F3D0] px-3.5 py-1.5 rounded-full text-xs font-extrabold shadow-lg flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-[#059669]" />
-                  <span>{lead.equityPercent}% Verified Equity</span>
+                  <span>Property & {lead.equityPercent}% Equity Saved</span>
                 </div>
 
-                {/* Bottom Architectural Caption & Protected Rate Overlay */}
+                {/* Bottom Outcome Caption & Protected Rate Overlay */}
                 <div className="absolute bottom-4 left-4 right-4 text-white space-y-2">
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0066CC]/95 text-white text-[11px] font-bold uppercase tracking-wider shadow-sm">
-                    <Lock className="w-3 h-3" /> Protect {lead.firstLien.rate.toFixed(2)}% 1st Mortgage
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#059669]/95 text-white text-[11px] font-bold uppercase tracking-wider shadow-sm">
+                    <ShieldCheck className="w-3.5 h-3.5" /> Foreclosure Stopped • Keep Your {lead.firstLien.rate.toFixed(2)}% 1st Mortgage
                   </div>
                   <p className="text-sm font-bold tracking-tight drop-shadow-xs">
                     {lead.heroCaption}
                   </p>
-                  <p className="text-xs text-white/85 flex items-center gap-1 font-medium">
-                    <MapPin className="w-3.5 h-3.5 text-[#60A5FA]" /> {lead.propertyType} • {lead.bedsBaths}
+                  <p className="text-xs text-white/90 flex items-center gap-1 font-medium">
+                    <Lock className="w-3.5 h-3.5 text-[#6EE7B7]" /> Private Principal-to-Principal Bailout & Equity Protection
                   </p>
                 </div>
               </div>
@@ -1018,8 +1018,8 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                   alt={lead.propertyShort}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute bottom-1.5 left-2 bg-black/75 text-white text-[10px] font-bold px-2 py-0.5 rounded">
-                  APN: {lead.apn}
+                <div className="absolute bottom-1.5 left-2 bg-[#059669] text-white text-[10px] font-extrabold px-2 py-0.5 rounded shadow-xs">
+                  ✓ EQUITY SAVED BY CBS
                 </div>
               </div>
               <div className="sm:col-span-8 grid grid-cols-3 gap-2 text-center sm:text-left">
