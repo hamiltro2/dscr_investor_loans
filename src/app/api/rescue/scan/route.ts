@@ -36,8 +36,8 @@ export async function POST(request: NextRequest) {
             `*2nd Lien:* $${lead.secondLien.amount.toLocaleString()} @ ${lead.secondLien.rate}%\n\n` +
             `📞 *Owner Phone:* \`${lead.uncoveredPhone}\`\n` +
             `✉️ *Owner Email:* \`${lead.uncoveredEmail}\`\n` +
-            `🔗 [Open Live Deal Room](https://www.capitalbridgesolutions.com/rescue/${lead.id})`
-          : `🔥 *OWNER INTERACTION ON DEAL ROOM*\n\n` +
+            `🔗 [Open Private Deal](https://www.capitalbridgesolutions.com/rescue/${lead.id})`
+          : `🔥 *OWNER INTERACTION ON PRIVATE DEAL*\n\n` +
             `*Owner:* ${lead.ownerPerson} (${lead.ownerEntity})\n` +
             `*Property:* ${lead.propertyAddress}\n` +
             `*Viewing Option:* ${selectedOption || 'Option A'}\n` +

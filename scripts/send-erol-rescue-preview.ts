@@ -122,11 +122,8 @@ async function main() {
             </p>
             <p style="font-size:13px; color:#1d1d1f; font-weight:700; margin:16px 0 4px;">
               Warm regards,<br/>
-              Ricardo Hamilton & Erol Senel<br/>
-              <span style="font-weight:500; color:#515154;">Managing Partners | Capital Bridge Solutions | NMLS #211355 | (949) 339-3555</span>
-            </p>
-            <p style="font-size:12px; color:#515154; font-style:italic; margin:8px 0 0;">
-              ${lead.letterPs}
+              Erol Senel<br/>
+              <span style="font-weight:500; color:#515154;">Capital Bridge Solutions | NMLS #252085 | (949) 339-3555 | info@capitalbridgesolutions.com</span>
             </p>
           </div>
 
@@ -138,16 +135,16 @@ async function main() {
               </td>
               <td valign="middle">
                 <span style="display:inline-block; background:#0066cc; color:#ffffff; font-size:10px; font-weight:800; text-transform:uppercase; padding:3px 8px; border-radius:4px; margin-bottom:6px;">
-                  🔒 LIVE PERSONALIZED QR DEAL ROOM
+                  🔒 PRIVATE DEAL
                 </span>
                 <h3 style="margin:0 0 6px; font-size:17px; color:#1d1d1f; font-weight:800;">
                   Scan With Your Phone Camera to Test (${lead.propertyShort})
                 </h3>
                 <p style="margin:0 0 14px; font-size:13px; color:#333336; line-height:1.5;">
-                  Scanning this QR code opens the owner's custom-built Apple-clean Deal Room with architectural imagery, their exact 1st & 2nd mortgage breakdown, interactive 12-Month $0 Out-of-Pocket Payment Reserve toggle, and triggers an instant Telegram alert!
+                  Scanning this QR code opens the owner's custom-built Private Deal page with their exact 1st & 2nd mortgage breakdown, interactive 12-Month $0 Out-of-Pocket Payment Reserve toggle, and triggers an instant Telegram alert!
                 </p>
                 <a href="${dealRoomUrl}" style="display:inline-block; background:#0066cc; color:#ffffff; text-decoration:none; font-size:13px; font-weight:700; padding:10px 18px; border-radius:10px;">
-                  Open Live Visual Deal Room & Printable Letter →
+                  Open Private Deal & Printable Letter →
                 </a>
               </td>
             </tr>
@@ -175,10 +172,10 @@ async function main() {
               <td valign="middle">
                 <img src="https://www.capitalbridgesolutions.com/Capital_Bridge_solutions_Logo_Cropped.png" alt="Capital Bridge Solutions" height="44" style="height:44px; width:auto; display:block; margin-bottom:14px;" />
                 <h1 style="margin:0 0 8px; font-size:22px; font-weight:800; color:#1d1d1f;">
-                  PARTNER REVIEW: VISUAL NOD LETTERS & QR DEAL ROOMS
+                  PARTNER REVIEW: VISUAL NOD LETTERS & QR PRIVATE DEALS
                 </h1>
                 <p style="margin:0; font-size:14px; color:#515154; line-height:1.6;">
-                  Hi Erol & Ricardo — Here are the updated <strong>high-converting visual Notice of Default (NOD) Letters & Scannable QR Deal Rooms</strong> featuring architectural property imagery, our official Capital Bridge Solutions branding, and 3-column equity protection KPIs.
+                  Here are the updated <strong>high-converting visual Notice of Default (NOD) Letters & Scannable QR Private Deals</strong> featuring Capital Bridge Solutions branding and 3-column equity protection KPIs.
                 </p>
               </td>
             </tr>
@@ -194,7 +191,7 @@ async function main() {
 
   const recipients =
     process.env.SMTP_TO ||
-    'ricardo@capitalbridgesolutions.com,hamiltro2@hotmail.com,erolsenel11@gmail.com';
+    'info@capitalbridgesolutions.com,hamiltro2@hotmail.com,erolsenel11@gmail.com';
   await transporter.sendMail({
     from: process.env.SMTP_FROM || process.env.SMTP_USER,
     to: recipients,

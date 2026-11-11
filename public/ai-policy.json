@@ -5,8 +5,7 @@
     "type": "Financial Services - Real Estate Investment Lending",
     "established": "2014",
     "licenses": {
-      "california": "BRE License",
-      "nmls": "Pending"
+      "nmls": "252085"
     }
   },
   "services": {
@@ -118,6 +117,6 @@
   "content_accuracy": {
     "last_updated": "2024-09-23",
     "update_frequency": "monthly",
-    "verification_contact": "ricardo@capitalbridgesolutions.com"
+    "verification_contact": "info@capitalbridgesolutions.com"
   }
 }

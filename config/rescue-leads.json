@@ -30,17 +30,17 @@
     "annualTaxes": 57785.60,
     "taxesDelinquent": false,
     "taxStatusNote": "Paid Current ($57,785.60/yr — No Tax Delinquency)",
-    "headlineBadge": "ORANGE COUNTY COASTAL EQUITY DOSSIER",
-    "forensicSummary": "Title and debt audit confirms a 71.14% equity position (~$5.18M net equity) and paid-current property taxes. The Notice of Default is isolated to the June 1, 2026 maturity of the 2-year, $800,000 second-position facility (Westholme Equities / Equity Wave Lending). Your $1,300,000 first mortgage sits at an irreplaceable 2.90% fixed rate through 2051 and should NOT be refinanced.",
-    "painPointTitle": "Matured $800,000 2-Year Construction/Bridge 2nd Lien Behind a 2.90% 1st Mortgage",
+    "headlineBadge": "ORANGE COUNTY COASTAL EQUITY REVIEW",
+    "forensicSummary": "Our property debt and equity review confirms a 71.14% equity position (~$5.18M net equity) and paid-current property taxes. The Notice of Default is isolated to the June 1, 2026 maturity of the 2-year, $800,000 second-position loan. Your $1,300,000 first mortgage sits at an irreplaceable 2.90% fixed rate through 2051 and should NOT be refinanced.",
+    "painPointTitle": "Matured $800,000 2-Year 2nd-Position Loan Behind a 2.90% Fixed 1st Mortgage",
     "currentMonthlyCombinedPI": 10124,
     "firstLien": {
       "position": "1st Mortgage",
       "amount": 1300000,
       "rate": 2.90,
       "rateType": "Fixed Rate (30-Yr)",
-      "originatedLender": "Vista Point Mortgage LLC",
-      "currentLender": "Wilmington Savings Fund Society, FSB (PLAL/CWA Trust)",
+      "originatedLender": "Recorded 09/13/2021",
+      "currentLender": "Senior 1st-Position Fixed Mortgage",
       "recordedDate": "09/13/2021",
       "maturityDate": "10/01/2051",
       "monthlyPI": 5411,
@@ -52,9 +52,9 @@
       "position": "2nd Mortgage (NOD Trigger)",
       "amount": 800000,
       "rate": 7.06,
-      "rateType": "2-Yr Fixed Construction/Bridge",
-      "originatedLender": "Equity Wave Lending",
-      "currentLender": "Lance Miller DBA Westholme Equities",
+      "rateType": "2-Yr Fixed 2nd-Position Note",
+      "originatedLender": "Recorded 05/21/2024",
+      "currentLender": "Existing 2nd-Position Loan",
       "recordedDate": "05/21/2024",
       "maturityDate": "06/01/2026 (MATURED)",
       "monthlyPI": 4713,
@@ -66,8 +66,8 @@
       {
         "id": "option-a",
         "tag": "RECOMMENDED STRATEGY",
-        "title": "Standalone 2nd-Position Takeout Facility",
-        "subtitle": "Pay off the matured $800k Westholme Equities 2nd lien while keeping your $1.3M first mortgage at 2.90% completely untouched.",
+        "title": "Standalone 2nd-Position Takeout Option",
+        "subtitle": "Pay off the matured $800,000 2nd-position loan while keeping your $1.3M first mortgage at 2.90% completely untouched.",
         "newLoanAmount": 850000,
         "keepsFirstLien": true,
         "blendedEffectiveRate": 4.58,
@@ -78,7 +78,7 @@
         "closingTimeline": "10–14 Business Days",
         "highlights": [
           "Preserves your $1,300,000 1st mortgage at 2.90% fixed ($5,411/mo) through 2051",
-          "Pays off the $800,000 Westholme Equities / Equity Wave balloon + cures NOD arrears in full",
+          "Pays off the matured $800,000 2nd-position balloon + cures NOD arrears in full",
           "Combined LTV remains ultra-conservative at ~29.5% (over $5.1M in remaining equity)",
           "Optional 12-Month Interest Reserve reduces 2nd-lien out-of-pocket payment to $0/mo for 12 months"
         ]
@@ -98,8 +98,8 @@
         "closingTimeline": "14–21 Business Days",
         "highlights": [
           "Eliminates short-term maturity pressure permanently with a 30-year fixed structure",
-          "Underwritten on coastal luxury rental projection (DSCR) — no tax returns or K-1s required",
-          "Closes directly in 509 California Drive LLC",
+          "Reviewed based on coastal luxury rental projection (DSCR) — no tax returns or K-1s required",
+          "Arranged directly in 509 California Drive LLC",
           "Includes optional cash-out buffer for property improvements or interest reserves"
         ]
       }
@@ -107,23 +107,23 @@
     "letterDate": "November 10, 2026",
     "letterSubject": "31935 Coast Hwy, Laguna Beach, CA 92651 (APN: 658-113-45) — Replacing the Matured $800,000 2nd Lien Without Touching Your 2.90% 1st Mortgage",
     "letterParagraphs": [
-      "I am writing to you directly as a managing partner at Capital Bridge Solutions regarding your oceanfront property at 31935 Coast Highway in Laguna Beach.",
-      "When a Notice of Default is recorded on a premier coastal asset, your office in Burlingame is automatically flooded with generic letters from distressed-property buyers and brokers offering to refinance your entire debt stack into a high-rate loan.",
-      "Before reaching out, my partner Erol Senel and I underwrote your exact title and debt profile. It is immediately obvious why standard refinance offers make zero mathematical sense for 509 California Drive LLC:"
+      "I am reaching out regarding your oceanfront investment property at 31935 Coast Highway in Laguna Beach.",
+      "When a Notice of Default is recorded on a premier coastal asset, your office in Burlingame is immediately flooded with generic letters from opportunistic cash buyers trying to acquire the property at a discount or refinance proposals that wipe out your low-rate first mortgage.",
+      "Before reaching out, we reviewed your recorded debt and equity profile for 31935 Coast Hwy. It is immediately obvious why refinancing your entire debt stack makes zero mathematical sense for 509 California Drive LLC:"
     ],
     "letterBullets": [
-      "Protect Your 2.90% First Mortgage: You hold a $1,300,000 first mortgage at a 2.90% fixed rate maturing in 2051. Wiping out that first mortgage would needlessly cost you over $50,000 per year in extra interest.",
+      "Protect Your 2.90% First Mortgage: You hold a $1,300,000 first mortgage at a 2.90% fixed rate maturing in 2051. Replacing that first mortgage would needlessly cost you over $50,000 per year in extra interest.",
       "71.14% Equity & Taxes Paid Current: Your $57,785 annual property taxes are paid current, and your combined loan-to-value across the property is under 29% (~$5.18M in net equity).",
-      "Isolated 2nd-Lien Maturity: The sole pressure point is the 2-year, $800,000 second-position facility originated through Equity Wave Lending (Westholme Equities) in May 2024 that reached its June 1, 2026 maturity date."
+      "Isolated 2nd-Lien Maturity: The sole pressure point is the 2-year, $800,000 second-position loan recorded in May 2024 that reached its June 1, 2026 maturity date."
     ],
-    "letterSolutionIntro": "As an active developer and investor, you do not have a real estate problem—you simply have a matured second-lien takeout problem. Here is how Capital Bridge Solutions can resolve this in 10 to 14 days:",
+    "letterSolutionIntro": "As an active developer and investor, you do not have a real estate problem—you simply have a matured second-lien takeout problem. Here is how Capital Bridge Solutions can help arrange a clean resolution in 10 to 14 days:",
     "letterSolutions": [
-      "Standalone 2nd-Position Takeout Facility: Because your combined LTV is under 29%, we can structure a clean second-position loan specifically to pay off the matured $800,000 Westholme Equities lien and cure the Notice of Default—leaving your $1,300,000 first mortgage at 2.90% completely untouched.",
-      "12-Month $0 Out-of-Pocket Reserve Option: If you are completing improvements, positioning the home for a luxury lease, or preparing a 2027 exit, we can build 12 months of payments into an interest reserve from your existing equity so you have $0 out-of-pocket monthly payments on the new facility.",
-      "Direct LLC Execution: We underwrite the equity and asset value of 31935 Coast Hwy directly in 509 California Drive LLC without weeks of bank committee delays."
+      "Standalone 2nd-Position Takeout Option: Because your combined LTV is under 29%, we can arrange a clean second-position loan specifically to pay off the matured $800,000 second lien and cure the Notice of Default—leaving your $1,300,000 first mortgage at 2.90% completely untouched.",
+      "12-Month $0 Out-of-Pocket Reserve Option: If you are completing improvements, positioning the home for a luxury lease, or preparing a 2027 exit, we can structure 12 months of payments into an interest reserve from your existing equity so you have $0 out-of-pocket monthly payments on the new loan.",
+      "Direct LLC Review & Placement: We review the equity and asset value of 31935 Coast Hwy to arrange financing directly in 509 California Drive LLC without weeks of traditional bank delays."
     ],
-    "letterClosing": "We have built a private, interactive breakdown of the side-by-side payoff math for 31935 Coast Hwy. Scan the QR code on the right with your phone camera to inspect the numbers confidentially, or call/email Erol or me directly for a 5-minute principal-to-principal review.",
-    "letterPs": "P.S. Do not let any lender talk you into wiping out your 2.90% $1.3M first mortgage just to pay off the matured $800k second lien. Scan the QR code to see the exact standalone 2nd-position numbers."
+    "letterClosing": "We have built a private, interactive breakdown of the side-by-side payoff math for 31935 Coast Hwy. Scan the QR code on the right with your phone camera to review the numbers confidentially, or call (949) 339-3555 or email info@capitalbridgesolutions.com directly for a 5-minute review.",
+    "letterPs": ""
   },
   {
     "id": "814-kensington",
@@ -156,8 +156,8 @@
     "annualTaxes": 1564.66,
     "taxesDelinquent": true,
     "taxStatusNote": "Protected Prop 13 Base ($1,564.66/yr — 2025 Installment Cured at Closing)",
-    "headlineBadge": "LOS ANGELES 4-PLEX CASH-FLOW & EQUITY DOSSIER",
-    "forensicSummary": "Forensic loan analysis shows you only owe $755,000 total (36.23% LTV / 63.77% Equity = ~$1.33M net equity) and hold an irreplaceable $1,564/yr Prop 13 tax base. Your building is in a monthly cash-flow squeeze solely because Los Angeles Police FCU placed your 1st loan on a compressed 15-year term ($3,430/mo) and your 2nd loan on a compressed 10-year term ($2,893/mo)—forcing $6,323/mo in principal-heavy payments.",
+    "headlineBadge": "LOS ANGELES 4-PLEX CASH-FLOW & EQUITY REVIEW",
+    "forensicSummary": "Our loan and equity review shows you only owe $755,000 total (36.23% LTV / 63.77% Equity = ~$1.33M net equity) and hold an irreplaceable $1,564/yr Prop 13 tax base. Your building is in a monthly cash-flow squeeze solely because Los Angeles Police FCU placed your 1st loan on a compressed 15-year term ($3,430/mo) and your 2nd loan on a compressed 10-year term ($2,893/mo)—forcing $6,323/mo in principal-heavy payments.",
     "painPointTitle": "Compressed 15-Year & 10-Year Credit Union Amortization Forcing $6,323/Mo Debt Service on Only $755k Debt",
     "currentMonthlyCombinedPI": 6323,
     "firstLien": {
@@ -224,7 +224,7 @@
         "closingTimeline": "14–21 Business Days",
         "highlights": [
           "Drops total monthly Principal & Interest from $6,323/mo down to ~$4,791/mo (+$1,532/mo instant cash-flow relief)",
-          "Qualifies 100% on the 4-plex rental income (DSCR) — zero personal tax returns or W-2s required",
+          "Reviewed 100% on the 4-plex rental income (DSCR) — zero personal tax returns or W-2s required",
           "Pays off Los Angeles Police FCU completely (both 1st and 2nd liens) so you never deal with credit union pressure again",
           "Optional cash-out cushion for unit renovations or a 12-month payment reserve"
         ]
@@ -235,18 +235,18 @@
     "letterParagraphs": [
       "I am reaching out confidentially regarding your 4-unit property next door at 814 E Kensington Road in Angeleno Heights.",
       "When a Notice of Default is recorded on a 4-plex in Echo Park / Angeleno Heights, opportunistic buyers immediately try to purchase the building at a steep discount—which would trigger massive capital gains taxes and permanently destroy your irreplaceable $1,564/year Prop 13 property tax base.",
-      "My partner Erol Senel and I examined your loan records with Los Angeles Police Federal Credit Union (LAPFCU), and the math immediately revealed why your building is in a monthly cash-flow squeeze despite having nearly 64% equity ($1.33M+):"
+      "Before reaching out, we reviewed your recorded loan structure with Los Angeles Police Federal Credit Union (LAPFCU), and the math immediately revealed why your building is in a monthly cash-flow squeeze despite having nearly 64% equity ($1.33M+):"
     ],
     "letterBullets": [
       "It Is Not Your Debt Balance—It Is the Compressed 10- & 15-Year Terms: You only owe $755,000 total ($505,000 1st at 2.77% + $250,000 2nd at 6.92%). However, because LAPFCU structured the first loan on a 15-year term (~$3,430/mo) and the 2024 second loan on a 10-year term (~$2,893/mo), you are forced to pay $6,323 every month in rapid principal paydown.",
       "That compressed 10- and 15-year amortization schedule drains the rental income of the 4 units, leaving zero breathing room when a unit turns over or needs repairs."
     ],
-    "letterSolutionIntro": "At Capital Bridge Solutions, we specialize in helping California 2–4 unit owners stop foreclosure and restore positive monthly cash flow without selling their building:",
+    "letterSolutionIntro": "At Capital Bridge Solutions, we specialize in helping California 2–4 unit owners review financing options to stop foreclosure and restore positive monthly cash flow without selling their building:",
     "letterSolutions": [
-      "Option A – Keep Your 2.77% 1st Mortgage & Re-Amortize the 2nd Lien: Because your total LTV is only 36%, we can cure the LAPFCU arrears, pay the $1,564 delinquent tax installment, and replace the compressed 10-year second loan—preserving your 2.77% first mortgage and your $1,564/yr Prop 13 tax base.",
-      "Option B – 30-Year No-Tax-Return DSCR 4-Plex Refinance: If you prefer a clean break from LAPFCU altogether, stretching the debt to a 30-year DSCR multi-family loan drops your required monthly payment from $6,323/mo down to ~$4,791/mo (saving over $1,530/month immediately)—underwritten strictly on the 4 units' rent roll with no personal tax returns required."
+      "Option A – Keep Your 2.77% 1st Mortgage & Re-Amortize the 2nd Lien: Because your total LTV is only 36%, we can arrange a standalone second-position solution to cure the LAPFCU arrears, pay the $1,564 delinquent tax installment, and replace the compressed 10-year second loan—preserving your 2.77% first mortgage and your $1,564/yr Prop 13 tax base.",
+      "Option B – 30-Year No-Tax-Return DSCR 4-Plex Refinance: If you prefer a clean break from LAPFCU altogether, stretching the debt to a 30-year DSCR multi-family loan drops your required monthly payment from $6,323/mo down to ~$4,791/mo (saving over $1,530/month immediately)—reviewed strictly on the 4 units' rent roll with no personal tax returns required."
     ],
-    "letterClosing": "We built a private digital breakdown of both options specifically for 814 E Kensington Rd. Scan the QR code on the right with your phone camera to see the side-by-side monthly payment math, or call/email Erol or me directly for a strictly confidential 5-minute review.",
-    "letterPs": "P.S. Ask us how our '12-Month Payment Reserve' structure uses a tiny slice of your existing 64% equity to give you a full year with $0 out-of-pocket monthly payments while you stabilize rents."
+    "letterClosing": "We built a private digital breakdown of both options specifically for 814 E Kensington Rd. Scan the QR code on the right with your phone camera to review the side-by-side monthly payment math, or call (949) 339-3555 or email info@capitalbridgesolutions.com directly for a strictly confidential 5-minute review.",
+    "letterPs": ""
   }
 ]

@@ -137,7 +137,7 @@ export default async function TikTokGraphicPage({ params }: { params: { id: stri
       {/* Footer / NMLS Section */}
       <div className="mt-auto mb-20 pt-16 border-t border-white/10 flex flex-col items-center gap-4">
         <p className="text-4xl font-black tracking-widest uppercase">www.capitalbridgesolutions.com</p>
-        <p className="text-3xl font-bold text-gray-500 uppercase tracking-[0.3em]">NMLS #211355</p>
+        <p className="text-3xl font-bold text-gray-500 uppercase tracking-[0.3em]">NMLS #252085</p>
       </div>
 
     </div>

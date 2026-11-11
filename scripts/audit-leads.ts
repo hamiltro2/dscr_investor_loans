@@ -201,7 +201,7 @@ async function runAudit() {
           <p style="color: #6c757d; font-size: 12px; text-align: center;">
           Clicking the button will instantly post the tweet using your dedicated CBS brand credentials.<br/>
           Preview the landing page: <a href="https://www.capitalbridgesolutions.com/audits/${lead.id}">View Audit Page</a><br/>
-          <strong>Erol Senel | NMLS #211355</strong>
+          <strong>Erol Senel | NMLS #252085</strong>
         </p>
         </div>
       `,

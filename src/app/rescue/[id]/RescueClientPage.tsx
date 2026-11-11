@@ -162,7 +162,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
             name: contactForm.name,
             email: contactForm.email,
             phone: contactForm.phone,
-            message: `[NOD EQUITY RESCUE DEAL ROOM] Property: ${lead.propertyAddress} | Selected Option: ${activeOption.title} | 12-Mo Reserve: ${
+            message: `[NOD PRIVATE DEAL] Property: ${lead.propertyAddress} | Selected Option: ${activeOption.title} | 12-Mo Reserve: ${
               useInterestReserve ? 'YES' : 'NO'
             } | Notes: ${contactForm.notes}`,
           },
@@ -240,11 +240,11 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
             <div className="hidden sm:block border-l border-[#D2D2D7] pl-3.5">
               <div className="flex items-center gap-2">
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#ECFDF5] text-[#059669] border border-[#A7F3D0]">
-                  <Lock className="w-3 h-3" /> Private Equity Deal Room
+                  <Lock className="w-3 h-3" /> Private Deal
                 </span>
               </div>
               <p className="text-[11px] text-[#515154] font-medium mt-0.5">
-                NMLS #211355 • CA DRE #02113355 • Direct: (949) 339-3555
+                Erol Senel • NMLS #252085 • Direct: (949) 339-3555
               </p>
             </div>
           </div>
@@ -282,7 +282,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                 }`}
               >
                 <Smartphone className="w-3.5 h-3.5" />
-                <span>Interactive Deal Room</span>
+                <span>Private Deal</span>
               </button>
               <button
                 onClick={() => setViewMode('letter')}
@@ -364,12 +364,12 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4 bg-[#F5F5F7] p-4 rounded-2xl border border-[#D2D2D7]">
                   <img
                     src={qrImageUrl}
-                    alt="Property Deal Room QR Code"
+                    alt="Property Private Deal QR Code"
                     className="w-20 h-20 rounded-xl border border-[#D2D2D7] bg-white p-1 shrink-0"
                   />
                   <div className="space-y-1">
                     <div className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#0066CC]">
-                      <QrCode className="w-3.5 h-3.5" /> Personalized QR Deal Room Active
+                      <QrCode className="w-3.5 h-3.5" /> Personalized QR Private Deal Active
                     </div>
                     <p className="text-xs font-medium text-[#333336] leading-relaxed">
                       Scanning the QR code on the physical letter brings <strong>{lead.ownerPerson}</strong> directly to this custom payoff simulator and triggers an instant Telegram alert to your phone.
@@ -410,7 +410,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                   </p>
                   <p className="text-xs text-[#515154] flex items-center gap-1.5 font-medium">
                     <Lock className="w-3.5 h-3.5 text-[#0066CC] shrink-0" />
-                    <span>Private Principal-to-Principal Bailout & Equity Protection</span>
+                    <span>Confidential Financing Review & Equity Protection</span>
                   </p>
                 </div>
               </div>
@@ -533,7 +533,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#E5E5EA] pb-5">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-[#0066CC]">
-                  STEP 1 • FORENSIC UNDERWRITING DIAGNOSIS
+                  STEP 1 • PROPERTY DEBT & EQUITY REVIEW
                 </span>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-[#1D1D1F] mt-1">
                   Why Standard Refinance Offers Fail Your Math
@@ -558,12 +558,12 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                 <thead>
                   <tr className="border-b-2 border-[#1D1D1F] text-[11px] font-bold uppercase tracking-wider text-[#86868B]">
                     <th className="py-3 pr-4">Lien Position</th>
-                    <th className="py-3 px-4">Originated / Current Lender</th>
+                    <th className="py-3 px-4">Recorded Lien Details</th>
                     <th className="py-3 px-4">Original Balance</th>
                     <th className="py-3 px-4">Rate & Structure</th>
                     <th className="py-3 px-4">Maturity Date</th>
                     <th className="py-3 px-4">Est. Monthly P&I</th>
-                    <th className="py-3 pl-4 text-right">Underwriting Verdict</th>
+                    <th className="py-3 pl-4 text-right">Financing Review</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#E5E5EA] text-sm">
@@ -577,9 +577,11 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                     </td>
                     <td className="py-4 px-4">
                       <div className="font-semibold text-[#1D1D1F]">{lead.firstLien.currentLender}</div>
-                      <div className="text-xs text-[#86868B]">
-                        Orig: {lead.firstLien.originatedLender}
-                      </div>
+                      {!lead.firstLien.originatedLender.startsWith('Recorded') && (
+                        <div className="text-xs text-[#86868B]">
+                          Orig: {lead.firstLien.originatedLender}
+                        </div>
+                      )}
                     </td>
                     <td className="py-4 px-4 font-bold tabular-nums text-[#1D1D1F]">
                       ${lead.firstLien.amount.toLocaleString()}
@@ -618,9 +620,11 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                       <div className="font-semibold text-[#1D1D1F]">
                         {lead.secondLien.currentLender}
                       </div>
-                      <div className="text-xs text-[#86868B]">
-                        Orig: {lead.secondLien.originatedLender}
-                      </div>
+                      {!lead.secondLien.originatedLender.startsWith('Recorded') && (
+                        <div className="text-xs text-[#86868B]">
+                          Orig: {lead.secondLien.originatedLender}
+                        </div>
+                      )}
                     </td>
                     <td className="py-4 px-4 font-bold tabular-nums text-[#1D1D1F]">
                       ${lead.secondLien.amount.toLocaleString()}
@@ -808,13 +812,13 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                 <div className="absolute bottom-3.5 left-5 right-5 text-white">
                   <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#059669] text-[10px] font-extrabold uppercase tracking-wider mb-1">
-                    <Award className="w-3 h-3" /> Principal Advisory Desk
+                    <Award className="w-3 h-3" /> Private Deal Review
                   </div>
                   <h3 className="text-lg font-extrabold leading-tight">
-                    Request Exact Payoff & Term Sheet
+                    Request Confidential Scenario Review
                   </h3>
                   <p className="text-xs text-white/85">
-                    Senior Advisory Desk • NMLS #211355 • CA DRE #02113355
+                    Erol Senel • NMLS #252085 • info@capitalbridgesolutions.com
                   </p>
                 </div>
               </div>
@@ -914,11 +918,11 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                   <div className="bg-[#ECFDF5] border border-[#A7F3D0] rounded-2xl p-6 text-center space-y-2">
                     <CheckCircle2 className="w-10 h-10 text-[#059669] mx-auto" />
                     <h4 className="text-base font-extrabold text-[#065F46]">
-                      Confidential Term Sheet Request Received
+                      Confidential Review Request Received
                     </h4>
                     <p className="text-xs text-[#047857]">
-                      Our <strong>Senior Underwriting Desk (NMLS #211355)</strong> has
-                      been notified and will send your exact payoff breakdown shortly.
+                      <strong>Erol Senel (NMLS #252085)</strong> and our team at Capital Bridge Solutions have
+                      been notified and will review your scenario shortly.
                     </p>
                   </div>
                 )}
@@ -997,10 +1001,10 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                 />
                 <div className="border-l border-[#D2D2D7] pl-3">
                   <p className="text-[11px] font-bold uppercase tracking-widest text-[#0066CC]">
-                    PRIVATE DEBT RESTRUCTURE & EQUITY ADVISORY
+                    PRIVATE REAL ESTATE FINANCING & EQUITY REVIEW
                   </p>
                   <p className="text-[11px] text-[#515154]">
-                    Managing Partners • NMLS #211355 • CA DRE #02113355
+                    Erol Senel • NMLS #252085
                   </p>
                 </div>
               </div>
@@ -1056,7 +1060,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
             <div className="flex flex-col sm:flex-row sm:justify-between gap-4 text-xs sm:text-[13px]">
               <div className="space-y-0.5">
                 <p className="text-[10px] font-bold uppercase tracking-wider text-[#0066CC] mb-0.5">
-                  CONFIDENTIAL – PRINCIPAL TO PRINCIPAL
+                  CONFIDENTIAL – PRIVATE DEAL REVIEW
                 </p>
                 <p className="font-bold text-[#1D1D1F]">{lead.ownerPerson}</p>
                 <p className="font-semibold text-[#333336]">{lead.ownerEntity}</p>
@@ -1113,22 +1117,21 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                 <p className="text-[#515154]">Warm regards,</p>
                 <div>
                   <p className="font-extrabold text-sm text-[#1D1D1F]">
-                    Senior Equity Advisory Desk
+                    Erol Senel
                   </p>
                   <p className="text-xs font-semibold text-[#0066CC]">
                     Capital Bridge Solutions
                   </p>
                   <p className="text-[11px] text-[#515154]">
-                    NMLS #211355 | CA DRE Broker #02113355 | CFL #60DBO-94935
+                    NMLS #252085
                   </p>
                   <p className="text-xs font-bold text-[#1D1D1F] mt-0.5">
                     Direct: (949) 339-3555 • info@capitalbridgesolutions.com
                   </p>
                 </div>
-                <p className="text-[11px] italic text-[#333336] pt-0.5">{lead.letterPs}</p>
               </div>
 
-              {/* High-Contrast Apple-Clean QR Code Deal Room Box */}
+              {/* High-Contrast Apple-Clean QR Code Box */}
               <div className="sm:col-span-6 bg-[#F0F7FF] border-2 border-[#0066CC]/30 rounded-2xl p-3.5 flex items-center gap-4">
                 <img
                   src={qrImageUrl}
@@ -1137,7 +1140,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                 />
                 <div className="space-y-1 text-left">
                   <span className="inline-block px-2 py-0.5 rounded bg-[#0066CC] text-white text-[10px] font-extrabold uppercase tracking-wider">
-                    🔒 PRIVATE DEAL ROOM
+                    🔒 PRIVATE DEAL
                   </span>
                   <p className="text-xs font-extrabold text-[#1D1D1F]">
                     Scan With Your Phone Camera
