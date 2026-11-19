@@ -1054,9 +1054,9 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
               </div>
             </div>
 
-            {/* Subject Box */}
-            <div className="bg-[#F0F7FF] border-l-4 border-[#0066CC] px-3.5 py-2 rounded-r-lg text-xs font-bold text-[#1D1D1F]">
-              RE: {lead.letterSubject}
+            {/* Personal Pull-Tab Reveal Headline */}
+            <div className="bg-[#F0F7FF] border-l-4 border-[#0066CC] px-4 py-2.5 rounded-r-xl text-[13px] sm:text-sm font-extrabold text-[#1D1D1F] leading-snug">
+              {lead.letterSubject}
             </div>
 
             {/* Short Salutation & Punchy Body */}
