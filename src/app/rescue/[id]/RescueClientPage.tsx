@@ -244,7 +244,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                 </span>
               </div>
               <p className="text-[11px] text-[#515154] font-medium mt-0.5">
-                Erol Senel • NMLS #252085 • Direct: (949) 339-3555
+                Erol Senel, Mortgage Broker • NMLS #252085 • Direct: (949) 339-3555
               </p>
             </div>
           </div>
@@ -818,7 +818,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                     Request Confidential Scenario Review
                   </h3>
                   <p className="text-xs text-white/85">
-                    Erol Senel • NMLS #252085 • info@capitalbridgesolutions.com
+                    Erol Senel, Mortgage Broker • NMLS #252085 • info@capitalbridgesolutions.com
                   </p>
                 </div>
               </div>
@@ -1003,7 +1003,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                     PRIVATE REAL ESTATE FINANCING & EQUITY REVIEW
                   </p>
                   <p className="text-[11px] text-[#515154] font-medium">
-                    Erol Senel • NMLS #252085
+                    Erol Senel, Mortgage Broker • NMLS #252085
                   </p>
                 </div>
               </div>
@@ -1100,6 +1100,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                 <p className="text-[#515154]">Warm regards,</p>
                 <div>
                   <p className="font-extrabold text-sm text-[#1D1D1F]">Erol Senel</p>
+                  <p className="text-xs font-semibold text-[#333336]">Mortgage Broker</p>
                   <p className="text-xs font-semibold text-[#0066CC]">
                     Capital Bridge Solutions • NMLS #252085
                   </p>

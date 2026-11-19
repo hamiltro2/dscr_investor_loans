@@ -123,6 +123,7 @@ async function main() {
             <p style="font-size:13px; color:#1d1d1f; font-weight:700; margin:16px 0 4px;">
               Warm regards,<br/>
               Erol Senel<br/>
+              <span style="font-weight:600; color:#333336;">Mortgage Broker</span><br/>
               <span style="font-weight:500; color:#515154;">Capital Bridge Solutions | NMLS #252085 | (949) 339-3555 | info@capitalbridgesolutions.com</span>
             </p>
           </div>

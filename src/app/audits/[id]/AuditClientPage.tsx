@@ -658,7 +658,8 @@ export default function AuditClientPage({ lead }: AuditClientPageProps) {
         <div className="mt-auto border-t border-black pt-6 flex justify-between items-end text-[10px] text-gray-500">
           <div>
             <p className="font-bold text-black text-xs">CAPITAL BRIDGE SOLUTIONS, LLC</p>
-            <p className="font-bold text-gray-700 mt-1">Erol Senel | NMLS #252085</p>
+            <p className="font-bold text-gray-700 mt-1">Erol Senel</p>
+            <p className="font-semibold text-gray-600">Mortgage Broker | NMLS #252085</p>
             <p className="mt-1 font-semibold">Equal Housing Opportunity.</p>
           </div>
           <div className="text-right">
