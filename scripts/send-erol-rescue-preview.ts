@@ -93,10 +93,10 @@ async function main() {
             </tr>
           </table>
 
-          <!-- Forensic Letter Body -->
+          <!-- Compact Pull-Tab Letter Body -->
           <div style="background:#f5f5f7; border-radius:16px; padding:24px; border:1px solid #e5e5ea; margin-bottom:24px;">
             <p style="margin:0 0 8px; font-size:11px; font-weight:800; color:#0066cc; text-transform:uppercase; letter-spacing:0.05em;">
-              PHYSICAL LETTER PREVIEW (MAILED TO: ${lead.mailingAddress}, ${lead.mailingCityStateZip})
+              PULL-TAB HARD LETTER PREVIEW (MAILED TO: ${lead.mailingAddress}, ${lead.mailingCityStateZip})
             </p>
             <p style="margin:0 0 14px; font-size:14px; font-weight:700; color:#1d1d1f; background:#ffffff; padding:10px 14px; border-left:4px solid #0066cc; border-radius:6px;">
               RE: ${lead.letterSubject}
@@ -108,12 +108,12 @@ async function main() {
                   `<p style="font-size:14px; color:#1d1d1f; line-height:1.6; margin:10px 0;">${p}</p>`
               )
               .join('')}
-            <ul style="padding-left:20px; margin:14px 0;">
-              ${bulletsHtml}
-            </ul>
-            <p style="font-size:14px; font-weight:700; color:#1d1d1f; line-height:1.6; margin:14px 0 8px;">
-              ${lead.letterSolutionIntro}
-            </p>
+            ${bulletsHtml ? `<ul style="padding-left:20px; margin:14px 0;">${bulletsHtml}</ul>` : ''}
+            ${
+              lead.letterSolutionIntro
+                ? `<p style="font-size:14px; font-weight:700; color:#1d1d1f; line-height:1.6; margin:14px 0 8px;">${lead.letterSolutionIntro}</p>`
+                : ''
+            }
             <ol style="padding-left:20px; margin:10px 0;">
               ${solutionsHtml}
             </ol>

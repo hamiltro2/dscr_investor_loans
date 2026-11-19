@@ -293,7 +293,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                 }`}
               >
                 <FileText className="w-3.5 h-3.5" />
-                <span>Letter + QR Code</span>
+                <span>Pull-Tab Letter + QR</span>
               </button>
             </div>
 
@@ -963,19 +963,18 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
       )}
 
       {/* =====================================================================
-          VIEW 2: 8.5" x 11" PRINTABLE EXECUTIVE LETTER WITH IMAGERY & QR CODE
+          VIEW 2: COMPACT PULL-TAB HARD LETTER FORMAT WITH SCANNABLE QR CODE
          ===================================================================== */}
       {viewMode === 'letter' && (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-8">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-8">
           {/* Action Bar Above Letter (Hidden when printing) */}
-          <div className="no-print mb-6 bg-white rounded-2xl border border-[#D2D2D7] p-4 flex flex-wrap items-center justify-between gap-4 shadow-sm">
+          <div className="no-print mb-5 bg-white rounded-2xl border border-[#D2D2D7] p-4 flex flex-wrap items-center justify-between gap-4 shadow-sm">
             <div>
               <h2 className="text-sm font-bold text-[#1D1D1F]">
-                Executive Physical Mailer + Architectural Property Strip + Scannable QR Code
+                Compact Pull-Tab Hard Letter + Scannable QR Code (~130 Words)
               </h2>
               <p className="text-xs text-[#515154]">
-                Formatted for standard 8.5&quot; × 11&quot; linen or FedEx 2-Day envelope delivery.
-                Scan the QR code below with your phone camera to test it live.
+                Sized to fit cleanly inside standard pull-tab / tear-strip rigid cardboard mailers with perforation safe zones.
               </p>
             </div>
             <div className="flex items-center gap-2">
@@ -984,123 +983,107 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#0066CC] hover:bg-[#0055B3] text-white text-xs font-bold shadow-sm transition-all"
               >
                 <Printer className="w-4 h-4" />
-                <span>Print / Save 1-Page Letter PDF</span>
+                <span>Print Pull-Tab Letter PDF</span>
               </button>
             </div>
           </div>
 
-          {/* 8.5" x 11" Paper Sheet */}
-          <div className="print-sheet bg-white text-[#1D1D1F] rounded-2xl border border-[#D2D2D7] shadow-[0_12px_40px_rgb(0,0,0,0.06)] p-8 sm:p-10 space-y-4 leading-relaxed">
-            {/* Institutional Letterhead with Official Logo */}
-            <div className="flex justify-between items-center border-b-2 border-[#1D1D1F] pb-4">
+          {/* Pull-Tab Hard Letter Safe-Zone Sheet */}
+          <div className="print-sheet bg-white text-[#1D1D1F] rounded-2xl border-2 border-dashed border-[#D2D2D7] shadow-[0_12px_40px_rgb(0,0,0,0.06)] p-6 sm:p-8 space-y-3.5 leading-snug">
+            {/* Compact Letterhead */}
+            <div className="flex justify-between items-center border-b-2 border-[#1D1D1F] pb-3">
               <div className="flex items-center gap-3">
                 <img
                   src="/Capital_Bridge_solutions_Logo_Cropped.png"
                   alt="Capital Bridge Solutions"
-                  className="h-10 w-auto object-contain"
+                  className="h-8 w-auto object-contain"
                 />
                 <div className="border-l border-[#D2D2D7] pl-3">
-                  <p className="text-[11px] font-bold uppercase tracking-widest text-[#0066CC]">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-[#0066CC]">
                     PRIVATE REAL ESTATE FINANCING & EQUITY REVIEW
                   </p>
-                  <p className="text-[11px] text-[#515154]">
+                  <p className="text-[11px] text-[#515154] font-medium">
                     Erol Senel • NMLS #252085
                   </p>
                 </div>
               </div>
-              <div className="text-right text-xs text-[#1D1D1F] space-y-0.5">
-                <p className="font-bold">Direct Desk: (949) 339-3555</p>
+              <div className="text-right text-[11px] text-[#1D1D1F] space-y-0.5">
+                <p className="font-bold">(949) 339-3555</p>
                 <p className="text-[#515154]">info@capitalbridgesolutions.com</p>
-                <p className="text-[#0066CC] font-semibold">www.capitalbridgesolutions.com</p>
               </div>
             </div>
 
-            {/* Visual Architectural Property & Equity Snapshot Strip */}
-            <div className="grid sm:grid-cols-12 gap-4 bg-[#F5F5F7] border border-[#D2D2D7] rounded-2xl p-3 items-center">
-              <div className="sm:col-span-4 h-24 rounded-xl overflow-hidden relative">
-                <img
-                  src={lead.heroImage}
-                  alt={lead.propertyShort}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute bottom-1.5 left-2 bg-[#059669] text-white text-[10px] font-extrabold px-2 py-0.5 rounded shadow-xs">
-                  ✓ EQUITY SAVED BY CBS
-                </div>
-              </div>
-              <div className="sm:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-left">
-                <div className="bg-white p-2.5 rounded-xl border border-[#E5E5EA]">
-                  <p className="text-[10px] font-bold uppercase text-[#86868B]">Protected Equity</p>
-                  <p className="text-base font-extrabold text-[#059669]">
-                    ${(lead.protectedEquity / 1000000).toFixed(2)}M ({lead.equityPercent}%)
-                  </p>
-                  <p className="text-[10px] text-[#515154]">Combined LTV: {lead.ltvPercent}%</p>
-                </div>
-                <div className="bg-white p-2.5 rounded-xl border border-[#E5E5EA]">
-                  <p className="text-[10px] font-bold uppercase text-[#0066CC]">1st Lien (Keep)</p>
-                  <p className="text-base font-extrabold text-[#1D1D1F]">
-                    {lead.firstLien.rate.toFixed(2)}% Fixed
-                  </p>
-                  <p className="text-[10px] text-[#515154]">
-                    ${lead.firstLien.amount.toLocaleString()} Balance
-                  </p>
-                </div>
-                <div className="bg-white p-2.5 rounded-xl border border-[#E5E5EA]">
-                  <p className="text-[10px] font-bold uppercase text-[#B45309]">2nd Lien Target</p>
-                  <p className="text-base font-extrabold text-[#92400E]">
-                    ${lead.secondLien.amount.toLocaleString()}
-                  </p>
-                  <p className="text-[10px] text-[#B45309] font-semibold">
-                    {lead.secondLien.rate}% • Standalone Cure
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Date & Recipient Mailing Block */}
-            <div className="flex flex-col sm:flex-row sm:justify-between gap-4 text-xs sm:text-[13px]">
+            {/* Date & Recipient Row */}
+            <div className="flex flex-col sm:flex-row sm:justify-between gap-2 text-xs">
               <div className="space-y-0.5">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-[#0066CC] mb-0.5">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-[#0066CC]">
                   CONFIDENTIAL – PRIVATE DEAL REVIEW
                 </p>
-                <p className="font-bold text-[#1D1D1F]">{lead.ownerPerson}</p>
-                <p className="font-semibold text-[#333336]">{lead.ownerEntity}</p>
-                <p className="text-[#333336]">{lead.mailingAddress}</p>
-                <p className="text-[#333336]">{lead.mailingCityStateZip}</p>
+                <p className="font-bold text-[#1D1D1F]">
+                  {lead.ownerPerson} <span className="font-normal text-[#515154]">({lead.ownerEntity})</span>
+                </p>
+                <p className="text-[#333336]">
+                  {lead.mailingAddress}, {lead.mailingCityStateZip}
+                </p>
               </div>
-              <div className="sm:text-right text-xs text-[#515154] space-y-0.5">
-                <p className="font-semibold text-[#1D1D1F]">Date: {lead.letterDate}</p>
-                <p>Subject Asset: {lead.propertyShort}</p>
-                <p>Tax Status: {lead.taxesDelinquent ? 'Cured at Closing' : 'Paid Current'}</p>
+              <div className="sm:text-right text-[11px] text-[#515154] space-y-0.5">
+                <p className="font-semibold text-[#1D1D1F]">{lead.letterDate}</p>
+                <p>APN: {lead.apn}</p>
+              </div>
+            </div>
+
+            {/* Slim 3-Column Property Math Snapshot Bar */}
+            <div className="grid grid-cols-3 gap-2.5 bg-[#F5F5F7] border border-[#D2D2D7] rounded-xl p-2.5 text-left">
+              <div className="bg-white px-3 py-2 rounded-lg border border-[#E5E5EA]">
+                <p className="text-[9px] font-bold uppercase text-[#86868B]">Protected Equity</p>
+                <p className="text-sm sm:text-base font-extrabold text-[#059669]">
+                  ${(lead.protectedEquity / 1000000).toFixed(2)}M ({lead.equityPercent}%)
+                </p>
+              </div>
+              <div className="bg-white px-3 py-2 rounded-lg border border-[#E5E5EA]">
+                <p className="text-[9px] font-bold uppercase text-[#0066CC]">1st Lien (Keep)</p>
+                <p className="text-sm sm:text-base font-extrabold text-[#1D1D1F]">
+                  {lead.firstLien.rate.toFixed(2)}% Fixed
+                </p>
+              </div>
+              <div className="bg-white px-3 py-2 rounded-lg border border-[#E5E5EA]">
+                <p className="text-[9px] font-bold uppercase text-[#B45309]">2nd Lien Target</p>
+                <p className="text-sm sm:text-base font-extrabold text-[#92400E]">
+                  ${lead.secondLien.amount.toLocaleString()}
+                </p>
               </div>
             </div>
 
             {/* Subject Box */}
-            <div className="bg-[#F0F7FF] border-l-4 border-[#0066CC] px-4 py-2 rounded-r-xl text-xs sm:text-[13px] font-bold text-[#1D1D1F]">
+            <div className="bg-[#F0F7FF] border-l-4 border-[#0066CC] px-3.5 py-2 rounded-r-lg text-xs font-bold text-[#1D1D1F]">
               RE: {lead.letterSubject}
             </div>
 
-            {/* Salutation & Opening Paragraphs */}
-            <div className="space-y-2.5 text-xs sm:text-[12.5px] text-[#1D1D1F]">
+            {/* Short Salutation & Punchy Body */}
+            <div className="space-y-2 text-xs sm:text-[12.5px] text-[#1D1D1F] leading-relaxed">
               <p className="font-semibold">Dear {lead.ownerSalutation},</p>
               {lead.letterParagraphs.map((p, idx) => (
                 <p key={idx}>{p}</p>
               ))}
             </div>
 
-            {/* Forensic Bullets */}
-            <div className="bg-[#F5F5F7] border border-[#D2D2D7] rounded-xl p-3.5 space-y-1.5 text-xs">
-              {lead.letterBullets.map((b, idx) => (
-                <div key={idx} className="flex items-start gap-2">
-                  <span className="font-bold text-[#0066CC] mt-0.5">•</span>
-                  <p className="text-[#1D1D1F]">{b}</p>
-                </div>
-              ))}
-            </div>
+            {lead.letterBullets.length > 0 && (
+              <div className="bg-[#F5F5F7] border border-[#D2D2D7] rounded-xl p-3 space-y-1 text-xs">
+                {lead.letterBullets.map((b, idx) => (
+                  <div key={idx} className="flex items-start gap-2">
+                    <span className="font-bold text-[#0066CC]">•</span>
+                    <p className="text-[#1D1D1F]">{b}</p>
+                  </div>
+                ))}
+              </div>
+            )}
 
-            {/* Solutions Section */}
-            <div className="space-y-2 text-xs sm:text-[12.5px] text-[#1D1D1F]">
-              <p className="font-semibold">{lead.letterSolutionIntro}</p>
-              <div className="space-y-1.5 pl-2">
+            {/* 2 Crisp Solutions + Closing Line */}
+            <div className="space-y-2 text-xs sm:text-[12.5px] text-[#1D1D1F] leading-relaxed">
+              {lead.letterSolutionIntro && (
+                <p className="font-semibold">{lead.letterSolutionIntro}</p>
+              )}
+              <div className="bg-[#F5F5F7] border border-[#D2D2D7] rounded-xl p-3 space-y-1.5 text-xs">
                 {lead.letterSolutions.map((s, idx) => (
                   <div key={idx} className="flex items-start gap-2">
                     <span className="font-extrabold text-[#059669]">{idx + 1}.</span>
@@ -1108,37 +1091,32 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                   </div>
                 ))}
               </div>
-              <p className="pt-0.5">{lead.letterClosing}</p>
+              <p>{lead.letterClosing}</p>
             </div>
 
-            {/* Bottom Signature + Scannable Personalized QR Code Box */}
-            <div className="pt-3 border-t border-[#E5E5EA] grid sm:grid-cols-12 gap-6 items-center">
-              <div className="sm:col-span-6 space-y-1.5 text-xs">
+            {/* Compact Signature + PRIVATE DEAL QR Code Box */}
+            <div className="pt-2.5 border-t border-[#E5E5EA] grid sm:grid-cols-12 gap-4 items-center">
+              <div className="sm:col-span-5 space-y-1 text-xs">
                 <p className="text-[#515154]">Warm regards,</p>
                 <div>
-                  <p className="font-extrabold text-sm text-[#1D1D1F]">
-                    Erol Senel
-                  </p>
+                  <p className="font-extrabold text-sm text-[#1D1D1F]">Erol Senel</p>
                   <p className="text-xs font-semibold text-[#0066CC]">
-                    Capital Bridge Solutions
+                    Capital Bridge Solutions • NMLS #252085
                   </p>
-                  <p className="text-[11px] text-[#515154]">
-                    NMLS #252085
-                  </p>
-                  <p className="text-xs font-bold text-[#1D1D1F] mt-0.5">
-                    Direct: (949) 339-3555 • info@capitalbridgesolutions.com
+                  <p className="text-[11px] font-bold text-[#1D1D1F] mt-0.5">
+                    (949) 339-3555 • info@capitalbridgesolutions.com
                   </p>
                 </div>
               </div>
 
               {/* High-Contrast Apple-Clean QR Code Box */}
-              <div className="sm:col-span-6 bg-[#F0F7FF] border-2 border-[#0066CC]/30 rounded-2xl p-3.5 flex items-center gap-4">
+              <div className="sm:col-span-7 bg-[#F0F7FF] border-2 border-[#0066CC]/30 rounded-xl p-3 flex items-center gap-3.5">
                 <img
                   src={qrImageUrl}
                   alt={`QR Code for ${lead.propertyShort}`}
-                  className="w-24 h-24 rounded-xl bg-white p-1.5 border border-[#D2D2D7] shrink-0"
+                  className="w-20 h-20 rounded-lg bg-white p-1 border border-[#D2D2D7] shrink-0"
                 />
-                <div className="space-y-1 text-left">
+                <div className="space-y-0.5 text-left">
                   <span className="inline-block px-2 py-0.5 rounded bg-[#0066CC] text-white text-[10px] font-extrabold uppercase tracking-wider">
                     🔒 PRIVATE DEAL
                   </span>
@@ -1146,8 +1124,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                     Scan With Your Phone Camera
                   </p>
                   <p className="text-[11px] text-[#333336] leading-snug">
-                    Opens your custom payoff & monthly payment simulator for{' '}
-                    <strong>{lead.propertyShort}</strong> (no login or credit pull required).
+                    Opens custom payment options for <strong>{lead.propertyShort}</strong> (no login or credit pull).
                   </p>
                   <p className="text-[10px] font-mono font-bold text-[#0066CC] break-all">
                     capitalbridgesolutions.com/rescue/{lead.id}
