@@ -378,7 +378,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
                       onClick={() => setViewMode('letter')}
                       className="text-xs font-bold text-[#0066CC] hover:underline inline-flex items-center gap-1 pt-0.5"
                     >
-                      Inspect Printable Physical Letter with QR <ArrowRight className="w-3 h-3" />
+                      Inspect Pull-Tab Letter with QR <ArrowRight className="w-3 h-3" />
                     </button>
                   </div>
                 </div>
@@ -805,7 +805,7 @@ export default function RescueClientPage({ lead, allLeads }: Props) {
               {/* Visual Advisory Banner */}
               <div className="relative h-40 w-full bg-[#1D1D1F] overflow-hidden">
                 <img
-                  src="/images/cbs_property_saved_hero.jpg"
+                  src="/images/cbs_advisory_desk_clean.jpg"
                   alt="Capital Bridge Solutions Advisory Desk"
                   className="w-full h-full object-cover object-center opacity-90"
                 />
